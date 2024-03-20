@@ -54,7 +54,7 @@ namespace SpaceBaboon
         {
             if (!m_isBeingCollected)
             {
-                m_currentCooldown = m_resourceData.cooldownMax;
+                m_currentCooldown = m_resourceData.m_cooldownMax;
             }
         }
 
