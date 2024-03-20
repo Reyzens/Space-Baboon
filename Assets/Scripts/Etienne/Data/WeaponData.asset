@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   maxLevel: 10
-  maxRange: 10
+  maxRange: 50
   attackSpeed: 1
   weaponName: 
   icon: {fileID: 0}
