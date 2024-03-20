@@ -24,7 +24,7 @@ namespace SpaceBaboon
 
             if (collision.gameObject.tag == "Structure")
             {
-
+                collision.GetComponent<ResourceDropPoint>().CollectResource();
             }
         }
     }

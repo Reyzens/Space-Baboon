@@ -19,6 +19,12 @@ namespace SpaceBaboon
         {
 
         }
+
+        public void CollectResource()
+        {
+            if (m_DebugMode) { Debug.Log("Player activated CollectResource on station"); }
+        }
+
         public void AllocateResource() { }
     }
 }
