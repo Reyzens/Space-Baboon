@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
@@ -13,6 +9,8 @@ namespace SpaceBaboon
 
         [SerializeField]
         private int m_playerSpeed = 1;
+        [SerializeField]
+        private bool m_DebugMode;
         private float m_horizontal;
         private float m_vertical;
         private int m_rotationlock = 0;
@@ -34,12 +32,12 @@ namespace SpaceBaboon
             if (values == Vector2.zero)
             {
                 enabled = false;
-                m_playerRigidbody.velocity = new Vector2 (0, 0);
+                m_playerRigidbody.velocity = new Vector2(0, 0);
                 m_playerRigidbody.rotation = m_rotationlock;
                 m_playerRigidbody.angularVelocity = m_rotationlock;
                 return;
             }
-            
+
 
             m_horizontal = values.x;
             m_vertical = values.y;

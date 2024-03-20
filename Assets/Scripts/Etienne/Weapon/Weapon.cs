@@ -5,12 +5,17 @@ namespace SpaceBaboon
     public class Weapon : MonoBehaviour
     {
         [SerializeField] private WeaponData m_weaponData;
+        [SerializeField] private ObjectPool m_pool;
 
         private float m_attackingCooldown = 0.0f;
-        private int m_currentLevel = 1;
+        //private int m_currentLevel = 1;
         private bool m_isCollecting = false;
 
 
+        private void Awake()
+        {
+            m_pool.CreatePool(m_weaponData.projectilePrefab);
+        }
 
         private void Update()
         {
@@ -31,7 +36,10 @@ namespace SpaceBaboon
         {
             //Vector2 direction = transform.position - transform.root.position;
             Vector2 direction = AimAtClosestEnemy();
-            var projectile = Instantiate(m_weaponData.projectilePrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+
+            //var projectile = Instantiate(m_weaponData.projectilePrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            var projectile = m_pool.Spawn(transform.position);
+            Debug.Log("spawning");
 
             projectile.GetComponent<Projectile>()?.Shoot(direction);
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    [CreateAssetMenu(fileName = "New ResourceData", menuName = "SpaceBaboon/ResourceData", order = 0)]
+    [CreateAssetMenu(fileName = "New ResourceData", menuName = "SpaceBaboon/ScriptableObjects/ResourceData", order = 0)]
     public class ResourceData : ScriptableObject
     {
         // Collect data
@@ -10,6 +10,6 @@ namespace SpaceBaboon
 
         //Resource
         public Sprite m_icon;
-        public SpaceBaboon.Resource.EResourceType m_resourceType;
+        public SpaceBaboon.InteractableResource.EResourceType m_resourceType;
     }
 }

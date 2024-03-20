@@ -1,0 +1,84 @@
+using System;
+using UnityEngine;
+
+namespace SpaceBaboon
+{
+    public class Projectile : MonoBehaviour, IPoolable
+    {
+        [SerializeField] private ProjectileData m_projectileData;
+
+        private Vector2 m_direction;
+        private float m_lifetime = 0.0f;
+        private bool m_isActive = false;
+
+        SpriteRenderer m_renderer;
+        CircleCollider2D m_collider;
+
+        ObjectPool m_parentPool;
+
+        public bool IsActive
+        {
+            get { return m_isActive; }
+            //set { m_isActive = value; } // private set ?
+        }
+
+        private void Awake()
+        {
+            m_renderer = GetComponent<SpriteRenderer>();
+            m_collider = GetComponent<CircleCollider2D>();
+        }
+
+        private void Update()
+        {
+            if (!m_isActive)
+            {
+                return;
+            }
+
+            if (m_lifetime > m_projectileData.maxLifetime)
+            {
+                //Destroy(gameObject);
+                //Deactivate();       // Le pool ne le saura pas !!
+                m_parentPool.UnSpawn(gameObject);
+                Debug.Log("UnSpawning");
+
+            }
+            m_lifetime += Time.deltaTime;
+
+            transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
+        }
+
+        public void Shoot(Vector2 direction)
+        {
+            m_isActive = true;
+            m_direction = direction.normalized;
+        }
+
+        public void Activate(Vector2 pos, ObjectPool pool)
+        {
+            ResetValues(pos);
+            SetComponents(true);
+            m_isActive = true;
+
+            m_parentPool = pool;
+        }
+
+
+        public void Deactivate()
+        {
+            m_isActive = false;
+            SetComponents(false);
+        }
+
+        private void ResetValues(Vector2 pos)
+        {
+            m_lifetime = 0.0f;
+            transform.position = pos;
+        }
+        private void SetComponents(bool value)
+        {
+            m_renderer.enabled = value;
+            m_collider.enabled = value;
+        }
+    }
+}
