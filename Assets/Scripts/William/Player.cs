@@ -6,7 +6,12 @@ namespace SpaceBaboon
 {
     public class Player : MonoBehaviour
     {
-        private Dictionary<int, string> m_playerCollectibleInventory;
+        [SerializeField]
+        private PlayerData m_playerData;
+        private Dictionary<SpaceBaboon.InteractableResource.EResourceType,int> m_collectibleInventory;
+        private List<Weapon> m_equipedWeapon;
+        private List<Weapon> m_blockedWeapon;
+
         // Start is called before the first frame update
         void Start()
         {
