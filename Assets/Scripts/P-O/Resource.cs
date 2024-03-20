@@ -60,7 +60,8 @@ namespace SpaceBaboon
 
         private void FinishCollecting()
         {
-            if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); }
+            if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }
+
         }
     }
 }
