@@ -19,7 +19,7 @@ namespace SpaceBaboon
         private Transform m_position;
         private float currentHealth;
         private List<ResourceData> resourceNeeded = new List<ResourceData>();
-        private List<Resource> currentResources = new List<Resource>();
+        private List<InteractableResource> currentResources = new List<InteractableResource>();
 
         //Static variables
         //static Upgrade currentUpgrade;

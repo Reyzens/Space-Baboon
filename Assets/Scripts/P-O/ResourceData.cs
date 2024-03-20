@@ -10,6 +10,6 @@ namespace SpaceBaboon
 
         //Resource
         public Sprite m_icon;
-        public SpaceBaboon.Resource.EResourceType m_resourceType;
+        public SpaceBaboon.InteractableResource.EResourceType m_resourceType;
     }
 }
