@@ -37,6 +37,15 @@ namespace SpaceBaboon
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PlayerDash"",
+                    ""type"": ""Value"",
+                    ""id"": ""b9c77b2a-7edb-46fb-a683-f58503159798"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -94,6 +103,17 @@ namespace SpaceBaboon
                     ""action"": ""PlayerDirection"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fce1e842-c3bf-46e1-947f-47d3e68dc1bd"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PlayerDash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -103,6 +123,7 @@ namespace SpaceBaboon
             // PlayerMovement
             m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
             m_PlayerMovement_PlayerDirection = m_PlayerMovement.FindAction("PlayerDirection", throwIfNotFound: true);
+            m_PlayerMovement_PlayerDash = m_PlayerMovement.FindAction("PlayerDash", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -160,17 +181,18 @@ namespace SpaceBaboon
         {
             return asset.FindBinding(bindingMask, out action);
         }
-        public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
 
         // PlayerMovement
         private readonly InputActionMap m_PlayerMovement;
         private List<IPlayerMovementActions> m_PlayerMovementActionsCallbackInterfaces = new List<IPlayerMovementActions>();
         private readonly InputAction m_PlayerMovement_PlayerDirection;
+        private readonly InputAction m_PlayerMovement_PlayerDash;
         public struct PlayerMovementActions
         {
             private @PlayerInput m_Wrapper;
             public PlayerMovementActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @PlayerDirection => m_Wrapper.m_PlayerMovement_PlayerDirection;
+            public InputAction @PlayerDash => m_Wrapper.m_PlayerMovement_PlayerDash;
             public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -183,6 +205,9 @@ namespace SpaceBaboon
                 @PlayerDirection.started += instance.OnPlayerDirection;
                 @PlayerDirection.performed += instance.OnPlayerDirection;
                 @PlayerDirection.canceled += instance.OnPlayerDirection;
+                @PlayerDash.started += instance.OnPlayerDash;
+                @PlayerDash.performed += instance.OnPlayerDash;
+                @PlayerDash.canceled += instance.OnPlayerDash;
             }
 
             private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -190,6 +215,9 @@ namespace SpaceBaboon
                 @PlayerDirection.started -= instance.OnPlayerDirection;
                 @PlayerDirection.performed -= instance.OnPlayerDirection;
                 @PlayerDirection.canceled -= instance.OnPlayerDirection;
+                @PlayerDash.started -= instance.OnPlayerDash;
+                @PlayerDash.performed -= instance.OnPlayerDash;
+                @PlayerDash.canceled -= instance.OnPlayerDash;
             }
 
             public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -206,10 +234,11 @@ namespace SpaceBaboon
                 AddCallbacks(instance);
             }
         }
-        
+        public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
         public interface IPlayerMovementActions
         {
             void OnPlayerDirection(InputAction.CallbackContext context);
+            void OnPlayerDash(InputAction.CallbackContext context);
         }
     }
 }
