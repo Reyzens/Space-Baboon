@@ -19,16 +19,14 @@ namespace SpaceBaboon
         private List<Weapon> m_equipedWeapon;
         private List<Weapon> m_blockedWeapon;
 
-      
-        [SerializeField]
-        private bool m_DebugMode;
+
         private float m_horizontal;
         private float m_vertical;
         private int m_rotationlock = 0;
         private float m_playerDashTimer;
         private float m_playerDashCDTimer;
         private float m_playerCurrentMovespeed;
-       
+
 
         void Start()
         {
