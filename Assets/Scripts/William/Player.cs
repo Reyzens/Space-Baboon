@@ -7,15 +7,14 @@ namespace SpaceBaboon
     {
         [SerializeField]
         private PlayerData m_playerData;
-<<<<<<< HEAD
+
         [SerializeField]
         private bool m_DebugMode = false;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
-=======
+
         private Rigidbody2D m_playerRigidbody;
         private Transform m_playerTransform;
-        private Dictionary<SpaceBaboon.InteractableResource.EResourceType,int> m_collectibleInventory;
->>>>>>> origin/main
+
         private List<Weapon> m_equipedWeapon;
         private List<Weapon> m_blockedWeapon;
 
@@ -30,21 +29,16 @@ namespace SpaceBaboon
 
         void Start()
         {
-<<<<<<< HEAD
-
-=======
             enabled = false;
             InputHandler.instance.m_MoveEvent += Move;
             InputHandler.instance.m_DashEvent += Dash;
             m_playerRigidbody = GetComponent<Rigidbody2D>();
             m_playerTransform = GetComponent<Transform>();
->>>>>>> origin/main
         }
 
         // Update is called once per frame
         void Update()
         {
-<<<<<<< HEAD
 
         }
         private void OnTriggerEnter2D(Collider2D collision)
@@ -55,8 +49,6 @@ namespace SpaceBaboon
             {
                 collision.GetComponent<ResourceDropPoint>().CollectResource();
             }
-=======
-          
         }
 
         private void Move(Vector2 values)
@@ -83,12 +75,10 @@ namespace SpaceBaboon
 
         private void Dash()
         {
-            if(m_DebugMode)
+            if (m_DebugMode)
             {
                 Debug.Log("Dash");
             }
-            
->>>>>>> origin/main
         }
     }
 }
