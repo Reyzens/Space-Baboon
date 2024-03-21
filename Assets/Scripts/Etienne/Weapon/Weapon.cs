@@ -68,5 +68,10 @@ namespace SpaceBaboon
             //Didn't find an enemy
             return Vector2.up;
         }
+
+        public void SetIsCollecting(bool value)
+        {
+            m_isCollecting = value;
+        }
     }
 }
