@@ -6,6 +6,7 @@ namespace SpaceBaboon
     {
         [SerializeField] private WeaponData m_weaponData;
         [SerializeField] private ObjectPool m_pool;
+        [SerializeField] private float m_spawnDistance;
 
         private float m_attackingCooldown = 0.0f;
         //private int m_currentLevel = 1;
@@ -34,12 +35,12 @@ namespace SpaceBaboon
 
         private void Attack()
         {
-            //Vector2 direction = transform.position - transform.root.position;
             Vector2 direction = AimAtClosestEnemy();
 
-            //var projectile = Instantiate(m_weaponData.projectilePrefab, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
-            var projectile = m_pool.Spawn(transform.position);
-            Debug.Log("spawning");
+            Vector2 directionWithDistance = direction.normalized * m_spawnDistance;
+            Vector2 spawnPos = new Vector2(transform.position.x + directionWithDistance.x, transform.position.y + directionWithDistance.y);
+            var projectile = m_pool.Spawn(spawnPos);
+            //Debug.Log("spawning");
 
             projectile.GetComponent<Projectile>()?.Shoot(direction);
         }

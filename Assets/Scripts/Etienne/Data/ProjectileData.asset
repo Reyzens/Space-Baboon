@@ -15,7 +15,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   sprite: {fileID: 0}
   projectileName: 
-  speed: 2
+  speed: 10
   damage: 0
   size: 0
   maxTravelDistance: 0

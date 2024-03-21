@@ -37,10 +37,8 @@ namespace SpaceBaboon
 
             if (m_lifetime > m_projectileData.maxLifetime)
             {
-                //Destroy(gameObject);
-                //Deactivate();       // Le pool ne le saura pas !!
                 m_parentPool.UnSpawn(gameObject);
-                Debug.Log("UnSpawning");
+                //Debug.Log("UnSpawning (lifetime)");
 
             }
             m_lifetime += Time.deltaTime;
@@ -48,9 +46,14 @@ namespace SpaceBaboon
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            m_parentPool.UnSpawn(gameObject);
+            Debug.Log("projectile hit: " + collision.gameObject.name);
+        }
+
         public void Shoot(Vector2 direction)
         {
-            m_isActive = true;
             m_direction = direction.normalized;
         }
 

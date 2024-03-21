@@ -25,7 +25,7 @@ namespace SpaceBaboon
                 GameObject obj = Instantiate(m_prefab);
                 obj.GetComponent<IPoolable>()?.Deactivate();
                 pooledObjects.Add(obj);
-                Debug.Log("Awake : " + pooledObjects.Count);
+                //Debug.Log("Awake : " + pooledObjects.Count);
 
             }
 
@@ -39,28 +39,28 @@ namespace SpaceBaboon
                 if (pooledObject != null && !pooledObject.IsActive)
                 {
                     pooledObject.Activate(pos, this);
-                    Debug.Log("activating");
+                    //Debug.Log("activating");
 
                     return obj;
                 }
-                else
-                {
-                    if (pooledObject.IsActive)
-                    {
-                        Debug.Log(obj.name + " is active");
-                    }
-                    if (pooledObject == null)
-                    {
-                        Debug.Log(obj.name + " is not poolable");
-                    }
-                }
+                //else  //for debugging
+                //{
+                //    if (pooledObject.IsActive)
+                //    {
+                //        Debug.Log(obj.name + " is active");
+                //    }
+                //    if (pooledObject == null)
+                //    {
+                //        Debug.Log(obj.name + " is not poolable");
+                //    }
+                //}
             }
 
             //If pool is maxed 
             GameObject newObj = Instantiate(m_prefab);
             pooledObjects.Add(newObj);
             newObj.GetComponent<IPoolable>()?.Activate(pos, this);
-            Debug.Log("activating new : " + pooledObjects.Count);
+            //Debug.Log("activating new : " + pooledObjects.Count);
 
             return newObj;
         }
@@ -70,7 +70,7 @@ namespace SpaceBaboon
             var pooledObject = obj.GetComponent<IPoolable>();
             if (pooledObject == null)
             {
-                Debug.Log(obj.name + "is not poolable");
+                Debug.LogError(obj.name + "is not poolable");
                 return;
             }
             pooledObject.Deactivate();
