@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,35 +7,55 @@ namespace SpaceBaboon
     {
         [SerializeField]
         private PlayerData m_playerData;
+<<<<<<< HEAD
+        [SerializeField]
+        private bool m_DebugMode = false;
+        private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
+=======
         private Rigidbody2D m_playerRigidbody;
         private Transform m_playerTransform;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType,int> m_collectibleInventory;
+>>>>>>> origin/main
         private List<Weapon> m_equipedWeapon;
         private List<Weapon> m_blockedWeapon;
 
-      
-        [SerializeField]
-        private bool m_DebugMode;
+
         private float m_horizontal;
         private float m_vertical;
         private int m_rotationlock = 0;
         private float m_playerDashTimer;
         private float m_playerDashCDTimer;
         private float m_playerCurrentMovespeed;
-       
+
 
         void Start()
         {
+<<<<<<< HEAD
+
+=======
             enabled = false;
             InputHandler.instance.m_MoveEvent += Move;
             InputHandler.instance.m_DashEvent += Dash;
             m_playerRigidbody = GetComponent<Rigidbody2D>();
             m_playerTransform = GetComponent<Transform>();
+>>>>>>> origin/main
         }
 
         // Update is called once per frame
         void Update()
         {
+<<<<<<< HEAD
+
+        }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (m_DebugMode && collision.gameObject.tag == "Structure") { Debug.Log("CollisionDetected with structure"); }
+
+            if (collision.gameObject.tag == "Structure")
+            {
+                collision.GetComponent<ResourceDropPoint>().CollectResource();
+            }
+=======
           
         }
 
@@ -69,6 +88,7 @@ namespace SpaceBaboon
                 Debug.Log("Dash");
             }
             
+>>>>>>> origin/main
         }
     }
 }
