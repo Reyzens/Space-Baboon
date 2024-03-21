@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - Floor
   - PlayerCam
+  - Structure
   layers:
   - Default
   - TransparentFX
