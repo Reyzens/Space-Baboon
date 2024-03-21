@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class Resource : MonoBehaviour
+    public class InteractableResource : MonoBehaviour
     {
         //Serializable
         [SerializeField]
