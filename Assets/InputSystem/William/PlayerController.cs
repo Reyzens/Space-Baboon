@@ -21,6 +21,7 @@ namespace SpaceBaboon
         {
             enabled = false;
             InputHandler.instance.m_MoveEvent += Move;
+            InputHandler.instance.m_DashEvent += Dash;
             m_playerRigidbody = GetComponent<Rigidbody2D>();
             m_playerTransform = GetComponent<Transform>();
         }
@@ -47,6 +48,11 @@ namespace SpaceBaboon
 
             enabled = true;
 
+        }
+
+        private void Dash()
+        {
+            
         }
     }
 }

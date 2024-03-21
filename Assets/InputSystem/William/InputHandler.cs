@@ -10,9 +10,12 @@ namespace SpaceBaboon
         public static InputHandler instance;
 
         public delegate void MoveEvent(Vector2 values);
+        public delegate void DashEvent();
 
         private PlayerInput m_Input;
         public MoveEvent m_MoveEvent;
+        public DashEvent m_DashEvent;
+        
         
 
         void Awake()
@@ -51,6 +54,11 @@ namespace SpaceBaboon
         public void OnPlayerDirection(InputAction.CallbackContext context)
         {
             m_MoveEvent?.Invoke(context.ReadValue<Vector2>());
+        }
+
+        public void OnPlayerDash(InputAction.CallbackContext context)
+        {
+            m_DashEvent?.Invoke();
         }
     }
 }
