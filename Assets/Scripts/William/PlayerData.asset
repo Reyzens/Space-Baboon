@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c0f2bcc2031bb40b7e7c98309cb2d8, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  m_playerIndex: 1
-  m_playerName: Baboon
-  m_playerMaxHeatlh: 100
-  m_playerMovespeed: 25
-  m_playerDashCD: 5
-  m_playerDashDistance: 1
-  m_playerDashSpeed: 200
-  m_playerDashStatck: 2
+  Index: 1
+  Name: Baboon
+  MaxHeatlh: 100
+  Movespeed: 30
+  DashCD: 5
+  DashDistance: 0
+  DashSpeed: 0
+  DashStatck: 0
