@@ -7,6 +7,11 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private EnemyData m_enemyData;
         [SerializeField] private GameObject m_damageDoneObject;
         private GameObject m_prefab;
+
+        private ObjectPool m_parentPool;
+
+        private Renderer m_renderer;
+        private BoxCollider2D m_collider;
         
         private GameObject[] m_players;
 
@@ -18,6 +23,12 @@ namespace SpaceBaboon.EnemySystem
 
         private bool m_isActive = false;
 
+        private void Awake()
+        {
+            m_renderer = GetComponent<Renderer>();
+            m_collider = GetComponent<BoxCollider2D>();
+        }
+
         private void Start()
         {
             m_prefab = m_enemyData.prefab;
@@ -27,7 +38,10 @@ namespace SpaceBaboon.EnemySystem
         }
         
         private void Update()
-        {            
+        {
+            if (!m_isActive)
+                return;
+
             MoveTowardsPlayer();
 
             if (m_attackTimer <= 0.0f)
@@ -59,8 +73,6 @@ namespace SpaceBaboon.EnemySystem
             transform.position = Vector3.MoveTowards(transform.position, playerPosition, step);
         }
 
-
-
         public bool IsActive
         {
             get { return m_isActive; }
@@ -69,16 +81,23 @@ namespace SpaceBaboon.EnemySystem
 
         public void Activate(Vector2 pos, ObjectPool pool)
         {
-            return;
-
-            throw new System.NotImplementedException();
+            m_isActive = true;
+            SetComponents(true);
+            transform.position = pos;
+            m_parentPool = pool;
+            // m_parentPool.unspawn(gameObject): quand l'ennemi va dead            
         }
 
         public void Deactivate()
         {
-            throw new System.NotImplementedException();
+            m_isActive = false;
+            SetComponents(false);
         }
-        
-        
+
+        private void SetComponents(bool value)
+        {
+            m_renderer.enabled = value;
+            m_collider.enabled = value;
+        }
     }
 }
