@@ -144,3 +144,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyData: {fileID: 11400000, guid: 1ca1b652248678b4a9f4e1a3214576d7, type: 2}
+  m_damageDoneObject: {fileID: 7544370699682943602, guid: b3092fd324c3e6b49bd4b34ccace14ce, type: 3}

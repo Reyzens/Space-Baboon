@@ -8,12 +8,12 @@ namespace SpaceBaboon.Enemy
 
         private Camera m_cam;        
 
-        void Start()
+        private void Start()
         {
             m_cam = Camera.main;
         }
 
-        void Update()
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {                

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Melee
   sprite: {fileID: 0}
+  prefab: {fileID: 0}
   baseHealth: 0
   baseDamage: 0
   size: 0
-  baseSpeed: 1
+  baseMovementSpeed: 10
   baseAttackRange: 0
-  baseAttackCooldown: 0
+  baseAttackCooldown: 7

@@ -11,7 +11,7 @@ namespace SpaceBaboon.Enemy
         public int baseHealth;
         public int baseDamage;        
         public float size;
-        public float baseSpeed;
+        public float baseMovementSpeed;
         public float baseAttackRange;
         public float baseAttackCooldown;
     }
