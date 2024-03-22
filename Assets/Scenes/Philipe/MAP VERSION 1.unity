@@ -494,8 +494,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1484136444}
   - component: {fileID: 1484136443}
+  - component: {fileID: 1484136445}
   m_Layer: 0
-  m_Name: TemporarySpawner
+  m_Name: EnemySpawner(MaybeTemporary)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,8 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be54771b6b569ac43889fe2364b71277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemy: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
-  m_pool: {fileID: 0}
+  m_enemy: {fileID: 0}
+  m_meleeEnemyPool: {fileID: 1484136445}
   m_spawnRadiusFromScreenCorner: 10
 --- !u!4 &1484136444
 Transform:
@@ -531,6 +532,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1484136445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484136442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af5461aa30a17dd4ea22dfc622f517e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_prefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
+  m_container: {fileID: 0}
+  m_poolSize: 10
 --- !u!1 &1525604187 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4842951094080473312, guid: d2abddb7df6f8834cb832438c1ceb626, type: 3}

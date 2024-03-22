@@ -1,22 +1,26 @@
 using UnityEngine;
 
-namespace SpaceBaboon.Enemy
+namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : MonoBehaviour, IPoolable
     {
         [SerializeField] private EnemyData m_enemyData;
         [SerializeField] private GameObject m_damageDoneObject;
+        private GameObject m_prefab;
         
         private GameObject[] m_players;
-        
-        private float m_movementSpeed;
+
         private float m_damage;
+        private float m_movementSpeed;        
         private float m_attackCooldown;
         private float m_attackTimer = 0.0f;
         private bool m_coolingDown = false;
-        
+
+        private bool m_isActive = false;
+
         private void Start()
         {
+            m_prefab = m_enemyData.prefab;
             m_movementSpeed = m_enemyData.baseMovementSpeed;
             m_attackCooldown = m_enemyData.baseAttackCooldown;
             m_players = GameObject.FindGameObjectsWithTag("Player");
@@ -57,10 +61,15 @@ namespace SpaceBaboon.Enemy
 
 
 
-        public bool IsActive => throw new System.NotImplementedException();
+        public bool IsActive
+        {
+            get { return m_isActive; }
+            //set { m_isActive = value; } // private set ?
+        }
 
         public void Activate(Vector2 pos, ObjectPool pool)
         {
+            return;
 
             throw new System.NotImplementedException();
         }
