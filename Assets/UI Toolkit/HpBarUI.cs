@@ -8,11 +8,20 @@ namespace SpaceBaboon.UI_Toolkit
     public class HpBarUI : MonoBehaviour
     {
         public Player playerRef;
+        private ProgressBar hpBar;
+        private VisualElement root;
         private void OnEnable()
         {
-            VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+            root = GetComponent<UIDocument>().rootVisualElement;
 
-            ProgressBar hpBar = root.Q<ProgressBar>("HpBar");
+            hpBar = root.Q<ProgressBar>("HpBar");
+
+            
+        }
+
+        private void Update()
+        {
+            hpBar.value = playerRef.m_currentHealth;
         }
     }
 }

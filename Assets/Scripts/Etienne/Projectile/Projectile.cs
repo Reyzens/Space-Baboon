@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.WeaponSystem
 {
     public class Projectile : MonoBehaviour, IPoolable
     {
@@ -10,6 +9,8 @@ namespace SpaceBaboon
         private Vector2 m_direction;
         private float m_lifetime = 0.0f;
         private bool m_isActive = false;
+        private float m_bonusDmg = 0;
+        
 
         SpriteRenderer m_renderer;
         CircleCollider2D m_collider;
@@ -49,7 +50,7 @@ namespace SpaceBaboon
         private void OnCollisionEnter2D(Collision2D collision)
         {
             m_parentPool.UnSpawn(gameObject);
-            Debug.Log("projectile hit: " + collision.gameObject.name);
+            //Debug.Log("projectile hit: " + collision.gameObject.name);
         }
 
         public void Shoot(Vector2 direction)
@@ -82,6 +83,12 @@ namespace SpaceBaboon
         {
             m_renderer.enabled = value;
             m_collider.enabled = value;
+        }
+
+        public float GetDamage()
+        {
+            float totaldmg = m_projectileData.damage + m_bonusDmg;
+            return totaldmg;
         }
     }
 }

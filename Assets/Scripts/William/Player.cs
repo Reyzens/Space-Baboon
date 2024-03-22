@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace SpaceBaboon
 {
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour , SpaceBaboon.IDamageable
     {
         [SerializeField]
         private PlayerData m_playerData;
@@ -17,8 +18,11 @@ namespace SpaceBaboon
 
         private List<Weapon> m_equipedWeapon = new List<Weapon>();
         private List<Weapon> m_blockedWeapon = new List<Weapon>();
+        
+        [SerializeField]
+        public float m_currentHealth;
 
-
+        public bool m_alive;
         private float m_horizontal;
         private float m_vertical;
         private int m_rotationlock = 0;
@@ -34,12 +38,17 @@ namespace SpaceBaboon
             InputHandler.instance.m_DashEvent += Dash;
             m_playerRigidbody = GetComponent<Rigidbody2D>();
             m_playerTransform = GetComponent<Transform>();
+            m_currentHealth = m_playerData.MaxHeatlh;
+            m_alive = true;
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            if (m_currentHealth <= 0)
+            {
+                m_alive = false;
+            }
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -50,7 +59,20 @@ namespace SpaceBaboon
 
                 collision.gameObject.GetComponent<SpaceBaboon.ResourceDropPoint>().CollectResource(this);
             }
+            if (collision.gameObject.CompareTag("Projectile"))
+            {
+                OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
+            }
+
+            //if (collision.gameObject.CompareTag("Enemy"))
+            //{
+            //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Enemy>().GetDamage());
+            //}
         }
+        
+       
+
+        
 
         private void Move(Vector2 values)
         {
@@ -78,6 +100,7 @@ namespace SpaceBaboon
         {
             if (m_DebugMode)
             {
+                OnDamageTaken(10);
                 Debug.Log("Dash");
             }
         }
@@ -113,5 +136,15 @@ namespace SpaceBaboon
             return false;
         }
         #endregion
+
+        public void OnDamageTaken(float values)
+        {
+            if (m_alive)
+            {
+                m_currentHealth -= values;
+            }
+            
+            
+        }
     }
 }

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: 9883e6fc83aada24f89d00a82790ddb8, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: b47617d695154f0459bcbd8c4f3f4e03, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: 596d7e96ead6bb8449e4093e98ec5846, type: 3}
   m_SortingOrder: 0
@@ -1016,9 +1016,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2210276451436517825, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
       value: PlayerSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.921
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

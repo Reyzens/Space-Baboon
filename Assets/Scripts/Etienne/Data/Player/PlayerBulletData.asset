@@ -9,13 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63be2cecab8df284f8e245155ee3b07e, type: 3}
-  m_Name: WeaponData
+  m_Script: {fileID: 11500000, guid: c29b3cb4135e38545bf1b6ea714485f5, type: 3}
+  m_Name: PlayerBulletData
   m_EditorClassIdentifier: 
-  damage: 2
-  maxLevel: 10
-  maxRange: 50
-  attackSpeed: 1
-  weaponName: 
-  icon: {fileID: 0}
-  projectilePrefab: {fileID: 8783084722343162297, guid: e4047cd83f2955a408d443354fdb911b, type: 3}
+  prefab: {fileID: 0}
+  sprite: {fileID: 0}
+  projectileName: 
+  speed: 10
+  damage: 0
+  size: 0
+  maxTravelDistance: 0
+  maxLifetime: 5
