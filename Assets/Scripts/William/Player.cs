@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using SpaceBaboon.WeaponSystem;
 
 namespace SpaceBaboon
 {
+
     public class Player : MonoBehaviour
     {
         [SerializeField]

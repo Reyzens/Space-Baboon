@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63be2cecab8df284f8e245155ee3b07e, type: 3}
-  m_Name: WeaponData
+  m_Name: PlayerGunData
   m_EditorClassIdentifier: 
   damage: 2
   maxLevel: 10

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.WeaponSystem
 {
     public class Weapon : MonoBehaviour
     {
