@@ -5,60 +5,50 @@ namespace SpaceBaboon
 {
     public class ObjectPool : MonoBehaviour
     {
-
         [SerializeField] private GameObject m_prefab;
+        [SerializeField] private GameObject m_container;
         [SerializeField] private int m_poolSize;
 
-        private List<GameObject> pooledObjects = new List<GameObject>();
+        [SerializeField] private Queue<GameObject> m_pooledObjects = new Queue<GameObject>();
 
 
         public void CreatePool(GameObject prefab)
         {
             m_prefab = prefab;
+            m_container = new GameObject();
+            m_container.name = prefab.name + " pool";
+
             if (m_poolSize <= 0)
             {
                 Debug.LogError("Invalid pool size");
                 m_poolSize = 10;
             }
+
             for (int i = 0; i < m_poolSize; i++)
             {
-                GameObject obj = Instantiate(m_prefab);
+                GameObject obj = Instantiate(m_prefab, m_container.transform);
+
                 obj.GetComponent<IPoolable>()?.Deactivate();
-                pooledObjects.Add(obj);
-                //Debug.Log("Awake : " + pooledObjects.Count);
-
+                m_pooledObjects.Enqueue(obj);
+                
+                //Debug.Log("Awake : " + m_pooledObjects.Count);
             }
-
         }
 
         public GameObject Spawn(Vector2 pos)
         {
-            foreach (GameObject obj in pooledObjects)
+            if (m_pooledObjects.Count != 0)
             {
-                var pooledObject = obj.GetComponent<IPoolable>();
-                if (pooledObject != null && !pooledObject.IsActive)
-                {
-                    pooledObject.Activate(pos, this);
-                    //Debug.Log("activating");
+                var obj = m_pooledObjects.Dequeue();
 
-                    return obj;
-                }
-                //else  //for debugging
-                //{
-                //    if (pooledObject.IsActive)
-                //    {
-                //        Debug.Log(obj.name + " is active");
-                //    }
-                //    if (pooledObject == null)
-                //    {
-                //        Debug.Log(obj.name + " is not poolable");
-                //    }
-                //}
+                var pooledObj = obj.GetComponent<IPoolable>();
+                pooledObj.Activate(pos, this);
+
+                return obj;
             }
 
-            //If pool is maxed 
-            GameObject newObj = Instantiate(m_prefab);
-            pooledObjects.Add(newObj);
+            //If pool is empty 
+            GameObject newObj = Instantiate(m_prefab, m_container.transform);
             newObj.GetComponent<IPoolable>()?.Activate(pos, this);
             //Debug.Log("activating new : " + pooledObjects.Count);
 
@@ -74,6 +64,8 @@ namespace SpaceBaboon
                 return;
             }
             pooledObject.Deactivate();
+
+            m_pooledObjects.Enqueue(obj);
         }
     }
 }

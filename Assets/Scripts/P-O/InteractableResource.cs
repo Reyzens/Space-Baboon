@@ -14,6 +14,7 @@ namespace SpaceBaboon
         //Private variables
         private bool m_isBeingCollected = false;
         private float m_currentCooldown = 0;
+        private Player m_collectingPlayer;
 
         //Static variables
         static Dictionary<EResourceType, ResourceData> Resources = new Dictionary<EResourceType, ResourceData>();
@@ -44,24 +45,27 @@ namespace SpaceBaboon
         {
             if (m_DebugMode && collision.gameObject.tag == "Player") { Debug.Log("CollisionDetected with player"); }
 
-            if (collision.gameObject.tag == "Player")
+            if (collision.gameObject.tag == "Player" && !m_isBeingCollected)
             {
-                Collect();
+                Collect(collision.gameObject.GetComponent<Player>());
             }
         }
 
-        private void Collect()
+        private void Collect(Player collectingPlayer)
         {
             if (!m_isBeingCollected)
             {
                 m_currentCooldown = m_resourceData.m_cooldownMax;
+                m_isBeingCollected = true;
+                m_collectingPlayer = collectingPlayer;
             }
         }
 
         private void FinishCollecting()
         {
             if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }
-
+            m_collectingPlayer.AddResource(m_resourceData.m_resourceType, m_resourceData.m_resourceAmount);
+            Destroy(gameObject);
         }
     }
 }

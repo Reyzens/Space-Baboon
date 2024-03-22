@@ -7,11 +7,11 @@ namespace SpaceBaboon
         [SerializeField] private WeaponData m_weaponData;
         [SerializeField] private ObjectPool m_pool;
         [SerializeField] private float m_spawnDistance;
+        [SerializeField] private bool m_debugMode = false;
 
         private float m_attackingCooldown = 0.0f;
-        //private int m_currentLevel = 1;
+        private int m_currentLevel = 1;
         private bool m_isCollecting = false;
-
 
         private void Awake()
         {
@@ -61,7 +61,7 @@ namespace SpaceBaboon
                         return enemyDirection;
                     }
                 }
-                
+
 
             }
 
@@ -73,5 +73,16 @@ namespace SpaceBaboon
         {
             m_isCollecting = value;
         }
+
+        #region Crafting
+        public void Upgrade()
+        {
+            if (m_debugMode)
+            {
+                Debug.Log("Weapon upgraded");
+            }
+            m_currentLevel++;
+        }
+        #endregion
     }
 }

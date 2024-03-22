@@ -14,9 +14,8 @@ GameObject:
   - component: {fileID: 8407589311898464629}
   - component: {fileID: 7635588206681898065}
   - component: {fileID: 4296487818868317848}
-  - component: {fileID: 8920342650984582114}
   - component: {fileID: 6664975956819514426}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: PlayerSprite
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -193,6 +192,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1c76bf9b-2d4a-4563-8250-e12af8265582
     m_ActionName: PlayerMovement/PlayerDirection[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9c77b2a-7edb-46fb-a683-f58503159798
+    m_ActionName: PlayerMovement/PlayerDash[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -210,19 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f011b5656f3271641a0d80dd1408ed0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8920342650984582114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4408285224000720167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40d837de6b633664bbf84d95fc65e97d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_DebugMode: 1
 --- !u!114 &6664975956819514426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,3 +226,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
+  m_DebugMode: 0
