@@ -16,7 +16,7 @@ namespace SpaceBaboon
         private Transform m_playerTransform;
 
         private List<Weapon> m_equipedWeapon = new List<Weapon>();
-        private List<Weapon> m_blockedWeapon = new List<Weapon>(0;
+        private List<Weapon> m_blockedWeapon = new List<Weapon>();
 
 
         private float m_horizontal;
