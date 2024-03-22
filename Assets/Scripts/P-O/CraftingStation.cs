@@ -30,16 +30,21 @@ namespace SpaceBaboon
         // Start is called before the first frame update
         void Start()
         {
-            foreach (ResourceDropPoint resourceDropPoint in resourceDropPoints)
-            {
-                resourceDropPoint.AllocateResource();
-            }
+
         }
 
         // Update is called once per frame
         void Update()
         {
 
+        }
+
+        private void TemporaryInitialization()
+        {
+            foreach (ResourceDropPoint resourceDropPoint in resourceDropPoints)
+            {
+                resourceDropPoint.AllocateResource(SpaceBaboon.InteractableResource.EResourceType.Two, 3);
+            }
         }
     }
 }

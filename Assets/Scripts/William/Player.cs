@@ -47,7 +47,7 @@ namespace SpaceBaboon
 
             if (collision.gameObject.tag == "Structure")
             {
-                collision.GetComponent<ResourceDropPoint>().CollectResource();
+                collision.GetComponent<ResourceDropPoint>().CollectResource(this);
             }
         }
 
@@ -96,6 +96,16 @@ namespace SpaceBaboon
             if (m_DebugMode)
             {
                 Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]);
+            }
+        }
+
+        public void DropResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
+        {
+            if (m_collectibleInventory.ContainsKey(resourceType) && !(m_collectibleInventory[resourceType] < amount))
+            {
+                m_collectibleInventory[resourceType] -= amount;
+
+                if (m_DebugMode) { Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]); }
             }
         }
         #endregion
