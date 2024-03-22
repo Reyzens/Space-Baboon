@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -6,8 +7,8 @@ namespace SpaceBaboon
     public class CraftingStation : MonoBehaviour
     {
         //Serializable variables
-        //[SerializeField]
-        //private Weapon m_linkedWeapon;
+        [SerializeField]
+        private Weapon m_linkedWeapon;
         [SerializeField]
         private float m_MaxHealth;
         [SerializeField]
@@ -32,6 +33,7 @@ namespace SpaceBaboon
         // Start is called before the first frame update
         void Start()
         {
+            resourceNeeded.Add(InteractableResource.EResourceType.Two);
             TemporaryInitialization();
         }
 
@@ -67,7 +69,16 @@ namespace SpaceBaboon
 
         private void CheckIfUpgradable()
         {
+            //Sort both list before comparing their values
+            if (resourceNeeded.OrderBy(e => e).SequenceEqual(currentResources.OrderBy(e => e)))
+            {
+                if (m_DebugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
 
+                m_linkedWeapon.Upgrade();
+                currentResources.Clear();
+                //resourceNeeded.Clear();
+                TemporaryInitialization();
+            }
         }
     }
 }
