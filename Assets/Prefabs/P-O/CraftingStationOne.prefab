@@ -152,6 +152,7 @@ MonoBehaviour:
   - {fileID: 3348967461286618548}
   - {fileID: 8365058821204568150}
   levelScaling: 2
+  m_DebugMode: 0
 --- !u!1001 &939966162324399538
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,6 +217,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_craftingStation
+      value: 
+      objectReference: {fileID: 5121084026466593204}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -301,6 +306,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_craftingStation
+      value: 
+      objectReference: {fileID: 5121084026466593204}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -386,6 +395,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_craftingStation
+      value: 
+      objectReference: {fileID: 5121084026466593204}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -43,11 +43,12 @@ namespace SpaceBaboon
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_DebugMode && collision.gameObject.tag == "Structure") { Debug.Log("CollisionDetected with structure"); }
 
-            if (collision.gameObject.tag == "Structure")
+            if (collision.gameObject.CompareTag("Structure"))
             {
-                collision.GetComponent<ResourceDropPoint>().CollectResource(this);
+                if (m_DebugMode) { Debug.Log("CollisionDetected with structure"); }
+
+                collision.gameObject.GetComponent<SpaceBaboon.ResourceDropPoint>().CollectResource(this);
             }
         }
 
@@ -99,14 +100,17 @@ namespace SpaceBaboon
             }
         }
 
-        public void DropResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
+        public bool DropResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
         {
             if (m_collectibleInventory.ContainsKey(resourceType) && !(m_collectibleInventory[resourceType] < amount))
             {
                 m_collectibleInventory[resourceType] -= amount;
 
                 if (m_DebugMode) { Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]); }
+                return true;
             }
+
+            return false;
         }
         #endregion
     }
