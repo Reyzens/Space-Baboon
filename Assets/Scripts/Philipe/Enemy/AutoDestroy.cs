@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SpaceBaboon.Enemy
+namespace SpaceBaboon
 {
     public class AutoDestroy : MonoBehaviour
     {
