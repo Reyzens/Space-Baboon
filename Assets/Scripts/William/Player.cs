@@ -16,8 +16,8 @@ namespace SpaceBaboon
         private Rigidbody2D m_playerRigidbody;
         private Transform m_playerTransform;
 
-        private List<Weapon> m_equipedWeapon = new List<Weapon>();
-        private List<Weapon> m_blockedWeapon = new List<Weapon>();
+        private List<WeaponSystem.Weapon> m_equipedWeapon = new List<WeaponSystem.Weapon>();
+        private List<WeaponSystem.Weapon> m_blockedWeapon = new List<WeaponSystem.Weapon>();
         
         [SerializeField]
         public float m_currentHealth;
@@ -59,10 +59,10 @@ namespace SpaceBaboon
 
                 collision.gameObject.GetComponent<SpaceBaboon.ResourceDropPoint>().CollectResource(this);
             }
-            if (collision.gameObject.CompareTag("Projectile"))
-            {
-                OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
-            }
+           //if (collision.gameObject.CompareTag("Projectile"))
+           //{
+           //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
+           //}
 
             //if (collision.gameObject.CompareTag("Enemy"))
             //{
