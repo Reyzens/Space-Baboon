@@ -7,6 +7,7 @@ namespace SpaceBaboon.Enemy
     {
         public string name;
         public Sprite sprite;
+        public GameObject prefab;
         public int baseHealth;
         public int baseDamage;        
         public float size;
