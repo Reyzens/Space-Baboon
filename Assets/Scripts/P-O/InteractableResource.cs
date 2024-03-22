@@ -65,6 +65,7 @@ namespace SpaceBaboon
         {
             if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }
             m_collectingPlayer.AddResource(m_resourceData.m_resourceType, m_resourceData.m_resourceAmount);
+            Destroy(gameObject);
         }
     }
 }
