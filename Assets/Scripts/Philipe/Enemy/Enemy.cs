@@ -61,6 +61,7 @@ namespace SpaceBaboon.Enemy
 
         public void Activate(Vector2 pos, ObjectPool pool)
         {
+
             throw new System.NotImplementedException();
         }
 

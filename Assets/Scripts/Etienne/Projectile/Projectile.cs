@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.WeaponSystem
 {
     public class Projectile : MonoBehaviour, IPoolable
     {
@@ -51,7 +50,7 @@ namespace SpaceBaboon
         private void OnCollisionEnter2D(Collision2D collision)
         {
             m_parentPool.UnSpawn(gameObject);
-            Debug.Log("projectile hit: " + collision.gameObject.name);
+            //Debug.Log("projectile hit: " + collision.gameObject.name);
         }
 
         public void Shoot(Vector2 direction)
