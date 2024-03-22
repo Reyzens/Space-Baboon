@@ -10,6 +10,8 @@ namespace SpaceBaboon
         private Vector2 m_direction;
         private float m_lifetime = 0.0f;
         private bool m_isActive = false;
+        private float m_bonusDmg = 0;
+        
 
         SpriteRenderer m_renderer;
         CircleCollider2D m_collider;
@@ -82,6 +84,12 @@ namespace SpaceBaboon
         {
             m_renderer.enabled = value;
             m_collider.enabled = value;
+        }
+
+        public float GetDamage()
+        {
+            float totaldmg = m_projectileData.damage + m_bonusDmg;
+            return totaldmg;
         }
     }
 }

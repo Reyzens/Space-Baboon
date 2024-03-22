@@ -2,8 +2,9 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class IDamageable : MonoBehaviour
+    public interface IDamageable
     {
+        public void OnDamageTaken(float values);
         
     }
 }
