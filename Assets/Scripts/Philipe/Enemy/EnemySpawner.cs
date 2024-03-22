@@ -1,21 +1,21 @@
 using UnityEngine;
 
-namespace SpaceBaboon.Enemy
+namespace SpaceBaboon.EnemySystem
 {
-    public class EnemySpawnerForTest : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private GameObject m_enemy;
 
-        [SerializeField] private ObjectPool m_pool;
+        [SerializeField] private ObjectPool m_meleeEnemyPool;
         
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
 
         private Camera m_cam;
 
-        //private void Awake()
-        //{
-        //    m_pool.CreatePool(m_enemy);
-        //}
+        private void Awake()
+        {
+            m_meleeEnemyPool.CreatePool(m_enemy);            
+        }
 
         private void Start()
         {
@@ -32,6 +32,7 @@ namespace SpaceBaboon.Enemy
 
         private void CalculateSpawnPosition()
         {
+            // TODO à mettre plus bas
             float screenWidth = Screen.width;
             float screenHeight = Screen.height;
 
@@ -46,7 +47,11 @@ namespace SpaceBaboon.Enemy
 
             Vector3 worldSpawnPosition = m_cam.transform.position + spawnPosition;
 
-            Instantiate(m_enemy, worldSpawnPosition, Quaternion.identity);
+            // Spawn, mettre object pool ici
+
+            m_meleeEnemyPool.Spawn(worldSpawnPosition);
+
+            //Instantiate(m_enemy, worldSpawnPosition, Quaternion.identity);
         }
 
         private Vector2 RandomPosOnCircle(float radius)

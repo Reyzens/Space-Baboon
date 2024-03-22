@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Melee
   sprite: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
   baseHealth: 0
   baseDamage: 0
   size: 0

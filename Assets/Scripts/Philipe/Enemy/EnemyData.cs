@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SpaceBaboon.Enemy
+namespace SpaceBaboon.EnemySystem
 {
     [CreateAssetMenu(fileName = "NewEnemyData", menuName = "SpaceBaboon/ScriptableObjects/EnemyData")]
     public class EnemyData : ScriptableObject
