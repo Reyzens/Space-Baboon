@@ -10,13 +10,13 @@ namespace SpaceBaboon
 
         [SerializeField]
         private bool m_DebugMode = false;
-        private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
+        private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
 
         private Rigidbody2D m_playerRigidbody;
         private Transform m_playerTransform;
 
-        private List<Weapon> m_equipedWeapon;
-        private List<Weapon> m_blockedWeapon;
+        private List<Weapon> m_equipedWeapon = new List<Weapon>();
+        private List<Weapon> m_blockedWeapon = new List<Weapon>();
 
 
         private float m_horizontal;
@@ -29,7 +29,7 @@ namespace SpaceBaboon
 
         void Start()
         {
-            enabled = false;
+            enabled = true;
             InputHandler.instance.m_MoveEvent += Move;
             InputHandler.instance.m_DashEvent += Dash;
             m_playerRigidbody = GetComponent<Rigidbody2D>();
@@ -43,11 +43,12 @@ namespace SpaceBaboon
         }
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (m_DebugMode && collision.gameObject.tag == "Structure") { Debug.Log("CollisionDetected with structure"); }
 
-            if (collision.gameObject.tag == "Structure")
+            if (collision.gameObject.CompareTag("Structure"))
             {
-                collision.GetComponent<ResourceDropPoint>().CollectResource();
+                if (m_DebugMode) { Debug.Log("CollisionDetected with structure"); }
+
+                collision.gameObject.GetComponent<SpaceBaboon.ResourceDropPoint>().CollectResource(this);
             }
         }
 
@@ -55,7 +56,7 @@ namespace SpaceBaboon
         {
             if (values == Vector2.zero)
             {
-                enabled = false;
+                enabled = true;
                 m_playerRigidbody.velocity = new Vector2(0, 0);
                 m_playerRigidbody.rotation = m_rotationlock;
                 m_playerRigidbody.angularVelocity = m_rotationlock;
@@ -80,5 +81,37 @@ namespace SpaceBaboon
                 Debug.Log("Dash");
             }
         }
+
+        #region Crafting
+        public void AddResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
+        {
+            if (!m_collectibleInventory.ContainsKey(resourceType))
+            {
+                m_collectibleInventory.Add(resourceType, amount);
+            }
+            else
+            {
+                m_collectibleInventory[resourceType] += amount;
+            }
+
+            if (m_DebugMode)
+            {
+                Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]);
+            }
+        }
+
+        public bool DropResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
+        {
+            if (m_collectibleInventory.ContainsKey(resourceType) && !(m_collectibleInventory[resourceType] < amount))
+            {
+                m_collectibleInventory[resourceType] -= amount;
+
+                if (m_DebugMode) { Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]); }
+                return true;
+            }
+
+            return false;
+        }
+        #endregion
     }
 }
