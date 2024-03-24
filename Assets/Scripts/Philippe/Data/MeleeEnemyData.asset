@@ -18,6 +18,6 @@ MonoBehaviour:
   baseHealth: 0
   baseDamage: 0
   size: 0
-  baseMovementSpeed: 10
+  baseVelocity: 10
   baseAttackRange: 0
   baseAttackCooldown: 7

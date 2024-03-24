@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8760679721166844970}
   - component: {fileID: 4961349543402203834}
   - component: {fileID: -4452760901118277978}
+  - component: {fileID: -4895528521744774171}
   - component: {fileID: 3870790394630950003}
   m_Layer: 7
   m_Name: Enemy
@@ -131,6 +132,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &-4895528521744774171
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761769005896388766}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!114 &3870790394630950003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,3 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyData: {fileID: 11400000, guid: 1ca1b652248678b4a9f4e1a3214576d7, type: 2}
   m_damageDoneObject: {fileID: 7544370699682943602, guid: b3092fd324c3e6b49bd4b34ccace14ce, type: 3}
+  m_defending: 0
