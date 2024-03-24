@@ -20,6 +20,7 @@ namespace SpaceBaboon.EnemySystem
         private GameObject m_prefab;
         private float m_health;
         private float m_damage;
+        private float m_acceleration;
         private float m_maxVelocity;                    
         private float m_attackCooldown;
         private float m_attackTimer = 0.0f;
@@ -36,6 +37,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_prefab = m_enemyData.prefab;
             m_health = m_enemyData.baseHealth;
+            m_acceleration = m_enemyData.baseAcceleration;
             m_maxVelocity = m_enemyData.baseVelocity;
             m_attackCooldown = m_enemyData.baseAttackCooldown;
             m_players = GameObject.FindGameObjectsWithTag("Player");
@@ -91,7 +93,7 @@ namespace SpaceBaboon.EnemySystem
             Vector3 playerPosition = m_players[0].transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
-            m_rb.AddForce(direction * m_maxVelocity, ForceMode2D.Force);
+            m_rb.AddForce(direction * m_acceleration, ForceMode2D.Force);
 
             if (direction.magnitude > 0)
             {                
