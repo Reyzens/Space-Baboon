@@ -7,7 +7,7 @@ namespace SpaceBaboon.UI_Toolkit
 {
     public class HpBarUI : MonoBehaviour
     {
-        public Player playerRef;
+        [SerializeField] private Player playerRef;
         private ProgressBar hpBar;
         private VisualElement root;
         private void OnEnable()
@@ -21,7 +21,8 @@ namespace SpaceBaboon.UI_Toolkit
 
         private void Update()
         {
-            hpBar.value = playerRef.m_currentHealth;
+            //hpBar.value = playerRef.m_currentHealth;
+            hpBar.value = playerRef.GetCurrentHealth();
         }
     }
 }

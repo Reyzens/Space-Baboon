@@ -20,7 +20,7 @@ namespace SpaceBaboon
         private List<WeaponSystem.Weapon> m_blockedWeapon = new List<WeaponSystem.Weapon>();
         
         [SerializeField]
-        public float m_currentHealth;
+        private float m_currentHealth;
 
         public bool m_alive;
         private float m_horizontal;
@@ -57,22 +57,24 @@ namespace SpaceBaboon
             {
                 if (m_DebugMode) { Debug.Log("CollisionDetected with structure"); }
 
-                collision.gameObject.GetComponent<SpaceBaboon.ResourceDropPoint>().CollectResource(this);
+                collision.gameObject.GetComponent<ResourceDropPoint>().CollectResource(this);
+            }
+
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                OnDamageTaken(collision.gameObject.GetComponent<EnemySystem.Enemy>().GetDamage());
             }
            //if (collision.gameObject.CompareTag("Projectile"))
            //{
            //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
            //}
-
-            //if (collision.gameObject.CompareTag("Enemy"))
-            //{
-            //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Enemy>().GetDamage());
-            //}
         }
-        
-       
 
-        
+
 
         private void Move(Vector2 values)
         {
@@ -100,7 +102,7 @@ namespace SpaceBaboon
         {
             if (m_DebugMode)
             {
-                OnDamageTaken(10);
+                //OnDamageTaken(10);
                 Debug.Log("Dash");
             }
         }
@@ -145,6 +147,11 @@ namespace SpaceBaboon
             }
             
             
+        }
+
+        public float GetCurrentHealth()
+        {
+            return m_currentHealth;
         }
     }
 }

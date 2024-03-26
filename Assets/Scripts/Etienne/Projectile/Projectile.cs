@@ -10,6 +10,8 @@ namespace SpaceBaboon.WeaponSystem
         private float m_lifetime = 0.0f;
         private bool m_isActive = false;
         private float m_bonusDmg = 0;
+        private float m_damage = 0;
+
         
 
         SpriteRenderer m_renderer;
@@ -27,6 +29,11 @@ namespace SpaceBaboon.WeaponSystem
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
+        }
+
+        private void Start()
+        {
+            m_damage = m_projectileData.damage;
         }
 
         private void Update()
@@ -87,8 +94,7 @@ namespace SpaceBaboon.WeaponSystem
 
         public float GetDamage()
         {
-            float totaldmg = m_projectileData.damage + m_bonusDmg;
-            return totaldmg;
+            return m_damage;
         }
     }
 }

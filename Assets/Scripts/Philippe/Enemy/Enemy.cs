@@ -18,7 +18,7 @@ namespace SpaceBaboon.EnemySystem
         private GameObject[] m_players;
 
         private GameObject m_prefab;
-        private float m_health;
+        [SerializeField] private float m_health;
         private float m_damage;
         private float m_acceleration;
         private float m_maxVelocity;                    
@@ -41,12 +41,18 @@ namespace SpaceBaboon.EnemySystem
             m_maxVelocity = m_enemyData.baseVelocity;
             m_attackCooldown = m_enemyData.baseAttackCooldown;
             m_players = GameObject.FindGameObjectsWithTag("Player");
+            m_damage = m_enemyData.baseDamage;
         }
         
         private void Update()
         {
             if (!m_isActive)
-                return;            
+                return;
+
+            if (m_health <= 0)
+            {
+                m_parentPool.UnSpawn(gameObject);
+            }
 
             if (m_attackTimer <= 0.0f)
             {
@@ -86,6 +92,13 @@ namespace SpaceBaboon.EnemySystem
                 m_coolingDown = true;
                 Instantiate(m_damageDoneObject, transform.position, Quaternion.identity);
             }
+
+            if (collision.gameObject.CompareTag("Projectile"))
+            {
+                Debug.Log("enemy collision with " + collision.gameObject.name + " with damage: " + collision.gameObject.GetComponent<WeaponSystem.Projectile>().GetDamage());
+                OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().GetDamage());
+            }
+
         }
 
         private void MoveTowardsPlayer()
@@ -112,7 +125,7 @@ namespace SpaceBaboon.EnemySystem
 
         public void OnDamageTaken(float values)
         {
-            m_parentPool.UnSpawn(gameObject);
+            m_health -= values;
         }
 
         public bool IsActive
@@ -141,5 +154,9 @@ namespace SpaceBaboon.EnemySystem
             m_collider.enabled = value;
         }
         
+        public float GetDamage()
+        {
+            return m_damage;
+        }
     }
 }
