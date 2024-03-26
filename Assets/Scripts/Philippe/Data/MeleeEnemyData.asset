@@ -21,4 +21,4 @@ MonoBehaviour:
   baseAcceleration: 30
   baseMaxVelocity: 10
   baseAttackRange: 0
-  baseAttackCooldown: 7
+  baseAttackDelay: 3

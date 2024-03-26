@@ -30,7 +30,7 @@ namespace SpaceBaboon
 
                 obj.GetComponent<IPoolable>()?.Deactivate();
                 m_pooledObjects.Enqueue(obj);
-                
+
                 //Debug.Log("Awake : " + m_pooledObjects.Count);
             }
         }
@@ -66,6 +66,16 @@ namespace SpaceBaboon
             pooledObject.Deactivate();
 
             m_pooledObjects.Enqueue(obj);
+        }
+
+        public void SetPoolSize(int poolSize)
+        {
+            m_poolSize = poolSize;
+        }
+
+        public int GetPoolQueue()
+        {
+            return m_pooledObjects.Count;
         }
     }
 }

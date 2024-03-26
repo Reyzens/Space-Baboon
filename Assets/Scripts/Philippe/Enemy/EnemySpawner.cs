@@ -8,14 +8,15 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private ObjectPool m_meleeEnemyPool;
         [SerializeField] private GameObject m_map;
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
-        [SerializeField] private float m_spawningDelay = 0.0f;        
+        [SerializeField] private float m_spawningDelay = 0.0f;
+        [SerializeField] private bool m_isSpawning = true;
 
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
 
         private void Awake()
         {
-            m_meleeEnemyPool.CreatePool(m_meleeEnemy);            
+            m_meleeEnemyPool.CreatePool(m_meleeEnemy);
         }
 
         private void Start()
@@ -29,6 +30,12 @@ namespace SpaceBaboon.EnemySystem
             if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
                 CalculateSpawnPosition();
 
+            if (m_isSpawning)
+                SpawnWithTimer();
+        }
+
+        private void SpawnWithTimer()
+        {
             m_spawningTimer -= Time.deltaTime;
 
             if (m_spawningTimer <= 0.0f)

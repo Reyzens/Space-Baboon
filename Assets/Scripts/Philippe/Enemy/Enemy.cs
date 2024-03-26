@@ -4,8 +4,7 @@ namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : MonoBehaviour, IPoolable, IDamageable
     {
-        [SerializeField] private EnemyData m_enemyData;
-        [SerializeField] private GameObject m_damageDoneObject;        
+        [SerializeField] private EnemyData m_enemyData;           
         [SerializeField] private float m_health;
 
         private ObjectPool m_parentPool;
@@ -20,10 +19,10 @@ namespace SpaceBaboon.EnemySystem
         private GameObject m_prefab;        
         private float m_bonusDamage = 0.0f;
         private float m_bonusAcceleration; // Pour simplifier on pourrait simplement avoir une acceleration de base qui ne change pas et un max Velocity qui peut changer
-        private float m_bonusMaxVelocity;                    
-        private float m_bonusAttackCooldown;
-        private float m_attackTimer = 0.0f;
-        private bool m_attackCoolingDown = false;                
+        private float m_bonusMaxVelocity;
+        private float m_bonusAttackDelay;
+        private float m_attackTimer = 0.0f;                     
+        private bool m_attackReady = true;
 
         private void Awake()
         {
@@ -42,16 +41,10 @@ namespace SpaceBaboon.EnemySystem
         private void Update()
         {
             if (!m_isActive)
-                return;            
+                return;
 
-            if (m_attackTimer <= 0.0f)
-            {
-                m_attackCoolingDown = false;
-            }
-            if (m_attackCoolingDown) 
-            {
-                m_attackTimer -= Time.deltaTime;
-            }
+            if (!m_attackReady)
+                ReadyAttack();
         }
 
         private void FixedUpdate()
@@ -63,18 +56,19 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.tag == "Player" && m_attackTimer <= 0.0f) 
-            {
-                m_attackTimer = m_enemyData.baseAttackCooldown /* + or * bonus */;
-                m_attackCoolingDown = true;
-                Instantiate(m_damageDoneObject, transform.position, Quaternion.identity);
-            }
-
+        {            
             if (collision.gameObject.CompareTag("Projectile"))
             {                
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().GetDamage());
             }
+        }
+
+        private void ReadyAttack()
+        {
+            m_attackTimer -= Time.deltaTime;
+
+            if (m_attackTimer < 0.0f)
+                m_attackReady = true;            
         }
 
         private void MoveTowardsPlayer()
@@ -131,9 +125,19 @@ namespace SpaceBaboon.EnemySystem
             m_collider.enabled = value;
         }
         
-        public float GetDamage()
+        public float GetDamage() // TODO a discuter, fonctionnement de cette methode
         {
-            return m_enemyData.baseDamage + m_bonusDamage /* + or * bonus */;
+            if(!m_attackReady)
+                return 0.0f;
+
+            Attack();
+            return m_enemyData.baseDamage /* + or * bonus */;
+        }
+
+        private void Attack()
+        {            
+            m_attackTimer = m_enemyData.baseAttackDelay /* + or * bonus */;
+            m_attackReady = false;
         }
     }
 }

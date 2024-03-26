@@ -4678,6 +4678,7 @@ MonoBehaviour:
   m_map: {fileID: 4099537085802509994}
   m_spawnRadiusFromScreenCorner: 10
   m_spawningDelay: 5
+  m_isSpawning: 1
 --- !u!1 &9069720639839107903
 GameObject:
   m_ObjectHideFlags: 0

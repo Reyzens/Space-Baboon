@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621b9fe51b2695b49bef6409dbada708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_resourceData: {fileID: 11400000, guid: 3e9bd00c4c67e834a8ca40c7d649a0f1, type: 2}
+  m_resourceData: {fileID: 11400000, guid: 7962cf5a118ed8244b6e09fdf6d53908, type: 2}
   m_DebugMode: 1
 --- !u!50 &7657552551311686252
 Rigidbody2D:
