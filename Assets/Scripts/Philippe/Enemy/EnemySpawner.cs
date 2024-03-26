@@ -31,15 +31,18 @@ namespace SpaceBaboon.EnemySystem
                 CalculateSpawnPosition();
 
             if (m_isSpawning)
-            {
-                m_spawningTimer -= Time.deltaTime;
+                SpawnWithTimer();
+        }
 
-                if (m_spawningTimer <= 0.0f)
-                {
-                    m_spawningTimer = m_spawningDelay;
-                    CalculateSpawnPosition();
-                }
-            }            
+        private void SpawnWithTimer()
+        {
+            m_spawningTimer -= Time.deltaTime;
+
+            if (m_spawningTimer <= 0.0f)
+            {
+                m_spawningTimer = m_spawningDelay;
+                CalculateSpawnPosition();
+            }
         }
 
         private void CalculateSpawnPosition()
