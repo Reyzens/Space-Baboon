@@ -4146,7 +4146,7 @@ GameObject:
   - component: {fileID: 9051616848693852712}
   - component: {fileID: 2275484648863413859}
   m_Layer: 0
-  m_Name: EnemySpawner(MaybeTemporary)
+  m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4675,8 +4675,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_meleeEnemy: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
   m_meleeEnemyPool: {fileID: 2275484648863413859}
-  m_spawnRadiusFromScreenCorner: 10
   m_map: {fileID: 4099537085802509994}
+  m_spawnRadiusFromScreenCorner: 10
+  m_spawningDelay: 5
 --- !u!1 &9069720639839107903
 GameObject:
   m_ObjectHideFlags: 0

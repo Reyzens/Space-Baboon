@@ -15,10 +15,10 @@ MonoBehaviour:
   name: Melee
   sprite: {fileID: 0}
   prefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
-  baseHealth: 50
+  baseHealth: 30
   baseDamage: 10
   size: 0
   baseAcceleration: 30
-  baseVelocity: 10
+  baseMaxVelocity: 10
   baseAttackRange: 0
   baseAttackCooldown: 7

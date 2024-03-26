@@ -5,11 +5,13 @@ namespace SpaceBaboon.EnemySystem
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private GameObject m_meleeEnemy;
-        [SerializeField] private ObjectPool m_meleeEnemyPool;        
-        [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
+        [SerializeField] private ObjectPool m_meleeEnemyPool;
         [SerializeField] private GameObject m_map;
+        [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
+        [SerializeField] private float m_spawningDelay = 0.0f;        
 
         private Camera m_cam;
+        private float m_spawningTimer = 0.0f;
 
         private void Awake()
         {
@@ -19,12 +21,19 @@ namespace SpaceBaboon.EnemySystem
         private void Start()
         {
             m_cam = Camera.main;
+            m_spawningTimer = m_spawningDelay;
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
+                CalculateSpawnPosition();
+
+            m_spawningTimer -= Time.deltaTime;
+
+            if (m_spawningTimer <= 0.0f)
             {
+                m_spawningTimer = m_spawningDelay;
                 CalculateSpawnPosition();
             }
         }
@@ -39,22 +48,22 @@ namespace SpaceBaboon.EnemySystem
 
             float spawnRadius = screenCornerRadius + m_spawnRadiusFromScreenCorner;
 
-            bool spawnPosFound = false;
+            bool validPosFound = false;
             Vector3 spawnWorldPos = Vector3.zero;
 
-            while (!spawnPosFound) 
+            while (!validPosFound) 
             {
                 Vector2 randomPosOnCircle = RandomPosOnCircle(spawnRadius);
                 Vector3 spawnPos = new Vector3(randomPosOnCircle.x, randomPosOnCircle.y, m_cam.nearClipPlane);
 
                 spawnWorldPos = m_cam.transform.position + spawnPos;
 
-                if(spawnWorldPos.x < mapMax.x
-                    && spawnWorldPos.y < mapMax.y
-                    && spawnWorldPos.x > mapMin.x
-                    && spawnWorldPos.y > mapMin.y)
+                if(spawnWorldPos.x < mapMax.x &&
+                   spawnWorldPos.y < mapMax.y &&
+                   spawnWorldPos.x > mapMin.x &&
+                   spawnWorldPos.y > mapMin.y)
                 {
-                    spawnPosFound = true;
+                    validPosFound = true;
                     m_meleeEnemyPool.Spawn(spawnWorldPos);
                 }
             }           
@@ -62,15 +71,12 @@ namespace SpaceBaboon.EnemySystem
 
         private Vector2 RandomPosOnCircle(float radius)
         {
-            float randomAngle = Random.Range(0f, Mathf.PI * 2f);
+            float randomAngle = Random.Range(0.0f, Mathf.PI * 2.0f);
 
             float x = radius * Mathf.Cos(randomAngle);
             float y = radius * Mathf.Sin(randomAngle);
 
             return new Vector2(x, y);
         }
-
-
-
     }
 }
