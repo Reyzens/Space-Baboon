@@ -6,6 +6,7 @@ namespace SpaceBaboon.EnemySystem
     {
         [SerializeField] private EnemyData m_enemyData;           
         [SerializeField] private float m_health;
+        [SerializeField] private float m_obstructionPushForce = 5.0f;
 
         private ObjectPool m_parentPool;
         private bool m_isActive = false;
@@ -22,7 +23,7 @@ namespace SpaceBaboon.EnemySystem
         private float m_bonusMaxVelocity;
         private float m_bonusAttackDelay;
         private float m_attackTimer = 0.0f;                     
-        private bool m_attackReady = true;
+        private bool m_attackReady = true;                   
 
         private void Awake()
         {
@@ -60,7 +61,18 @@ namespace SpaceBaboon.EnemySystem
             if (collision.gameObject.CompareTag("Projectile"))
             {                
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().GetDamage());
-            }
+            }                       
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {                       
+            SlightPushFromObstructingObject(collision);
+        }
+
+        private void SlightPushFromObstructingObject(Collision2D collision)
+        {
+            Vector3 direction = collision.transform.position - transform.position;
+            m_rb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);            
         }
 
         private void ReadyAttack()
@@ -99,32 +111,6 @@ namespace SpaceBaboon.EnemySystem
                 m_parentPool.UnSpawn(gameObject);
         }
 
-        public bool IsActive
-        {
-            get { return m_isActive; }
-            //set { m_isActive = value; } // private set ?
-        }
-
-        public void Activate(Vector2 pos, ObjectPool pool)
-        {
-            m_isActive = true;
-            SetComponents(true);
-            transform.position = pos;
-            m_parentPool = pool;                    
-        }
-
-        public void Deactivate()
-        {
-            m_isActive = false;
-            SetComponents(false);
-        }
-
-        private void SetComponents(bool value)
-        {
-            m_renderer.enabled = value;
-            m_collider.enabled = value;
-        }
-        
         public float GetDamage() // TODO a discuter, fonctionnement de cette methode
         {
             if(!m_attackReady)
@@ -139,5 +125,33 @@ namespace SpaceBaboon.EnemySystem
             m_attackTimer = m_enemyData.baseAttackDelay /* + or * bonus */;
             m_attackReady = false;
         }
+
+        #region ObjectPool
+        public bool IsActive
+        {
+            get { return m_isActive; }
+            //set { m_isActive = value; } // private set ?
+        }
+
+        public void Activate(Vector2 pos, ObjectPool pool)
+        {
+            m_isActive = true;
+            SetComponents(true);
+            transform.position = pos;
+            m_parentPool = pool;
+        }
+
+        public void Deactivate()
+        {
+            m_isActive = false;
+            SetComponents(false);
+        }
+
+        private void SetComponents(bool value)
+        {
+            m_renderer.enabled = value;
+            m_collider.enabled = value;
+        }
+        #endregion
     }
 }

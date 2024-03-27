@@ -21,4 +21,5 @@ MonoBehaviour:
   baseAcceleration: 30
   baseMaxVelocity: 10
   baseAttackRange: 0
-  baseAttackDelay: 3
+  baseAttackDelay: 2
+  obstructionPushForce: 25

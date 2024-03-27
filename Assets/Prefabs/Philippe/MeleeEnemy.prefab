@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4895528521744774171}
   - component: {fileID: 3870790394630950003}
   m_Layer: 7
-  m_Name: Enemy
+  m_Name: MeleeEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,5 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyData: {fileID: 11400000, guid: 1ca1b652248678b4a9f4e1a3214576d7, type: 2}
-  m_damageDoneObject: {fileID: 7544370699682943602, guid: b3092fd324c3e6b49bd4b34ccace14ce, type: 3}
-  m_defending: 0
+  m_health: 0
+  m_obstructionPushForce: 20

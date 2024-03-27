@@ -591,7 +591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6158744752462687429, guid: b16a0db82780c0b4bb3e13261016cb53, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8184152791584123412, guid: b16a0db82780c0b4bb3e13261016cb53, type: 3}
       propertyPath: m_Enabled
@@ -4678,7 +4678,7 @@ MonoBehaviour:
   m_map: {fileID: 4099537085802509994}
   m_spawnRadiusFromScreenCorner: 10
   m_spawningDelay: 5
-  m_isSpawning: 1
+  m_isSpawning: 0
 --- !u!1 &9069720639839107903
 GameObject:
   m_ObjectHideFlags: 0

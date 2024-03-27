@@ -15,5 +15,6 @@ namespace SpaceBaboon.EnemySystem
         public float baseMaxVelocity;        
         public float baseAttackRange;
         public float baseAttackDelay;
+        public float obstructionPushForce;
     }
 }
