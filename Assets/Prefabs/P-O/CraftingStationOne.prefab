@@ -146,13 +146,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2404b5a167173f4a941a56b969172bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_linkedWeapon: {fileID: 0}
   m_MaxHealth: 100
-  resourceDropPoints:
+  m_resourceDropPoints:
   - {fileID: 7903200905534895423}
   - {fileID: 3348967461286618548}
   - {fileID: 8365058821204568150}
-  levelScaling: 2
+  m_levelScaling: 1
   m_DebugMode: 0
+  m_maxUpgradeCooldown: 3
+  m_resourceNeeded: 
+  m_currentResources: 
+  m_possibleResources: 
+  m_currentUpgradeCD: 0
+  m_isUpgrading: 0
 --- !u!1001 &939966162324399538
 PrefabInstance:
   m_ObjectHideFlags: 0
