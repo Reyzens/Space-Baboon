@@ -31,7 +31,7 @@ namespace SpaceBaboon
         //Enums
         public enum EResourceType
         {
-            One, Two, Three, Count
+            Metal, Crystal, Technologie, Count
         }
 
         //private Methods
@@ -42,7 +42,7 @@ namespace SpaceBaboon
         private void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
-            Debug.Log(m_renderer);
+            //Debug.Log(m_renderer);
             m_circleCollider = GetComponent<CircleCollider2D>();
             m_capsuleCollider = GetComponent<CapsuleCollider2D>();
         }
