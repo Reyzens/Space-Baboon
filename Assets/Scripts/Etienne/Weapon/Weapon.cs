@@ -8,10 +8,12 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] private ObjectPool m_pool;
         [SerializeField] private float m_spawnDistance;
         [SerializeField] private bool m_debugMode = false;
+        [SerializeField] private float m_attackSpeedScaling;
 
         private float m_attackingCooldown = 0.0f;
         private int m_currentLevel = 1;
         private bool m_isCollecting = false;
+        private float m_attackSpeedModifier = 1.0f;
 
         private void Awake()
         {
@@ -25,7 +27,7 @@ namespace SpaceBaboon.WeaponSystem
                 return;
             }
 
-            if (m_attackingCooldown > m_weaponData.attackSpeed)
+            if (m_attackingCooldown > m_weaponData.attackSpeed * m_attackSpeedModifier)
             {
                 Attack();
                 m_attackingCooldown = 0.0f;
@@ -80,6 +82,7 @@ namespace SpaceBaboon.WeaponSystem
             if (m_debugMode)
             {
                 Debug.Log("Weapon upgraded");
+                m_attackSpeedModifier -= m_attackSpeedScaling;
             }
             m_currentLevel++;
         }
