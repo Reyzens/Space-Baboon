@@ -27,12 +27,12 @@ namespace SpaceBaboon.WeaponSystem
                 return;
             }
 
-            if (m_attackingCooldown > m_weaponData.attackSpeed * m_attackSpeedModifier)
+            if (m_attackingCooldown > m_weaponData.attackSpeed)
             {
                 Attack();
                 m_attackingCooldown = 0.0f;
             }
-            m_attackingCooldown += Time.deltaTime;
+            m_attackingCooldown += Time.deltaTime * m_attackSpeedModifier;
         }
 
         private void Attack()
@@ -82,7 +82,7 @@ namespace SpaceBaboon.WeaponSystem
             if (m_debugMode)
             {
                 Debug.Log("Weapon upgraded");
-                m_attackSpeedModifier -= m_attackSpeedScaling;
+                m_attackSpeedModifier += m_attackSpeedScaling;
             }
             m_currentLevel++;
         }
