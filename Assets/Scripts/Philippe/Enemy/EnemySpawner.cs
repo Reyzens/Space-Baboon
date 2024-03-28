@@ -24,14 +24,11 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            //m_meleeEnemyPool.CreatePool(m_meleeEnemy);
-            //m_projectileEnemyPool.CreatePool(m_projectileEnemy);
-
-            foreach (GameObject resource in m_enemyPrefabs)
+            foreach (GameObject enemy in m_enemyPrefabs)
             {
-                if (!m_enemyDictionary.ContainsKey(resource))
+                if (!m_enemyDictionary.ContainsKey(enemy))
                 {
-                    m_enemyDictionary.Add(resource, new ObjectPool());
+                    m_enemyDictionary.Add(enemy, new ObjectPool());
                 }
             }
         }
@@ -57,8 +54,7 @@ namespace SpaceBaboon.EnemySystem
 
                 m_enemyDictionary[m_enemyPrefabs[enemyIndex]].Spawn(spawnWorldPos);
 
-            }
-                
+            }                
 
             if (m_isSpawning)
                 SpawnWithTimer();

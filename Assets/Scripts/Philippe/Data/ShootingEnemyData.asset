@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6c67f2134eb33142bdfa3ca8744ed4a, type: 3}
-  m_Name: ProjectileEnemyData
+  m_Name: ShootingEnemyData
   m_EditorClassIdentifier: 
   name: Projectile
   sprite: {fileID: 0}

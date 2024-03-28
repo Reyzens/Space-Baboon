@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class EnemyProjectile : Enemy
+    public class ShootingEnemy : Enemy
     {
-        [SerializeField] private GameObject m_projectile;        
+        [SerializeField] private GameObject m_projectile;
+        [SerializeField] private float m_projectileSpawnDistance = 2.0f;
         private float m_distanceToPlayer;
         
         protected override void Update()
@@ -34,12 +35,13 @@ namespace SpaceBaboon.EnemySystem
         }
 
         protected override void Attack()
-        {
+        {   
             Vector3 playerPosition = m_players[0].transform.position;
-            GameObject projectile = Instantiate(m_projectile, transform.position, Quaternion.identity);
-            Rigidbody2D projectileRB = projectile.GetComponent<Rigidbody2D>();
-
             Vector2 direction = (playerPosition - transform.position).normalized;
+            Vector2 directionWithDistance = direction * m_projectileSpawnDistance;
+            Vector2 spawnPos = new Vector2(transform.position.x + directionWithDistance.x, transform.position.y + directionWithDistance.y);
+            GameObject projectile = Instantiate(m_projectile, spawnPos, Quaternion.identity);
+            Rigidbody2D projectileRB = projectile.GetComponent<Rigidbody2D>();
             projectileRB.AddForce(direction * 10, ForceMode2D.Impulse);
             m_attackTimer = m_enemyData.baseAttackDelay;
             m_attackReady = false;

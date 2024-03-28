@@ -173,3 +173,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyData: {fileID: 11400000, guid: dab06ebb9ea06534eb1c92d340bb9d97, type: 2}
   m_projectile: {fileID: 1376376220078930019, guid: 2400d58dad77d0648b8c7c1f6a855ae1, type: 3}
+  m_projectileSpawnDistance: 2

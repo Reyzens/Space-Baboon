@@ -22,7 +22,7 @@ namespace SpaceBaboon.EnemySystem
         private float m_bonusMaxVelocity;
         private float m_bonusAttackDelay;
         protected float m_attackTimer = 0.0f;                     
-        protected bool m_attackReady = true;
+        protected bool m_attackReady = false;
 
         protected virtual void Awake()
         {
