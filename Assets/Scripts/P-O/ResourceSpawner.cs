@@ -118,7 +118,7 @@ namespace SpaceBaboon
             int poolAmountTested = 0;
             while (canSpawn && poolAmountTested < m_poolSize * m_resourcesPrefab.Count)
             {
-                int resourceIndex = Random.Range(0, m_resourcesPrefab.Count - 1);
+                int resourceIndex = Random.Range(0, m_resourcesPrefab.Count);
                 if (m_resourceDictionary[m_resourcesPrefab[resourceIndex]].GetPoolQueue() != 0)
                 {
                     m_resourceDictionary[m_resourcesPrefab[resourceIndex]].Spawn(spawnPosition);
