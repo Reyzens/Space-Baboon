@@ -6,6 +6,8 @@ namespace SpaceBaboon.EnemySystem
     {
         [SerializeField] private GameObject m_meleeEnemy;
         [SerializeField] private ObjectPool m_meleeEnemyPool;
+        [SerializeField] private GameObject m_projectileEnemy;
+        [SerializeField] private ObjectPool m_projectileEnemyPool;
         [SerializeField] private GameObject m_map;
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
         [SerializeField] private float m_spawningDelay = 0.0f;
@@ -16,7 +18,8 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            m_meleeEnemyPool.CreatePool(m_meleeEnemy);
+            //m_meleeEnemyPool.CreatePool(m_meleeEnemy);
+            m_projectileEnemyPool.CreatePool(m_projectileEnemy);
         }
 
         private void Start()
@@ -71,7 +74,8 @@ namespace SpaceBaboon.EnemySystem
                    spawnWorldPos.y > mapMin.y)
                 {
                     validPosFound = true;
-                    m_meleeEnemyPool.Spawn(spawnWorldPos);
+                    //m_meleeEnemyPool.Spawn(spawnWorldPos);
+                    m_projectileEnemyPool.Spawn(spawnWorldPos);
                 }
             }           
         }

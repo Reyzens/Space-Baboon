@@ -4,42 +4,41 @@ namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : MonoBehaviour, IPoolable, IDamageable
     {
-        [SerializeField] private EnemyData m_enemyData;           
-        [SerializeField] private float m_health;
-        [SerializeField] private float m_obstructionPushForce = 5.0f;
+        [SerializeField] protected EnemyData m_enemyData;
 
         private ObjectPool m_parentPool;
-        private bool m_isActive = false;
+        protected bool m_isActive = false;
 
         private Renderer m_renderer;
         private BoxCollider2D m_collider;
-        private Rigidbody2D m_rb;
-        
-        private GameObject[] m_players; // TODO change how to get reference to player
+        protected Rigidbody2D m_rb;
 
-        private GameObject m_prefab;        
+        protected GameObject[] m_players; // TODO change how to get reference to player
+
+        private GameObject m_prefab;
+        private float m_health;
         private float m_bonusDamage = 0.0f;
         private float m_bonusAcceleration; // Pour simplifier on pourrait simplement avoir une acceleration de base qui ne change pas et un max Velocity qui peut changer
         private float m_bonusMaxVelocity;
         private float m_bonusAttackDelay;
-        private float m_attackTimer = 0.0f;                     
-        private bool m_attackReady = true;                   
+        protected float m_attackTimer = 0.0f;                     
+        protected bool m_attackReady = true;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             m_renderer = GetComponent<Renderer>();
             m_collider = GetComponent<BoxCollider2D>();
             m_rb = GetComponent<Rigidbody2D>();
+            m_players = GameObject.FindGameObjectsWithTag("Player");
         }
 
         private void Start()
         {
             m_prefab = m_enemyData.prefab;
-            m_health = m_enemyData.baseHealth;                        
-            m_players = GameObject.FindGameObjectsWithTag("Player");            
+            m_health = m_enemyData.baseHealth;          
         }
-        
-        private void Update()
+
+        protected virtual void Update()
         {
             if (!m_isActive)
                 return;
@@ -48,12 +47,12 @@ namespace SpaceBaboon.EnemySystem
                 ReadyAttack();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (!m_isActive)
                 return;
 
-            MoveTowardsPlayer();
+            Move();            
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -83,8 +82,13 @@ namespace SpaceBaboon.EnemySystem
                 m_attackReady = true;            
         }
 
+        protected virtual void Move()
+        {
+            MoveTowardsPlayer();
+        }
+
         private void MoveTowardsPlayer()
-        {            
+        {
             Vector3 playerPosition = m_players[0].transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
@@ -120,7 +124,7 @@ namespace SpaceBaboon.EnemySystem
             return m_enemyData.baseDamage /* + or * bonus */;
         }
 
-        private void Attack()
+        protected virtual void Attack()
         {            
             m_attackTimer = m_enemyData.baseAttackDelay /* + or * bonus */;
             m_attackReady = false;
