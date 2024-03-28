@@ -153,5 +153,10 @@ namespace SpaceBaboon
         {
             return m_currentHealth;
         }
+
+        public int GetRessourceOne()
+        {
+            return m_collectibleInventory[0];
+        }
     }
 }
