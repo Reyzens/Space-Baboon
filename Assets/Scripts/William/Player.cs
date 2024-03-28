@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace SpaceBaboon
 {
-    public class Player : MonoBehaviour , SpaceBaboon.IDamageable
+    public class Player : MonoBehaviour, SpaceBaboon.IDamageable
     {
         [SerializeField]
         private PlayerData m_playerData;
@@ -18,7 +17,7 @@ namespace SpaceBaboon
 
         private List<WeaponSystem.Weapon> m_equipedWeapon = new List<WeaponSystem.Weapon>();
         private List<WeaponSystem.Weapon> m_blockedWeapon = new List<WeaponSystem.Weapon>();
-        
+
         [SerializeField]
         private float m_currentHealth;
 
@@ -68,10 +67,10 @@ namespace SpaceBaboon
             {
                 OnDamageTaken(collision.gameObject.GetComponent<EnemySystem.Enemy>().GetDamage());
             }
-           //if (collision.gameObject.CompareTag("Projectile"))
-           //{
-           //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
-           //}
+            //if (collision.gameObject.CompareTag("Projectile"))
+            //{
+            //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
+            //}
         }
 
 
@@ -145,8 +144,8 @@ namespace SpaceBaboon
             {
                 m_currentHealth -= values;
             }
-            
-            
+
+
         }
 
         public float GetCurrentHealth()
