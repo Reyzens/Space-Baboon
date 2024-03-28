@@ -43,7 +43,7 @@ namespace SpaceBaboon.MenuSystem
         {
             //Debug.Log("Start Game");
 
-            SceneManager.LoadScene(m_lobbyScene.name);
+            SceneManager.LoadScene("SB_03-28_Map_Version 2");
         }
 
         private void OpenSettings()
@@ -53,7 +53,7 @@ namespace SpaceBaboon.MenuSystem
 
         private void QuitGame()
         {
-            //Application.Quit();
+            Application.Quit();
             Debug.Log("Quit Game");
         }
     }

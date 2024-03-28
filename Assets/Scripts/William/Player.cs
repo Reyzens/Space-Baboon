@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 
 namespace SpaceBaboon
 {
     public class Player : MonoBehaviour , SpaceBaboon.IDamageable
     {
+        [SerializeField] private Object m_mainMenuScene;
+
+
         [SerializeField]
         private PlayerData m_playerData;
 
@@ -49,6 +53,7 @@ namespace SpaceBaboon
             if (m_currentHealth <= 0)
             {
                 m_alive = false;
+                SceneManager.LoadScene("SB_MainMenu");
             }
         }
         private void OnTriggerEnter2D(Collider2D collision)
