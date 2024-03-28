@@ -47,7 +47,7 @@ namespace SpaceBaboon.EnemySystem
                 ReadyAttack();
         }
 
-        protected virtual void FixedUpdate()
+        private void FixedUpdate()
         {
             if (!m_isActive)
                 return;

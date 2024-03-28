@@ -1,4 +1,3 @@
-//using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
@@ -6,14 +5,8 @@ namespace SpaceBaboon.EnemySystem
     public class EnemyProjectile : Enemy
     {
         [SerializeField] private GameObject m_projectile;        
-        private float m_distanceToPlayer;        
-
-        //protected override void Awake()
-        //{
-        //    base.Awake();
-        //
-        //}
-
+        private float m_distanceToPlayer;
+        
         protected override void Update()
         {
             base.Update();
@@ -22,14 +15,9 @@ namespace SpaceBaboon.EnemySystem
             
             if (m_attackReady && m_distanceToPlayer < m_enemyData.baseAttackRange /* + or * bonus */)
             {
-                Attack();                
+                Attack(); // TODO a rechecker aussi pcq ça aurait rapport avec la maniere dont l'attaque est faites               
             }
-        }
-
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
-        }
+        }        
 
         protected override void Move()
         {
@@ -62,7 +50,6 @@ namespace SpaceBaboon.EnemySystem
         {
             m_rb.AddForce(-m_rb.velocity.normalized * 10, ForceMode2D.Force);
         }
-
 
         private void CalculateDistanceToPlayer()
         {
