@@ -40,6 +40,7 @@ namespace SpaceBaboon
             m_playerTransform = GetComponent<Transform>();
             m_currentHealth = m_playerData.MaxHeatlh;
             m_alive = true;
+            DictionaryInistalisation();
         }
 
         // Update is called once per frame
@@ -152,6 +153,26 @@ namespace SpaceBaboon
         public float GetCurrentHealth()
         {
             return m_currentHealth;
+        }
+
+        public int GetRessourceOne()
+        {
+            return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)0];
+        }
+        public int GetRessourceTwo()
+        {
+            return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)1];
+        }
+        public int GetRessourceTree()
+        {
+            return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)2];
+        }
+        private void DictionaryInistalisation()
+        {
+            for (int i = 0; i != (int)SpaceBaboon.InteractableResource.EResourceType.Count; i++)
+            {
+                m_collectibleInventory.Add((SpaceBaboon.InteractableResource.EResourceType)i,0);
+            }        
         }
     }
 }
