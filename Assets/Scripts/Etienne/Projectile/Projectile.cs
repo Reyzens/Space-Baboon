@@ -8,21 +8,18 @@ namespace SpaceBaboon.WeaponSystem
 
         private Vector2 m_direction;
         private float m_lifetime = 0.0f;
-        private bool m_isActive = false;
         private float m_bonusDmg = 0;
         private float m_damage = 0;
 
-        
-
+        //For ObjectPool
+        private bool m_isActive = false;
         SpriteRenderer m_renderer;
         CircleCollider2D m_collider;
-
         ObjectPool m_parentPool;
 
         public bool IsActive
         {
             get { return m_isActive; }
-            //set { m_isActive = value; } // private set ?
         }
 
         private void Awake()

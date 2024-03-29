@@ -12,8 +12,6 @@ namespace SpaceBaboon.MenuSystem
         private Button m_settingsButton;
         private Button m_quitButton;
 
-        [SerializeField] private Object m_lobbyScene;
-
         private void Awake()
         {
             m_uiDoc = GetComponent<UIDocument>();
@@ -53,7 +51,7 @@ namespace SpaceBaboon.MenuSystem
 
         private void QuitGame()
         {
-            Application.Quit();
+            //Application.Quit();
             Debug.Log("Quit Game");
         }
     }

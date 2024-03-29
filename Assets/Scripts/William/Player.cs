@@ -7,9 +7,6 @@ namespace SpaceBaboon
 {
     public class Player : MonoBehaviour , SpaceBaboon.IDamageable
     {
-        [SerializeField] private Object m_mainMenuScene;
-
-
         [SerializeField]
         private PlayerData m_playerData;
 

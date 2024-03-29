@@ -73,7 +73,7 @@ namespace SpaceBaboon
             m_poolSize = poolSize;
         }
 
-        public int GetPoolQueue()
+        public int GetPoolQueueSize()
         {
             return m_pooledObjects.Count;
         }
