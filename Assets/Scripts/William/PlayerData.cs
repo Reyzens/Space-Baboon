@@ -4,16 +4,13 @@ using UnityEngine;
 namespace SpaceBaboon
 {
     [CreateAssetMenu(fileName = "New ResourceData", menuName = "SpaceBaboon/ScriptableObjects/PlayerData", order = 0)]
-    public class PlayerData : ScriptableObject
+    public class PlayerData : CharacterData
     {
-        public int Index;
-        public string Name;
-        public int MaxHeatlh;
-        public int Movespeed;
-        public int DashCD;
-        public int DashDistance;
-        public int DashSpeed;
-        public int DashStatck;
+        [Header("PlayerUniqueStats")]
+        public float DefaultDashCD;
+        public float DefaultDashDistance;
+        public float DefaultDashSpeed;
+        public int DefaultDashStatck;
     }
 
 
