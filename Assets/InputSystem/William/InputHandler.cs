@@ -12,7 +12,7 @@ namespace SpaceBaboon
         public delegate void MoveEvent(Vector2 values);
         public delegate void DashEvent();
 
-        private PlayerInput m_Input;
+        public PlayerInput m_Input;
         public MoveEvent m_MoveEvent;
         public DashEvent m_DashEvent;
         

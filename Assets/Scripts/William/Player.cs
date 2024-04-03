@@ -66,7 +66,9 @@ namespace SpaceBaboon
         //Methods
         private void PlayerVariablesInitialization()
         {
+            InputHandler.instance.m_Input.Enable();
             SubscribeToInputEvent();
+            
                 
             m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
             m_equipedWeapon = new List<WeaponSystem.Weapon>();
@@ -144,9 +146,10 @@ namespace SpaceBaboon
         
         private void OnPlayerDeath()
         {
-            if (m_currentHealth <= 0)
+            if (m_currentHealth <= 0 || m_alive == false)
             {
                 m_alive = false;
+                InputHandler.instance.m_Input.Disable();
                 SceneManager.LoadScene("SB_MainMenu");
             }
         }
@@ -203,6 +206,7 @@ namespace SpaceBaboon
             if (m_DebugMode)
             {
                 //OnDamageTaken(10);
+                m_alive = false;
                 Debug.Log("Dash");
             }
         }
