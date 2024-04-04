@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 811868902}
   - component: {fileID: 811868901}
-  - component: {fileID: 811868900}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -141,20 +140,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &811868900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 811868899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e3f6a38fe2d7cc459a868f6c574d127, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_container: {fileID: 0}
-  m_poolSize: 10
 --- !u!114 &811868901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6443aacb9c3bdc040bb57e4fbcf9d090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_pool: {fileID: 811868900}
+  m_pool:
+    m_container: {fileID: 0}
+    m_poolSize: 10
   m_prefab1: {fileID: 8783084722343162297, guid: 9b30e372be9b0034f8cf19fc6fdced70, type: 3}
   m_prefab2: {fileID: 8783084722343162297, guid: 2048804f2d3e8f340a7e316f7f988cba, type: 3}
   m_prefabToSpawn: {fileID: 0}
