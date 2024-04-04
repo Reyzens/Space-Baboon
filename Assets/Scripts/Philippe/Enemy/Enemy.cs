@@ -54,6 +54,7 @@ namespace SpaceBaboon.EnemySystem
         {
             if (collision.gameObject.CompareTag("Projectile"))
             {
+                Debug.Log("Received " + collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit() + " damage");
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
             }
         }
@@ -102,12 +103,15 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        public void OnDamageTaken(float values)
+        public override void OnDamageTaken(float values)
         {
             m_health -= values;
 
+            Debug.Log("enemy hit have " + m_health + " health");
             if (m_health <= 0)
+            {
                 m_parentPool.UnSpawn(gameObject);
+            }
         }
 
         public float GetDamage() // TODO a discuter, fonctionnement de cette methode
