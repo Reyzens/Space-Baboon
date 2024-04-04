@@ -4,36 +4,36 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class Projectile : MonoBehaviour, IPoolable
     {
-        [SerializeField] private ProjectileData m_projectileData;
+        [SerializeField] protected ProjectileData m_projectileData;
 
-        private Vector2 m_direction;
-        private float m_lifetime = 0.0f;
-        private float m_bonusDmg = 0;
-        private float m_damage = 0;
+        protected Vector2 m_direction;
+        protected float m_lifetime = 0.0f;
+        protected float m_bonusDmg = 0;
+        protected float m_damage = 0;
 
         //For ObjectPool
-        private bool m_isActive = false;
-        SpriteRenderer m_renderer;
-        CircleCollider2D m_collider;
-        ObjectPool m_parentPool;
+        protected bool m_isActive = false;
+        protected SpriteRenderer m_renderer;
+        protected CircleCollider2D m_collider;
+        protected ObjectPool m_parentPool;
 
         public bool IsActive
         {
             get { return m_isActive; }
         }
 
-        private void Awake()
+        protected void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
         }
 
-        private void Start()
+        protected void Start()
         {
             m_damage = m_projectileData.damage;
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (!m_isActive)
             {
@@ -51,13 +51,13 @@ namespace SpaceBaboon.WeaponSystem
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected void OnCollisionEnter2D(Collision2D collision)
         {
             m_parentPool.UnSpawn(gameObject);
             //Debug.Log("projectile hit: " + collision.gameObject.name);
         }
 
-        public void Shoot(Vector2 direction)
+        public virtual void Shoot(Vector2 direction)
         {
             m_direction = direction.normalized;
         }
@@ -78,12 +78,12 @@ namespace SpaceBaboon.WeaponSystem
             SetComponents(false);
         }
 
-        private void ResetValues(Vector2 pos)
+        protected void ResetValues(Vector2 pos)
         {
             m_lifetime = 0.0f;
             transform.position = pos;
         }
-        private void SetComponents(bool value)
+        protected void SetComponents(bool value)
         {
             m_renderer.enabled = value;
             m_collider.enabled = value;
