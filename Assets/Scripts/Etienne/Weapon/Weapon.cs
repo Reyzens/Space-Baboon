@@ -4,23 +4,23 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] private WeaponData m_weaponData;
-        [SerializeField] private ObjectPool m_pool;
-        [SerializeField] private float m_spawnDistance;
-        [SerializeField] private float m_attackSpeedScaling;
-        [SerializeField] private bool m_debugMode = false;
+        [SerializeField] protected WeaponData m_weaponData;
+        [SerializeField] protected ObjectPool m_pool;
+        [SerializeField] protected float m_spawnDistance;
+        [SerializeField] protected float m_attackSpeedScaling;
+        [SerializeField] protected bool m_debugMode = false;
 
-        private float m_attackingCooldown = 0.0f;
-        private float m_attackSpeedModifier = 1.0f;
-        private int m_currentLevel = 1;
-        private bool m_isCollecting = false;
+        protected float m_attackingCooldown = 0.0f;
+        protected float m_attackSpeedModifier = 1.0f;
+        protected int m_currentLevel = 1;
+        protected bool m_isCollecting = false;
 
-        private void Awake()
+        protected void Awake()
         {
             m_pool.CreatePool(m_weaponData.projectilePrefab);
         }
 
-        private void Update()
+        protected void Update()
         {
             if (m_isCollecting)
             {
@@ -35,9 +35,9 @@ namespace SpaceBaboon.WeaponSystem
             m_attackingCooldown += Time.deltaTime * m_attackSpeedModifier;
         }
 
-        private void Attack()
+        protected void Attack()
         {
-            Vector2 direction = AimAtClosestEnemy();
+            Vector2 direction = GetTarget();
 
             Vector2 directionWithDistance = direction.normalized * m_spawnDistance;
             Vector2 spawnPos = new Vector2(transform.position.x + directionWithDistance.x, transform.position.y + directionWithDistance.y);
@@ -47,28 +47,9 @@ namespace SpaceBaboon.WeaponSystem
             projectile.GetComponent<Projectile>()?.Shoot(direction);
         }
 
-        private Vector2 AimAtClosestEnemy()
+        protected virtual Vector2 GetTarget()
         {
-
-            for (int i = 0; i < m_weaponData.maxRange; i++)
-            {
-                var colliders = Physics2D.OverlapCircleAll(transform.position, i);
-
-                foreach (var collider in colliders)
-                {
-                    if (collider.gameObject.tag == "Enemy")
-                    {
-                        Vector2 enemyPosition = collider.gameObject.transform.position;
-                        Vector2 enemyDirection = enemyPosition - new Vector2(transform.position.x, transform.position.y);
-                        return enemyDirection;
-                    }
-                }
-
-
-            }
-
-            //Didn't find an enemy
-            return Vector2.up;
+            return transform.position;
         }
 
         public void SetIsCollecting(bool value)
