@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_pool:
     m_container: {fileID: 0}
-    m_poolSize: 10
+    m_poolStartingSize: 10
   m_prefab1: {fileID: 8783084722343162297, guid: 9b30e372be9b0034f8cf19fc6fdced70, type: 3}
   m_prefab2: {fileID: 8783084722343162297, guid: 2048804f2d3e8f340a7e316f7f988cba, type: 3}
   m_prefabToSpawn: {fileID: 0}
