@@ -217,7 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d18ee37b127949a4d6cf5315e6695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRef: {fileID: 6880693972405861335}
 --- !u!1 &781405104
 GameObject:
   m_ObjectHideFlags: 0
@@ -3373,7 +3372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c9dba6c428d9140b43535d606286fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRef: {fileID: 6880693972405861335}
 --- !u!50 &5669804103495364942
 Rigidbody2D:
   serializedVersion: 4
@@ -4005,10 +4003,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f9a6f8fd40efb4c9d0fa02f936c118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
+  m_currentDashCD: 0
+  m_currentDashSpeed: 0
+  m_currentDashDistance: 0
+  m_currentDashStack: 0
+  m_isDashind: 0
   m_DebugMode: 1
-  m_currentHealth: 0
-  m_alive: 0
+  m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
 --- !u!50 &6967944606495269532
 Rigidbody2D:
   serializedVersion: 4
@@ -4590,7 +4591,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}

@@ -15,12 +15,12 @@ MonoBehaviour:
   DefaultIndex: 1
   DefaultName: Baboon
   DefaultBaseHeatlh: 100
-  DefaultBaseMovespeed: 200
+  DefaultBaseMovespeed: 100
   defaultSprite: {fileID: 0}
   DefaultPrefab: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-  DefaultBaseAcceleration: 10
-  DefaultBaseMaxVelocity: 50
+  DefaultBaseAcceleration: 400
+  DefaultBaseMaxVelocity: 30
   DefaultDashCD: 2
   DefaultDashDistance: 10
-  DefaultDashSpeed: 50
+  DefaultDashSpeed: 200
   DefaultDashStatck: 1

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SpaceBaboon.PoolingSystem;
@@ -8,7 +7,7 @@ namespace SpaceBaboon
 {
     public class TestSpawner : MonoBehaviour
     {
-        [SerializeField] private GenericObjectPool m_pool;
+        [SerializeField] private GenericObjectPool m_pool = new GenericObjectPool();
         [SerializeField] private GameObject m_prefab1;
         [SerializeField] private GameObject m_prefab2;
         [SerializeField] private GameObject m_prefabToSpawn;
@@ -21,6 +20,9 @@ namespace SpaceBaboon
 
         private void Awake()
         {
+            //m_pool = new GenericObjectPool();
+
+
             m_prefabToSpawn = m_prefab1;
 
             List<GameObject> list = new List<GameObject>();

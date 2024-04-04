@@ -1,13 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceBaboon.PoolingSystem
 {
-    public class GenericObjectPool : MonoBehaviour
+    [System.Serializable]
+    public class GenericObjectPool
     {
         [SerializeField] private GameObject m_container;
-        [SerializeField] private int m_poolSize;
+        [SerializeField] private int m_poolStartingSize;
 
         private Dictionary<string, Queue<GameObject>> m_pooledObjects = new Dictionary<string, Queue<GameObject>>();
 
@@ -18,18 +18,18 @@ namespace SpaceBaboon.PoolingSystem
 
             foreach (GameObject prefab in prefabList)
             {
-                if (m_poolSize <= 0)
+                if (m_poolStartingSize <= 0)
                 {
                     Debug.LogError("Invalid pool size");
-                    m_poolSize = 10;
+                    m_poolStartingSize = 10;
                 }
 
                 Queue<GameObject> newQueue = new Queue<GameObject>();
-                for (int i = 0; i < m_poolSize; i++)
+                for (int i = 0; i < m_poolStartingSize; i++)
                 {
-                    GameObject obj = Instantiate(prefab, m_container.transform);
+                    GameObject obj = GameObject.Instantiate(prefab, m_container.transform);
 
-                    obj.GetComponent<IPoolableNew>().Deactivate();
+                    obj.GetComponent<IPoolableGeneric>().Deactivate();
                     newQueue.Enqueue(obj);
                 }
 
@@ -45,15 +45,15 @@ namespace SpaceBaboon.PoolingSystem
             {
                 var obj = m_pooledObjects[keyName].Dequeue();
 
-                var pooledObj = obj.GetComponent<IPoolableNew>();
+                var pooledObj = obj.GetComponent<IPoolableGeneric>();
                 pooledObj.Activate(pos, this);
 
                 return obj;
             }
 
             //If pool is empty 
-            GameObject newObj = Instantiate(prefabToSpawn, m_container.transform);
-            newObj.GetComponent<IPoolableNew>().Activate(pos, this);
+            GameObject newObj = GameObject.Instantiate(prefabToSpawn, m_container.transform);
+            newObj.GetComponent<IPoolableGeneric>().Activate(pos, this);
             //Debug.Log("activating new : " + prefabToSpawn.name);
 
             return newObj;
@@ -61,7 +61,7 @@ namespace SpaceBaboon.PoolingSystem
 
         public void UnSpawn(GameObject obj)
         {
-            var pooledObject = obj.GetComponent<IPoolableNew>();
+            var pooledObject = obj.GetComponent<IPoolableGeneric>();
             if (pooledObject == null)
             {
                 Debug.LogError(obj.name + "is not poolable");
@@ -73,9 +73,9 @@ namespace SpaceBaboon.PoolingSystem
             m_pooledObjects[obj.name].Enqueue(obj);
         }
 
-        public void SetPoolSize(int poolSize)
+        public void SetPoolStartingSize(int poolSize)
         {
-            m_poolSize = poolSize;
+            m_poolStartingSize = poolSize;
         }
     }
 }
