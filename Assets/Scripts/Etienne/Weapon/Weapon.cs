@@ -42,7 +42,7 @@ namespace SpaceBaboon.WeaponSystem
             Vector2 directionWithDistance = direction.normalized * m_spawnDistance;
             Vector2 spawnPos = new Vector2(transform.position.x + directionWithDistance.x, transform.position.y + directionWithDistance.y);
             var projectile = m_pool.Spawn(spawnPos);
-            //Debug.Log("spawning");
+            //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
             projectile.GetComponent<Projectile>()?.Shoot(direction);
         }
