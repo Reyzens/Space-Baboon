@@ -171,6 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1ab401fdf12f540b0f879d5db20dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyData: {fileID: 11400000, guid: 1ca1b652248678b4a9f4e1a3214576d7, type: 2}
+  m_enemyData: {fileID: 11400000, guid: 66ffc4dae1bb93f45ada626e302182c3, type: 2}
   m_health: 0
   m_obstructionPushForce: 20
