@@ -10,7 +10,11 @@ namespace SpaceBaboon
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime, Space.World);
         }
 
-        public override void Shoot(Transform direction)
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            m_parentPool.UnSpawn(gameObject);
+        }
+        public override void Shoot(ref Transform direction)
         {
             Vector2 newDirection = direction.position;
             Vector2 currentPosition = transform.position;

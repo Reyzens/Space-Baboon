@@ -1,4 +1,5 @@
 using SpaceBaboon.WeaponSystem;
+using System.Collections;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -6,12 +7,12 @@ namespace SpaceBaboon
     public class GrenadeLauncherProjectile : Projectile, IExplodable
     {
         //Private variables
-        [SerializeField] private float m_curvatureStrength;
-        [SerializeField] private Vector2 m_curvatureDirection = Vector2.up;
-        private Vector2 m_initialPosition;
-        private Vector2 m_centerPoint;
-        // Rotation speed in degrees per second
-        [SerializeField] private float rotationSpeed = 90f;
+        [SerializeField] private AnimationCurve m_grenadeCurve;
+        [SerializeField] private float m_curveMaxHeight;
+        [SerializeField] private float m_curveDuration;
+        private Vector2 m_lastTargetPosition;
+        private Vector2 m_initialShootingPosition;
+        private float m_initialDistanceToTarget;
         public float m_currentExplodingTimer => throw new System.NotImplementedException();
 
         public float m_maxExplodingTime => throw new System.NotImplementedException();
@@ -26,41 +27,44 @@ namespace SpaceBaboon
 
         public CircleCollider2D m_explosionCollider => throw new System.NotImplementedException();
 
-        protected override void Update()
+        protected override void Start()
         {
-            if (!m_isActive)
+            base.Start();
+            m_target = null;
+        }
+        public override void Shoot(ref Transform direction)
+        {
+            m_target = direction;
+            m_initialShootingPosition = transform.position;
+            Vector2 initialPosition = transform.position;
+            if (m_target != null)
             {
-                return;
+                Debug.Log(m_target.position);
+                m_initialDistanceToTarget = Vector2.Distance(m_target.position, initialPosition);
+                m_lastTargetPosition = m_target.position;
             }
-
-            if (m_lifetime > m_projectileData.maxLifetime)
-            {
-                m_parentPool.UnSpawn(gameObject);
-            }
-
-            m_lifetime += Time.deltaTime;
-
-            GrenadeDirection();
+            StartCoroutine(Curve(transform.position, m_target.position));
         }
 
-        public override void Shoot(Transform direction)
+        public IEnumerator Curve(Vector2 start, Vector2 end)
         {
-            m_direction = new Vector2(direction.position.x, direction.position.y) + new Vector2(transform.position.x, transform.position.y);
-            m_initialPosition = transform.position;
-            m_centerPoint = (m_initialPosition + m_direction) / 2;
-        }
-        private void GrenadeDirection()
-        {
-            // Convert the 2D midpoint to 3D space, assuming z=0
-            Vector3 rotationPoint = new Vector3(m_centerPoint.x, m_centerPoint.y, 0);
+            float timePassed = 0.0f;
 
-            // Rotate around the midpoint
-            // Here, Vector3.forward is used as the rotation axis for 2D rotation
-            // Modify the rotation speed if you want faster or slower rotation
-            transform.RotateAround(rotationPoint, Vector3.forward, rotationSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, m_direction) < 0.2f)
+            if (m_target != null)
             {
-                m_lifetime = m_projectileData.maxLifetime;
+                while (timePassed < m_curveDuration)
+                {
+                    timePassed += Time.deltaTime;
+
+                    float timeSpeedScaling = timePassed / m_curveDuration;
+                    float heightScaling = m_grenadeCurve.Evaluate(timeSpeedScaling);
+
+                    float directionHeightModifier = Mathf.Lerp(0.0f, m_curveMaxHeight, heightScaling);
+
+                    transform.position = Vector2.Lerp(start, end, timeSpeedScaling) + new Vector2(0.0f, directionHeightModifier);
+
+                    yield return null;
+                }
             }
         }
         public void Explode()

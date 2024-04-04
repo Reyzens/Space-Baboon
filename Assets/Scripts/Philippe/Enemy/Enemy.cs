@@ -1,5 +1,5 @@
-using UnityEngine;
 using SpaceBaboon.PoolingSystem;
+using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -50,11 +50,11 @@ namespace SpaceBaboon.EnemySystem
             Move();
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Projectile"))
             {
-                OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().GetDamage());
+                OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
             }
         }
 

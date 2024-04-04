@@ -44,7 +44,7 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(direction);
+            projectile.GetComponent<Projectile>()?.Shoot(ref direction);
         }
 
         protected virtual Transform GetTarget()

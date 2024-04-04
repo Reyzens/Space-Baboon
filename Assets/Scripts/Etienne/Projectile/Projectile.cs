@@ -8,6 +8,7 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] protected ProjectileData m_projectileData;
 
         protected Vector2 m_direction;
+        protected Transform m_target;
         protected float m_lifetime = 0.0f;
         protected float m_bonusDmg = 0;
         protected float m_damage = 0;
@@ -29,7 +30,7 @@ namespace SpaceBaboon.WeaponSystem
             m_collider = GetComponent<CircleCollider2D>();
         }
 
-        protected void Start()
+        protected virtual void Start()
         {
             m_damage = m_projectileData.damage;
         }
@@ -61,11 +62,9 @@ namespace SpaceBaboon.WeaponSystem
 
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            m_parentPool.UnSpawn(gameObject);
-            //Debug.Log("projectile hit: " + collision.gameObject.name);
-        }
 
-        public virtual void Shoot(Transform direction)
+        }
+        public virtual void Shoot(ref Transform direction)
         {
             m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
         }
@@ -96,7 +95,7 @@ namespace SpaceBaboon.WeaponSystem
             m_collider.enabled = value;
         }
 
-        public float GetDamage()
+        public float OnHit()
         {
             return m_damage;
         }
