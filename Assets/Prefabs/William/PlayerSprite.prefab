@@ -245,7 +245,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -301,7 +301,19 @@ MonoBehaviour:
     m_ActionId: 1c76bf9b-2d4a-4563-8250-e12af8265582
     m_ActionName: PlayerMovement/PlayerDirection[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4296487818868317848}
+        m_TargetAssemblyTypeName: SpaceBaboon.InputHandler, Assembly-CSharp
+        m_MethodName: OnPlayerDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: b9c77b2a-7edb-46fb-a683-f58503159798
     m_ActionName: PlayerMovement/PlayerDash[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
@@ -333,11 +345,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f9a6f8fd40efb4c9d0fa02f936c118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_mainMenuScene: {fileID: 102900000, guid: cb2b28dee0f734342956cbe348b5431d, type: 3}
-  m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
+  m_currentDashCD: 0
+  m_currentDashSpeed: 0
+  m_currentDashDistance: 0
+  m_currentDashStack: 0
+  m_isDashind: 0
   m_DebugMode: 1
-  m_currentHealth: 0
-  m_alive: 0
+  m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
 --- !u!1 &5932719882914661791
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,8 +453,8 @@ MonoBehaviour:
   m_weaponData: {fileID: 11400000, guid: 2c8f820fade1ade49a5f9c53594aee6c, type: 2}
   m_pool: {fileID: 8573564799828253340}
   m_spawnDistance: 1
-  m_debugMode: 0
   m_attackSpeedScaling: 0.25
+  m_debugMode: 0
 --- !u!114 &8573564799828253340
 MonoBehaviour:
   m_ObjectHideFlags: 0
