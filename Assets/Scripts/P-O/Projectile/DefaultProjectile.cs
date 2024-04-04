@@ -7,12 +7,14 @@ namespace SpaceBaboon
         protected override void MovingDirection()
         {
             //Debug.Log("Called Default weapon MovingDirection with thos data : m_direction = " + m_direction + " m_projectileDataSpeed = " + m_projectileData.speed);
-            transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
+            transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime, Space.World);
         }
 
-        public override void Shoot(Vector2 direction)
+        public override void Shoot(Transform direction)
         {
-            m_direction = direction.normalized;
+            Vector2 newDirection = direction.position;
+            Vector2 currentPosition = transform.position;
+            m_direction = (newDirection - currentPosition).normalized;
             //Debug.Log("Called Default weapon shoot with those data : m_direction = " + m_direction);
         }
     }

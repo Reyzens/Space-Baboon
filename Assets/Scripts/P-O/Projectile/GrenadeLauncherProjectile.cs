@@ -43,9 +43,9 @@ namespace SpaceBaboon
             GrenadeDirection();
         }
 
-        public override void Shoot(Vector2 direction)
+        public override void Shoot(Transform direction)
         {
-            m_direction = direction + new Vector2(transform.position.x, transform.position.y);
+            m_direction = new Vector2(direction.position.x, direction.position.y) + new Vector2(transform.position.x, transform.position.y);
             m_initialPosition = transform.position;
             m_centerPoint = (m_initialPosition + m_direction) / 2;
         }

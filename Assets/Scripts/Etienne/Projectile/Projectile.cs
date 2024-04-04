@@ -65,9 +65,9 @@ namespace SpaceBaboon.WeaponSystem
             //Debug.Log("projectile hit: " + collision.gameObject.name);
         }
 
-        public virtual void Shoot(Vector2 direction)
+        public virtual void Shoot(Transform direction)
         {
-            m_direction = direction.normalized;
+            m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
         }
 
         public void Activate(Vector2 pos, ObjectPool pool)
