@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -13,10 +14,12 @@ namespace SpaceBaboon
         private int m_rotationlock;
         private float m_horizontal;
         private float m_vertical;
-        private float m_currentDashCD;
-        private float m_currentDashSpeed;
-        private float m_currentDashDistance;
-        private int m_currentDashStack;
+        private Vector2 m_destination;
+        [SerializeField]private float m_currentDashCD;
+        [SerializeField]private float m_currentDashSpeed;
+        [SerializeField]private float m_currentDashDistance;
+        [SerializeField]private int m_currentDashStack;
+        [SerializeField]private bool m_isDashind;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
         private List<WeaponSystem.Weapon> m_equipedWeapon;
         private List<WeaponSystem.Weapon> m_blockedWeapon;
@@ -31,8 +34,6 @@ namespace SpaceBaboon
         //SerializeVraiables
         [SerializeField]private bool m_DebugMode;
         [SerializeField] private PlayerData m_playerData;
-        
-        
         
             
         //Unity Methods
@@ -54,7 +55,22 @@ namespace SpaceBaboon
 
         private void FixedUpdate()
         {
-            
+            if (m_destination != Vector2.zero) // Check if there's any movement input
+            {
+                m_characterRb.AddForce(m_destination * m_playerData.DefaultBaseAcceleration, ForceMode2D.Force);
+                //Debug.Log("destination value.x = " + m_destination.x);
+                //Debug.Log("destination value.y = " + m_destination.y);
+                //RegulateVelocity();
+                //Debug.Log("destination value.x after Regulate = " + m_destination.x);
+                //Debug.Log("destination value.y after Regulate = " + m_destination.y);
+            }
+
+            RegulateVelocity();
+            //if (m_destination is { x: 0, y: 0 })
+            //{
+            //    m_characterRb.velocity = Vector2.zero;
+            //}
+
         }
 
         private void OnDestroy()
@@ -101,6 +117,7 @@ namespace SpaceBaboon
             
             m_alive = true;
             enabled = true;
+            m_isDashind = false;
         }
         
         private void SubscribeToInputEvent()
@@ -154,47 +171,16 @@ namespace SpaceBaboon
             }
         }
         
-        protected override void Move(Vector2 values) 
+        protected override void Move(Vector2 values)
         {
-            if (values == Vector2.zero)
-            {
-                m_characterRb.velocity = new Vector2(0, 0);
-                m_characterRb.rotation = m_rotationlock;
-                m_characterRb.angularVelocity = m_rotationlock;
-                return;
-            }
-            
-            m_horizontal = values.x;
-            m_vertical = values.y;
-            Vector2 movementVector2 = Vector2.zero;
-            
-            //Vector2 movementVector2 =  new Vector2(m_horizontal, m_vertical) * m_currentMovespeed;
-            //m_characterRb.AddForce(movementVector2, ForceMode2D.Force);
-            
-            movementVector2.Set(values.x,values.y);
-            m_characterRb.velocity = movementVector2 * m_currentMovespeed;
-
-            if (movementVector2.magnitude > 0)
-            {
-                RegulateVelocity();
-            }
-            
-            
-            
-            //aa
-            
-           //Vector3 playerPosition = m_players[0].transform.position;
-
-           //Vector2 direction = (playerPosition - transform.position).normalized;
-           //m_rb.AddForce(direction * m_enemyData.baseAcceleration /* + or * bonus */, ForceMode2D.Force);
-
-           //if (direction.magnitude > 0)
-           //    RegulateVelocity();
+            Debug.Log("value.x = " + values.x);
+            Debug.Log("value.y = " + values.y);
+            m_destination = new Vector2(values.x, values.y).normalized;
         }
 
         protected override void RegulateVelocity()
         {
-            if (m_characterRb.velocity.magnitude > m_currentVelocity /* + or * bonus */)
+            if (m_characterRb.velocity.magnitude > m_playerData.DefaultBaseMaxVelocity /* + or * bonus */)
             {
                 m_characterRb.velocity = m_characterRb.velocity.normalized;
                 m_characterRb.velocity *= m_currentVelocity /* + or * bonus */;
@@ -203,12 +189,23 @@ namespace SpaceBaboon
 
         private void Dash()
         {
-            if (m_DebugMode)
+            StartCoroutine(DashCouritine());
+        }
+        private IEnumerator DashCouritine()
+        {
+            if (m_currentDashStack >= 1)
             {
-                //OnDamageTaken(10);
-                m_alive = false;
-                Debug.Log("Dash");
+                m_isDashind = true;
+                m_characterRb.velocity = new Vector2(m_horizontal * m_currentDashSpeed, m_vertical * m_currentDashSpeed);
+                yield return new WaitForSeconds(m_currentDashCD);
+                m_isDashind = false;
             }
+            //if (m_DebugMode)
+            //{
+            //    //OnDamageTaken(10);
+            //    m_alive = false;
+            //    Debug.Log("Dash");
+            //}
         }
 
         #region Crafting
