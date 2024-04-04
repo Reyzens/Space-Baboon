@@ -20,9 +20,6 @@ namespace SpaceBaboon
 
         private void Awake()
         {
-            //m_pool = new GenericObjectPool();
-
-
             m_prefabToSpawn = m_prefab1;
 
             List<GameObject> list = new List<GameObject>();
