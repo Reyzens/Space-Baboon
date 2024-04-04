@@ -21,7 +21,7 @@ namespace SpaceBaboon
         {
             enabled = false;
             InputHandler.instance.m_MoveEvent += Move;
-            InputHandler.instance.m_DashEvent += Dash;
+            //InputHandler.instance.m_DashEvent += Dash;
             m_playerRigidbody = GetComponent<Rigidbody2D>();
             m_playerTransform = GetComponent<Transform>();
         }
@@ -30,23 +30,23 @@ namespace SpaceBaboon
 
         private void Move(Vector2 values)
         {
-            if (values == Vector2.zero)
-            {
-                enabled = false;
-                m_playerRigidbody.velocity = new Vector2(0, 0);
-                m_playerRigidbody.rotation = m_rotationlock;
-                m_playerRigidbody.angularVelocity = m_rotationlock;
-                return;
-            }
-
-
-            m_horizontal = values.x;
-            m_vertical = values.y;
-
-            m_playerRigidbody.velocity = new Vector2(m_horizontal, m_vertical) * m_playerSpeed;
-            m_playerRigidbody.freezeRotation = true;
-
-            enabled = true;
+            //if (values == Vector2.zero)
+            //{
+            //    enabled = false;
+            //    m_playerRigidbody.velocity = new Vector2(0, 0);
+            //    m_playerRigidbody.rotation = m_rotationlock;
+            //    m_playerRigidbody.angularVelocity = m_rotationlock;
+            //    return;
+            //}
+//
+//
+            //m_horizontal = values.x;
+            //m_vertical = values.y;
+//
+            //m_playerRigidbody.velocity = new Vector2(m_horizontal, m_vertical) * m_playerSpeed;
+            //m_playerRigidbody.freezeRotation = true;
+//
+            //enabled = true;
 
         }
 
