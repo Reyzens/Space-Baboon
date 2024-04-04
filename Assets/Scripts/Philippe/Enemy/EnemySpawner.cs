@@ -1,11 +1,14 @@
 using UnityEngine;
+using SpaceBaboon.PoolingSystem;
+using System.Collections.Generic;
 
 namespace SpaceBaboon.EnemySystem
 {
     public class EnemySpawner : MonoBehaviour
     {
-        [SerializeField] private GameObject m_meleeEnemy;
-        [SerializeField] private ObjectPool m_meleeEnemyPool;
+        [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
+        [SerializeField] private List<GameObject> m_enemies = new List<GameObject>();
+
         [SerializeField] private GameObject m_map;
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
         [SerializeField] private float m_spawningDelay = 0.0f;
@@ -16,7 +19,12 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            m_meleeEnemyPool.CreatePool(m_meleeEnemy);
+            List<GameObject> list = new List<GameObject>();
+
+            foreach (GameObject enemyPrefab in m_enemies)
+                list.Add(enemyPrefab);
+
+            m_enemyPool.CreatePool(list, "test");
         }
 
         private void Start()
@@ -58,22 +66,23 @@ namespace SpaceBaboon.EnemySystem
             bool validPosFound = false;
             Vector3 spawnWorldPos = Vector3.zero;
 
-            while (!validPosFound) 
+            while (!validPosFound)
             {
                 Vector2 randomPosOnCircle = RandomPosOnCircle(spawnRadius);
                 Vector3 spawnPos = new Vector3(randomPosOnCircle.x, randomPosOnCircle.y, m_cam.nearClipPlane);
 
                 spawnWorldPos = m_cam.transform.position + spawnPos;
 
-                if(spawnWorldPos.x < mapMax.x &&
+                if (spawnWorldPos.x < mapMax.x &&
                    spawnWorldPos.y < mapMax.y &&
                    spawnWorldPos.x > mapMin.x &&
                    spawnWorldPos.y > mapMin.y)
                 {
                     validPosFound = true;
-                    m_meleeEnemyPool.Spawn(spawnWorldPos);
+                    m_enemyPool.Spawn(m_enemies[0], spawnWorldPos);
+                    //m_enemyPool.Spawn(m_enemies[1], spawnWorldPos);
                 }
-            }           
+            }
         }
 
         private Vector2 RandomPosOnCircle(float radius)

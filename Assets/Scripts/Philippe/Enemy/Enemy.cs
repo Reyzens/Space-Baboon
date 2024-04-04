@@ -3,37 +3,36 @@ using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class Enemy : Character, IPoolable
+    public class Enemy : Character, IPoolableGeneric
     {
-        [SerializeField] private EnemyData m_enemyData;           
-        
-        private float m_health;
-        
-        private ObjectPool m_parentPool;
+        [SerializeField] private EnemyData m_enemyData;
+
+        private GenericObjectPool m_parentPool;
         private bool m_isActive = false;
-               
+
         private GameObject[] m_players; // TODO change how to get reference to player, maybe serialize the object
-                      
+
+        private float m_health;
         private float m_bonusDamage = 0.0f;
         private float m_bonusAcceleration; // Pour simplifier on pourrait simplement avoir une acceleration de base qui ne change pas et un max Velocity qui peut changer
         private float m_bonusMaxVelocity;
         private float m_bonusAttackDelay;
-        private float m_attackTimer = 0.0f;                     
-        private bool m_attackReady = true;                   
+        private float m_attackTimer = 0.0f;
+        private bool m_attackReady = true;
 
         private void Awake()
         {
             m_characterRenderer = GetComponent<Renderer>();
             m_characterCollider = GetComponent<BoxCollider2D>(); // À changer pour circle éventuellement
-            m_characterRb = GetComponent<Rigidbody2D>();            
-            m_health = m_enemyData.DefaultBaseHeatlh;            
+            m_characterRb = GetComponent<Rigidbody2D>();
+            m_health = m_enemyData.DefaultBaseHeatlh;
         }
 
         private void Start()
-        {                                 
-            m_players = GameObject.FindGameObjectsWithTag("Player");            
+        {
+            m_players = GameObject.FindGameObjectsWithTag("Player");
         }
-        
+
         private void Update()
         {
             if (!m_isActive)
@@ -52,22 +51,22 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
-        {            
+        {
             if (collision.gameObject.CompareTag("Projectile"))
-            {                
+            {
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().GetDamage());
-            }                       
+            }
         }
 
         private void OnCollisionStay2D(Collision2D collision)
-        {                       
+        {
             SlightPushFromObstructingObject(collision);
         }
 
         private void SlightPushFromObstructingObject(Collision2D collision)
         {
             Vector3 direction = collision.transform.position - transform.position;
-            m_characterRb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);            
+            m_characterRb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);
         }
 
         private void ReadyAttack()
@@ -75,21 +74,21 @@ namespace SpaceBaboon.EnemySystem
             m_attackTimer -= Time.deltaTime;
 
             if (m_attackTimer < 0.0f)
-                m_attackReady = true;            
+                m_attackReady = true;
         }
 
         protected override void Move()
-        {            
+        {
             MoveTowardsPlayer();
         }
 
         private void MoveTowardsPlayer()
-        {            
+        {
             Vector3 playerPosition = m_players[0].transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
             m_characterRb.AddForce(direction * m_enemyData.DefaultBaseAcceleration /* + or * bonus */, ForceMode2D.Force);
-            
+
             if (direction.magnitude > 0)
                 RegulateVelocity();
         }
@@ -113,7 +112,7 @@ namespace SpaceBaboon.EnemySystem
 
         public float GetDamage() // TODO a discuter, fonctionnement de cette methode
         {
-            if(!m_attackReady)
+            if (!m_attackReady)
                 return 0.0f;
 
             Attack();
@@ -121,34 +120,37 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void Attack()
-        {            
+        {
             m_attackTimer = m_enemyData.baseAttackDelay /* + or * bonus */;
             m_attackReady = false;
         }
 
-        #region ObjectPool
+        #region ObjectPooling
         public bool IsActive
         {
             get { return m_isActive; }
-            //set { m_isActive = value; } // private set ?
         }
 
-        public void Activate(Vector2 pos, ObjectPool pool)
+        public void Activate(Vector2 pos, GenericObjectPool pool)
         {
-            m_isActive = true;
+            ResetValues(pos);
             SetComponents(true);
-            transform.position = pos;
             m_parentPool = pool;
         }
 
         public void Deactivate()
         {
-            m_isActive = false;
             SetComponents(false);
+        }
+
+        private void ResetValues(Vector2 pos)
+        {
+            transform.position = pos;
         }
 
         private void SetComponents(bool value)
         {
+            m_isActive = value;
             m_characterRenderer.enabled = value;
             m_characterCollider.enabled = value;
         }
