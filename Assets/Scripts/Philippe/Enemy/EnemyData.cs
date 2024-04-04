@@ -3,18 +3,15 @@ using UnityEngine;
 namespace SpaceBaboon.EnemySystem
 {
     [CreateAssetMenu(fileName = "NewEnemyData", menuName = "SpaceBaboon/ScriptableObjects/EnemyData")]
-    public class EnemyData : ScriptableObject
+    public class EnemyData : CharacterData
     {
-        public string name;
-        public Sprite sprite;
-        public GameObject prefab;
-        public int baseHealth;
+        [Header("EnemyUniqueStats")]        
         public int baseDamage;        
-        public float size;
-        public float baseAcceleration;
-        public float baseMaxVelocity;        
-        public float baseAttackRange;
+        public float size; //TODO maybe remove            
+        public float baseAttackRange; //TODO maybe remove
         public float baseAttackDelay;
         public float obstructionPushForce;
+
+        // TODO enemy data prefab may be obsolete
     }
 }

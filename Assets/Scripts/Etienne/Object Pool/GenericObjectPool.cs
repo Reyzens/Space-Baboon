@@ -11,7 +11,6 @@ namespace SpaceBaboon.PoolingSystem
 
         private Dictionary<string, Queue<GameObject>> m_pooledObjects = new Dictionary<string, Queue<GameObject>>();
 
-
         public void CreatePool(List<GameObject> prefabList, string poolName)
         {
             m_container = new GameObject();

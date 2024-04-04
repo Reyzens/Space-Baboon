@@ -3,22 +3,17 @@ using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class Enemy : MonoBehaviour, IPoolable, IDamageable
+    public class Enemy : Character, IPoolable
     {
         [SerializeField] private EnemyData m_enemyData;           
-        [SerializeField] private float m_health;
-        [SerializeField] private float m_obstructionPushForce = 5.0f;
-
+        
+        private float m_health;
+        
         private ObjectPool m_parentPool;
         private bool m_isActive = false;
-
-        private Renderer m_renderer;
-        private BoxCollider2D m_collider;
-        private Rigidbody2D m_rb;
-        
-        private GameObject[] m_players; // TODO change how to get reference to player
-
-        private GameObject m_prefab;        
+               
+        private GameObject[] m_players; // TODO change how to get reference to player, maybe serialize the object
+                      
         private float m_bonusDamage = 0.0f;
         private float m_bonusAcceleration; // Pour simplifier on pourrait simplement avoir une acceleration de base qui ne change pas et un max Velocity qui peut changer
         private float m_bonusMaxVelocity;
@@ -28,15 +23,14 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            m_renderer = GetComponent<Renderer>();
-            m_collider = GetComponent<BoxCollider2D>();
-            m_rb = GetComponent<Rigidbody2D>();
+            m_characterRenderer = GetComponent<Renderer>();
+            m_characterCollider = GetComponent<BoxCollider2D>(); // À changer pour circle éventuellement
+            m_characterRb = GetComponent<Rigidbody2D>();            
+            m_health = m_enemyData.DefaultBaseHeatlh;            
         }
 
         private void Start()
-        {
-            m_prefab = m_enemyData.prefab;
-            m_health = m_enemyData.baseHealth;                        
+        {                                 
             m_players = GameObject.FindGameObjectsWithTag("Player");            
         }
         
@@ -54,7 +48,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            MoveTowardsPlayer();
+            Move();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -73,7 +67,7 @@ namespace SpaceBaboon.EnemySystem
         private void SlightPushFromObstructingObject(Collision2D collision)
         {
             Vector3 direction = collision.transform.position - transform.position;
-            m_rb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);            
+            m_characterRb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);            
         }
 
         private void ReadyAttack()
@@ -84,23 +78,28 @@ namespace SpaceBaboon.EnemySystem
                 m_attackReady = true;            
         }
 
+        protected override void Move()
+        {            
+            MoveTowardsPlayer();
+        }
+
         private void MoveTowardsPlayer()
         {            
             Vector3 playerPosition = m_players[0].transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
-            m_rb.AddForce(direction * m_enemyData.baseAcceleration /* + or * bonus */, ForceMode2D.Force);
-
+            m_characterRb.AddForce(direction * m_enemyData.DefaultBaseAcceleration /* + or * bonus */, ForceMode2D.Force);
+            
             if (direction.magnitude > 0)
                 RegulateVelocity();
         }
 
-        private void RegulateVelocity()
+        protected override void RegulateVelocity()
         {
-            if (m_rb.velocity.magnitude > m_enemyData.baseMaxVelocity /* + or * bonus */)
+            if (m_characterRb.velocity.magnitude > m_enemyData.DefaultBaseMaxVelocity /* + or * bonus */)
             {
-                m_rb.velocity = m_rb.velocity.normalized;
-                m_rb.velocity *= m_enemyData.baseMaxVelocity /* + or * bonus */;
+                m_characterRb.velocity = m_characterRb.velocity.normalized;
+                m_characterRb.velocity *= m_enemyData.DefaultBaseMaxVelocity /* + or * bonus */;
             }
         }
 
@@ -150,8 +149,8 @@ namespace SpaceBaboon.EnemySystem
 
         private void SetComponents(bool value)
         {
-            m_renderer.enabled = value;
-            m_collider.enabled = value;
+            m_characterRenderer.enabled = value;
+            m_characterCollider.enabled = value;
         }
         #endregion
     }
