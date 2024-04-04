@@ -1,39 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class Projectile : MonoBehaviour, IPoolable
+    public class TestPoolableObject : MonoBehaviour, IPoolableNew
     {
-        [SerializeField] protected ProjectileData m_projectileData;
+        [SerializeField] private ProjectileData m_projectileData;
 
-        protected Vector2 m_direction;
-        protected float m_lifetime = 0.0f;
-        protected float m_bonusDmg = 0;
-        protected float m_damage = 0;
+        private Vector2 m_direction;
+        private float m_lifetime = 0.0f;
 
         //For ObjectPool
-        protected bool m_isActive = false;
-        protected SpriteRenderer m_renderer;
-        protected CircleCollider2D m_collider;
-        protected ObjectPool m_parentPool;
+        private bool m_isActive = false;
+        SpriteRenderer m_renderer;
+        CircleCollider2D m_collider;
+        GenericObjectPool m_parentPool;
 
         public bool IsActive
         {
             get { return m_isActive; }
         }
 
-        protected void Awake()
+        private void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
         }
 
-        protected void Start()
-        {
-            m_damage = m_projectileData.damage;
-        }
-
-        protected virtual void Update()
+        private void Update()
         {
             if (!m_isActive)
             {
@@ -51,18 +47,18 @@ namespace SpaceBaboon.WeaponSystem
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
         }
 
-        protected void OnCollisionEnter2D(Collision2D collision)
-        {
-            m_parentPool.UnSpawn(gameObject);
-            //Debug.Log("projectile hit: " + collision.gameObject.name);
-        }
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    m_parentPool.UnSpawn(gameObject);
+        //    //Debug.Log("projectile hit: " + collision.gameObject.name);
+        //}
 
-        public virtual void Shoot(Vector2 direction)
+        public void Shoot(Vector2 direction)
         {
             m_direction = direction.normalized;
         }
 
-        public void Activate(Vector2 pos, ObjectPool pool)
+        public void Activate(Vector2 pos, GenericObjectPool pool)
         {
             ResetValues(pos);
             SetComponents(true);
@@ -78,20 +74,15 @@ namespace SpaceBaboon.WeaponSystem
             SetComponents(false);
         }
 
-        protected void ResetValues(Vector2 pos)
+        private void ResetValues(Vector2 pos)
         {
             m_lifetime = 0.0f;
             transform.position = pos;
         }
-        protected void SetComponents(bool value)
+        private void SetComponents(bool value)
         {
             m_renderer.enabled = value;
             m_collider.enabled = value;
-        }
-
-        public float GetDamage()
-        {
-            return m_damage;
         }
     }
 }

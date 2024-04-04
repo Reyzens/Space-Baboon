@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_cooldownMax: 1
   m_icon: {fileID: 0}
-  m_resourceType: 1
+  m_resourceType: 0
   m_resourceAmount: 2
