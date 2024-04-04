@@ -2,10 +2,9 @@ using UnityEngine;
 
 namespace SpaceBaboon.PoolingSystem
 {
-    public interface IPoolableNew
+    public interface IPoolableGeneric
     {
         public bool IsActive { get; }
-
         /* 
          must add:
             private bool m_isActive = false;
@@ -16,7 +15,7 @@ namespace SpaceBaboon.PoolingSystem
 
         public void Activate(Vector2 pos, GenericObjectPool pool);
         public void Deactivate();
-        
+
         /*
         For cleaner code, add:
 

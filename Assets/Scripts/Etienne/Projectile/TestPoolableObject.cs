@@ -5,7 +5,7 @@ using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class TestPoolableObject : MonoBehaviour, IPoolableNew
+    public class TestPoolableObject : MonoBehaviour, IPoolableGeneric
     {
         [SerializeField] private ProjectileData m_projectileData;
 
@@ -18,10 +18,12 @@ namespace SpaceBaboon.WeaponSystem
         CircleCollider2D m_collider;
         GenericObjectPool m_parentPool;
 
+
         public bool IsActive
         {
             get { return m_isActive; }
         }
+
 
         private void Awake()
         {
@@ -35,6 +37,7 @@ namespace SpaceBaboon.WeaponSystem
             {
                 return;
             }
+            
 
             if (m_lifetime > m_projectileData.maxLifetime)
             {
@@ -62,15 +65,13 @@ namespace SpaceBaboon.WeaponSystem
         {
             ResetValues(pos);
             SetComponents(true);
-            m_isActive = true;
-
+        
             m_parentPool = pool;
         }
 
 
         public void Deactivate()
         {
-            m_isActive = false;
             SetComponents(false);
         }
 
@@ -81,8 +82,12 @@ namespace SpaceBaboon.WeaponSystem
         }
         private void SetComponents(bool value)
         {
+            m_isActive = value;
+            
             m_renderer.enabled = value;
             m_collider.enabled = value;
         }
+
+
     }
 }

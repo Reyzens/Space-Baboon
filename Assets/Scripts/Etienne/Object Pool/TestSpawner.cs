@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SpaceBaboon.PoolingSystem;
@@ -21,6 +20,9 @@ namespace SpaceBaboon
 
         private void Awake()
         {
+            m_pool = new GenericObjectPool();
+
+
             m_prefabToSpawn = m_prefab1;
 
             List<GameObject> list = new List<GameObject>();
