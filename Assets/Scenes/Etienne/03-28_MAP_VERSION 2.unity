@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c9dba6c428d9140b43535d606286fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRef: {fileID: 912821254}
 --- !u!114 &103088295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758d18ee37b127949a4d6cf5315e6695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRef: {fileID: 0}
 --- !u!114 &189607576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,17 +450,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &912821254 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-  m_PrefabInstance: {fileID: 1403878087}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2f9a6f8fd40efb4c9d0fa02f936c118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &912821260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 81698932589112113, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
@@ -869,6 +856,51 @@ CapsuleCollider2D:
   m_Offset: {x: 0.03, y: 0.06}
   m_Size: {x: 1.02, y: 0.92}
   m_Direction: 1
+--- !u!1 &1909848797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1909848799}
+  - component: {fileID: 1909848798}
+  m_Layer: 0
+  m_Name: TestPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1909848798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909848797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b3315097ee282409b2239c44c70135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isInvincible: 1
+--- !u!4 &1909848799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909848797}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.570529, y: 1.1188729, z: 1.0910902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1994153649
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4359,3 +4391,4 @@ SceneRoots:
   - {fileID: 7541794812002507131}
   - {fileID: 542244014}
   - {fileID: 1403878087}
+  - {fileID: 1909848799}
