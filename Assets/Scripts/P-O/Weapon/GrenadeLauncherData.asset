@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63be2cecab8df284f8e245155ee3b07e, type: 3}
   m_Name: GrenadeLauncherData
   m_EditorClassIdentifier: 
-  damage: 10
   maxLevel: 0
   maxRange: 35
   attackSpeed: 1

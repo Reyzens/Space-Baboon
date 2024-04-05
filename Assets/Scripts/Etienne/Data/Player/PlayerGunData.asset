@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63be2cecab8df284f8e245155ee3b07e, type: 3}
   m_Name: PlayerGunData
   m_EditorClassIdentifier: 
-  damage: 2
   maxLevel: 10
   maxRange: 50
-  attackSpeed: 0.5
+  attackSpeed: 5
   weaponName: 
   icon: {fileID: 0}
   projectilePrefab: {fileID: 8783084722343162297, guid: e4047cd83f2955a408d443354fdb911b, type: 3}

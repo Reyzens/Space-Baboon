@@ -13,24 +13,23 @@ namespace SpaceBaboon
         private Vector2 m_lastTargetPosition;
         private Vector2 m_initialShootingPosition;
         private float m_initialDistanceToTarget;
-        public float m_currentExplodingTimer => throw new System.NotImplementedException();
 
-        public float m_maxExplodingTime => throw new System.NotImplementedException();
-
-        public float m_maxExplodingRadius => throw new System.NotImplementedException();
-
-        public float m_currentExplodingRadius => throw new System.NotImplementedException();
-
-        public float m_currentExplodingDelay => throw new System.NotImplementedException();
-
-        public float m_maxExplodingDelay => throw new System.NotImplementedException();
-
-        public CircleCollider2D m_explosionCollider => throw new System.NotImplementedException();
+        //IExplodable data
+        [SerializeField] private ExplodableData m_explodableData;
+        private float m_currentExplosionTime = 0.0f;
+        private bool m_isExploding = false;
+        private Vector3 m_initialScaleOfProjectile;
 
         protected override void Start()
         {
             base.Start();
             m_target = null;
+            IExplodableSetUp();
+        }
+        protected override void Update()
+        {
+            base.Update();
+            IExplodableUpdate();
         }
         public override void Shoot(ref Transform direction)
         {
@@ -66,25 +65,56 @@ namespace SpaceBaboon
                     yield return null;
                 }
             }
+            StartExplosion();
         }
         public void Explode()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void IExplodableStart()
-        {
-            throw new System.NotImplementedException();
+            Debug.Log("Explode");
+            gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
+            m_collider.enabled = true;
         }
 
         public void IExplodableUpdate()
         {
-            throw new System.NotImplementedException();
+            if (m_currentExplosionTime < 0)
+            {
+                m_parentPool.UnSpawn(gameObject);
+            }
+
+            if (m_isExploding)
+            {
+                m_currentExplosionTime -= Time.deltaTime;
+            }
         }
 
         public void StartExplosion()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Start explosion");
+            //m_collider.radius = m_explodableData.m_explosionRadius;
+            m_isExploding = true;
+            m_currentExplosionTime = m_explodableData.m_maxExplosionTime;
+            Explode();
+        }
+
+        protected override void ResetValues(Vector2 pos)
+        {
+            //Make sure it's coherent with IExplodableSetUp, theres a lot of logic in common
+            base.ResetValues(pos);
+            gameObject.transform.localScale = m_initialScaleOfProjectile;
+            m_collider.enabled = false;
+        }
+        protected override void SetComponents(bool value)
+        {
+            m_renderer.enabled = value;
+            if (!value)
+            {
+                m_collider.enabled = value;
+            }
+        }
+        public void IExplodableSetUp()
+        {
+            m_collider.enabled = false;
+            m_initialScaleOfProjectile = transform.localScale;
         }
     }
 }
