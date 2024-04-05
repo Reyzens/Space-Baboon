@@ -6,15 +6,16 @@ namespace SpaceBaboon.EnemySystem
     public class Enemy : Character, IPoolableGeneric
     {
         [SerializeField] private EnemyData m_enemyData;
-
+        
         private GenericObjectPool m_parentPool;
         private bool m_isActive = false;
 
-        private GameObject[] m_players; // TODO change how to get reference to player, maybe serialize the object
+        private GameObject m_playerObject;
+        private Player m_player;
 
         private float m_health;
         private float m_bonusDamage = 0.0f;
-        private float m_bonusAcceleration; // Pour simplifier on pourrait simplement avoir une acceleration de base qui ne change pas et un max Velocity qui peut changer
+        private float m_bonusAcceleration; 
         private float m_bonusMaxVelocity;
         private float m_bonusAttackDelay;
         private float m_attackTimer = 0.0f;
@@ -23,14 +24,15 @@ namespace SpaceBaboon.EnemySystem
         private void Awake()
         {
             m_characterRenderer = GetComponent<Renderer>();
-            m_characterCollider = GetComponent<BoxCollider2D>(); // À changer pour circle éventuellement
+            m_characterCollider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_characterRb = GetComponent<Rigidbody2D>();
             m_health = m_enemyData.DefaultBaseHeatlh;
         }
 
         private void Start()
         {
-            m_players = GameObject.FindGameObjectsWithTag("Player");
+            m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager
+            m_player = m_playerObject.GetComponent<Player>();            
         }
 
         private void Update()
@@ -54,8 +56,16 @@ namespace SpaceBaboon.EnemySystem
         {
             if (collision.gameObject.CompareTag("Projectile"))
             {
-                Debug.Log("Received " + collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit() + " damage");
+                //Debug.Log("Received " + collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit() + " damage");
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player") && m_attackReady)
+            {                
+                Attack();                
             }
         }
 
@@ -85,7 +95,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void MoveTowardsPlayer()
         {
-            Vector3 playerPosition = m_players[0].transform.position;
+            Vector3 playerPosition = m_playerObject.transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
             m_characterRb.AddForce(direction * m_enemyData.DefaultBaseAcceleration /* + or * bonus */, ForceMode2D.Force);
@@ -124,7 +134,9 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void Attack()
-        {
+        {  
+            m_player.ReceiveDamage(m_enemyData.baseDamage);
+
             m_attackTimer = m_enemyData.baseAttackDelay /* + or * bonus */;
             m_attackReady = false;
         }

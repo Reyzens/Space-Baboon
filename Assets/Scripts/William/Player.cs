@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
@@ -116,6 +117,8 @@ namespace SpaceBaboon
             m_alive = true;
             enabled = true;
             m_isDashind = false;
+
+            Debug.Log("Player health at initialisation is " + m_currentHealth);
         }
 
         private void SubscribeToInputEvent()
@@ -142,16 +145,24 @@ namespace SpaceBaboon
 
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Enemy"))
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    if (collision.gameObject.CompareTag("Enemy"))
+        //    {
+        //        OnDamageTaken(collision.gameObject.GetComponent<EnemySystem.Enemy>().GetDamage());
+        //    }
+        //    //if (collision.gameObject.CompareTag("Projectile"))
+        //    //{
+        //    //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
+        //    //}
+        //}
+
+        public void ReceiveDamage(float damage)
+        {            
+            if (m_alive)
             {
-                OnDamageTaken(collision.gameObject.GetComponent<EnemySystem.Enemy>().GetDamage());
+                m_currentHealth -= damage;
             }
-            //if (collision.gameObject.CompareTag("Projectile"))
-            //{
-            //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
-            //}
         }
 
         private void FreezePlayerRotation()
