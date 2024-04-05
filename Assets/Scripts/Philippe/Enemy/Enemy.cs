@@ -43,7 +43,7 @@ namespace SpaceBaboon.EnemySystem
                 return;
 
             if (!m_contactAttackReady)
-                ReadyAttack();
+                ReadyContactAttack();
         }
 
         private void FixedUpdate()
@@ -106,7 +106,7 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        private void ReadyAttack()
+        private void ReadyContactAttack()
         {
             m_contactAttackTimer -= Time.deltaTime;
 
