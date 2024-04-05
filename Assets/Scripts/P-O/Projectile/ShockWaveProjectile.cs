@@ -5,42 +5,78 @@ namespace SpaceBaboon.WeaponSystem
     [RequireComponent(typeof(LineRenderer))]
     public class ShockWaveProjectile : Projectile, IExplodable
     {
-        [SerializeField] protected int segments = 100;
-        [SerializeField] protected float innerRadius = 5f;
-        [SerializeField] protected float thickness = 0.5f;
+        private Transform m_weaponPos;
 
-        protected override void Start()
+        //LineRenderer value
+        [SerializeField] protected int m_segments = 100;
+        [SerializeField] protected float m_innerRadius = 5f;
+        [SerializeField] protected float m_thickness = 0.5f;
+        private LineRenderer m_damageZoneDisplay;
+
+        //IExplodable data
+        [SerializeField] private ExplodableData m_ExplodableData;
+        protected float m_currentExplosionTime = 0.0f;
+        protected float m_currentExplosionSize = 0.0f;
+        protected float m_explosionSizeRatio;
+        protected bool m_isExploding = false;
+
+        protected override void Awake()
         {
-            base.Start();
+            base.Awake();
+            m_damageZoneDisplay = GetComponent<LineRenderer>();
         }
-        protected override void Update() { GenerateCircle(); }
+        protected override void Update()
+        {
+            if (m_isActive)
+            {
+                base.Update();
+                GenerateCircle();
+                FollowPlayer();
+                IExplodableUpdate();
+            }
+        }
+        protected void FollowPlayer()
+        {
+            transform.position = m_weaponPos.position;
+        }
         protected void GenerateCircle()
         {
-            LineRenderer lineRenderer = GetComponent<LineRenderer>();
-
+            m_damageZoneDisplay.loop = true;
             // Set the number of points
-            lineRenderer.positionCount = segments;
-            lineRenderer.useWorldSpace = false;
+            m_damageZoneDisplay.positionCount = m_segments;
+            m_damageZoneDisplay.useWorldSpace = false;
 
-            lineRenderer.startWidth = thickness;
-            lineRenderer.endWidth = thickness;
+            m_damageZoneDisplay.startWidth = m_thickness;
+            m_damageZoneDisplay.endWidth = m_thickness;
 
-            float deltaTheta = (2f * Mathf.PI) / segments;
+            float deltaTheta = (2f * Mathf.PI) / m_segments;
             float currentTheta = 0f;
 
-            for (int i = 0; i < segments; i++)
+            for (int i = 0; i < m_segments; i++)
             {
-                float x = innerRadius * Mathf.Cos(currentTheta);
-                float y = innerRadius * Mathf.Sin(currentTheta);
+                float x = m_currentExplosionSize * Mathf.Cos(currentTheta);
+                float y = m_currentExplosionSize * Mathf.Sin(currentTheta);
                 Vector3 pos = new Vector3(x, y, 0);
-                lineRenderer.SetPosition(i, pos);
+                m_damageZoneDisplay.SetPosition(i, pos);
                 currentTheta += deltaTheta;
             }
-            lineRenderer.loop = true;
+        }
+        protected override void SetComponents(bool value)
+        {
+            //Debug.Log("SetComponents parent appeler");
+            m_renderer.enabled = value;
+            m_collider.enabled = value;
+            m_damageZoneDisplay.enabled = value;
+        }
+        protected override void ResetValues(Vector2 pos)
+        {
+            base.ResetValues(pos);
+            IExplodableSetUp();
         }
         public override void Shoot(ref Transform direction)
         {
-            gameObject.transform.parent = direction;
+            m_weaponPos = direction;
+            StartExplosion();
         }
         public void Explode()
         {
@@ -49,17 +85,32 @@ namespace SpaceBaboon.WeaponSystem
 
         public void IExplodableSetUp()
         {
-            throw new System.NotImplementedException();
+            m_currentExplosionTime = 0.0f;
+            m_currentExplosionSize = 0.0f;
+            m_currentExplosionSize = 0.0f;
+            m_explosionSizeRatio = m_innerRadius / m_ExplodableData.m_maxExplosionTime;
         }
 
         public void IExplodableUpdate()
         {
-            throw new System.NotImplementedException();
+            if (m_isExploding)
+            {
+                m_currentExplosionTime -= Time.deltaTime;
+
+                if (m_currentExplosionTime < 0)
+                {
+                    m_parentPool.UnSpawn(gameObject);
+                }
+
+                m_currentExplosionSize = m_innerRadius - (m_currentExplosionTime * m_explosionSizeRatio);
+                m_collider.radius = m_currentExplosionSize + m_thickness;
+            }
         }
 
         public void StartExplosion()
         {
-            throw new System.NotImplementedException();
+            m_currentExplosionTime = m_ExplodableData.m_maxExplosionTime;
+            m_isExploding = true;
         }
     }
 }
