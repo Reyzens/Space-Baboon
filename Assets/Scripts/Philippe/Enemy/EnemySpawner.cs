@@ -24,7 +24,12 @@ namespace SpaceBaboon.EnemySystem
             foreach (GameObject enemyPrefab in m_enemyTypesToSpawn)
                 list.Add(enemyPrefab);
 
-            m_enemyPool.CreatePool(list, "test");
+            // TODO to check which initialisation logic to keep
+            //List<GameObject> list = new List<GameObject>();
+            //list.Add(m_prefab1);
+            //list.Add(m_prefab2);
+
+            m_enemyPool.CreatePool(list, "test");                       
         }
 
         private void Start()

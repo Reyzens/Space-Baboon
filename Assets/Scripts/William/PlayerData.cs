@@ -1,4 +1,3 @@
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -7,10 +6,10 @@ namespace SpaceBaboon
     public class PlayerData : CharacterData
     {
         [Header("PlayerUniqueStats")]
-        public float DefaultDashCD;
-        public float DefaultDashDistance;
-        public float DefaultDashSpeed;
-        public int DefaultDashStatck;
+        public float defaultDashCD;
+        public float defaultDashDistance;
+        public float defaultDashSpeed;
+        public int defaultDashStatck;
     }
 
 

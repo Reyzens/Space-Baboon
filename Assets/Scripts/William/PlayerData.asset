@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6c0f2bcc2031bb40b7e7c98309cb2d8, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  DefaultIndex: 1
-  DefaultName: Baboon
-  DefaultBaseHeatlh: 100
-  DefaultBaseMovespeed: 100
-  defaultSprite: {fileID: 0}
-  DefaultPrefab: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-  DefaultBaseAcceleration: 400
-  DefaultBaseMaxVelocity: 30
-  DefaultDashCD: 2
-  DefaultDashDistance: 10
-  DefaultDashSpeed: 200
-  DefaultDashStatck: 1
+  index: 1
+  characterName: Baboon
+  defaultHeatlh: 100
+  defaultMovespeed: 100
+  sprite: {fileID: 0}
+  prefab: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+  defaultAcceleration: 400
+  defaultMaxVelocity: 30
+  defaultDashCD: 2
+  defaultDashDistance: 10
+  defaultDashSpeed: 200
+  defaultDashStatck: 1

@@ -14,19 +14,21 @@ namespace SpaceBaboon.EnemySystem
         private Player m_player;
 
         private float m_health;
+        private float m_contactAttackTimer = 0.0f;
+        private bool m_contactAttackReady = true;
         private float m_bonusDamage = 0.0f;
         private float m_bonusAcceleration; 
         private float m_bonusMaxVelocity;
-        private float m_bonusAttackDelay;
-        private float m_attackTimer = 0.0f;
-        private bool m_attackReady = true;
+        private float m_bonusAttackDelay;        
+
+        private Vector2 m_vectorZero = Vector2.zero;
 
         private void Awake()
         {
             m_characterRenderer = GetComponent<Renderer>();
             m_characterCollider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_characterRb = GetComponent<Rigidbody2D>();
-            m_health = m_enemyData.DefaultBaseHeatlh;
+            m_health = m_enemyData.defaultHeatlh;
         }
 
         private void Start()
@@ -40,7 +42,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            if (!m_attackReady)
+            if (!m_contactAttackReady)
                 ReadyAttack();
         }
 
@@ -49,21 +51,20 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            Move();
+            Move(m_vectorZero);            
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Projectile"))
-            {
-                //Debug.Log("Received " + collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit() + " damage");
+            {                
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
             }
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Player") && m_attackReady)
+            if (collision.gameObject.CompareTag("Player") && m_contactAttackReady)
             {                
                 Attack();                
             }
@@ -78,17 +79,9 @@ namespace SpaceBaboon.EnemySystem
         {
             Vector3 direction = collision.transform.position - transform.position;
             m_characterRb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);
-        }
+        }      
 
-        private void ReadyAttack()
-        {
-            m_attackTimer -= Time.deltaTime;
-
-            if (m_attackTimer < 0.0f)
-                m_attackReady = true;
-        }
-
-        protected override void Move()
+        protected override void Move(Vector2 values)
         {
             MoveTowardsPlayer();
         }
@@ -98,7 +91,7 @@ namespace SpaceBaboon.EnemySystem
             Vector3 playerPosition = m_playerObject.transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
-            m_characterRb.AddForce(direction * m_enemyData.DefaultBaseAcceleration /* + or * bonus */, ForceMode2D.Force);
+            m_characterRb.AddForce(direction * m_enemyData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
 
             if (direction.magnitude > 0)
                 RegulateVelocity();
@@ -106,11 +99,27 @@ namespace SpaceBaboon.EnemySystem
 
         protected override void RegulateVelocity()
         {
-            if (m_characterRb.velocity.magnitude > m_enemyData.DefaultBaseMaxVelocity /* + or * bonus */)
+            if (m_characterRb.velocity.magnitude > m_enemyData.defaultMaxVelocity /* + or * bonus */)
             {
                 m_characterRb.velocity = m_characterRb.velocity.normalized;
-                m_characterRb.velocity *= m_enemyData.DefaultBaseMaxVelocity /* + or * bonus */;
+                m_characterRb.velocity *= m_enemyData.defaultMaxVelocity /* + or * bonus */;
             }
+        }
+
+        private void ReadyAttack()
+        {
+            m_contactAttackTimer -= Time.deltaTime;
+
+            if (m_contactAttackTimer < 0.0f)
+                m_contactAttackReady = true;
+        }
+
+        private void Attack()
+        {
+            m_player.OnDamageTaken(m_enemyData.defaultContactAttackDamage);
+
+            m_contactAttackTimer = m_enemyData.defaultContactAttackDelay /* + or * bonus */;
+            m_contactAttackReady = false;
         }
 
         public override void OnDamageTaken(float values)
@@ -122,24 +131,7 @@ namespace SpaceBaboon.EnemySystem
             {
                 m_parentPool.UnSpawn(gameObject);
             }
-        }
-
-        public float GetDamage() // TODO a discuter, fonctionnement de cette methode
-        {
-            if (!m_attackReady)
-                return 0.0f;
-
-            Attack();
-            return m_enemyData.baseDamage /* + or * bonus */;
-        }
-
-        private void Attack()
-        {  
-            m_player.ReceiveDamage(m_enemyData.baseDamage);
-
-            m_attackTimer = m_enemyData.baseAttackDelay /* + or * bonus */;
-            m_attackReady = false;
-        }
+        } 
 
         #region ObjectPooling
         public bool IsActive

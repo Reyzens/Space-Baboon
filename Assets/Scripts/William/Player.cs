@@ -56,7 +56,7 @@ namespace SpaceBaboon
         {
             if (m_destination != Vector2.zero) // Check if there's any movement input
             {
-                m_characterRb.AddForce(m_destination * m_playerData.DefaultBaseAcceleration, ForceMode2D.Force);
+                m_characterRb.AddForce(m_destination * m_playerData.defaultAcceleration, ForceMode2D.Force);
                 //Debug.Log("destination value.x = " + m_destination.x);
                 //Debug.Log("destination value.y = " + m_destination.y);
                 //RegulateVelocity();
@@ -93,14 +93,14 @@ namespace SpaceBaboon
             m_characterCollider = GetComponent<BoxCollider2D>();
             m_characterRenderer = GetComponent<Renderer>();
 
-            m_currentHealth = m_playerData.DefaultBaseHeatlh;
-            m_currentMovespeed = m_playerData.DefaultBaseMovespeed;
-            m_currentAcceleration = m_playerData.DefaultBaseAcceleration;
-            m_currentVelocity = m_playerData.DefaultBaseMaxVelocity;
-            m_currentDashSpeed = m_playerData.DefaultDashSpeed;
-            m_currentDashCD = m_playerData.DefaultDashCD;
-            m_currentDashStack = m_playerData.DefaultDashStatck;
-            m_currentDashDistance = m_playerData.DefaultDashDistance;
+            m_currentHealth = m_playerData.defaultHeatlh;
+            m_currentMovespeed = m_playerData.defaultMovespeed;
+            m_currentAcceleration = m_playerData.defaultAcceleration;
+            m_currentVelocity = m_playerData.defaultMaxVelocity;
+            m_currentDashSpeed = m_playerData.defaultDashSpeed;
+            m_currentDashCD = m_playerData.defaultDashCD;
+            m_currentDashStack = m_playerData.defaultDashStatck;
+            m_currentDashDistance = m_playerData.defaultDashDistance;
 
             m_rotationlock = 0;
             m_vertical = 0.0f;
@@ -113,12 +113,9 @@ namespace SpaceBaboon
             m_bonusDashDistance = 0.0f;
             m_bonusDashStack = 0;
 
-
             m_alive = true;
             enabled = true;
             m_isDashind = false;
-
-            Debug.Log("Player health at initialisation is " + m_currentHealth);
         }
 
         private void SubscribeToInputEvent()
@@ -147,23 +144,11 @@ namespace SpaceBaboon
 
         //private void OnCollisionEnter2D(Collision2D collision)
         //{
-        //    if (collision.gameObject.CompareTag("Enemy"))
-        //    {
-        //        OnDamageTaken(collision.gameObject.GetComponent<EnemySystem.Enemy>().GetDamage());
-        //    }
         //    //if (collision.gameObject.CompareTag("Projectile"))
         //    //{
         //    //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
         //    //}
         //}
-
-        public void ReceiveDamage(float damage)
-        {            
-            if (m_alive)
-            {
-                m_currentHealth -= damage;
-            }
-        }
 
         private void FreezePlayerRotation()
         {
@@ -189,7 +174,7 @@ namespace SpaceBaboon
 
         protected override void RegulateVelocity()
         {
-            if (m_characterRb.velocity.magnitude > m_playerData.DefaultBaseMaxVelocity /* + or * bonus */)
+            if (m_characterRb.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
             {
                 m_characterRb.velocity = m_characterRb.velocity.normalized;
                 m_characterRb.velocity *= m_currentVelocity /* + or * bonus */;
@@ -200,6 +185,7 @@ namespace SpaceBaboon
         {
             StartCoroutine(DashCouritine());
         }
+
         private IEnumerator DashCouritine()
         {
             if (m_currentDashStack >= 1)
@@ -249,12 +235,10 @@ namespace SpaceBaboon
         }
         #endregion
 
-        public void OnDamageTaken(float values)
+        public override void OnDamageTaken(float values)
         {
-            if (m_alive)
-            {
+            if (m_alive) // TODO if statement may not be useful, if so remove it
                 m_currentHealth -= values;
-            }
         }
 
         public float GetCurrentHealth()
