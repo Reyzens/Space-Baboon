@@ -5,7 +5,7 @@ namespace SpaceBaboon
 {
     public class GrenadeLauncher : Weapon
     {
-        protected override Vector2 GetTarget()
+        protected override Transform GetTarget()
         {
             for (int i = 0; i < m_weaponData.maxRange; i++)
             {
@@ -15,15 +15,13 @@ namespace SpaceBaboon
                 {
                     if (collider.gameObject.tag == "Enemy")
                     {
-                        Vector2 enemyPosition = collider.gameObject.transform.position;
-                        Vector2 enemyDirection = enemyPosition - new Vector2(transform.position.x, transform.position.y);
-                        return enemyDirection;
+                        return collider.gameObject.transform;
                     }
                 }
             }
 
             //Didn't find an enemy
-            return Vector2.up;
+            return transform;
         }
     }
 }

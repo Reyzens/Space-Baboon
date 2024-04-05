@@ -1,13 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
-    public class Player : Character , SpaceBaboon.IDamageable
+    public class Player : Character, SpaceBaboon.IDamageable
     {
         //BaseVraiables
         private bool m_alive;
@@ -15,39 +14,39 @@ namespace SpaceBaboon
         private float m_horizontal;
         private float m_vertical;
         private Vector2 m_destination;
-        [SerializeField]private float m_currentDashCD;
-        [SerializeField]private float m_currentDashSpeed;
-        [SerializeField]private float m_currentDashDistance;
-        [SerializeField]private int m_currentDashStack;
-        [SerializeField]private bool m_isDashind;
+        [SerializeField] private float m_currentDashCD;
+        [SerializeField] private float m_currentDashSpeed;
+        [SerializeField] private float m_currentDashDistance;
+        [SerializeField] private int m_currentDashStack;
+        [SerializeField] private bool m_isDashind;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
         private List<WeaponSystem.Weapon> m_equipedWeapon;
         private List<WeaponSystem.Weapon> m_blockedWeapon;
-        
+
         //BonusVariables
         private float m_bonusDashCD;
         private float m_bonusDashSpeed;
         private float m_bonusDashDistance;
         private int m_bonusDashStack;
-        
-        
+
+
         //SerializeVraiables
-        [SerializeField]private bool m_DebugMode;
+        [SerializeField] private bool m_DebugMode;
         [SerializeField] private PlayerData m_playerData;
-        
-            
+
+
         //Unity Methods
         private void Awake()
         {
             PlayerVariablesInitialization();
             FreezePlayerRotation();
         }
-        
+
         private void Start()
         {
             DictionaryInistalisation();
         }
-        
+
         private void Update()
         {
             OnPlayerDeath();
@@ -57,7 +56,7 @@ namespace SpaceBaboon
         {
             if (m_destination != Vector2.zero) // Check if there's any movement input
             {
-                m_characterRb.AddForce(m_destination * m_playerData.DefaultBaseAcceleration, ForceMode2D.Force);
+                m_characterRb.AddForce(m_destination * m_playerData.defaultAcceleration, ForceMode2D.Force);
                 //Debug.Log("destination value.x = " + m_destination.x);
                 //Debug.Log("destination value.y = " + m_destination.y);
                 //RegulateVelocity();
@@ -76,7 +75,7 @@ namespace SpaceBaboon
         private void OnDestroy()
         {
             UnsubscribeToInputEvent();
-            
+
         }
 
         //Methods
@@ -84,42 +83,41 @@ namespace SpaceBaboon
         {
             InputHandler.instance.m_Input.Enable();
             SubscribeToInputEvent();
-            
-                
+
+
             m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
             m_equipedWeapon = new List<WeaponSystem.Weapon>();
             m_blockedWeapon = new List<WeaponSystem.Weapon>();
-            
+
             m_characterRb = GetComponent<Rigidbody2D>();
             m_characterCollider = GetComponent<BoxCollider2D>();
             m_characterRenderer = GetComponent<Renderer>();
 
-            m_currentHealth = m_playerData.DefaultBaseHeatlh;
-            m_currentMovespeed = m_playerData.DefaultBaseMovespeed;
-            m_currentAcceleration = m_playerData.DefaultBaseAcceleration;
-            m_currentVelocity = m_playerData.DefaultBaseMaxVelocity;
-            m_currentDashSpeed = m_playerData.DefaultDashSpeed;
-            m_currentDashCD = m_playerData.DefaultDashCD;
-            m_currentDashStack = m_playerData.DefaultDashStatck;
-            m_currentDashDistance = m_playerData.DefaultDashDistance;
-            
+            m_currentHealth = m_playerData.defaultHeatlh;
+            m_currentMovespeed = m_playerData.defaultMovespeed;
+            m_currentAcceleration = m_playerData.defaultAcceleration;
+            m_currentVelocity = m_playerData.defaultMaxVelocity;
+            m_currentDashSpeed = m_playerData.defaultDashSpeed;
+            m_currentDashCD = m_playerData.defaultDashCD;
+            m_currentDashStack = m_playerData.defaultDashStatck;
+            m_currentDashDistance = m_playerData.defaultDashDistance;
+
             m_rotationlock = 0;
             m_vertical = 0.0f;
             m_horizontal = 0.0f;
-            
+
             m_bonusHealth = 0.0f;
             m_bonusMovespeed = 0.0f;
             m_bonusDashCD = 0.0f;
             m_bonusDashSpeed = 0.0f;
             m_bonusDashDistance = 0.0f;
             m_bonusDashStack = 0;
-            
-            
+
             m_alive = true;
             enabled = true;
             m_isDashind = false;
         }
-        
+
         private void SubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent += Move;
@@ -131,7 +129,7 @@ namespace SpaceBaboon
             InputHandler.instance.m_MoveEvent -= Move;
             InputHandler.instance.m_DashEvent -= Dash;
         }
-        
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
 
@@ -143,24 +141,20 @@ namespace SpaceBaboon
             }
 
         }
-        
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                OnDamageTaken(collision.gameObject.GetComponent<EnemySystem.Enemy>().GetDamage());
-            }
-           //if (collision.gameObject.CompareTag("Projectile"))
-           //{
-           //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
-           //}
-        }
+
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    //if (collision.gameObject.CompareTag("Projectile"))
+        //    //{
+        //    //    OnDamageTaken(collision.gameObject.GetComponent<SpaceBaboon.Projectile>().GetDamage());
+        //    //}
+        //}
 
         private void FreezePlayerRotation()
         {
             m_characterRb.freezeRotation = enabled;
         }
-        
+
         private void OnPlayerDeath()
         {
             if (m_currentHealth <= 0 || m_alive == false)
@@ -170,17 +164,17 @@ namespace SpaceBaboon
                 SceneManager.LoadScene("SB_MainMenu");
             }
         }
-        
+
         protected override void Move(Vector2 values)
         {
-            Debug.Log("value.x = " + values.x);
-            Debug.Log("value.y = " + values.y);
+            //Debug.Log("value.x = " + values.x);
+            //Debug.Log("value.y = " + values.y);
             m_destination = new Vector2(values.x, values.y).normalized;
         }
 
         protected override void RegulateVelocity()
         {
-            if (m_characterRb.velocity.magnitude > m_playerData.DefaultBaseMaxVelocity /* + or * bonus */)
+            if (m_characterRb.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
             {
                 m_characterRb.velocity = m_characterRb.velocity.normalized;
                 m_characterRb.velocity *= m_currentVelocity /* + or * bonus */;
@@ -191,6 +185,7 @@ namespace SpaceBaboon
         {
             StartCoroutine(DashCouritine());
         }
+
         private IEnumerator DashCouritine()
         {
             if (m_currentDashStack >= 1)
@@ -240,12 +235,10 @@ namespace SpaceBaboon
         }
         #endregion
 
-        public void OnDamageTaken(float values)
+        public override void OnDamageTaken(float values)
         {
-            if (m_alive)
-            {
+            if (m_alive) // TODO if statement may not be useful, if so remove it
                 m_currentHealth -= values;
-            }
         }
 
         public float GetCurrentHealth()
@@ -269,10 +262,10 @@ namespace SpaceBaboon
         {
             for (int i = 0; i != (int)SpaceBaboon.InteractableResource.EResourceType.Count; i++)
             {
-                m_collectibleInventory.Add((SpaceBaboon.InteractableResource.EResourceType)i,0);
-            }        
+                m_collectibleInventory.Add((SpaceBaboon.InteractableResource.EResourceType)i, 0);
+            }
         }
 
-        
+
     }
 }

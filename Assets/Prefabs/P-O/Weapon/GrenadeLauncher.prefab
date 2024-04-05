@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 802097290951641300}
   - component: {fileID: 1268656246560152080}
-  - component: {fileID: 8184152791584123412}
   - component: {fileID: 8202861654822499270}
+  - component: {fileID: 3250909844759871497}
   m_Layer: 0
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -27,10 +27,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6158744752462687429}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.11000001, y: 0.11000001, z: 0.55}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8184152791584123412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6158744752462687429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 952014d6b83c74d48a2c95f043599ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_weaponData: {fileID: 11400000, guid: 2c8f820fade1ade49a5f9c53594aee6c, type: 2}
-  m_pool: {fileID: 8202861654822499270}
 --- !u!114 &8202861654822499270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,4 +99,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_prefab: {fileID: 0}
+  m_container: {fileID: 0}
   m_poolSize: 10
+--- !u!114 &3250909844759871497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158744752462687429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 999e734409d33ed4abc65e5ea5c4310b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_weaponData: {fileID: 11400000, guid: 497e57f6d8fdbc34bbd72d4a161bfdcf, type: 2}
+  m_pool: {fileID: 8202861654822499270}
+  m_spawnDistance: 1
+  m_attackSpeedScaling: 0.25
+  m_debugMode: 0

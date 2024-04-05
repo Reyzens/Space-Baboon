@@ -6,7 +6,7 @@ namespace SpaceBaboon
     public class DefaultWeapon : Weapon
     {
         // Start is called before the first frame update
-        protected override Vector2 GetTarget()
+        protected override Transform GetTarget()
         {
             //Aim for closest enemy
             for (int i = 0; i < m_weaponData.maxRange; i++)
@@ -17,9 +17,10 @@ namespace SpaceBaboon
                 {
                     if (collider.gameObject.tag == "Enemy")
                     {
-                        Vector2 enemyPosition = collider.gameObject.transform.position;
-                        Vector2 enemyDirection = enemyPosition - new Vector2(transform.position.x, transform.position.y);
-                        return enemyDirection;
+                        //Vector2 enemyPosition = collider.gameObject.transform;
+                        //Vector2 enemyDirection = enemyPosition - new Vector2(transform.position.x, transform.position.y);
+                        Debug.Log("Targeting " + collider.gameObject.transform.position);
+                        return collider.gameObject.transform;
                     }
                 }
 
@@ -27,7 +28,8 @@ namespace SpaceBaboon
             }
 
             //Didn't find an enemy
-            return Vector2.up;
+            Debug.Log("Didnt find enemy to target");
+            return transform;
         }
     }
 }

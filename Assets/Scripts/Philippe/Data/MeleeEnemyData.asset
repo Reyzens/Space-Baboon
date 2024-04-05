@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c67f2134eb33142bdfa3ca8744ed4a, type: 3}
   m_Name: MeleeEnemyData
   m_EditorClassIdentifier: 
-  DefaultIndex: 0
-  DefaultName: Melee Enemy
-  DefaultBaseHeatlh: 30
-  DefaultBaseMovespeed: 0
-  defaultSprite: {fileID: 0}
-  DefaultPrefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
-  DefaultBaseAcceleration: 30
-  DefaultBaseMaxVelocity: 10
-  baseDamage: 10
+  index: 0
+  characterName: Melee Enemy
+  defaultHeatlh: 30
+  defaultMovespeed: 0
+  sprite: {fileID: 0}
+  prefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
+  defaultAcceleration: 30
+  defaultMaxVelocity: 10
+  defaultContactAttackDamage: 10
+  defaultContactAttackDelay: 3
+  defaultAttackRange: 0
   size: 0
-  baseAttackRange: 0
-  baseAttackDelay: 2
   obstructionPushForce: 25

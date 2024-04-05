@@ -37,19 +37,19 @@ namespace SpaceBaboon.WeaponSystem
 
         protected void Attack()
         {
-            Vector2 direction = GetTarget();
+            Transform direction = GetTarget();
 
-            Vector2 directionWithDistance = direction.normalized * m_spawnDistance;
-            Vector2 spawnPos = new Vector2(transform.position.x + directionWithDistance.x, transform.position.y + directionWithDistance.y);
+            //Vector2 directionWithDistance = direction.normalized * m_spawnDistance;
+            Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
             var projectile = m_pool.Spawn(spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(direction);
+            projectile.GetComponent<Projectile>()?.Shoot(ref direction);
         }
 
-        protected virtual Vector2 GetTarget()
+        protected virtual Transform GetTarget()
         {
-            return transform.position;
+            return transform;
         }
 
         public void SetIsCollecting(bool value)

@@ -1,4 +1,5 @@
 using SpaceBaboon.WeaponSystem;
+using System.Collections;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -6,81 +7,114 @@ namespace SpaceBaboon
     public class GrenadeLauncherProjectile : Projectile, IExplodable
     {
         //Private variables
-        [SerializeField] private float m_curvatureStrength;
-        [SerializeField] private Vector2 m_curvatureDirection = Vector2.up;
-        private Vector2 m_initialPosition;
-        private Vector2 m_centerPoint;
-        // Rotation speed in degrees per second
-        [SerializeField] private float rotationSpeed = 90f;
-        public float m_currentExplodingTimer => throw new System.NotImplementedException();
+        [SerializeField] private AnimationCurve m_grenadeCurve;
+        [SerializeField] private float m_curveMaxHeight;
+        [SerializeField] private float m_curveDuration;
+        private Vector2 m_lastTargetPosition;
+        private Vector2 m_initialShootingPosition;
+        private float m_initialDistanceToTarget;
 
-        public float m_maxExplodingTime => throw new System.NotImplementedException();
+        //IExplodable data
+        [SerializeField] private ExplodableData m_explodableData;
+        private float m_currentExplosionTime = 0.0f;
+        private bool m_isExploding = false;
+        private Vector3 m_initialScaleOfProjectile;
 
-        public float m_maxExplodingRadius => throw new System.NotImplementedException();
-
-        public float m_currentExplodingRadius => throw new System.NotImplementedException();
-
-        public float m_currentExplodingDelay => throw new System.NotImplementedException();
-
-        public float m_maxExplodingDelay => throw new System.NotImplementedException();
-
-        public CircleCollider2D m_explosionCollider => throw new System.NotImplementedException();
-
+        protected override void Start()
+        {
+            base.Start();
+            m_target = null;
+            IExplodableSetUp();
+        }
         protected override void Update()
         {
-            if (!m_isActive)
+            base.Update();
+            IExplodableUpdate();
+        }
+        public override void Shoot(ref Transform direction)
+        {
+            m_target = direction;
+            m_initialShootingPosition = transform.position;
+            Vector2 initialPosition = transform.position;
+            if (m_target != null)
             {
-                return;
+                Debug.Log(m_target.position);
+                m_initialDistanceToTarget = Vector2.Distance(m_target.position, initialPosition);
+                m_lastTargetPosition = m_target.position;
             }
-
-            if (m_lifetime > m_projectileData.maxLifetime)
-            {
-                m_parentPool.UnSpawn(gameObject);
-            }
-
-            m_lifetime += Time.deltaTime;
-
-            GrenadeDirection();
+            StartCoroutine(Curve(transform.position, m_target.position));
         }
 
-        public override void Shoot(Vector2 direction)
+        public IEnumerator Curve(Vector2 start, Vector2 end)
         {
-            m_direction = direction + new Vector2(transform.position.x, transform.position.y);
-            m_initialPosition = transform.position;
-            m_centerPoint = (m_initialPosition + m_direction) / 2;
-        }
-        private void GrenadeDirection()
-        {
-            // Convert the 2D midpoint to 3D space, assuming z=0
-            Vector3 rotationPoint = new Vector3(m_centerPoint.x, m_centerPoint.y, 0);
+            float timePassed = 0.0f;
 
-            // Rotate around the midpoint
-            // Here, Vector3.forward is used as the rotation axis for 2D rotation
-            // Modify the rotation speed if you want faster or slower rotation
-            transform.RotateAround(rotationPoint, Vector3.forward, rotationSpeed * Time.deltaTime);
-            if (Vector2.Distance(transform.position, m_direction) < 0.2f)
+            if (m_target != null)
             {
-                m_lifetime = m_projectileData.maxLifetime;
+                while (timePassed < m_curveDuration)
+                {
+                    timePassed += Time.deltaTime;
+
+                    float timeSpeedScaling = timePassed / m_curveDuration;
+                    float heightScaling = m_grenadeCurve.Evaluate(timeSpeedScaling);
+
+                    float directionHeightModifier = Mathf.Lerp(0.0f, m_curveMaxHeight, heightScaling);
+
+                    transform.position = Vector2.Lerp(start, end, timeSpeedScaling) + new Vector2(0.0f, directionHeightModifier);
+
+                    yield return null;
+                }
             }
+            StartExplosion();
         }
         public void Explode()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void IExplodableStart()
-        {
-            throw new System.NotImplementedException();
+            Debug.Log("Explode");
+            gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
+            m_collider.enabled = true;
         }
 
         public void IExplodableUpdate()
         {
-            throw new System.NotImplementedException();
+            if (m_currentExplosionTime < 0)
+            {
+                m_parentPool.UnSpawn(gameObject);
+            }
+
+            if (m_isExploding)
+            {
+                m_currentExplosionTime -= Time.deltaTime;
+            }
         }
 
         public void StartExplosion()
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Start explosion");
+            //m_collider.radius = m_explodableData.m_explosionRadius;
+            m_isExploding = true;
+            m_currentExplosionTime = m_explodableData.m_maxExplosionTime;
+            Explode();
+        }
+
+        protected override void ResetValues(Vector2 pos)
+        {
+            //Make sure it's coherent with IExplodableSetUp, theres a lot of logic in common
+            base.ResetValues(pos);
+            gameObject.transform.localScale = m_initialScaleOfProjectile;
+            m_collider.enabled = false;
+        }
+        protected override void SetComponents(bool value)
+        {
+            m_renderer.enabled = value;
+            if (!value)
+            {
+                m_collider.enabled = value;
+            }
+        }
+        public void IExplodableSetUp()
+        {
+            m_collider.enabled = false;
+            m_initialScaleOfProjectile = transform.localScale;
         }
     }
 }

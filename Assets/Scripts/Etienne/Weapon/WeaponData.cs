@@ -1,11 +1,10 @@
- using UnityEngine;
+using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
     [CreateAssetMenu(fileName = "NewWeaponData", menuName = "SpaceBaboon/ScriptableObjects/WeaponData")]
     public class WeaponData : ScriptableObject
     {
-        public int damage;
         public int maxLevel;
         public float maxRange;
         public float attackSpeed;

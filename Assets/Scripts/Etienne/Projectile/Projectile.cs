@@ -8,6 +8,7 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] protected ProjectileData m_projectileData;
 
         protected Vector2 m_direction;
+        protected Transform m_target;
         protected float m_lifetime = 0.0f;
         protected float m_bonusDmg = 0;
         protected float m_damage = 0;
@@ -29,7 +30,7 @@ namespace SpaceBaboon.WeaponSystem
             m_collider = GetComponent<CircleCollider2D>();
         }
 
-        protected void Start()
+        protected virtual void Start()
         {
             m_damage = m_projectileData.damage;
         }
@@ -59,18 +60,13 @@ namespace SpaceBaboon.WeaponSystem
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
         }
 
-        protected virtual void OnCollisionEnter2D(Collision2D collision)
+        protected virtual void OnCollisionEnter2D(Collision2D collision) { }
+        public virtual void Shoot(ref Transform direction)
         {
-            m_parentPool.UnSpawn(gameObject);
-            //Debug.Log("projectile hit: " + collision.gameObject.name);
+            m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
         }
 
-        public virtual void Shoot(Vector2 direction)
-        {
-            m_direction = direction.normalized;
-        }
-
-        public void Activate(Vector2 pos, ObjectPool pool)
+        public virtual void Activate(Vector2 pos, ObjectPool pool)
         {
             ResetValues(pos);
             SetComponents(true);
@@ -79,24 +75,24 @@ namespace SpaceBaboon.WeaponSystem
             m_parentPool = pool;
         }
 
-        public void Deactivate()
+        public virtual void Deactivate()
         {
             m_isActive = false;
             SetComponents(false);
         }
 
-        protected void ResetValues(Vector2 pos)
+        protected virtual void ResetValues(Vector2 pos)
         {
             m_lifetime = 0.0f;
             transform.position = pos;
         }
-        protected void SetComponents(bool value)
+        protected virtual void SetComponents(bool value)
         {
             m_renderer.enabled = value;
             m_collider.enabled = value;
         }
 
-        public float GetDamage()
+        public virtual float OnHit()
         {
             return m_damage;
         }
