@@ -28,7 +28,12 @@ namespace SpaceBaboon
         }
         protected override void Update()
         {
-            base.Update();
+            //base.Update();
+            if (!m_isActive)
+            {
+                return;
+            }
+
             IExplodableUpdate();
         }
         public override void Shoot(ref Transform direction)
@@ -38,7 +43,7 @@ namespace SpaceBaboon
             Vector2 initialPosition = transform.position;
             if (m_target != null)
             {
-                Debug.Log(m_target.position);
+                //Debug.Log(m_target.position);
                 m_initialDistanceToTarget = Vector2.Distance(m_target.position, initialPosition);
                 m_lastTargetPosition = m_target.position;
             }
@@ -69,7 +74,7 @@ namespace SpaceBaboon
         }
         public void Explode()
         {
-            Debug.Log("Explode");
+            //Debug.Log("Explode");
             gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
             m_collider.enabled = true;
         }
@@ -89,7 +94,7 @@ namespace SpaceBaboon
 
         public void StartExplosion()
         {
-            Debug.Log("Start explosion");
+            //Debug.Log("Start explosion");
             //m_collider.radius = m_explodableData.m_explosionRadius;
             m_isExploding = true;
             m_currentExplosionTime = m_explodableData.m_maxExplosionTime;
@@ -98,22 +103,31 @@ namespace SpaceBaboon
 
         protected override void ResetValues(Vector2 pos)
         {
-            //Make sure it's coherent with IExplodableSetUp, theres a lot of logic in common
-            base.ResetValues(pos);
+            transform.position = pos;
             gameObject.transform.localScale = m_initialScaleOfProjectile;
-            m_collider.enabled = false;
+            m_currentExplosionTime = 0;
         }
+        //public override void Activate(Vector2 pos, ObjectPool pool)
+        //{
+        //    ResetValues(pos);
+        //    m_parentPool = pool;
+        //    m_collider.enabled = false;
+        //    //Debug.Log("Activate enfant grenade appeler,Explosion time :" + m_currentExplosionTime + " et isExploding : " + m_isExploding);
+        //}
         protected override void SetComponents(bool value)
         {
+            Debug.Log("SetComponents parent appeler");
             m_renderer.enabled = value;
+
             if (!value)
             {
                 m_collider.enabled = value;
+                m_isExploding = false;
             }
         }
         public void IExplodableSetUp()
         {
-            m_collider.enabled = false;
+            //m_collider.enabled = false;
             m_initialScaleOfProjectile = transform.localScale;
         }
     }

@@ -24,7 +24,7 @@ namespace SpaceBaboon.WeaponSystem
             get { return m_isActive; }
         }
 
-        protected void Awake()
+        protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
@@ -45,7 +45,7 @@ namespace SpaceBaboon.WeaponSystem
             if (m_lifetime > m_projectileData.maxLifetime)
             {
                 m_parentPool.UnSpawn(gameObject);
-                //Debug.Log("UnSpawning (lifetime)");
+                Debug.Log("UnSpawning (lifetime)");
 
             }
             m_lifetime += Time.deltaTime;
@@ -68,6 +68,7 @@ namespace SpaceBaboon.WeaponSystem
 
         public virtual void Activate(Vector2 pos, ObjectPool pool)
         {
+            //Debug.Log("Activate parent grenade appeler");
             ResetValues(pos);
             SetComponents(true);
             m_isActive = true;
@@ -77,6 +78,7 @@ namespace SpaceBaboon.WeaponSystem
 
         public virtual void Deactivate()
         {
+            //Debug.Log("Deactivate parent grenade appeler");
             m_isActive = false;
             SetComponents(false);
         }
@@ -88,6 +90,7 @@ namespace SpaceBaboon.WeaponSystem
         }
         protected virtual void SetComponents(bool value)
         {
+            //Debug.Log("SetComponents parent appeler");
             m_renderer.enabled = value;
             m_collider.enabled = value;
         }

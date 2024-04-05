@@ -102,6 +102,7 @@ MonoBehaviour:
   m_pool: {fileID: 8986636976328075423}
   m_attackSpeedScaling: 0.25
   m_debugMode: 0
+  m_rotationAroundPlayerSpeed: 50
 --- !u!114 &8986636976328075423
 MonoBehaviour:
   m_ObjectHideFlags: 0
