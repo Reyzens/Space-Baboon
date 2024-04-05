@@ -1,5 +1,5 @@
-using UnityEngine;
 using SpaceBaboon.PoolingSystem;
+using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
@@ -49,10 +49,17 @@ namespace SpaceBaboon.WeaponSystem
             }
             m_lifetime += Time.deltaTime;
 
+            MovingDirection();
+        }
+
+        protected virtual void MovingDirection()
+        {
+            //Debug.Log("Called parent proj MovingDirection with thos data : m_direction = " + m_direction + " m_projectileDataSpeed = " + m_projectileData.speed);
+
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
         }
 
-        protected void OnCollisionEnter2D(Collision2D collision)
+        protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             m_parentPool.UnSpawn(gameObject);
             //Debug.Log("projectile hit: " + collision.gameObject.name);
@@ -71,7 +78,6 @@ namespace SpaceBaboon.WeaponSystem
 
             m_parentPool = pool;
         }
-
 
         public void Deactivate()
         {

@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class GrenadeLauncher : Weapon
+    public class DefaultWeapon : Weapon
     {
+        // Start is called before the first frame update
         protected override Vector2 GetTarget()
         {
+            //Aim for closest enemy
             for (int i = 0; i < m_weaponData.maxRange; i++)
             {
                 var colliders = Physics2D.OverlapCircleAll(transform.position, i);
@@ -20,6 +22,8 @@ namespace SpaceBaboon
                         return enemyDirection;
                     }
                 }
+
+
             }
 
             //Didn't find an enemy
