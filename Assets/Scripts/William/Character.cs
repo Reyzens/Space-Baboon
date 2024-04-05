@@ -13,13 +13,11 @@ namespace SpaceBaboon
         
         //BaseVariables
         protected float m_currentHealth;
-        protected float m_currentMovespeed;
-        protected float m_currentAcceleration;
         protected float m_currentVelocity;
         
         //BonusVariables
         protected float m_bonusHealth;
-        protected float m_bonusMovespeed;
+        protected float m_bonusVelocity;
         
         //Methods        
         protected virtual void Move(Vector2 values) {}

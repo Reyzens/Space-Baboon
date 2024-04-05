@@ -11,10 +11,12 @@ namespace SpaceBaboon
 
         public delegate void MoveEvent(Vector2 values);
         public delegate void DashEvent();
+        
 
         public PlayerInput m_Input;
         public MoveEvent m_MoveEvent;
-        public DashEvent m_DashEvent;
+        public DashEvent m_DashStartEvent;
+        //public DashEvent m_DashEndEvent;
         
         
 
@@ -56,9 +58,14 @@ namespace SpaceBaboon
             m_MoveEvent?.Invoke(context.ReadValue<Vector2>());
         }
 
-        public void OnPlayerDash(InputAction.CallbackContext context)
+        public void OnPlayerDashStart(InputAction.CallbackContext context)
         {
-            m_DashEvent?.Invoke();
+            m_DashStartEvent?.Invoke();
         }
+
+        //public void OnPlayerDashEnd(InputAction.CallbackContext context)
+        //{
+        //    m_DashEndEvent?.Invoke();
+        //}
     }
 }

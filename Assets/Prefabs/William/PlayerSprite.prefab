@@ -346,12 +346,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f9a6f8fd40efb4c9d0fa02f936c118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_currentDashCD: 0
-  m_currentDashSpeed: 0
-  m_currentDashDistance: 0
-  m_currentDashStack: 0
-  m_isDashind: 0
-  m_DebugMode: 1
+  m_dashCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.30118442
+      value: 0.90239453
+      inSlope: -1.9810997
+      outSlope: -1.9810997
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.20678826
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9976663
+      value: 0.0014992207
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_isDashing: 0
+  m_DebugMode: 0
   m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
 --- !u!95 &763723706492497818
 Animator:

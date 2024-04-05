@@ -205,9 +205,9 @@ namespace SpaceBaboon
                 @PlayerDirection.started += instance.OnPlayerDirection;
                 @PlayerDirection.performed += instance.OnPlayerDirection;
                 @PlayerDirection.canceled += instance.OnPlayerDirection;
-                @PlayerDash.started += instance.OnPlayerDash;
-                @PlayerDash.performed += instance.OnPlayerDash;
-                @PlayerDash.canceled += instance.OnPlayerDash;
+                @PlayerDash.started += instance.OnPlayerDashStart;
+                //@PlayerDash.performed -= instance.OnPlayerDash;
+                //@PlayerDash.canceled += instance.OnPlayerDashEnd;
             }
 
             private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -215,9 +215,9 @@ namespace SpaceBaboon
                 @PlayerDirection.started -= instance.OnPlayerDirection;
                 @PlayerDirection.performed -= instance.OnPlayerDirection;
                 @PlayerDirection.canceled -= instance.OnPlayerDirection;
-                @PlayerDash.started -= instance.OnPlayerDash;
-                @PlayerDash.performed -= instance.OnPlayerDash;
-                @PlayerDash.canceled -= instance.OnPlayerDash;
+                @PlayerDash.started -= instance.OnPlayerDashStart;
+                //@PlayerDash.performed -= instance.OnPlayerDash;
+                //@PlayerDash.canceled -= instance.OnPlayerDashEnd;
             }
 
             public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -238,7 +238,9 @@ namespace SpaceBaboon
         public interface IPlayerMovementActions
         {
             void OnPlayerDirection(InputAction.CallbackContext context);
-            void OnPlayerDash(InputAction.CallbackContext context);
+            void OnPlayerDashStart(InputAction.CallbackContext context);
+            
+            //void OnPlayerDashEnd(InputAction.CallbackContext context);
         }
     }
 }

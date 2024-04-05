@@ -28,7 +28,7 @@ namespace SpaceBaboon.EnemySystem
             m_characterRenderer = GetComponent<Renderer>();
             m_characterCollider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_characterRb = GetComponent<Rigidbody2D>();
-            m_health = m_enemyData.defaultHeatlh;
+            m_health = m_enemyData.defaultHealth;
         }
 
         private void Start()

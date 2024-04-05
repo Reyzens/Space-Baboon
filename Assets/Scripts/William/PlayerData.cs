@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SpaceBaboon
 {
@@ -6,10 +7,10 @@ namespace SpaceBaboon
     public class PlayerData : CharacterData
     {
         [Header("PlayerUniqueStats")]
-        public float defaultDashCD;
-        public float defaultDashDistance;
-        public float defaultDashSpeed;
-        public int defaultDashStatck;
+        public float defaultDashCd;
+        public float defaultDashVelocity;
+        public float defaultDashDuration;
+        public AnimationCurve defaultDashCurve;
     }
 
 
