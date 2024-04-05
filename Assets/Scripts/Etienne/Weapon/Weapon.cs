@@ -6,7 +6,6 @@ namespace SpaceBaboon.WeaponSystem
     {
         [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] protected ObjectPool m_pool;
-        [SerializeField] protected float m_spawnDistance;
         [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
 
@@ -14,6 +13,7 @@ namespace SpaceBaboon.WeaponSystem
         protected float m_attackSpeedModifier = 1.0f;
         protected int m_currentLevel = 1;
         protected bool m_isCollecting = false;
+        private bool m_weaponToggle = true;
 
         protected void Awake()
         {
@@ -35,11 +35,15 @@ namespace SpaceBaboon.WeaponSystem
             m_attackingCooldown += Time.deltaTime * m_attackSpeedModifier;
         }
 
-        protected void Attack()
+        public void ToggleWeapon()
+        {
+            m_weaponToggle = !m_weaponToggle;
+            gameObject.SetActive(m_weaponToggle);
+        }
+        protected virtual void Attack()
         {
             Transform direction = GetTarget();
 
-            //Vector2 directionWithDistance = direction.normalized * m_spawnDistance;
             Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
             var projectile = m_pool.Spawn(spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
