@@ -235,10 +235,10 @@ namespace SpaceBaboon
         }
         #endregion
 
-        public override void OnDamageTaken(float values)
+        public override void OnDamageTaken(float damage)
         {
             if (m_alive) // TODO if statement may not be useful, if so remove it
-                m_currentHealth -= values;
+                m_currentHealth -= damage;
         }
 
         public float GetCurrentHealth()

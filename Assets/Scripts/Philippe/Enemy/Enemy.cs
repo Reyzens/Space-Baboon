@@ -21,7 +21,7 @@ namespace SpaceBaboon.EnemySystem
         private float m_bonusMaxVelocity;
         private float m_bonusAttackDelay;        
 
-        private Vector2 m_vectorZero = Vector2.zero;
+        protected Vector2 m_noVectorValue = Vector2.zero;
 
         private void Awake()
         {
@@ -51,7 +51,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            Move(m_vectorZero);            
+            Move(m_noVectorValue);            
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -66,7 +66,7 @@ namespace SpaceBaboon.EnemySystem
         {
             if (collision.gameObject.CompareTag("Player") && m_contactAttackReady)
             {                
-                Attack();                
+                ContactAttack();                
             }
         }
 
@@ -81,7 +81,7 @@ namespace SpaceBaboon.EnemySystem
             m_characterRb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);
         }      
 
-        protected override void Move(Vector2 values)
+        protected override void Move(Vector2 value)
         {
             MoveTowardsPlayer();
         }
@@ -114,7 +114,7 @@ namespace SpaceBaboon.EnemySystem
                 m_contactAttackReady = true;
         }
 
-        private void Attack()
+        private void ContactAttack()
         {
             m_player.OnDamageTaken(m_enemyData.defaultContactAttackDamage);
 
@@ -122,9 +122,9 @@ namespace SpaceBaboon.EnemySystem
             m_contactAttackReady = false;
         }
 
-        public override void OnDamageTaken(float values)
+        public override void OnDamageTaken(float damage)
         {
-            m_health -= values;
+            m_health -= damage;
 
             Debug.Log("enemy hit have " + m_health + " health");
             if (m_health <= 0)
