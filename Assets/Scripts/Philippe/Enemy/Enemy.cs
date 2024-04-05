@@ -1,11 +1,13 @@
 using SpaceBaboon.PoolingSystem;
-using UnityEngine;
+using UnityEngine; 
 
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric
     {
         [SerializeField] private EnemyData m_enemyData;
+
+        [SerializeField] private GameObject m_contactAttackParticleSystem;
         
         private GenericObjectPool m_parentPool;
         private bool m_isActive = false;
@@ -65,8 +67,10 @@ namespace SpaceBaboon.EnemySystem
         private void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && m_contactAttackReady)
-            {                
-                ContactAttack();                
+            {
+                ContactPoint2D contactPoint = collision.contacts[0];
+                Vector2 contactPos = contactPoint.point;
+                ContactAttack(contactPos);                
             }
         }
 
@@ -114,12 +118,31 @@ namespace SpaceBaboon.EnemySystem
                 m_contactAttackReady = true;
         }
 
-        private void ContactAttack()
+        private void ContactAttack(Vector2 contactPos)
         {
             m_player.OnDamageTaken(m_enemyData.defaultContactAttackDamage);
 
+            InstantiateContactAttackParticuleSystem(contactPos);
+
             m_contactAttackTimer = m_enemyData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
+        }
+
+        // TODO intantiation to be removed when particle system object pool integrated to project
+        // TODO make sure particle system is at foreground
+        private void InstantiateContactAttackParticuleSystem(Vector2 contactPos)
+        {
+            Vector3 contactPosVec = new Vector3(contactPos.x, contactPos.y, 2);
+
+            Vector2 direction = m_playerObject.transform.position - contactPosVec;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            GameObject contactAttackInstance = Instantiate(m_contactAttackParticleSystem, contactPosVec, rotation);
+
+            AudioSource contactAttackAS = contactAttackInstance.GetComponent<AudioSource>();
+            AudioClip contactAttackAC = contactAttackAS.clip;
+            contactAttackAS?.PlayOneShot(contactAttackAC);            
         }
 
         public override void OnDamageTaken(float damage)
