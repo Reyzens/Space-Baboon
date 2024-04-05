@@ -196,4 +196,5 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_curveMaxHeight: 5
-  m_curveDuration: 1
+  m_curveDuration: 0.5
+  m_explodableData: {fileID: 11400000, guid: 08f584798c6bb3f4fa5a11426378b65c, type: 2}
