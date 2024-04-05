@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -23,6 +24,7 @@ namespace SpaceBaboon
         private AnimationCurve m_dashCurve;
         private float m_currentDashCD;
         private float m_currentDashSpeed;
+        private Color m_spriteRendererColor;
         [SerializeField] private bool m_isDashing;
         private float m_currentDashDuration;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
@@ -51,6 +53,8 @@ namespace SpaceBaboon
         private void Start()
         {
             DictionaryInistalisation();
+            PlayerVariablesInitialization();
+            FreezePlayerRotation();
         }
 
         private void Update()
@@ -83,8 +87,8 @@ namespace SpaceBaboon
 
             m_characterRb = GetComponent<Rigidbody2D>();
             m_characterCollider = GetComponent<BoxCollider2D>();
-            m_characterRenderer = GetComponent<Renderer>();
-            
+            m_characterRenderer = GetComponent<SpriteRenderer>();
+           
             
 
             m_currentHealth = m_playerData.defaultHealth;
@@ -110,6 +114,7 @@ namespace SpaceBaboon
             enabled = true;
             m_isDashing = false;
             m_activeDashCD = 0.0f;
+            
         }
 
         private void SubscribeToInputEvent()
@@ -201,14 +206,18 @@ namespace SpaceBaboon
         }
 
         private void DashStart()
-        { 
-            m_dashInputReceiver = true;
+        {  
+            if(m_activeDashCD <= 0.0f)
+            {
+                m_dashInputReceiver = true;
+            }
         }
         
         private IEnumerator DashCoroutine()
         {
             m_isDashing = true;
             float timestamped = 0.0f;
+            m_characterRenderer.material.color -= new Color(0,0,0,0.3f);
             while (timestamped < m_currentDashDuration)
             {
                 timestamped += Time.deltaTime;
@@ -218,6 +227,7 @@ namespace SpaceBaboon
                 yield return null;
             }
             m_activeDashCD = m_currentDashCD;
+            m_characterRenderer.material.color += new Color(0,0,0,0.3f);
             m_isDashing = false;
             m_dashInputReceiver = false;
         }
