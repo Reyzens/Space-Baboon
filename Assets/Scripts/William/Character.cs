@@ -7,7 +7,7 @@ namespace SpaceBaboon
         //BaseRef
         protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
-        protected Renderer m_characterRenderer;
+        protected SpriteRenderer m_characterRenderer;
         protected BoxCollider2D m_characterCollider;
         protected Rigidbody2D m_characterRb;
         

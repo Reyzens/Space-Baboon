@@ -27,7 +27,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            m_characterRenderer = GetComponent<Renderer>();
+            m_characterRenderer = GetComponent<SpriteRenderer>();
             m_characterCollider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_characterRb = GetComponent<Rigidbody2D>();
             m_health = m_enemyData.defaultHealth;

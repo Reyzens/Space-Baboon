@@ -25,6 +25,8 @@ namespace SpaceBaboon
         private float m_currentDashCD;
         private float m_currentDashSpeed;
         private Color m_spriteRendererColor;
+        [SerializeField]
+        private GameObject m_dahsTrail;
         [SerializeField] private bool m_isDashing;
         private float m_currentDashDuration;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
@@ -67,6 +69,7 @@ namespace SpaceBaboon
         {
             PlayerMovement();
             ActiveDashCdReduction();
+            PlayerSpriteDirectionSwap();
         }
 
         private void OnDestroy()
@@ -88,6 +91,8 @@ namespace SpaceBaboon
             m_characterRb = GetComponent<Rigidbody2D>();
             m_characterCollider = GetComponent<BoxCollider2D>();
             m_characterRenderer = GetComponent<SpriteRenderer>();
+            
+            
            
             
 
@@ -114,7 +119,9 @@ namespace SpaceBaboon
             enabled = true;
             m_isDashing = false;
             m_activeDashCD = 0.0f;
-            
+            m_dahsTrail.SetActive(false);
+
+
         }
 
         private void SubscribeToInputEvent()
@@ -212,6 +219,18 @@ namespace SpaceBaboon
                 m_dashInputReceiver = true;
             }
         }
+
+        private void PlayerSpriteDirectionSwap()
+        {
+            if (m_destination.x > 0)
+            {
+                m_characterRenderer.flipX = false;
+            }
+            if (m_destination.x < 0)
+            {
+                m_characterRenderer.flipX = true;
+            }
+        }
         
         private IEnumerator DashCoroutine()
         {
@@ -224,10 +243,12 @@ namespace SpaceBaboon
                 float dashCurvePosition = timestamped / m_currentDashDuration;
                 float dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
                 m_characterRb.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
+                m_dahsTrail.SetActive(true);
                 yield return null;
             }
             m_activeDashCD = m_currentDashCD;
             m_characterRenderer.material.color += new Color(0,0,0,0.3f);
+            m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
         }
