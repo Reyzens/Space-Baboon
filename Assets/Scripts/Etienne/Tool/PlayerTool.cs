@@ -6,13 +6,18 @@ using System;
 
 namespace SpaceBaboon
 {
-    
+    [Serializable]
     public class PlayerTool : EditorWindow
     {
-        [SerializeField] private VisualTreeAsset m_tree;
-
+        //[SerializeField] private VisualTreeAsset m_tree;
+        
+        //private UnityEngine.Object m_playerField;
         private GameObject m_player;
-        private Toggle m_invincibilityToggle;
+
+        private Toggle m_invincibility;
+        private FloatField m_speed;
+        private ObjectField m_playerObjectField;
+
 
         [MenuItem("Tools/Player")]
         public static void OpenWindow()
@@ -21,20 +26,65 @@ namespace SpaceBaboon
         }
 
         private void CreateGUI()
+        {            
+            //m_tree.CloneTree(rootVisualElement);
+
+            VisualTreeAsset tree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Etienne/Tool/PlayerTool.uxml");
+            if (tree == null)
+            {
+                Debug.Log("wrong path");
+            }
+            tree.CloneTree(rootVisualElement);
+
+
+
+
+
+            m_playerObjectField = rootVisualElement.Q<ObjectField>("PlayerReference");
+            m_playerObjectField.RegisterValueChangedCallback(OnPlayerRefValueChanged);
+
+            m_invincibility = rootVisualElement.Q<Toggle>("InvincibilityToggle");
+            m_invincibility.RegisterValueChangedCallback(OnInvincibilityToggled);
+            
+            m_speed = rootVisualElement.Q<FloatField>("PlayerSpeed");
+            m_speed.RegisterValueChangedCallback(OnSpeedValueChanged);
+
+        }
+
+        private void OnGUI()
         {
-            m_tree.CloneTree(rootVisualElement);
+            Debug.Log("player: " + m_player);
 
+            if (m_playerObjectField == null)
+            {
+                Debug.Log("field null");
+            }
+            else
+            {
+                Debug.Log("field == " + m_playerObjectField.value);
+            }
 
-            m_invincibilityToggle = rootVisualElement.Q<Toggle>("InvincibilityToggle");
-            m_invincibilityToggle.RegisterValueChangedCallback(OnInvincibilityToggled);
+            if (Application.isPlaying)
+            {
+                if (m_playerObjectField == null)
+                {
+                    return;
+                }
+                m_playerObjectField.value = m_player;
+            }
+        }
 
-            var playerRef = rootVisualElement.Q<ObjectField>("PlayerReference");
-            playerRef.RegisterValueChangedCallback(OnPlayerRefValueChanged);
+        private void OnPlayerRefValueChanged(ChangeEvent<UnityEngine.Object> evt)
+        {
+            //m_playerField = evt.newValue;
+            //m_player = m_playerField as GameObject;
+
+            m_player = evt.newValue as GameObject;
         }
 
         private void OnInvincibilityToggled(ChangeEvent<bool> evt)
         {
-            Debug.Log("event called");
+            //Debug.Log("event called");
             var script = m_player.GetComponent<TestPlayer>();
             
             if (script == null)
@@ -42,12 +92,28 @@ namespace SpaceBaboon
                 Debug.Log("script null");
                 return;
             }
-            script.ToggleInvincibility();
+            script.SetInvincibility(m_invincibility.value);
         }
-
-        private void OnPlayerRefValueChanged(ChangeEvent<UnityEngine.Object> evt)
+        private void OnSpeedValueChanged(ChangeEvent<float> evt)
         {
-            m_player = evt.newValue as GameObject;
+            //Debug.Log("event called");
+            var script = m_player.GetComponent<TestPlayer>();
+            
+            if (script == null)
+            {
+                Debug.Log("script null");
+                return;
+            }
+            script.SetSpeed(m_speed.value);
+        }
+        private void OnDisable()
+        {
+            
+        }
+        private void OnDestroy()
+        {
+            //sauvegarder ds editor pref
+            //unregister
         }
     }
 
