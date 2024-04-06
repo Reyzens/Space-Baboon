@@ -235,24 +235,25 @@ namespace SpaceBaboon
         private IEnumerator DashCoroutine()
         {
             m_isDashing = true;
+            Color savedColor = m_characterRenderer.color;
             float timestamped = 0.0f;
-            m_characterRenderer.material.color -= new Color(0,0,0,0.3f);
+            m_characterRenderer.material.color = new Color(1f, 1f, 1f, 0.2f);
             while (timestamped < m_currentDashDuration)
             {
                 timestamped += Time.deltaTime;
                 float dashCurvePosition = timestamped / m_currentDashDuration;
                 float dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
                 m_characterRb.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
-                this.tag = "PlayerDashingImmunity";
+                this.gameObject.layer = LayerMask.NameToLayer("ImmunityDash");
                 m_dahsTrail.SetActive(true);
                 yield return null;
             }
             m_activeDashCD = m_currentDashCD;
-            m_characterRenderer.material.color += new Color(0,0,0,0.3f);
+            m_characterRenderer.material.color = Color.Lerp(m_characterRenderer.material.color,savedColor,0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
-            this.tag = "Player";
+            this.gameObject.layer = LayerMask.NameToLayer("Player");
         }
 
         #region Crafting
