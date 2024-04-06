@@ -8,6 +8,7 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] protected ObjectPool m_pool;
         [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
+        [SerializeField] float m_rotationAroundPlayerSpeed;
 
         protected float m_attackingCooldown = 0.0f;
         protected float m_attackSpeedModifier = 1.0f;
@@ -33,8 +34,16 @@ namespace SpaceBaboon.WeaponSystem
                 m_attackingCooldown = 0.0f;
             }
             m_attackingCooldown += Time.deltaTime * m_attackSpeedModifier;
+            RotateAroundPlayer();
         }
+        private void RotateAroundPlayer()
+        {
 
+            if (transform.parent != null)
+            {
+                transform.RotateAround(transform.parent.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
+            }
+        }
         public void ToggleWeapon()
         {
             m_weaponToggle = !m_weaponToggle;

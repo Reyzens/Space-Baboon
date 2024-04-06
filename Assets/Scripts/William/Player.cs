@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
@@ -14,11 +16,19 @@ namespace SpaceBaboon
         private float m_horizontal;
         private float m_vertical;
         private Vector2 m_destination;
-        [SerializeField] private float m_currentDashCD;
-        [SerializeField] private float m_currentDashSpeed;
-        [SerializeField] private float m_currentDashDistance;
-        [SerializeField] private int m_currentDashStack;
-        [SerializeField] private bool m_isDashind;
+        private bool m_dashInputReceiver;
+        private float m_currentDashCDCounter;
+        private Vector2 m_playerInitialPosition;
+        private Vector2 m_playerEndingPosition;
+        private float m_activeDashCD;
+        private AnimationCurve m_dashCurve;
+        private float m_currentDashCD;
+        private float m_currentDashSpeed;
+        private Color m_spriteRendererColor;
+        [SerializeField]
+        private GameObject m_dahsTrail;
+        [SerializeField] private bool m_isDashing;
+        private float m_currentDashDuration;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
         private List<WeaponSystem.Weapon> m_equipedWeapon;
         private List<WeaponSystem.Weapon> m_blockedWeapon;
@@ -45,37 +55,26 @@ namespace SpaceBaboon
         private void Start()
         {
             DictionaryInistalisation();
+            PlayerVariablesInitialization();
+            FreezePlayerRotation();
         }
 
         private void Update()
         {
             OnPlayerDeath();
+            
         }
 
         private void FixedUpdate()
         {
-            if (m_destination != Vector2.zero) // Check if there's any movement input
-            {
-                m_characterRb.AddForce(m_destination * m_playerData.defaultAcceleration, ForceMode2D.Force);
-                //Debug.Log("destination value.x = " + m_destination.x);
-                //Debug.Log("destination value.y = " + m_destination.y);
-                //RegulateVelocity();
-                //Debug.Log("destination value.x after Regulate = " + m_destination.x);
-                //Debug.Log("destination value.y after Regulate = " + m_destination.y);
-            }
-
-            RegulateVelocity();
-            //if (m_destination is { x: 0, y: 0 })
-            //{
-            //    m_characterRb.velocity = Vector2.zero;
-            //}
-
+            PlayerMovement();
+            ActiveDashCdReduction();
+            PlayerSpriteDirectionSwap();
         }
 
         private void OnDestroy()
         {
             UnsubscribeToInputEvent();
-
         }
 
         //Methods
@@ -91,23 +90,26 @@ namespace SpaceBaboon
 
             m_characterRb = GetComponent<Rigidbody2D>();
             m_characterCollider = GetComponent<BoxCollider2D>();
-            m_characterRenderer = GetComponent<Renderer>();
+            m_characterRenderer = GetComponent<SpriteRenderer>();
+            
+            
+           
+            
 
-            m_currentHealth = m_playerData.defaultHeatlh;
-            m_currentMovespeed = m_playerData.defaultMovespeed;
-            m_currentAcceleration = m_playerData.defaultAcceleration;
+            m_currentHealth = m_playerData.defaultHealth;
             m_currentVelocity = m_playerData.defaultMaxVelocity;
-            m_currentDashSpeed = m_playerData.defaultDashSpeed;
-            m_currentDashCD = m_playerData.defaultDashCD;
-            m_currentDashStack = m_playerData.defaultDashStatck;
-            m_currentDashDistance = m_playerData.defaultDashDistance;
+            m_currentDashSpeed = m_playerData.defaultDashVelocity;
+            m_currentDashCD = m_playerData.defaultDashCd;
+            m_currentDashDuration = m_playerData.defaultDashDuration;
+            m_dashCurve = m_playerData.defaultDashCurve;
+
 
             m_rotationlock = 0;
             m_vertical = 0.0f;
             m_horizontal = 0.0f;
 
             m_bonusHealth = 0.0f;
-            m_bonusMovespeed = 0.0f;
+            m_bonusVelocity = 0.0f;
             m_bonusDashCD = 0.0f;
             m_bonusDashSpeed = 0.0f;
             m_bonusDashDistance = 0.0f;
@@ -115,19 +117,25 @@ namespace SpaceBaboon
 
             m_alive = true;
             enabled = true;
-            m_isDashind = false;
+            m_isDashing = false;
+            m_activeDashCD = 0.0f;
+            m_dahsTrail.SetActive(false);
+
+
         }
 
         private void SubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent += Move;
-            InputHandler.instance.m_DashEvent += Dash;
+            InputHandler.instance.m_DashStartEvent += DashStart;
+            //.instance.m_DashEndEvent += DashEnd;
         }
 
         private void UnsubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent -= Move;
-            InputHandler.instance.m_DashEvent -= Dash;
+            InputHandler.instance.m_DashStartEvent -= DashStart;
+            //InputHandler.instance.m_DashEndEvent -= DashEnd;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -165,10 +173,17 @@ namespace SpaceBaboon
             }
         }
 
+        private void ActiveDashCdReduction()
+        {
+            if (m_activeDashCD > 0.0f)
+            {
+                m_activeDashCD -= Time.deltaTime;
+                
+            }
+        }
+
         protected override void Move(Vector2 values)
         {
-            //Debug.Log("value.x = " + values.x);
-            //Debug.Log("value.y = " + values.y);
             m_destination = new Vector2(values.x, values.y).normalized;
         }
 
@@ -181,26 +196,63 @@ namespace SpaceBaboon
             }
         }
 
-        private void Dash()
+        private void PlayerMovement()
         {
-            StartCoroutine(DashCouritine());
+            if (m_destination != Vector2.zero) // Check if there's any movement input
+            {
+                
+                m_characterRb.AddForce(m_destination * m_currentVelocity, ForceMode2D.Force);
+                RegulateVelocity();
+            }
+
+            if (m_dashInputReceiver && m_activeDashCD <= 0.0f && m_destination != Vector2.zero)
+            {
+                StartCoroutine(DashCoroutine());
+            }
+            
         }
 
-        private IEnumerator DashCouritine()
-        {
-            if (m_currentDashStack >= 1)
+        private void DashStart()
+        {  
+            if(m_activeDashCD <= 0.0f)
             {
-                m_isDashind = true;
-                m_characterRb.velocity = new Vector2(m_horizontal * m_currentDashSpeed, m_vertical * m_currentDashSpeed);
-                yield return new WaitForSeconds(m_currentDashCD);
-                m_isDashind = false;
+                m_dashInputReceiver = true;
             }
-            //if (m_DebugMode)
-            //{
-            //    //OnDamageTaken(10);
-            //    m_alive = false;
-            //    Debug.Log("Dash");
-            //}
+        }
+
+        private void PlayerSpriteDirectionSwap()
+        {
+            if (m_destination.x > 0)
+            {
+                m_characterRenderer.flipX = false;
+            }
+            if (m_destination.x < 0)
+            {
+                m_characterRenderer.flipX = true;
+            }
+        }
+        
+        private IEnumerator DashCoroutine()
+        {
+            m_isDashing = true;
+            float timestamped = 0.0f;
+            m_characterRenderer.material.color -= new Color(0,0,0,0.3f);
+            while (timestamped < m_currentDashDuration)
+            {
+                timestamped += Time.deltaTime;
+                float dashCurvePosition = timestamped / m_currentDashDuration;
+                float dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
+                m_characterRb.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
+                this.tag = "PlayerDashingImmunity";
+                m_dahsTrail.SetActive(true);
+                yield return null;
+            }
+            m_activeDashCD = m_currentDashCD;
+            m_characterRenderer.material.color += new Color(0,0,0,0.3f);
+            m_dahsTrail.SetActive(false);
+            m_isDashing = false;
+            m_dashInputReceiver = false;
+            this.tag = "Player";
         }
 
         #region Crafting

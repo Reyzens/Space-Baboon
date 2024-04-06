@@ -7,8 +7,7 @@ namespace SpaceBaboon
         [Header("CharacterStats")]
         public int index;
         public string characterName;
-        public int defaultHeatlh;
-        public int defaultMovespeed;
+        public int defaultHealth;
         public Sprite sprite;
         public GameObject prefab;
         public float defaultAcceleration;

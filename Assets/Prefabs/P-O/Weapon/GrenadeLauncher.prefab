@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &802097290951641300
 Transform:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_prefab: {fileID: 0}
   m_container: {fileID: 0}
-  m_poolSize: 10
+  m_poolSize: 5
 --- !u!114 &3250909844759871497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_weaponData: {fileID: 11400000, guid: 497e57f6d8fdbc34bbd72d4a161bfdcf, type: 2}
   m_pool: {fileID: 8202861654822499270}
-  m_spawnDistance: 1
   m_attackSpeedScaling: 0.25
   m_debugMode: 0
+  m_rotationAroundPlayerSpeed: 50

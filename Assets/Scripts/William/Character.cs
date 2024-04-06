@@ -7,19 +7,17 @@ namespace SpaceBaboon
         //BaseRef
         protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
-        protected Renderer m_characterRenderer;
+        protected SpriteRenderer m_characterRenderer;
         protected BoxCollider2D m_characterCollider;
         protected Rigidbody2D m_characterRb;
         
         //BaseVariables
         protected float m_currentHealth;
-        protected float m_currentMovespeed;
-        protected float m_currentAcceleration;
         protected float m_currentVelocity;
         
         //BonusVariables
         protected float m_bonusHealth;
-        protected float m_bonusMovespeed;
+        protected float m_bonusVelocity;
         
         //Methods        
         protected virtual void Move(Vector2 values) {}
