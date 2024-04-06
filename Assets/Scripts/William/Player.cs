@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -25,8 +27,10 @@ namespace SpaceBaboon
         private float m_currentDashCD;
         private float m_currentDashSpeed;
         private Color m_spriteRendererColor;
-        [SerializeField]
-        private GameObject m_dahsTrail;
+        private bool m_screenShake;
+        
+        [SerializeField]private CinemachineVirtualCamera m_playerCam;
+        [SerializeField]private GameObject m_dahsTrail;
         [SerializeField] private bool m_isDashing;
         private float m_currentDashDuration;
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
@@ -70,6 +74,7 @@ namespace SpaceBaboon
             PlayerMovement();
             ActiveDashCdReduction();
             PlayerSpriteDirectionSwap();
+            PlayerDamageTakenScreenShake();
         }
 
         private void OnDestroy()
@@ -91,6 +96,7 @@ namespace SpaceBaboon
             m_characterRb = GetComponent<Rigidbody2D>();
             m_characterCollider = GetComponent<BoxCollider2D>();
             m_characterRenderer = GetComponent<SpriteRenderer>();
+            m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             
             
            
@@ -120,6 +126,7 @@ namespace SpaceBaboon
             m_isDashing = false;
             m_activeDashCD = 0.0f;
             m_dahsTrail.SetActive(false);
+            m_screenShake = false;
 
 
         }
@@ -217,6 +224,7 @@ namespace SpaceBaboon
             if(m_activeDashCD <= 0.0f)
             {
                 m_dashInputReceiver = true;
+                
             }
         }
 
@@ -234,8 +242,9 @@ namespace SpaceBaboon
         
         private IEnumerator DashCoroutine()
         {
+            
             m_isDashing = true;
-            Color savedColor = m_characterRenderer.color;
+            m_spriteRendererColor = m_characterRenderer.color;
             float timestamped = 0.0f;
             m_characterRenderer.material.color = new Color(1f, 1f, 1f, 0.2f);
             while (timestamped < m_currentDashDuration)
@@ -249,11 +258,12 @@ namespace SpaceBaboon
                 yield return null;
             }
             m_activeDashCD = m_currentDashCD;
-            m_characterRenderer.material.color = Color.Lerp(m_characterRenderer.material.color,savedColor,0.2f);
+            m_characterRenderer.material.color = Color.Lerp(m_characterRenderer.material.color,m_spriteRendererColor,0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
             this.gameObject.layer = LayerMask.NameToLayer("Player");
+            
         }
 
         #region Crafting
@@ -288,12 +298,30 @@ namespace SpaceBaboon
         }
         #endregion
 
+        private void PlayerDamageTakenScreenShake()
+        {
+            if (m_screenShake)
+            {
+                StartCoroutine(PlayerDamageTakenScreenShakeCoroutine());
+            }
+        }
+        private IEnumerator PlayerDamageTakenScreenShakeCoroutine()
+        {
+            m_screenShake = false;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0f;
+            m_characterRenderer.material.color = m_spriteRendererColor;
+            yield return new WaitForSeconds(0.5f);
+        }
         public override void OnDamageTaken(float damage)
         {
             // TODO change name of OnDamageTaken to AttackReceived
             // We could change the IDammageable interface to IAttackable
             // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
-
+            m_screenShake = true;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
+            m_characterRenderer.material.color = Color.red;
             if (m_alive) // TODO if statement may not be useful, if so remove it
                 m_currentHealth -= damage;
         }
