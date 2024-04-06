@@ -29,7 +29,7 @@ namespace SpaceBaboon
         {            
             //m_tree.CloneTree(rootVisualElement);
 
-            VisualTreeAsset tree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Etienne/Tool/PlayerTool.uxml");
+            VisualTreeAsset tree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Scripts/Etienne/Tool/Editor/PlayerTool.uxml");
             if (tree == null)
             {
                 Debug.Log("wrong path");
@@ -64,14 +64,14 @@ namespace SpaceBaboon
                 Debug.Log("field == " + m_playerObjectField.value);
             }
 
-            if (Application.isPlaying)
-            {
-                if (m_playerObjectField == null)
-                {
-                    return;
-                }
-                m_playerObjectField.value = m_player;
-            }
+            //if (Application.isPlaying)
+            //{
+            //    if (m_playerObjectField == null)
+            //    {
+            //        return;
+            //    }
+            //    m_playerObjectField.value = m_player;
+            //}
         }
 
         private void OnPlayerRefValueChanged(ChangeEvent<UnityEngine.Object> evt)
