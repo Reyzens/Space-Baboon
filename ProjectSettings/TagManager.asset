@@ -11,6 +11,8 @@ TagManager:
   - Floor
   - PlayerCam
   - Structure
+  - DashTrail
+  - PlayerDashingImmunity
   layers:
   - Default
   - TransparentFX

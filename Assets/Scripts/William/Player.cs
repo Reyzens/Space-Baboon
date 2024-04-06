@@ -243,6 +243,7 @@ namespace SpaceBaboon
                 float dashCurvePosition = timestamped / m_currentDashDuration;
                 float dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
                 m_characterRb.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
+                this.tag = "PlayerDashingImmunity";
                 m_dahsTrail.SetActive(true);
                 yield return null;
             }
@@ -251,6 +252,7 @@ namespace SpaceBaboon
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
+            this.tag = "Player";
         }
 
         #region Crafting
