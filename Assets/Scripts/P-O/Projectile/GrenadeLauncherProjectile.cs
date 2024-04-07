@@ -119,6 +119,8 @@ namespace SpaceBaboon
             Debug.Log("SetComponents parent appeler");
             m_renderer.enabled = value;
 
+            m_isActive = value;
+
             if (!value)
             {
                 m_collider.enabled = value;

@@ -5,17 +5,16 @@ namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric
     {
-        [SerializeField] private EnemyData m_enemyData;
+        [SerializeField] private EnemyData m_data;
 
-        [SerializeField] private GameObject m_contactAttackParticleSystem;
+        [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
         
         private GenericObjectPool m_parentPool;
         private bool m_isActive = false;
 
         private GameObject m_playerObject;
         private Player m_player;
-
-        private float m_health;
+                
         private float m_contactAttackTimer = 0.0f;
         private bool m_contactAttackReady = true;
         private float m_bonusDamage = 0.0f;
@@ -25,12 +24,12 @@ namespace SpaceBaboon.EnemySystem
 
         protected Vector2 m_noVectorValue = Vector2.zero;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             m_characterRenderer = GetComponent<SpriteRenderer>();
             m_characterCollider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_characterRb = GetComponent<Rigidbody2D>();
-            m_health = m_enemyData.defaultHealth;
+            m_currentHealth = m_data.defaultHealth;
         }
 
         private void Start()
@@ -39,7 +38,7 @@ namespace SpaceBaboon.EnemySystem
             m_player = m_playerObject.GetComponent<Player>();            
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             if (!m_isActive)
                 return;
@@ -82,7 +81,7 @@ namespace SpaceBaboon.EnemySystem
         private void SlightPushFromObstructingObject(Collision2D collision)
         {
             Vector3 direction = collision.transform.position - transform.position;
-            m_characterRb.AddForce(-direction * m_enemyData.obstructionPushForce, ForceMode2D.Force);
+            m_characterRb.AddForce(-direction * m_data.obstructionPushForce, ForceMode2D.Force);
         }      
 
         protected override void Move(Vector2 value)
@@ -95,7 +94,7 @@ namespace SpaceBaboon.EnemySystem
             Vector3 playerPosition = m_playerObject.transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
-            m_characterRb.AddForce(direction * m_enemyData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
+            m_characterRb.AddForce(direction * m_data.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
 
             if (direction.magnitude > 0)
                 RegulateVelocity();
@@ -103,10 +102,10 @@ namespace SpaceBaboon.EnemySystem
 
         protected override void RegulateVelocity()
         {
-            if (m_characterRb.velocity.magnitude > m_enemyData.defaultMaxVelocity /* + or * bonus */)
+            if (m_characterRb.velocity.magnitude > m_data.defaultMaxVelocity /* + or * bonus */)
             {
                 m_characterRb.velocity = m_characterRb.velocity.normalized;
-                m_characterRb.velocity *= m_enemyData.defaultMaxVelocity /* + or * bonus */;
+                m_characterRb.velocity *= m_data.defaultMaxVelocity /* + or * bonus */;
             }
         }
 
@@ -120,11 +119,11 @@ namespace SpaceBaboon.EnemySystem
 
         private void ContactAttack(Vector2 contactPos)
         {
-            m_player.OnDamageTaken(m_enemyData.defaultContactAttackDamage);
+            m_player.OnDamageTaken(m_data.defaultContactAttackDamage);
 
             InstantiateContactAttackParticuleSystem(contactPos);
 
-            m_contactAttackTimer = m_enemyData.defaultContactAttackDelay /* + or * bonus */;
+            m_contactAttackTimer = m_data.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
         }
 
@@ -147,10 +146,10 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnDamageTaken(float damage)
         {
-            m_health -= damage;
+            m_currentHealth -= damage;
 
-            Debug.Log("enemy hit have " + m_health + " health");
-            if (m_health <= 0)
+            Debug.Log("enemy hit have " + m_currentHealth + " health");
+            if (m_currentHealth <= 0)
             {
                 m_parentPool.UnSpawn(gameObject);
             }

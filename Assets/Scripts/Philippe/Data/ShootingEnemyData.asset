@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c67f2134eb33142bdfa3ca8744ed4a, type: 3}
-  m_Name: MeleeEnemyData
+  m_Script: {fileID: 11500000, guid: 4e4bc044ca15c324dbe6f0d617c1ffe4, type: 3}
+  m_Name: ShootingEnemyData
   m_EditorClassIdentifier: 
   index: 0
-  characterName: Melee Enemy
+  characterName: Shooting enemy
   defaultHealth: 10
   sprite: {fileID: 0}
-  prefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
+  prefab: {fileID: 0}
   defaultAcceleration: 30
   defaultMaxVelocity: 10
   defaultContactAttackDamage: 10
   defaultContactAttackDelay: 3
   size: 0
   obstructionPushForce: 25
+  maxTargetAcquiringRange: 0

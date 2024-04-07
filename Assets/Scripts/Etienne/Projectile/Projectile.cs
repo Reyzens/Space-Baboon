@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class Projectile : MonoBehaviour, IPoolable
+    public class Projectile : MonoBehaviour, IPoolableGeneric
     {
         [SerializeField] protected ProjectileData m_projectileData;
 
@@ -13,16 +13,14 @@ namespace SpaceBaboon.WeaponSystem
         protected float m_bonusDmg = 0;
         protected float m_damage = 0;
 
-        //For ObjectPool
+        //For ObjectPool        
+        protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
         protected SpriteRenderer m_renderer;
         protected CircleCollider2D m_collider;
-        protected ObjectPool m_parentPool;
+        
 
-        public bool IsActive
-        {
-            get { return m_isActive; }
-        }
+        
 
         protected virtual void Awake()
         {
@@ -66,12 +64,23 @@ namespace SpaceBaboon.WeaponSystem
             m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
         }
 
-        public virtual void Activate(Vector2 pos, ObjectPool pool)
+        public virtual float OnHit()
+        {
+            return m_damage;
+        }
+
+        #region ObjectPooling
+        public bool IsActive
+        {
+            get { return m_isActive; }
+        }
+
+        public virtual void Activate(Vector2 pos, GenericObjectPool pool)
         {
             //Debug.Log("Activate parent grenade appeler");
             ResetValues(pos);
             SetComponents(true);
-            m_isActive = true;
+            //m_isActive = true;
 
             m_parentPool = pool;
         }
@@ -79,7 +88,7 @@ namespace SpaceBaboon.WeaponSystem
         public virtual void Deactivate()
         {
             //Debug.Log("Deactivate parent grenade appeler");
-            m_isActive = false;
+            //m_isActive = false;
             SetComponents(false);
         }
 
@@ -91,13 +100,12 @@ namespace SpaceBaboon.WeaponSystem
         protected virtual void SetComponents(bool value)
         {
             //Debug.Log("SetComponents parent appeler");
+            m_isActive = value;
             m_renderer.enabled = value;
             m_collider.enabled = value;
         }
+        #endregion
 
-        public virtual float OnHit()
-        {
-            return m_damage;
-        }
+        
     }
 }

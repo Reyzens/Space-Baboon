@@ -7,8 +7,7 @@ namespace SpaceBaboon.EnemySystem
     {
         [Header("EnemyUniqueStats")]        
         public int defaultContactAttackDamage;
-        public float defaultContactAttackDelay;
-        public float defaultAttackRange; //TODO maybe remove        
+        public float defaultContactAttackDelay;          
         public float size; //TODO maybe remove
         public float obstructionPushForce;        
     }

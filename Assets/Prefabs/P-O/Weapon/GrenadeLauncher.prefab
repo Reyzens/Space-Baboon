@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 802097290951641300}
   - component: {fileID: 1268656246560152080}
-  - component: {fileID: 8202861654822499270}
   - component: {fileID: 3250909844759871497}
   m_Layer: 0
   m_Name: GrenadeLauncher
@@ -86,21 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8202861654822499270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6158744752462687429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5461aa30a17dd4ea22dfc622f517e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_prefab: {fileID: 0}
-  m_container: {fileID: 0}
-  m_poolSize: 5
 --- !u!114 &3250909844759871497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_weaponData: {fileID: 11400000, guid: 497e57f6d8fdbc34bbd72d4a161bfdcf, type: 2}
-  m_pool: {fileID: 8202861654822499270}
+  m_pool:
+    m_container: {fileID: 0}
+    m_poolStartingSize: 0
   m_attackSpeedScaling: 0.25
   m_debugMode: 0
   m_rotationAroundPlayerSpeed: 50

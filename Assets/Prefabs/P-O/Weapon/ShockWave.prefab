@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4468578298048157157}
   - component: {fileID: 3441436776018062550}
   - component: {fileID: 5042341845743915895}
-  - component: {fileID: 8986636976328075423}
   m_Layer: 0
   m_Name: ShockWave
   m_TagString: Untagged
@@ -99,22 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_weaponData: {fileID: 11400000, guid: c0c2561ae2efedb4882894225e548e54, type: 2}
-  m_pool: {fileID: 8986636976328075423}
+  m_pool:
+    m_container: {fileID: 0}
+    m_poolStartingSize: 0
   m_attackSpeedScaling: 0.25
   m_debugMode: 0
   m_rotationAroundPlayerSpeed: 50
---- !u!114 &8986636976328075423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7756279743313272363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af5461aa30a17dd4ea22dfc622f517e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_prefab: {fileID: 0}
-  m_container: {fileID: 0}
-  m_poolSize: 10

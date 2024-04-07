@@ -64,6 +64,7 @@ namespace SpaceBaboon.WeaponSystem
         protected override void SetComponents(bool value)
         {
             //Debug.Log("SetComponents parent appeler");
+            m_isActive = value;
             m_renderer.enabled = value;
             m_collider.enabled = value;
             m_damageZoneDisplay.enabled = value;

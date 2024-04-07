@@ -326,8 +326,8 @@ namespace SpaceBaboon
             // We could change the IDammageable interface to IAttackable
             // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
             m_screenShake = true;
-            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
-            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
+            //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
+            //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
             m_characterRenderer.material.color = Color.red;
             if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
                 m_currentHealth -= damage;

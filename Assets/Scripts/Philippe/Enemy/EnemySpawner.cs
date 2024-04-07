@@ -15,9 +15,14 @@ namespace SpaceBaboon.EnemySystem
 
     public class EnemySpawner : MonoBehaviour
     {
+        [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<GameObject> m_enemyTypesToSpawn = new List<GameObject>();
 
+        //[SerializeField] private GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
+        //[SerializeField] private GameObject m_shootingEnemyProjectile;
+        
+        [field: Header("SPAWNER LOGIC")]
         [SerializeField] private GameObject m_map; // TODO Change so we have a centralized map data, resource and enemy spawner could benefit from it
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
         [SerializeField] private float m_spawningDelay = 0.0f;
@@ -38,7 +43,19 @@ namespace SpaceBaboon.EnemySystem
             //list.Add(m_prefab1);
             //list.Add(m_prefab2);
 
-            m_enemyPool.CreatePool(list, "test");                       
+            m_enemyPool.CreatePool(list, "Enemy");
+
+
+
+
+
+
+
+            //List<GameObject> listSecond = new List<GameObject>();
+            //listSecond.Add(m_shootingEnemyProjectile);
+            //
+            //m_enemyProjectilesPool.CreatePool(listSecond, "Enemy Weapon Projectile");
+
         }
 
         private void Start()

@@ -1,11 +1,13 @@
 using UnityEngine;
+using SpaceBaboon.PoolingSystem;
+using System.Collections.Generic;
 
 namespace SpaceBaboon.WeaponSystem
 {
     public class Weapon : MonoBehaviour
     {
-        [SerializeField] protected WeaponData m_weaponData;
-        [SerializeField] protected ObjectPool m_pool;
+        [SerializeField] protected WeaponData m_weaponData;        
+        [SerializeField] private GenericObjectPool m_pool = new GenericObjectPool();
         [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
         [SerializeField] float m_rotationAroundPlayerSpeed;
@@ -18,7 +20,14 @@ namespace SpaceBaboon.WeaponSystem
 
         protected void Awake()
         {
-            m_pool.CreatePool(m_weaponData.projectilePrefab);
+            //m_pool.CreatePool(m_weaponData.projectilePrefab);
+
+            Debug.Log("Weapon Awake called");
+
+            List<GameObject> list = new List<GameObject>();
+            list.Add(m_weaponData.projectilePrefab);
+
+            m_pool.CreatePool(list, "Weapon Projectiles");
         }
 
         protected void Update()
@@ -54,7 +63,7 @@ namespace SpaceBaboon.WeaponSystem
             Transform direction = GetTarget();
 
             Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
-            var projectile = m_pool.Spawn(spawnPos);
+            var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
             projectile.GetComponent<Projectile>()?.Shoot(ref direction);
