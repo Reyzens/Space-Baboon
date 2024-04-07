@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19101, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: PlayerCheatsPanel
+  m_Name: CheatsPanel
   m_EditorClassIdentifier: 
   themeUss: {fileID: -4733365628477956816, guid: b17fccce19be20f44b4b8a131400ad31, type: 3}
   m_TargetTexture: {fileID: 0}

@@ -4,6 +4,15 @@ using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
+    public enum EEnemyTypes
+    {
+        Melee,
+        Shooting,
+        Kamikaze,
+        Count
+    }
+
+
     public class EnemySpawner : MonoBehaviour
     {
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
@@ -99,5 +108,47 @@ namespace SpaceBaboon.EnemySystem
 
             return new Vector2(x, y);
         }
+
+
+        #region Cheats
+
+        public void SetIsSpawning(bool value)
+        {
+            m_isSpawning = value;
+        }
+
+        public void SetDelay(float value)
+        {
+            m_spawningDelay = value;
+        }
+
+        public void CheatSpawn(EEnemyTypes type, int amount)
+        {
+            // Exemple d'implémentation possible
+            // À réévaluer lorsque tu auras une logique pour spawner différents ennemis
+
+            // P.S. J'ai besoin d'un enum pour le type d'ennemi
+            //      alors peut-être qu'on peut s'en servir pour l'index
+            //      de m_enemyTypesToSpawn[EEnemyTypes.blabla] ?
+
+            return;
+
+            switch (type)
+            {
+                case EEnemyTypes.Melee:
+                    Vector2 somePosition = Vector2.zero;
+                    m_enemyPool.Spawn(m_enemyTypesToSpawn[0], somePosition);
+                    break;
+                case EEnemyTypes.Shooting:
+                    break;
+                case EEnemyTypes.Kamikaze:
+                    break;
+                case EEnemyTypes.Count:
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
     }
 }
