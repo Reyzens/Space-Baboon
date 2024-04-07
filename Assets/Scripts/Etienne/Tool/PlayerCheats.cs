@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 namespace SpaceBaboon
 {
     public class PlayerCheats : MonoBehaviour
     {
-        [SerializeField] private GameObject m_player;
+        [SerializeField] private Player m_player;
 
         private UIDocument m_uiDoc;
 
@@ -23,7 +24,7 @@ namespace SpaceBaboon
 
 
         private void Awake()
-        {
+        {            
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
 
@@ -70,18 +71,17 @@ namespace SpaceBaboon
 
         private void OnSpeedChanged(ChangeEvent<float> evt)
         {
-            throw new NotImplementedException();
+            m_player.SetSpeedWithMultiplier(evt.newValue);
         }
 
         private void OnMaxHealthButtonClicked()
         {
-            throw new NotImplementedException();
+            m_player.SetCurrentHealthToMax();
         }
 
         private void OnInvincibilityToggled(ChangeEvent<bool> evt)
         {
-            var script = m_player.GetComponent<TestPlayer>();
-            script.SetInvincibility(evt.newValue);
+            m_player.SetIsInvincible(evt.newValue);
         }
     }
 }

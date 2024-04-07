@@ -48,6 +48,10 @@ namespace SpaceBaboon
         [SerializeField] private bool m_DebugMode;
         [SerializeField] private PlayerData m_playerData;
 
+        //Cheats related
+        private bool m_isInvincible = false;
+        private float m_maxVelocityMultiplierCheat = 1.0f;
+
 
         //Unity Methods
         private void Awake()
@@ -196,10 +200,12 @@ namespace SpaceBaboon
 
         protected override void RegulateVelocity()
         {
+            //Debug.Log("Magnitude: " + m_characterRb.velocity.magnitude + "  and maxValue: " + m_playerData.defaultMaxVelocity);
             if (m_characterRb.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
             {
                 m_characterRb.velocity = m_characterRb.velocity.normalized;
                 m_characterRb.velocity *= m_currentVelocity /* + or * bonus */;
+                Debug.Log("Velocity : " + m_characterRb.velocity);
             }
         }
 
@@ -208,6 +214,7 @@ namespace SpaceBaboon
             if (m_destination != Vector2.zero) // Check if there's any movement input
             {
                 
+                //Debug.Log("CurrentVelocity: " + m_currentVelocity);
                 m_characterRb.AddForce(m_destination * m_currentVelocity, ForceMode2D.Force);
                 RegulateVelocity();
             }
@@ -322,7 +329,7 @@ namespace SpaceBaboon
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
             m_characterRenderer.material.color = Color.red;
-            if (m_alive) // TODO if statement may not be useful, if so remove it
+            if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
                 m_currentHealth -= damage;
         }
 
@@ -351,6 +358,24 @@ namespace SpaceBaboon
             }
         }
 
+        #region Cheats
+        public void SetIsInvincible(bool value)
+        {
+            m_isInvincible = value;
+            Debug.Log("Invincibility is : " + m_isInvincible);
+        }
 
+        public void SetCurrentHealthToMax()
+        {
+            m_currentHealth = m_playerData.defaultHealth;
+        }
+
+        public void SetSpeedWithMultiplier(float value)
+        {
+            m_maxVelocityMultiplierCheat = value;
+            Debug.Log("Max Velocity Mult : " + m_maxVelocityMultiplierCheat);
+        }
+
+        #endregion
     }
 }
