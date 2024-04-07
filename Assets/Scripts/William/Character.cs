@@ -7,9 +7,9 @@ namespace SpaceBaboon
         //BaseRef
         protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
-        protected SpriteRenderer m_characterRenderer;
-        protected BoxCollider2D m_characterCollider;
-        protected Rigidbody2D m_characterRb;
+        protected SpriteRenderer m_renderer;
+        protected BoxCollider2D m_collider;
+        protected Rigidbody2D m_rB;
         
         //BaseVariables
         protected float m_currentHealth;

@@ -18,12 +18,8 @@ namespace SpaceBaboon.WeaponSystem
         protected bool m_isCollecting = false;
         private bool m_weaponToggle = true;
 
-        protected void Awake()
-        {
-            //m_pool.CreatePool(m_weaponData.projectilePrefab);
-
-            Debug.Log("Weapon Awake called");
-
+        protected virtual void Awake()
+        {           
             List<GameObject> list = new List<GameObject>();
             list.Add(m_weaponData.projectilePrefab);
 

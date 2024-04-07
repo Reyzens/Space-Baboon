@@ -1,38 +1,46 @@
 using UnityEngine;
-
+//using SpaceBaboon.WeaponSystem;
 
 namespace SpaceBaboon.EnemySystem
 {
     public class ShootingEnemy : Enemy
     {
+        [SerializeField] private ShootingEnemyData m_uniqueData;
         //[SerializeField] private ShootingEnemyWeapon m_weapon;
 
+        private float m_distanceToPlayer;
+        
+        protected override void Update()
+        {
+            base.Update();
+            CalculateDistanceToPlayer();           
+        }
 
+        protected override void Move(Vector2 value)
+        {
+            if(m_distanceToPlayer > m_uniqueData.maxTargetAcquiringRange)
+            {
+                base.Move(value);
+                return;
+            }
 
+            if (m_rB.velocity.magnitude < 0.1f)
+            {
+                m_rB.velocity = Vector2.zero;
+                return;
+            }                
 
+            StopMovement();
+        }
 
-        //protected override void Update()
-        //{
-        //    base.Update();
-        //    
-        //}
+        private void CalculateDistanceToPlayer()
+        {            
+            m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
+        }
 
-
-
-        //protected override void Awake()
-        //{
-        //    base.Awake();
-        //    
-        //
-        //    if (m_weapon != null ) 
-        //    {
-        //        Debug.Log("no weapon found!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        //    }
-        //}
-
-
-
-
-
+        private void StopMovement()
+        {
+            m_rB.AddForce(-m_rB.velocity.normalized * m_data.defaultAcceleration, ForceMode2D.Force);
+        }
     }
 }

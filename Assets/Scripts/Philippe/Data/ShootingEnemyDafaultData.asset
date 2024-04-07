@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c67f2134eb33142bdfa3ca8744ed4a, type: 3}
+  m_Name: ShootingEnemyDafaultData
+  m_EditorClassIdentifier: 
+  index: 0
+  characterName: Shooting Enemy
+  defaultHealth: 5
+  sprite: {fileID: 0}
+  prefab: {fileID: 0}
+  defaultAcceleration: 30
+  defaultMaxVelocity: 15
+  defaultContactAttackDamage: 5
+  defaultContactAttackDelay: 5
+  size: 0
+  obstructionPushForce: 25

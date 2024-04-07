@@ -16,6 +16,8 @@ namespace SpaceBaboon.PoolingSystem
             m_container = new GameObject();
             m_container.name = poolName + " pool";
 
+            //Debug.Log("Container called" + m_container);
+
             foreach (GameObject prefab in prefabList)
             {
                 if (m_poolStartingSize <= 0)

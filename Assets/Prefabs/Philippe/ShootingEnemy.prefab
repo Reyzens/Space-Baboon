@@ -45,11 +45,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_weaponData: {fileID: 11400000, guid: 6a59656880192d44c89ba7fc3471ff38, type: 2}
-  m_pool: {fileID: 0}
+  m_pool:
+    m_container: {fileID: 0}
+    m_poolStartingSize: 0
   m_attackSpeedScaling: 0
   m_debugMode: 0
   m_rotationAroundPlayerSpeed: 0
-  m_enemySpawner: {fileID: 0}
 --- !u!1 &6346816228064842483
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +66,7 @@ GameObject:
   - component: {fileID: 1342881825712544679}
   m_Layer: 0
   m_Name: ShootingEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -222,6 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd362bdfe2829441a264d792769975d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: 99bf0f09cd3a3964ca943fd4b0522516, type: 2}
+  m_data: {fileID: 11400000, guid: ec9b9f57564cc324ea75451281e47352, type: 2}
   m_contactAttackParticleSystem: {fileID: 6891219805674916465, guid: 4f196797a860ad94f8f5ba1fd8ba580b, type: 3}
-  m_weapon: {fileID: 4123796111675221501}
+  m_uniqueData: {fileID: 11400000, guid: 22ac9e3d351056948a7711e8fa3e2ad0, type: 2}

@@ -97,9 +97,9 @@ namespace SpaceBaboon
             m_equipedWeapon = new List<WeaponSystem.Weapon>();
             m_blockedWeapon = new List<WeaponSystem.Weapon>();
 
-            m_characterRb = GetComponent<Rigidbody2D>();
-            m_characterCollider = GetComponent<BoxCollider2D>();
-            m_characterRenderer = GetComponent<SpriteRenderer>();
+            m_rB = GetComponent<Rigidbody2D>();
+            m_collider = GetComponent<BoxCollider2D>();
+            m_renderer = GetComponent<SpriteRenderer>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             
             
@@ -171,7 +171,7 @@ namespace SpaceBaboon
 
         private void FreezePlayerRotation()
         {
-            m_characterRb.freezeRotation = enabled;
+            m_rB.freezeRotation = enabled;
         }
 
         private void OnPlayerDeath()
@@ -201,11 +201,11 @@ namespace SpaceBaboon
         protected override void RegulateVelocity()
         {
             //Debug.Log("Magnitude: " + m_characterRb.velocity.magnitude + "  and maxValue: " + m_playerData.defaultMaxVelocity);
-            if (m_characterRb.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
+            if (m_rB.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
             {
-                m_characterRb.velocity = m_characterRb.velocity.normalized;
-                m_characterRb.velocity *= m_currentVelocity /* + or * bonus */;
-                Debug.Log("Velocity : " + m_characterRb.velocity);
+                m_rB.velocity = m_rB.velocity.normalized;
+                m_rB.velocity *= m_currentVelocity /* + or * bonus */;
+                Debug.Log("Velocity : " + m_rB.velocity);
             }
         }
 
@@ -215,7 +215,7 @@ namespace SpaceBaboon
             {
                 
                 //Debug.Log("CurrentVelocity: " + m_currentVelocity);
-                m_characterRb.AddForce(m_destination * m_currentVelocity, ForceMode2D.Force);
+                m_rB.AddForce(m_destination * m_currentVelocity, ForceMode2D.Force);
                 RegulateVelocity();
             }
 
@@ -239,11 +239,11 @@ namespace SpaceBaboon
         {
             if (m_destination.x > 0)
             {
-                m_characterRenderer.flipX = false;
+                m_renderer.flipX = false;
             }
             if (m_destination.x < 0)
             {
-                m_characterRenderer.flipX = true;
+                m_renderer.flipX = true;
             }
         }
         
@@ -251,21 +251,21 @@ namespace SpaceBaboon
         {
             
             m_isDashing = true;
-            m_spriteRendererColor = m_characterRenderer.color;
+            m_spriteRendererColor = m_renderer.color;
             float timestamped = 0.0f;
-            m_characterRenderer.material.color = new Color(1f, 1f, 1f, 0.2f);
+            m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
             while (timestamped < m_currentDashDuration)
             {
                 timestamped += Time.deltaTime;
                 float dashCurvePosition = timestamped / m_currentDashDuration;
                 float dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
-                m_characterRb.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
+                m_rB.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
                 this.gameObject.layer = LayerMask.NameToLayer("ImmunityDash");
                 m_dahsTrail.SetActive(true);
                 yield return null;
             }
             m_activeDashCD = m_currentDashCD;
-            m_characterRenderer.material.color = Color.Lerp(m_characterRenderer.material.color,m_spriteRendererColor,0.2f);
+            m_renderer.material.color = Color.Lerp(m_renderer.material.color,m_spriteRendererColor,0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
@@ -317,7 +317,7 @@ namespace SpaceBaboon
             m_screenShake = false;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0f;
-            m_characterRenderer.material.color = m_spriteRendererColor;
+            m_renderer.material.color = m_spriteRendererColor;
             yield return new WaitForSeconds(0.5f);
         }
         public override void OnDamageTaken(float damage)
@@ -328,7 +328,7 @@ namespace SpaceBaboon
             m_screenShake = true;
             //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
             //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
-            m_characterRenderer.material.color = Color.red;
+            m_renderer.material.color = Color.red;
             if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
                 m_currentHealth -= damage;
         }

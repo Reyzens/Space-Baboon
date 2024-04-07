@@ -5,7 +5,7 @@ namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric
     {
-        [SerializeField] private EnemyData m_data;
+        [SerializeField] protected EnemyData m_data;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
         
@@ -13,7 +13,7 @@ namespace SpaceBaboon.EnemySystem
         private bool m_isActive = false;
 
         private GameObject m_playerObject;
-        private Player m_player;
+        protected Player m_player;
                 
         private float m_contactAttackTimer = 0.0f;
         private bool m_contactAttackReady = true;
@@ -26,15 +26,15 @@ namespace SpaceBaboon.EnemySystem
 
         protected virtual void Awake()
         {
-            m_characterRenderer = GetComponent<SpriteRenderer>();
-            m_characterCollider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
-            m_characterRb = GetComponent<Rigidbody2D>();
+            m_renderer = GetComponent<SpriteRenderer>();
+            m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
+            m_rB = GetComponent<Rigidbody2D>();
             m_currentHealth = m_data.defaultHealth;
         }
 
         private void Start()
         {
-            m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager
+            m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
             m_player = m_playerObject.GetComponent<Player>();            
         }
 
@@ -81,7 +81,7 @@ namespace SpaceBaboon.EnemySystem
         private void SlightPushFromObstructingObject(Collision2D collision)
         {
             Vector3 direction = collision.transform.position - transform.position;
-            m_characterRb.AddForce(-direction * m_data.obstructionPushForce, ForceMode2D.Force);
+            m_rB.AddForce(-direction * m_data.obstructionPushForce, ForceMode2D.Force);
         }      
 
         protected override void Move(Vector2 value)
@@ -94,7 +94,7 @@ namespace SpaceBaboon.EnemySystem
             Vector3 playerPosition = m_playerObject.transform.position;
 
             Vector2 direction = (playerPosition - transform.position).normalized;
-            m_characterRb.AddForce(direction * m_data.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
+            m_rB.AddForce(direction * m_data.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
 
             if (direction.magnitude > 0)
                 RegulateVelocity();
@@ -102,10 +102,10 @@ namespace SpaceBaboon.EnemySystem
 
         protected override void RegulateVelocity()
         {
-            if (m_characterRb.velocity.magnitude > m_data.defaultMaxVelocity /* + or * bonus */)
+            if (m_rB.velocity.magnitude > m_data.defaultMaxVelocity /* + or * bonus */)
             {
-                m_characterRb.velocity = m_characterRb.velocity.normalized;
-                m_characterRb.velocity *= m_data.defaultMaxVelocity /* + or * bonus */;
+                m_rB.velocity = m_rB.velocity.normalized;
+                m_rB.velocity *= m_data.defaultMaxVelocity /* + or * bonus */;
             }
         }
 
@@ -181,8 +181,8 @@ namespace SpaceBaboon.EnemySystem
         private void SetComponents(bool value)
         {
             m_isActive = value;
-            m_characterRenderer.enabled = value;
-            m_characterCollider.enabled = value;
+            m_renderer.enabled = value;
+            m_collider.enabled = value;
         }
         #endregion
     }

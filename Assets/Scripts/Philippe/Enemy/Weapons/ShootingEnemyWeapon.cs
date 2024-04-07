@@ -10,13 +10,13 @@ namespace SpaceBaboon.WeaponSystem
 
         //[SerializeField] private EnemySpawner m_enemySpawner;
 
-        //private new void Awake()
-        //{
-        //    List<GameObject> list = new List<GameObject>();
-        //    list.Add(m_projectile);
-        //
-        //    m_projectilePool.CreatePool(list, "Enemy Weapon Projectile");
-        //}
+        protected override void Awake()
+        {
+            //List<GameObject> list = new List<GameObject>();
+            //list.Add(m_projectile);
+            //
+            //m_projectilePool.CreatePool(list, "Enemy Weapon Projectile");
+        }
 
 
 
