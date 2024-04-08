@@ -24,8 +24,8 @@ TagManager:
   - Forground
   - Projectile
   - ImmunityDash
-  - 
-  - 
+  - Enemy
+  - EnemyProjectile
   - 
   - 
   - 

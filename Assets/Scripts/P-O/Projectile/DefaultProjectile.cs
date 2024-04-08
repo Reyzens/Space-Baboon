@@ -15,6 +15,7 @@ namespace SpaceBaboon
             m_parentPool.UnSpawn(gameObject);
             return base.OnHit();
         }
+
         public override void Shoot(ref Transform direction)
         {
             Vector2 newDirection = direction.position;

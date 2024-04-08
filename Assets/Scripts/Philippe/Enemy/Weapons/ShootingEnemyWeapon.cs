@@ -5,22 +5,49 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ShootingEnemyWeapon : Weapon
     {
-        //[SerializeField] private GenericObjectPool m_projectilePool = new GenericObjectPool();
-        //[SerializeField] private GameObject m_projectile;
+        private GameObject m_enemySpawner;
+        private EnemySpawner m_enemySpawnerScript;
 
-        //[SerializeField] private EnemySpawner m_enemySpawner;
+        private Transform m_target;
 
         protected override void Awake()
         {
-            //List<GameObject> list = new List<GameObject>();
-            //list.Add(m_projectile);
-            //
-            //m_projectilePool.CreatePool(list, "Enemy Weapon Projectile");
+            // Overriden so new pools are not created, since enemies will use a projectile pool in the enemy spawner
         }
 
+        private void Start()
+        {
+            m_enemySpawner = GameObject.Find("EnemySpawner");
+            m_enemySpawnerScript = m_enemySpawner.GetComponent<EnemySpawner>();            
+        }
 
+        public void GetTarget(Transform target)
+        {            
+            m_target = target;
+            ShootGun();
+            //Attack(); // TODO needs debugging
+        }
 
+        private void ShootGun()
+        {
+            Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
+            
+            var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_enemySpawnerScript.m_shootingEnemyProjectile, spawnPos);
 
+            projectile.GetComponent<Projectile>()?.Shoot(ref m_target);
+        }
 
+        protected override void Attack()
+        {
+            // TODO Really bugged, there is probably a problem with heritage
+            // Maybe the simplest thing would be to simply not have a weapon on shooting enemies
+
+            //Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
+            //Debug.Log("ENTERING ATTACK!!!!!!!!!!!!!!!");
+            //
+            //var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_enemySpawnerScript.m_shootingEnemyProjectile, spawnPos);
+            //
+            //projectile.GetComponent<Projectile>()?.Shoot(ref m_target);
+        }
     }
 }

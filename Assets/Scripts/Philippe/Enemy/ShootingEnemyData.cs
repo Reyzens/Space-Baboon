@@ -6,9 +6,7 @@ namespace SpaceBaboon.EnemySystem
     public class ShootingEnemyData : ScriptableObject
     {
         [Header("ShootingEnemyUniqueStats")]
-        public float maxTargetAcquiringRange;
-
-
-
+        public float maxTargetAcquisitionRange;
+        public float targetAcquisitionDelay;
     }
 }

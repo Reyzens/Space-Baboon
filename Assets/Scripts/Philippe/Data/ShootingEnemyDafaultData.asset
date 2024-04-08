@@ -19,6 +19,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   defaultAcceleration: 30
   defaultMaxVelocity: 15
+  enemyType: 1
   defaultContactAttackDamage: 5
   defaultContactAttackDelay: 5
   size: 0

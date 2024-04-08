@@ -10,13 +10,13 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
         
         private GenericObjectPool m_parentPool;
-        private bool m_isActive = false;
+        protected bool m_isActive = false;
 
         private GameObject m_playerObject;
         protected Player m_player;
                 
         private float m_contactAttackTimer = 0.0f;
-        private bool m_contactAttackReady = true;
+        protected bool m_contactAttackReady = true;
         private float m_bonusDamage = 0.0f;
         private float m_bonusAcceleration; 
         private float m_bonusMaxVelocity;
@@ -24,7 +24,7 @@ namespace SpaceBaboon.EnemySystem
 
         protected Vector2 m_noVectorValue = Vector2.zero;
 
-        protected virtual void Awake()
+        private void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
@@ -32,7 +32,7 @@ namespace SpaceBaboon.EnemySystem
             m_currentHealth = m_data.defaultHealth;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
             m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
             m_player = m_playerObject.GetComponent<Player>();            

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4bc044ca15c324dbe6f0d617c1ffe4, type: 3}
   m_Name: ShootingEnemyUniqueData
   m_EditorClassIdentifier: 
-  maxTargetAcquiringRange: 30
+  maxTargetAcquisitionRange: 30
+  targetAcquisitionDelay: 2

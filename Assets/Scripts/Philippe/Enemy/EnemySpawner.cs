@@ -19,8 +19,8 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<GameObject> m_enemyTypesToSpawn = new List<GameObject>();
 
-        [SerializeField] private GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
-        [SerializeField] private GameObject m_shootingEnemyProjectile;
+        [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
+        [SerializeField] public GameObject m_shootingEnemyProjectile;
         
         [field: Header("SPAWNER LOGIC")]
         [SerializeField] private GameObject m_map; // TODO Change so we have a centralized map data, resource and enemy spawner could benefit from it
