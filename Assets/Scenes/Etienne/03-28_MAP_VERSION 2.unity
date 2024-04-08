@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isInvincible: 0
   m_speed: 54
+  m_playerData: {fileID: 11400000, guid: f4ff2052c39bc8a40a80cb8d9581fb0d, type: 2}
 --- !u!4 &1909848799
 Transform:
   m_ObjectHideFlags: 0

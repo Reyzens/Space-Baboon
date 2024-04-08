@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -8,6 +9,9 @@ namespace SpaceBaboon
     {
         [SerializeField] private bool m_isInvincible = false;
         [SerializeField] private float m_speed = 5.0f;
+
+        [SerializeField] private PlayerData m_playerData;
+
 
 
         // Update is called once per frame
@@ -28,6 +32,11 @@ namespace SpaceBaboon
         {
             m_speed = value;
             //Debug.Log("speed was changed");
+        }
+
+        public PlayerData GetData()
+        {
+            return m_playerData;
         }
     }
 }
