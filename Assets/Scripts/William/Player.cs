@@ -30,8 +30,8 @@ namespace SpaceBaboon
         private Color m_spriteRendererColor;
         
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
-        private List<WeaponSystem.Weapon> m_equipedWeapon;
-        private List<WeaponSystem.Weapon> m_blockedWeapon;
+        private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
+        private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
 
         //BonusVariables
         private float m_bonusDashCD;
@@ -95,8 +95,8 @@ namespace SpaceBaboon
             SubscribeToInputEvent();
             
             m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
-            m_equipedWeapon = new List<WeaponSystem.Weapon>();
-            m_blockedWeapon = new List<WeaponSystem.Weapon>();
+            m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
+            m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
 
             m_rB = GetComponent<Rigidbody2D>();
             m_collider = GetComponent<BoxCollider2D>();
