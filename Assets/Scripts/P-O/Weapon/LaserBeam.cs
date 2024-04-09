@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class LaserBeam : Weapon
+    public class LaserBeam : PlayerWeapon
     {
         protected override Transform GetTarget()
         {
