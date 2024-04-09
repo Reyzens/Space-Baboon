@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class LaserBeam : Weapon
+    public class LaserTest : PlayerWeapon
     {
         protected override Transform GetTarget()
         {
@@ -32,29 +32,5 @@ namespace SpaceBaboon.WeaponSystem
             //Didn't find an enemy
             return furthestEnemy != null ? furthestEnemy : transform;
         }
-
-        //protected override Transform GetTarget()
-        //{
-        //    Debug.Log("Laser beam get target");
-        //    // Get all colliders within maxRange
-        //    var colliders = Physics2D.OverlapCircleAll(transform.position, m_weaponData.maxRange);
-        //    Transform furthestEnemy = null;
-        //    float furthestDistance = 0.0f;
-
-        //    foreach (var collider in colliders)
-        //    {
-        //        if (collider.gameObject.CompareTag("Enemy")) // Use CompareTag for efficiency
-        //        {
-        //            float distanceTowardTarget = Vector2.Distance(transform.position, collider.transform.position);
-        //            if (distanceTowardTarget > furthestDistance)
-        //            {
-        //                furthestEnemy = collider.transform;
-        //                furthestDistance = distanceTowardTarget;
-        //            }
-        //        }
-        //    }
-
-        //    return furthestEnemy;
-        //}
     }
 }
