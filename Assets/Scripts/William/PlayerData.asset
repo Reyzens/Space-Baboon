@@ -21,7 +21,7 @@ MonoBehaviour:
   defaultMaxVelocity: 150
   defaultDashCd: 2
   defaultDashVelocity: 10
-  defaultDashDuration: 0.2
+  defaultDashDuration: 0.5
   defaultDashCurve:
     serializedVersion: 2
     m_Curve:

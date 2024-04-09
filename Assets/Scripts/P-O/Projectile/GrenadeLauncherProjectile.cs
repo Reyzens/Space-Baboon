@@ -116,7 +116,7 @@ namespace SpaceBaboon
         //}
         protected override void SetComponents(bool value)
         {
-            Debug.Log("SetComponents parent appeler");
+            //Debug.Log("SetComponents parent appeler");
             m_renderer.enabled = value;
 
             m_isActive = value;
