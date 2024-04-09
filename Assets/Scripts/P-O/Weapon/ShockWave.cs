@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class ShockWave : Weapon
+    public class ShockWave : PlayerWeapon
     {
         protected override Transform GetTarget()
         {

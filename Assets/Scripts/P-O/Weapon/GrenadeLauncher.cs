@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class GrenadeLauncher : Weapon
+    public class GrenadeLauncher : PlayerWeapon
     {
         protected override Transform GetTarget()
         {

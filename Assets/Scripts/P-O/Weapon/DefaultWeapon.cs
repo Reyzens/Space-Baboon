@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class DefaultWeapon : Weapon
+    public class DefaultWeapon : PlayerWeapon
     {
         // Start is called before the first frame update
         protected override Transform GetTarget()

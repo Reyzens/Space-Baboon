@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class Weapon : MonoBehaviour
+    public class PlayerWeapon : Weapon
     {
         [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] private GenericObjectPool m_pool = new GenericObjectPool();
@@ -54,7 +54,7 @@ namespace SpaceBaboon.WeaponSystem
             m_weaponToggle = !m_weaponToggle;
             gameObject.SetActive(m_weaponToggle);
         }
-        protected virtual void Attack()
+        protected override void Attack()
         {
             Transform direction = GetTarget();
 
