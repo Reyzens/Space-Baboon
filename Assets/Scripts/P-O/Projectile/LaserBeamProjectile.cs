@@ -18,6 +18,12 @@ namespace SpaceBaboon.WeaponSystem
         private int m_currentPiercingLeft;
         private Transform m_lastEnemyPosition;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            m_laserDisplay = GetComponent<LineRenderer>();
+            m_laserHitBox = GetComponent<EdgeCollider2D>();
+        }
         protected override void Start()
         {
             base.Start();
@@ -27,7 +33,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             //Debug.Log("Laser was shot");
             int enemyHit = 0;
-            RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, direction.position - transform.position);
+            RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, direction.position);
 
             foreach (RaycastHit2D hit in enemyHits)
             {
@@ -37,29 +43,41 @@ namespace SpaceBaboon.WeaponSystem
                     m_lastEnemyPosition = hit.collider.transform;
                     if (enemyHit == m_PiercingData.m_maxAmountOfPiercing)
                     {
-                        //Debug.Log("Laser raycast hit an enemy");
-                        OnPiercing();
-                        return;
+                        //Debug.Log("Laser raycast hit an enemy");                        
+                        break;
                     }
                 }
             }
-            SetLaserPosition(m_initialWeaponPosition.position, m_lastEnemyPosition.position);
+            if (m_initialWeaponPosition != null && m_lastEnemyPosition != null)
+            {
+                SetLaserPosition();
+                OnPiercing();
+            }
         }
         protected override void MovingDirection()
         {
+            //Empty in this case
         }
         public void IPiercingSetUp()
         {
             m_currentPiercingLeft = m_PiercingData.m_maxAmountOfPiercing;
-            m_laserDisplay = GetComponent<LineRenderer>();
-            m_laserHitBox = GetComponent<EdgeCollider2D>();
+            m_initialWeaponPosition = transform;
             m_laserDisplay.startWidth = m_laserWidth;
             m_laserDisplay.endWidth = m_laserWidth;
         }
         protected override void Update()
         {
             base.Update();
-            OnPiercing();
+            if (m_isActive)
+            {
+
+                m_currentLaserDuration -= Time.deltaTime;
+
+                if (m_currentLaserDuration < 0)
+                {
+                    m_parentPool.UnSpawn(gameObject);
+                }
+            }
         }
         public void LastPierce()
         {
@@ -68,27 +86,33 @@ namespace SpaceBaboon.WeaponSystem
 
         public void OnPiercing()
         {
-
+            m_currentLaserDuration = m_maxLaserDuration;
         }
 
         protected override void ResetValues(Vector2 pos)
         {
-            base.ResetValues(pos);
+            m_lifetime = 0.0f;
+            m_initialWeaponPosition.position = pos;
             m_currentLaserDuration = m_maxLaserDuration;
         }
         protected override void SetComponents(bool value)
         {
-            //Debug.Log("SetComponents parent appeler");
+            Debug.Log("SetComponents laserbeam appeler avec " + value);
             m_isActive = value;
-            //m_laserDisplay.enabled = value;
+            m_laserDisplay.enabled = value;
+            m_laserHitBox.enabled = value;
         }
-        private void SetLaserPosition(Vector2 startPositon, Vector2 endPosition)
+        private void SetLaserPosition()
         {
             m_laserDisplay.positionCount = 2;
             m_laserDisplay.SetPosition(0, m_initialWeaponPosition.position);
             m_laserDisplay.SetPosition(1, m_lastEnemyPosition.position);
 
-            m_laserHitBox.SetPoints(new List<Vector2> { startPositon, endPosition });
+            Vector2 laserStartPoint = m_laserHitBox.transform.InverseTransformPoint(m_initialWeaponPosition.position);
+            Vector2 laserEndPoint = m_laserHitBox.transform.InverseTransformPoint(m_lastEnemyPosition.position);
+
+
+            m_laserHitBox.SetPoints(new List<Vector2> { laserStartPoint, laserEndPoint });
         }
     }
 }

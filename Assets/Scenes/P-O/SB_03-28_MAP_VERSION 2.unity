@@ -208,68 +208,112 @@ MonoBehaviour:
   m_attackSpeedScaling: 0.25
   m_debugMode: 0
   m_rotationAroundPlayerSpeed: 0
---- !u!1 &404755292
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 404755294}
-  - component: {fileID: 404755293}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &404755293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404755292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be54771b6b569ac43889fe2364b71277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_enemyPool:
-    m_container: {fileID: 0}
-    m_poolStartingSize: 10
-  m_enemyTypesToSpawn:
-  - {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
-  m_enemyProjectilesPool:
-    m_container: {fileID: 0}
-    m_poolStartingSize: 0
-  m_shootingEnemyProjectile: {fileID: 0}
-  m_map: {fileID: 4099537085802509994}
-  m_spawnRadiusFromScreenCorner: 10
-  m_spawningDelay: 0.5
-  m_isSpawning: 1
---- !u!4 &404755294
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 404755292}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &912821260 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 81698932589112113, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
   m_PrefabInstance: {fileID: 1403878087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1133194113
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_map
+      value: 
+      objectReference: {fileID: 4099537085802509994}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_isSpawning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_shootingEnemyProjectile
+      value: 
+      objectReference: {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: spawnProbability.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_enemyTypesToSpawn.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: spawnProbability.Array.data[0]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: spawnProbability.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_enemyTypesToSpawn.Array.data[1]
+      value: 
+      objectReference: {fileID: 6346816228064842483, guid: 2079feb3c5ff88e41810bfbb34a470cf, type: 3}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_enemyProjectilesPool.m_container
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_enemySpawnProbabilities.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_enemyProjectilesPool.m_poolStartingSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7910765120132698230, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_Name
+      value: EnemySpawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
 --- !u!70 &1243509927
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -353,13 +397,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1713673375032617643, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_pool.m_poolStartingSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1826869931587835494, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_pool.m_poolStartingSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1868890104875087309, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_pool.m_poolStartingSize
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3963291794530835258, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
       value: PlayerSprite
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599217406555995408, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.313
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599217406555995408, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.358
       objectReference: {fileID: 0}
     - target: {fileID: 5932719882914661791, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
@@ -369,9 +433,21 @@ PrefabInstance:
       propertyPath: m_DebugMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
     - target: {fileID: 7028550398629583105, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7106737378654146804, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.304
+      objectReference: {fileID: 0}
+    - target: {fileID: 7106737378654146804, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 8556543996295693134, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Enabled
@@ -4031,10 +4107,12 @@ MonoBehaviour:
     m_container: {fileID: 0}
     m_poolStartingSize: 0
   m_enemyTypesToSpawn: []
+  spawnProbability: 
   m_enemyProjectilesPool:
     m_container: {fileID: 0}
     m_poolStartingSize: 0
   m_shootingEnemyProjectile: {fileID: 0}
+  m_enemySpawnProbabilities: []
   m_map: {fileID: 4099537085802509994}
   m_spawnRadiusFromScreenCorner: 10
   m_spawningDelay: 0.5
@@ -4165,5 +4243,5 @@ SceneRoots:
   - {fileID: 2223984861336726861}
   - {fileID: 276619776928726692}
   - {fileID: 1403878087}
-  - {fileID: 404755294}
   - {fileID: 102510190}
+  - {fileID: 1133194113}
