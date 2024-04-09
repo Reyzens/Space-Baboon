@@ -4,8 +4,6 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ShootingEnemyProjectile : Projectile
     {
-        // TODO projectiles needs to go through other enemies, no behavior when colliding with enemies
-
         private GameObject m_playerObject;
         protected Player m_player;
 

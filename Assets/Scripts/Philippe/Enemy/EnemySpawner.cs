@@ -10,14 +10,7 @@ namespace SpaceBaboon.EnemySystem
         Shooting,
         Kamikaze,
         Count
-    }
-
-    [System.Serializable]
-    public class EnemySpawnProbability
-    {
-        public GameObject enemyPrefab;
-        [Range(0, 10)] public int spawnProbability;
-    }
+    }    
 
     public class EnemySpawner : MonoBehaviour
     {
@@ -28,10 +21,7 @@ namespace SpaceBaboon.EnemySystem
 
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public GameObject m_shootingEnemyProjectile;
-
-        [field: Header("SPAWN PROBABILITY")]
-        [SerializeField] private List<EnemySpawnProbability> m_enemySpawnProbabilities = new List<EnemySpawnProbability>();
-
+        
         [field: Header("SPAWNER LOGIC")]
         [SerializeField] private GameObject m_map; // TODO Change so we have a centralized map data, resource and enemy spawner could benefit from it
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
