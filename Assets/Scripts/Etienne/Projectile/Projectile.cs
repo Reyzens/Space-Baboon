@@ -18,9 +18,9 @@ namespace SpaceBaboon.WeaponSystem
         protected bool m_isActive = false;
         protected SpriteRenderer m_renderer;
         protected CircleCollider2D m_collider;
-        
 
-        
+
+
 
         protected virtual void Awake()
         {
@@ -106,6 +106,6 @@ namespace SpaceBaboon.WeaponSystem
         }
         #endregion
 
-        
+
     }
 }

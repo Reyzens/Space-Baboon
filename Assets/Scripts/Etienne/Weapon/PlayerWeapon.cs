@@ -1,12 +1,12 @@
-using UnityEngine;
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
     public class PlayerWeapon : Weapon
     {
-        [SerializeField] protected WeaponData m_weaponData;        
+        [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] private GenericObjectPool m_pool = new GenericObjectPool();
         [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
@@ -19,7 +19,7 @@ namespace SpaceBaboon.WeaponSystem
         private bool m_weaponToggle = true;
 
         protected virtual void Awake()
-        {           
+        {
             List<GameObject> list = new List<GameObject>();
             list.Add(m_weaponData.projectilePrefab);
 
@@ -73,6 +73,11 @@ namespace SpaceBaboon.WeaponSystem
         public void SetIsCollecting(bool value)
         {
             m_isCollecting = value;
+        }
+
+        public float GetWeaponRange()
+        {
+            return m_weaponData.maxRange;
         }
 
         #region Crafting
