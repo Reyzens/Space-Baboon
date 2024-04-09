@@ -12,6 +12,8 @@ namespace SpaceBaboon.EnemySystem
         private GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
+        private EnemySpawner m_enemySpawner;
+
         private GameObject m_playerObject;
         protected Player m_player;
                 
@@ -30,12 +32,13 @@ namespace SpaceBaboon.EnemySystem
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_rB = GetComponent<Rigidbody2D>();
             m_activeHealth = m_data.defaultHealth;
+            
         }
 
         protected virtual void Start()
         {
             m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
-            m_player = m_playerObject.GetComponent<Player>();            
+            m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();            
         }
 
         protected virtual void Update()

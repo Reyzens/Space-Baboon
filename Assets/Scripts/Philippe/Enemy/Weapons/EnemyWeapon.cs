@@ -13,7 +13,9 @@ namespace SpaceBaboon.WeaponSystem
         private void Start()
         {
             m_enemySpawner = GameObject.Find("EnemySpawner");
-            m_enemySpawnerScript = m_enemySpawner.GetComponent<EnemySpawner>();            
+            m_enemySpawnerScript = m_enemySpawner.GetComponent<EnemySpawner>();  
+            
+            
         }
 
         public void GetTarget(Transform target)
