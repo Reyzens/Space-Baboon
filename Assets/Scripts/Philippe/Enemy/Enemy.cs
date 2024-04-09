@@ -29,7 +29,7 @@ namespace SpaceBaboon.EnemySystem
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_rB = GetComponent<Rigidbody2D>();
-            m_currentHealth = m_data.defaultHealth;
+            m_activeHealth = m_data.defaultHealth;
         }
 
         protected virtual void Start()
@@ -146,10 +146,10 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnDamageTaken(float damage)
         {
-            m_currentHealth -= damage;
+            m_activeHealth -= damage;
 
-            Debug.Log("enemy hit have " + m_currentHealth + " health");
-            if (m_currentHealth <= 0)
+            Debug.Log("enemy hit have " + m_activeHealth + " health");
+            if (m_activeHealth <= 0)
             {
                 m_parentPool.UnSpawn(gameObject);
             }

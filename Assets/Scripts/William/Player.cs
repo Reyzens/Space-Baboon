@@ -14,25 +14,20 @@ namespace SpaceBaboon
     {
         //BaseVraiables
         private bool m_alive;
-        private int m_rotationlock;
-        private float m_horizontal;
-        private float m_vertical;
-        private Vector2 m_destination;
+        private bool m_isDashing;
         private bool m_dashInputReceiver;
-        private float m_currentDashCDCounter;
-        private Vector2 m_playerInitialPosition;
-        private Vector2 m_playerEndingPosition;
-        private float m_activeDashCD;
-        private AnimationCurve m_dashCurve;
-        private float m_currentDashCD;
-        private float m_currentDashSpeed;
-        private Color m_spriteRendererColor;
         private bool m_screenShake;
         
-        [SerializeField]private CinemachineVirtualCamera m_playerCam;
-        [SerializeField]private GameObject m_dahsTrail;
-        [SerializeField] private bool m_isDashing;
-        private float m_currentDashDuration;
+        private float m_currentDashCDCounter;
+        private float m_activeDashCD;
+        private float m_activeDashCoolDown;
+        private float m_dashCurveStrength;
+        private float m_activeDashDuration;
+        
+        private Vector2 m_playerDirectionVector2;
+        private AnimationCurve m_dashCurve;
+        private Color m_spriteRendererColor;
+        
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
         private List<WeaponSystem.Weapon> m_equipedWeapon;
         private List<WeaponSystem.Weapon> m_blockedWeapon;
@@ -47,6 +42,8 @@ namespace SpaceBaboon
         //SerializeVraiables
         [SerializeField] private bool m_DebugMode;
         [SerializeField] private PlayerData m_playerData;
+        [SerializeField] private CinemachineVirtualCamera m_playerCam;
+        [SerializeField] private GameObject m_dahsTrail;
 
         //Cheats related
         private bool m_isInvincible = false;
@@ -102,24 +99,12 @@ namespace SpaceBaboon
             m_renderer = GetComponent<SpriteRenderer>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             
-            
-           
-            
-
-            m_currentHealth = m_playerData.defaultHealth;
-            m_currentVelocity = m_playerData.defaultMaxVelocity;
-            m_currentDashSpeed = m_playerData.defaultDashVelocity;
-            m_currentDashCD = m_playerData.defaultDashCd;
-            m_currentDashDuration = m_playerData.defaultDashDuration;
+            m_activeHealth = m_playerData.defaultHealth + m_bonusHealth;
+            m_activeDashCoolDown = m_playerData.defaultDashCd;
+            m_activeDashDuration = m_playerData.defaultDashDuration;
             m_dashCurve = m_playerData.defaultDashCurve;
-
-
-            m_rotationlock = 0;
-            m_vertical = 0.0f;
-            m_horizontal = 0.0f;
-
+            
             m_bonusHealth = 0.0f;
-            m_bonusVelocity = 0.0f;
             m_bonusDashCD = 0.0f;
             m_bonusDashSpeed = 0.0f;
             m_bonusDashDistance = 0.0f;
@@ -131,22 +116,19 @@ namespace SpaceBaboon
             m_activeDashCD = 0.0f;
             m_dahsTrail.SetActive(false);
             m_screenShake = false;
-
-
+            m_dashCurveStrength = 0.0f;
         }
 
         private void SubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent += Move;
             InputHandler.instance.m_DashStartEvent += DashStart;
-            //.instance.m_DashEndEvent += DashEnd;
         }
 
         private void UnsubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent -= Move;
             InputHandler.instance.m_DashStartEvent -= DashStart;
-            //InputHandler.instance.m_DashEndEvent -= DashEnd;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -176,7 +158,7 @@ namespace SpaceBaboon
 
         private void OnPlayerDeath()
         {
-            if (m_currentHealth <= 0 || m_alive == false)
+            if (m_activeHealth <= 0 || m_alive == false)
             {
                 m_alive = false;
                 InputHandler.instance.m_Input.Disable();
@@ -189,13 +171,12 @@ namespace SpaceBaboon
             if (m_activeDashCD > 0.0f)
             {
                 m_activeDashCD -= Time.deltaTime;
-                
             }
         }
 
         protected override void Move(Vector2 values)
         {
-            m_destination = new Vector2(values.x, values.y).normalized;
+            m_playerDirectionVector2 = new Vector2(values.x, values.y).normalized;
         }
 
         protected override void RegulateVelocity()
@@ -204,44 +185,40 @@ namespace SpaceBaboon
             if (m_rB.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
             {
                 m_rB.velocity = m_rB.velocity.normalized;
-                m_rB.velocity *= m_currentVelocity /* + or * bonus */;
-                Debug.Log("Velocity : " + m_rB.velocity);
+                m_rB.velocity *= m_playerData.defaultMaxVelocity;
+
             }
         }
 
         private void PlayerMovement()
         {
-            if (m_destination != Vector2.zero) // Check if there's any movement input
+            if (m_playerDirectionVector2 != Vector2.zero)
             {
-                
-                //Debug.Log("CurrentVelocity: " + m_currentVelocity);
-                m_rB.AddForce(m_destination * m_currentVelocity, ForceMode2D.Force);
+                m_rB.AddForce(m_playerDirectionVector2 * m_playerData.defaultAcceleration, ForceMode2D.Force);
                 RegulateVelocity();
             }
-
-            if (m_dashInputReceiver && m_activeDashCD <= 0.0f && m_destination != Vector2.zero)
+            if (m_dashInputReceiver)
             {
                 StartCoroutine(DashCoroutine());
+                m_rB.AddForce(m_playerDirectionVector2 * (  m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
             }
-            
         }
 
         private void DashStart()
         {  
-            if(m_activeDashCD <= 0.0f)
+            if(m_activeDashCD <= 0.0f && m_playerDirectionVector2 != Vector2.zero)
             {
                 m_dashInputReceiver = true;
-                
             }
         }
 
         private void PlayerSpriteDirectionSwap()
         {
-            if (m_destination.x > 0)
+            if (m_playerDirectionVector2.x > 0)
             {
                 m_renderer.flipX = false;
             }
-            if (m_destination.x < 0)
+            if (m_playerDirectionVector2.x < 0)
             {
                 m_renderer.flipX = true;
             }
@@ -254,22 +231,21 @@ namespace SpaceBaboon
             m_spriteRendererColor = m_renderer.color;
             float timestamped = 0.0f;
             m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
-            while (timestamped < m_currentDashDuration)
+            while (timestamped < m_activeDashDuration)
             {
                 timestamped += Time.deltaTime;
-                float dashCurvePosition = timestamped / m_currentDashDuration;
-                float dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
-                m_rB.AddForce(m_destination * (dashCurveStrength * m_currentDashSpeed), ForceMode2D.Force);
-                this.gameObject.layer = LayerMask.NameToLayer("ImmunityDash");
+                float dashCurvePosition = timestamped / m_activeDashDuration;
+                m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
+                //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),true);
                 m_dahsTrail.SetActive(true);
                 yield return null;
             }
-            m_activeDashCD = m_currentDashCD;
+            m_activeDashCD = m_activeDashCoolDown;
             m_renderer.material.color = Color.Lerp(m_renderer.material.color,m_spriteRendererColor,0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
-            this.gameObject.layer = LayerMask.NameToLayer("Player");
+            //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),false);
             
         }
 
@@ -330,12 +306,12 @@ namespace SpaceBaboon
             //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
             m_renderer.material.color = Color.red;
             if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
-                m_currentHealth -= damage;
+                m_activeHealth -= damage;
         }
 
         public float GetCurrentHealth()
         {
-            return m_currentHealth;
+            return m_activeHealth;
         }
 
         public int GetRessourceOne()
@@ -367,7 +343,7 @@ namespace SpaceBaboon
 
         public void SetCurrentHealthToMax()
         {
-            m_currentHealth = m_playerData.defaultHealth;
+            m_activeHealth = m_playerData.defaultHealth;
         }
 
         public void SetSpeedWithMultiplier(float value)

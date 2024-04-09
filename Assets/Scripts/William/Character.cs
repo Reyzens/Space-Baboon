@@ -12,8 +12,8 @@ namespace SpaceBaboon
         protected Rigidbody2D m_rB;
         
         //BaseVariables
-        protected float m_currentHealth;
-        protected float m_currentVelocity;
+        protected float m_activeHealth;
+        protected float m_activeVelocity;
         
         //BonusVariables
         protected float m_bonusHealth;
