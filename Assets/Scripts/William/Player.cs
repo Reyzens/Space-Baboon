@@ -23,6 +23,7 @@ namespace SpaceBaboon
         private float m_activeDashCoolDown;
         private float m_dashCurveStrength;
         private float m_activeDashDuration;
+        private float m_timestampedDash;
         
         private Vector2 m_playerDirectionVector2;
         private AnimationCurve m_dashCurve;
@@ -51,6 +52,8 @@ namespace SpaceBaboon
 
 
         //Unity Methods
+
+        #region Unity
         private void Awake()
         {
             PlayerVariablesInitialization();
@@ -67,7 +70,6 @@ namespace SpaceBaboon
         private void Update()
         {
             OnPlayerDeath();
-            
         }
 
         private void FixedUpdate()
@@ -82,14 +84,16 @@ namespace SpaceBaboon
         {
             UnsubscribeToInputEvent();
         }
+        #endregion
 
         //Methods
+
+        #region Initialiazation
         private void PlayerVariablesInitialization()
         {
             InputHandler.instance.m_Input.Enable();
             SubscribeToInputEvent();
-
-
+            
             m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
             m_equipedWeapon = new List<WeaponSystem.Weapon>();
             m_blockedWeapon = new List<WeaponSystem.Weapon>();
@@ -117,8 +121,12 @@ namespace SpaceBaboon
             m_dahsTrail.SetActive(false);
             m_screenShake = false;
             m_dashCurveStrength = 0.0f;
+            m_timestampedDash = 0.0f;
         }
 
+        #endregion Initialiazation
+
+        #region Events
         private void SubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent += Move;
@@ -131,6 +139,25 @@ namespace SpaceBaboon
             InputHandler.instance.m_DashStartEvent -= DashStart;
         }
 
+        #endregion Events
+
+        #region EventMethods
+
+        protected override void Move(Vector2 values)
+        {
+            m_playerDirectionVector2 = new Vector2(values.x, values.y).normalized;
+        }
+
+        private void DashStart()
+        {
+            if (m_activeDashCD <= 0.0f && m_playerDirectionVector2 != Vector2.zero)
+            {
+                m_dashInputReceiver = true;
+            }
+        }
+        #endregion EventMethods
+
+        #region Collider
         private void OnTriggerEnter2D(Collider2D collision)
         {
 
@@ -151,6 +178,9 @@ namespace SpaceBaboon
         //    //}
         //}
 
+        #endregion Collider
+
+        #region PlayerMethods
         private void FreezePlayerRotation()
         {
             m_rB.freezeRotation = enabled;
@@ -174,19 +204,12 @@ namespace SpaceBaboon
             }
         }
 
-        protected override void Move(Vector2 values)
-        {
-            m_playerDirectionVector2 = new Vector2(values.x, values.y).normalized;
-        }
-
         protected override void RegulateVelocity()
         {
-            //Debug.Log("Magnitude: " + m_characterRb.velocity.magnitude + "  and maxValue: " + m_playerData.defaultMaxVelocity);
-            if (m_rB.velocity.magnitude > m_playerData.defaultMaxVelocity /* + or * bonus */)
+            if (m_rB.velocity.magnitude > m_playerData.defaultMaxVelocity)
             {
                 m_rB.velocity = m_rB.velocity.normalized;
                 m_rB.velocity *= m_playerData.defaultMaxVelocity;
-
             }
         }
 
@@ -203,15 +226,7 @@ namespace SpaceBaboon
                 m_rB.AddForce(m_playerDirectionVector2 * (  m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
             }
         }
-
-        private void DashStart()
-        {  
-            if(m_activeDashCD <= 0.0f && m_playerDirectionVector2 != Vector2.zero)
-            {
-                m_dashInputReceiver = true;
-            }
-        }
-
+        
         private void PlayerSpriteDirectionSwap()
         {
             if (m_playerDirectionVector2.x > 0)
@@ -223,31 +238,74 @@ namespace SpaceBaboon
                 m_renderer.flipX = true;
             }
         }
-        
-        private IEnumerator DashCoroutine()
+    
+        private void AfterDashCoroutine()
         {
-            
-            m_isDashing = true;
-            m_spriteRendererColor = m_renderer.color;
-            float timestamped = 0.0f;
-            m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
-            while (timestamped < m_activeDashDuration)
-            {
-                timestamped += Time.deltaTime;
-                float dashCurvePosition = timestamped / m_activeDashDuration;
-                m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
-                //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),true);
-                m_dahsTrail.SetActive(true);
-                yield return null;
-            }
             m_activeDashCD = m_activeDashCoolDown;
             m_renderer.material.color = Color.Lerp(m_renderer.material.color,m_spriteRendererColor,0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
             //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),false);
-            
         }
+        
+        private void BeforeDashCoroutine()
+        {
+           m_isDashing = true;
+           m_spriteRendererColor = m_renderer.color;
+           m_timestampedDash = 0.0f;
+            m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
+        }
+
+        private void PlayerDamageTakenScreenShake()
+        {
+            if (m_screenShake)
+            {
+                StartCoroutine(PlayerDamageTakenScreenShakeCoroutine());
+            }
+        }
+
+        public override void OnDamageTaken(float damage)
+        {
+            // TODO change name of OnDamageTaken to AttackReceived
+            // We could change the IDammageable interface to IAttackable
+            // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
+            m_screenShake = true;
+            //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
+            //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
+            m_renderer.material.color = Color.red;
+            if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
+                m_activeHealth -= damage;
+        }
+
+        #endregion PlayerMethods
+
+        #region PlayerCoroutine
+        private IEnumerator DashCoroutine()
+        {
+            BeforeDashCoroutine();
+            while (m_timestampedDash < m_activeDashDuration)
+            {
+                m_timestampedDash += Time.deltaTime;
+                float dashCurvePosition = m_timestampedDash / m_activeDashDuration;
+                m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
+                //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),true);
+                m_dahsTrail.SetActive(true);            
+                yield return null;
+            }
+            AfterDashCoroutine();
+        }
+
+        private IEnumerator PlayerDamageTakenScreenShakeCoroutine()
+        {
+            m_screenShake = false;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0f;
+            m_renderer.material.color = m_spriteRendererColor;
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        #endregion PlayerCoroutine
 
         #region Crafting
         public void AddResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
@@ -281,33 +339,7 @@ namespace SpaceBaboon
         }
         #endregion
 
-        private void PlayerDamageTakenScreenShake()
-        {
-            if (m_screenShake)
-            {
-                StartCoroutine(PlayerDamageTakenScreenShakeCoroutine());
-            }
-        }
-        private IEnumerator PlayerDamageTakenScreenShakeCoroutine()
-        {
-            m_screenShake = false;
-            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
-            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0f;
-            m_renderer.material.color = m_spriteRendererColor;
-            yield return new WaitForSeconds(0.5f);
-        }
-        public override void OnDamageTaken(float damage)
-        {
-            // TODO change name of OnDamageTaken to AttackReceived
-            // We could change the IDammageable interface to IAttackable
-            // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
-            m_screenShake = true;
-            //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
-            //m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
-            m_renderer.material.color = Color.red;
-            if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
-                m_activeHealth -= damage;
-        }
+        #region Gets
 
         public float GetCurrentHealth()
         {
@@ -333,6 +365,8 @@ namespace SpaceBaboon
                 m_collectibleInventory.Add((SpaceBaboon.InteractableResource.EResourceType)i, 0);
             }
         }
+
+        #endregion Gets
 
         #region Cheats
         public void SetIsInvincible(bool value)
