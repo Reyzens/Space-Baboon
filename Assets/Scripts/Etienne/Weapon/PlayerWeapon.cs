@@ -7,7 +7,7 @@ namespace SpaceBaboon.WeaponSystem
     public class PlayerWeapon : Weapon
     {
         [SerializeField] protected WeaponData m_weaponData;
-        [SerializeField] private GenericObjectPool m_pool = new GenericObjectPool();
+        [SerializeField] protected GenericObjectPool m_pool = new GenericObjectPool();
         [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
         [SerializeField] float m_rotationAroundPlayerSpeed;
@@ -26,7 +26,7 @@ namespace SpaceBaboon.WeaponSystem
             m_pool.CreatePool(list, "Weapon Projectiles");
         }
 
-        protected void Update()
+        protected virtual void Update()
         {
             if (m_isCollecting)
             {
@@ -41,6 +41,10 @@ namespace SpaceBaboon.WeaponSystem
             }
             m_attackingCooldown += Time.deltaTime * m_attackSpeedModifier;
             RotateAroundPlayer();
+        }
+        protected virtual void FixedUpdate()
+        {
+
         }
         private void RotateAroundPlayer()
         {
@@ -63,7 +67,7 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(ref direction, m_weaponData.maxRange, m_weaponData.attackZone);
+            projectile.GetComponent<Projectile>()?.Shoot(direction, m_weaponData.maxRange, m_weaponData.attackZone);
         }
 
         protected virtual Transform GetTarget()

@@ -14,7 +14,7 @@ namespace SpaceBaboon.WeaponSystem
             m_player = m_playerObject.GetComponent<Player>();
         }
 
-        public override void Shoot(ref Transform direction, float maxRange, float attackZone)
+        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform playerPosition)
         {
             Vector2 newDirection = direction.position;
             Vector2 currentPosition = transform.position;

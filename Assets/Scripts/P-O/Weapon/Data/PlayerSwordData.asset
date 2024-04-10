@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerSwordData
   m_EditorClassIdentifier: 
   maxLevel: 0
-  maxRange: 3
+  maxRange: 15
   attackZone: 5
   attackSpeed: 1
   weaponName: 

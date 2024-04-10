@@ -59,7 +59,7 @@ namespace SpaceBaboon.WeaponSystem
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision) { }
-        public virtual void Shoot(ref Transform direction, float maxRange, float attackZone)
+        public virtual void Shoot(Transform direction, float maxRange, float attackZone, Transform playerPosition = null)
         {
             m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
         }
