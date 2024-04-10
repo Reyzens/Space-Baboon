@@ -28,7 +28,7 @@ namespace SpaceBaboon.WeaponSystem
             base.Start();
             IPiercingSetUp();
         }
-        public override void Shoot(ref Transform direction, float maxRange)
+        public override void Shoot(ref Transform direction, float maxRange, float attackZone)
         {
             //Debug.Log("Laser was shot");
             Vector2 directionVector = (direction.position - transform.position).normalized;

@@ -16,7 +16,7 @@ namespace SpaceBaboon
             return base.OnHit();
         }
 
-        public override void Shoot(ref Transform direction, float maxRange)
+        public override void Shoot(ref Transform direction, float maxRange, float attackZone)
         {
             Vector2 newDirection = direction.position;
             Vector2 currentPosition = transform.position;

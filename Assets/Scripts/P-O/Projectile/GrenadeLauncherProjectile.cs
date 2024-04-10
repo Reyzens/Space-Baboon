@@ -36,7 +36,7 @@ namespace SpaceBaboon
 
             IExplodableUpdate();
         }
-        public override void Shoot(ref Transform direction, float maxrange)
+        public override void Shoot(ref Transform direction, float maxrange, float attackZone)
         {
             m_target = direction;
             m_initialShootingPosition = transform.position;

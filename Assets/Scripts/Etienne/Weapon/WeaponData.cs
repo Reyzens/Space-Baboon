@@ -7,6 +7,7 @@ namespace SpaceBaboon.WeaponSystem
     {
         public int maxLevel;
         public float maxRange;
+        public float attackZone;
         public float attackSpeed;
         public string weaponName;
         public Sprite icon;
