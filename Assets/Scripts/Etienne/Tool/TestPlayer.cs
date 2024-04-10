@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class TestPlayer : MonoBehaviour
+    public class TestPlayer : BaseStats<MonoBehaviour>, IStatsEditable
     {
         [SerializeField] private bool m_isInvincible = false;
         [SerializeField] private float m_speed = 5.0f;
@@ -34,7 +34,12 @@ namespace SpaceBaboon
             //Debug.Log("speed was changed");
         }
 
-        public PlayerData GetData()
+        public PlayerData GetPlayerData()
+        {
+            return m_playerData;
+        }
+
+        public override ScriptableObject GetData()
         {
             return m_playerData;
         }

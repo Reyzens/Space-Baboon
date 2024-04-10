@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,11 @@ namespace SpaceBaboon
         [SerializeField] private Player m_player;
 
         private UIDocument m_uiDoc;
+
+        private bool m_displayBool;
+        //private PropertyField m_displayBoolProperty;
+        private Button m_displayButton;
+        private VisualElement m_elementsToHide;
 
         private Toggle m_invincibilityToggle;
         private Button m_maxHealthButton;
@@ -25,6 +31,14 @@ namespace SpaceBaboon
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
 
+            //m_displayBoolProperty = visualElement.Q<PropertyField>("DisplayBool");
+            m_displayButton = visualElement.Q<Button>("DisplayButton");
+            m_elementsToHide = visualElement.Q<VisualElement>("ElementsToHide");
+
+            m_elementsToHide.style.display = DisplayStyle.None;
+
+
+
             m_invincibilityToggle = visualElement.Q<Toggle>("InvincibilityToggle");
             m_maxHealthButton = visualElement.Q<Button>("MaxHealthButton");
             m_speedSlider = visualElement.Q<Slider>("SpeedSlider");
@@ -37,6 +51,10 @@ namespace SpaceBaboon
 
         private void OnEnable()
         {
+            m_displayButton.clicked += OnDisplayButtonClicked;
+            //m_displayBoolProperty.RegisterValueChangeCallback(OnDisplayToggled);
+            
+            
             m_invincibilityToggle.RegisterValueChangedCallback(OnInvincibilityToggled);
             m_maxHealthButton.clicked += OnMaxHealthButtonClicked;
             m_speedSlider.RegisterValueChangedCallback(OnSpeedChanged);
@@ -44,6 +62,24 @@ namespace SpaceBaboon
             m_meleeToggle.RegisterValueChangedCallback(OnMeleeToggled);
             m_gunToggle.RegisterValueChangedCallback(OnGunToggled);
             m_grenadeLauncherToggle.RegisterValueChangedCallback(OnGrenadeLauncherToggled);
+        }
+
+        private void OnDisplayButtonClicked()
+        {
+            m_displayBool = !m_displayBool;
+
+            if (m_displayBool)
+            {
+                m_elementsToHide.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                m_elementsToHide.style.display = DisplayStyle.None;
+            }
+        }
+
+        private void OnDisplayToggled(SerializedPropertyChangeEvent evt)
+        {
         }
 
         private void OnGrenadeLauncherToggled(ChangeEvent<bool> evt)
