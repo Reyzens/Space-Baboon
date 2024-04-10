@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,19 +28,19 @@ namespace SpaceBaboon.WeaponSystem
             base.Start();
             IPiercingSetUp();
         }
-        public override void Shoot(ref Transform direction)
+        public override void Shoot(ref Transform direction, float maxRange)
         {
             //Debug.Log("Laser was shot");
-            int enemyHit = 0;
-            RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, direction.position);
+            Vector2 directionVector = (direction.position - transform.position).normalized;
+            RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, directionVector, maxRange);
 
             foreach (RaycastHit2D hit in enemyHits)
             {
                 if (hit.collider.CompareTag("Enemy"))
                 {
-                    enemyHit++;
+                    m_currentPiercingLeft--;
                     m_lastEnemyPosition = hit.collider.transform;
-                    if (enemyHit == m_PiercingData.m_maxAmountOfPiercing)
+                    if (m_currentPiercingLeft <= 0)
                     {
                         //Debug.Log("Laser raycast hit an enemy");                        
                         break;
@@ -75,13 +74,14 @@ namespace SpaceBaboon.WeaponSystem
 
                 if (m_currentLaserDuration < 0)
                 {
-                    m_parentPool.UnSpawn(gameObject);
+                    Debug.Log("calling last pierce");
+                    LastPierce();
                 }
             }
         }
         public void LastPierce()
         {
-            throw new NotImplementedException();
+            m_parentPool.UnSpawn(gameObject);
         }
 
         public void OnPiercing()
@@ -94,6 +94,7 @@ namespace SpaceBaboon.WeaponSystem
             m_lifetime = 0.0f;
             m_initialWeaponPosition.position = pos;
             m_currentLaserDuration = m_maxLaserDuration;
+            m_currentPiercingLeft = m_PiercingData.m_maxAmountOfPiercing;
         }
         protected override void SetComponents(bool value)
         {
@@ -104,13 +105,13 @@ namespace SpaceBaboon.WeaponSystem
         }
         private void SetLaserPosition()
         {
+            Debug.Log("Laser entre les points : " + m_initialWeaponPosition.position + " et " + m_lastEnemyPosition.position);
             m_laserDisplay.positionCount = 2;
             m_laserDisplay.SetPosition(0, m_initialWeaponPosition.position);
             m_laserDisplay.SetPosition(1, m_lastEnemyPosition.position);
 
             Vector2 laserStartPoint = m_laserHitBox.transform.InverseTransformPoint(m_initialWeaponPosition.position);
             Vector2 laserEndPoint = m_laserHitBox.transform.InverseTransformPoint(m_lastEnemyPosition.position);
-
 
             m_laserHitBox.SetPoints(new List<Vector2> { laserStartPoint, laserEndPoint });
         }

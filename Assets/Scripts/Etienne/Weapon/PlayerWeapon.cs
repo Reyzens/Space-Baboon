@@ -35,6 +35,7 @@ namespace SpaceBaboon.WeaponSystem
 
             if (m_attackingCooldown > m_weaponData.attackSpeed)
             {
+                //Debug.Log("Attacking with weapon");
                 Attack();
                 m_attackingCooldown = 0.0f;
             }
@@ -62,7 +63,7 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(ref direction);
+            projectile.GetComponent<Projectile>()?.Shoot(ref direction, m_weaponData.maxRange);
         }
 
         protected virtual Transform GetTarget()

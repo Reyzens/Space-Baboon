@@ -7,7 +7,7 @@ namespace SpaceBaboon.WeaponSystem
         protected override Transform GetTarget()
         {
             //Get furthest enemy
-
+            Debug.Log("Laser beam get target");
             Transform furthestEnemy = null;
             float furthestDistance = 0.0f;
 
@@ -29,7 +29,7 @@ namespace SpaceBaboon.WeaponSystem
                 }
             }
 
-            //Didn't find an enemy
+            //Didn't find an enemy           
             return furthestEnemy != null ? furthestEnemy : transform;
         }
 

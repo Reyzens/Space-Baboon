@@ -1,5 +1,5 @@
 using SpaceBaboon.PoolingSystem;
-using UnityEngine; 
+using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -8,7 +8,7 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] protected EnemyData m_data;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
-        
+
         private GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
@@ -16,13 +16,13 @@ namespace SpaceBaboon.EnemySystem
 
         private GameObject m_playerObject;
         protected Player m_player;
-                
+
         private float m_contactAttackTimer = 0.0f;
         protected bool m_contactAttackReady = true;
         private float m_bonusDamage = 0.0f;
-        private float m_bonusAcceleration; 
+        private float m_bonusAcceleration;
         private float m_bonusMaxVelocity;
-        private float m_bonusAttackDelay;        
+        private float m_bonusAttackDelay;
 
         protected Vector2 m_noVectorValue = Vector2.zero;
 
@@ -32,13 +32,13 @@ namespace SpaceBaboon.EnemySystem
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_rB = GetComponent<Rigidbody2D>();
             m_activeHealth = m_data.defaultHealth;
-            
+
         }
 
         protected virtual void Start()
         {
             m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
-            m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();            
+            m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
 
         protected virtual void Update()
@@ -55,13 +55,13 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            Move(m_noVectorValue);            
+            Move(m_noVectorValue);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Projectile"))
-            {                
+            {
                 OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
             }
         }
@@ -72,7 +72,7 @@ namespace SpaceBaboon.EnemySystem
             {
                 ContactPoint2D contactPoint = collision.contacts[0];
                 Vector2 contactPos = contactPoint.point;
-                ContactAttack(contactPos);                
+                ContactAttack(contactPos);
             }
         }
 
@@ -85,7 +85,7 @@ namespace SpaceBaboon.EnemySystem
         {
             Vector3 direction = collision.transform.position - transform.position;
             m_rB.AddForce(-direction * m_data.obstructionPushForce, ForceMode2D.Force);
-        }      
+        }
 
         protected override void Move(Vector2 value)
         {
@@ -144,19 +144,19 @@ namespace SpaceBaboon.EnemySystem
 
             AudioSource contactAttackAS = contactAttackInstance.GetComponent<AudioSource>();
             AudioClip contactAttackAC = contactAttackAS.clip;
-            contactAttackAS?.PlayOneShot(contactAttackAC);            
+            contactAttackAS?.PlayOneShot(contactAttackAC);
         }
 
         public override void OnDamageTaken(float damage)
         {
             m_activeHealth -= damage;
 
-            Debug.Log("enemy hit have " + m_activeHealth + " health");
+            //Debug.Log("enemy hit have " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_parentPool.UnSpawn(gameObject);
             }
-        } 
+        }
 
         #region ObjectPooling
         public bool IsActive
