@@ -4,8 +4,6 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ShootingEnemyProjectile : Projectile
     {
-        // TODO projectiles needs to go through other enemies, no behavior when colliding with enemies
-
         private GameObject m_playerObject;
         protected Player m_player;
 
@@ -16,12 +14,12 @@ namespace SpaceBaboon.WeaponSystem
             m_player = m_playerObject.GetComponent<Player>();
         }
 
-        public override void Shoot(ref Transform direction)
+        public override void Shoot(ref Transform direction, float maxRange, float attackZone)
         {
             Vector2 newDirection = direction.position;
             Vector2 currentPosition = transform.position;
-            m_direction = (newDirection - currentPosition).normalized;            
-        }        
+            m_direction = (newDirection - currentPosition).normalized;
+        }
 
         protected override void OnCollisionEnter2D(Collision2D collision)
         {

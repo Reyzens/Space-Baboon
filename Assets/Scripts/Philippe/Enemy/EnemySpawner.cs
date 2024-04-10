@@ -10,14 +10,14 @@ namespace SpaceBaboon.EnemySystem
         Shooting,
         Kamikaze,
         Count
-    }
-
+    }    
 
     public class EnemySpawner : MonoBehaviour
     {
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<GameObject> m_enemyTypesToSpawn = new List<GameObject>();
+        [SerializeField][Range(0, 10)] private List<int> spawnProbability = new List<int>();
 
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public GameObject m_shootingEnemyProjectile;
@@ -33,17 +33,17 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            List<GameObject> list = new List<GameObject>();
+            List<GameObject> enemyList = new List<GameObject>();
 
             foreach (GameObject enemyPrefab in m_enemyTypesToSpawn)
-                list.Add(enemyPrefab);
+                enemyList.Add(enemyPrefab);
 
             // TODO to check which initialisation logic to keep
             //List<GameObject> list = new List<GameObject>();
             //list.Add(m_prefab1);
             //list.Add(m_prefab2);
 
-            m_enemyPool.CreatePool(list, "Enemy");
+            m_enemyPool.CreatePool(enemyList, "Enemy");
 
 
 
@@ -51,10 +51,19 @@ namespace SpaceBaboon.EnemySystem
 
 
 
-            List<GameObject> listSecond = new List<GameObject>();
-            listSecond.Add(m_shootingEnemyProjectile);
+            List<GameObject> enemyProjectileList = new List<GameObject>();
+            enemyProjectileList.Add(m_shootingEnemyProjectile);
             
-            m_enemyProjectilesPool.CreatePool(listSecond, "Shooting Enemy Weapon Projectile");
+            m_enemyProjectilesPool.CreatePool(enemyProjectileList, "Shooting Enemy Weapon Projectile");
+
+
+
+            if (spawnProbability.Count != m_enemyTypesToSpawn.Count)
+            {
+                Debug.LogError("Spawn probability count is not the same as Enemy types to spawn count");
+            }
+
+
 
         }
 
@@ -109,9 +118,36 @@ namespace SpaceBaboon.EnemySystem
                    spawnWorldPos.x > mapMin.x &&
                    spawnWorldPos.y > mapMin.y)
                 {
-                    validPosFound = true;
-                    m_enemyPool.Spawn(m_enemyTypesToSpawn[0], spawnWorldPos);
-                    //m_enemyPool.Spawn(m_enemies[1], spawnWorldPos);
+                    validPosFound = true;                    
+                }
+            }
+
+            ChooseRandomlyAnEnemyTypeToSpawn(spawnWorldPos);
+        }
+
+        private void ChooseRandomlyAnEnemyTypeToSpawn(Vector3 spawnWorldPos)
+        {
+            int totalProbabilities = 0;
+            foreach (int probability in spawnProbability)
+            {
+                totalProbabilities += probability;
+            }
+
+            int randomValue = Random.Range(0, totalProbabilities);
+            int cumulativeProbability = 0;
+
+            for (int i = 0; i < spawnProbability.Count; i++)
+            {
+                cumulativeProbability += spawnProbability[i];
+                
+                if (randomValue < cumulativeProbability)
+                {
+                    if (i < m_enemyTypesToSpawn.Count && m_enemyTypesToSpawn[i] != null)
+                    {
+                        GameObject enemyPrefab = m_enemyTypesToSpawn[i];
+                        m_enemyPool.Spawn(enemyPrefab, spawnWorldPos);
+                    }
+                    break;
                 }
             }
         }
@@ -124,6 +160,11 @@ namespace SpaceBaboon.EnemySystem
             float y = radius * Mathf.Sin(randomAngle);
 
             return new Vector2(x, y);
+        }
+
+        public EnemySpawner GetEnemySpawner()
+        {
+            return this;
         }
 
 

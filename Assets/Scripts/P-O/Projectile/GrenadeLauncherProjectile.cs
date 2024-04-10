@@ -36,7 +36,7 @@ namespace SpaceBaboon
 
             IExplodableUpdate();
         }
-        public override void Shoot(ref Transform direction)
+        public override void Shoot(ref Transform direction, float maxrange, float attackZone)
         {
             m_target = direction;
             m_initialShootingPosition = transform.position;
@@ -116,7 +116,7 @@ namespace SpaceBaboon
         //}
         protected override void SetComponents(bool value)
         {
-            Debug.Log("SetComponents parent appeler");
+            //Debug.Log("SetComponents parent appeler");
             m_renderer.enabled = value;
 
             m_isActive = value;

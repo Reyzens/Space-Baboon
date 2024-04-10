@@ -18,9 +18,9 @@ namespace SpaceBaboon.WeaponSystem
         protected bool m_isActive = false;
         protected SpriteRenderer m_renderer;
         protected CircleCollider2D m_collider;
-        
 
-        
+
+
 
         protected virtual void Awake()
         {
@@ -59,7 +59,7 @@ namespace SpaceBaboon.WeaponSystem
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision) { }
-        public virtual void Shoot(ref Transform direction)
+        public virtual void Shoot(ref Transform direction, float maxRange, float attackZone)
         {
             m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
         }
@@ -106,6 +106,6 @@ namespace SpaceBaboon.WeaponSystem
         }
         #endregion
 
-        
+
     }
 }

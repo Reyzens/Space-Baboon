@@ -8,7 +8,7 @@ namespace SpaceBaboon
     {
         [Header("PlayerUniqueStats")]
         public float defaultDashCd;
-        public float defaultDashVelocity;
+        public float defaultDashAcceleration;
         public float defaultDashDuration;
         public AnimationCurve defaultDashCurve;
     }

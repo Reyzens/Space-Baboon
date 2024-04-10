@@ -1,12 +1,12 @@
-using UnityEngine;
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class Weapon : MonoBehaviour
+    public class PlayerWeapon : Weapon
     {
-        [SerializeField] protected WeaponData m_weaponData;        
+        [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] private GenericObjectPool m_pool = new GenericObjectPool();
         [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
@@ -19,7 +19,7 @@ namespace SpaceBaboon.WeaponSystem
         private bool m_weaponToggle = true;
 
         protected virtual void Awake()
-        {           
+        {
             List<GameObject> list = new List<GameObject>();
             list.Add(m_weaponData.projectilePrefab);
 
@@ -35,6 +35,7 @@ namespace SpaceBaboon.WeaponSystem
 
             if (m_attackingCooldown > m_weaponData.attackSpeed)
             {
+                //Debug.Log("Attacking with weapon");
                 Attack();
                 m_attackingCooldown = 0.0f;
             }
@@ -54,7 +55,7 @@ namespace SpaceBaboon.WeaponSystem
             m_weaponToggle = !m_weaponToggle;
             gameObject.SetActive(m_weaponToggle);
         }
-        protected virtual void Attack()
+        protected override void Attack()
         {
             Transform direction = GetTarget();
 
@@ -62,7 +63,7 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(ref direction);
+            projectile.GetComponent<Projectile>()?.Shoot(ref direction, m_weaponData.maxRange, m_weaponData.attackZone);
         }
 
         protected virtual Transform GetTarget()
@@ -73,6 +74,11 @@ namespace SpaceBaboon.WeaponSystem
         public void SetIsCollecting(bool value)
         {
             m_isCollecting = value;
+        }
+
+        public float GetWeaponRange()
+        {
+            return m_weaponData.maxRange;
         }
 
         #region Crafting

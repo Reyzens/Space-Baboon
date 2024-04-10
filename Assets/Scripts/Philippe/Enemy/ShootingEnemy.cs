@@ -6,7 +6,7 @@ namespace SpaceBaboon.EnemySystem
     public class ShootingEnemy : Enemy
     {
         [SerializeField] private ShootingEnemyData m_uniqueData;
-        private ShootingEnemyWeapon m_weapon;
+        private EnemyWeapon m_weapon;
 
         private float m_distanceToPlayer;
         private float m_targetAcquisitionTimer = 0.0f;
@@ -15,7 +15,7 @@ namespace SpaceBaboon.EnemySystem
         protected override void Start()
         {
             base.Start();
-            m_weapon = GetComponentInChildren<ShootingEnemyWeapon>();
+            m_weapon = GetComponentInChildren<EnemyWeapon>();
             m_targetAcquisitionTimer = m_uniqueData.targetAcquisitionDelay;
         }
 

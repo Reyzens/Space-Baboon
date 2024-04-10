@@ -7,7 +7,7 @@ namespace SpaceBaboon
     public class CraftingStation : MonoBehaviour
     {
         //Serializable variables
-        [SerializeField] private Weapon m_linkedWeapon;
+        [SerializeField] private PlayerWeapon m_linkedWeapon;
         [SerializeField] private float m_MaxHealth;
         [SerializeField] private List<ResourceDropPoint> m_resourceDropPoints = new List<ResourceDropPoint>();
         [SerializeField] private float m_levelScaling;
