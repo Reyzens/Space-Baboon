@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_projectileData: {fileID: 11400000, guid: cb65a345ecf73db43a5ff976e820e37c, type: 2}
   m_tickMaxDuration: 0.1
+  m_maxFlameDuration: 5
 --- !u!60 &6657247143471245500
 PolygonCollider2D:
   m_ObjectHideFlags: 0

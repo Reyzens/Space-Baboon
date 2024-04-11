@@ -11,6 +11,8 @@ namespace SpaceBaboon.WeaponSystem
         private float m_flameWidth;
         private float m_cooldownBetweenTick;
         [SerializeField] private float m_tickMaxDuration = 0.25f;
+        [SerializeField] private float m_maxFlameDuration;
+        private float m_currentFlameDuration;
         private bool m_isFiring;
         private PolygonCollider2D m_flameCollider;
 
@@ -48,13 +50,16 @@ namespace SpaceBaboon.WeaponSystem
             if (m_isFiring)
             {
                 m_cooldownBetweenTick -= Time.deltaTime;
-
+                m_currentFlameDuration -= Time.deltaTime;
                 if (m_cooldownBetweenTick < 0)
                 {
                     StartCoroutine(ColliderTickCoroutine());
                     m_cooldownBetweenTick = m_projectileData.speed;
                 }
-
+                if (m_currentFlameDuration < 0)
+                {
+                    m_parentPool.UnSpawn(gameObject);
+                }
             }
         }
 
@@ -75,6 +80,13 @@ namespace SpaceBaboon.WeaponSystem
         {
             //Debug.Log("SetComponents parent appeler");
             m_isActive = value;
+            var emission = m_flames.emission;
+            emission.enabled = value;
+            if (!value)
+            {
+                m_flameCollider.enabled = value;
+            }
+            m_isFiring = value;
             //m_renderer.enabled = value;
             //m_collider.enabled = value;
         }
@@ -83,7 +95,7 @@ namespace SpaceBaboon.WeaponSystem
             //base.ResetValues(pos);
             m_lifetime = 0.0f;
             m_cooldownBetweenTick = -1;
-            m_isFiring = true;
+            m_currentFlameDuration = m_maxFlameDuration;
         }
         protected void ParticleEffectInitialization()
         {
