@@ -1,12 +1,8 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
-using Cinemachine;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
@@ -17,18 +13,18 @@ namespace SpaceBaboon
         private bool m_isDashing;
         private bool m_dashInputReceiver;
         private bool m_screenShake;
-        
+
         private float m_currentDashCDCounter;
         private float m_activeDashCD;
         private float m_activeDashCoolDown;
         private float m_dashCurveStrength;
         private float m_activeDashDuration;
         private float m_timestampedDash;
-        
+
         private Vector2 m_playerDirectionVector2;
         private AnimationCurve m_dashCurve;
         private Color m_spriteRendererColor;
-        
+
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
         private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
         private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
@@ -93,7 +89,7 @@ namespace SpaceBaboon
         {
             InputHandler.instance.m_Input.Enable();
             SubscribeToInputEvent();
-            
+
             m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
             m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
             m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
@@ -102,12 +98,12 @@ namespace SpaceBaboon
             m_collider = GetComponent<BoxCollider2D>();
             m_renderer = GetComponent<SpriteRenderer>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
-            
+
             m_activeHealth = m_playerData.defaultHealth + m_bonusHealth;
             m_activeDashCoolDown = m_playerData.defaultDashCd;
             m_activeDashDuration = m_playerData.defaultDashDuration;
             m_dashCurve = m_playerData.defaultDashCurve;
-            
+
             m_bonusHealth = 0.0f;
             m_bonusDashCD = 0.0f;
             m_bonusDashSpeed = 0.0f;
@@ -147,7 +143,10 @@ namespace SpaceBaboon
         {
             m_playerDirectionVector2 = new Vector2(values.x, values.y).normalized;
         }
-
+        public Vector2 GetPlayerDirection()
+        {
+            return m_playerDirectionVector2;
+        }
         private void DashStart()
         {
             if (m_activeDashCD <= 0.0f && m_playerDirectionVector2 != Vector2.zero)
@@ -223,10 +222,10 @@ namespace SpaceBaboon
             if (m_dashInputReceiver)
             {
                 StartCoroutine(DashCoroutine());
-                m_rB.AddForce(m_playerDirectionVector2 * (  m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
+                m_rB.AddForce(m_playerDirectionVector2 * (m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
             }
         }
-        
+
         private void PlayerSpriteDirectionSwap()
         {
             if (m_playerDirectionVector2.x > 0)
@@ -238,22 +237,22 @@ namespace SpaceBaboon
                 m_renderer.flipX = true;
             }
         }
-    
+
         private void AfterDashCoroutine()
         {
             m_activeDashCD = m_activeDashCoolDown;
-            m_renderer.material.color = Color.Lerp(m_renderer.material.color,m_spriteRendererColor,0.2f);
+            m_renderer.material.color = Color.Lerp(m_renderer.material.color, m_spriteRendererColor, 0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
             //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),false);
         }
-        
+
         private void BeforeDashCoroutine()
         {
-           m_isDashing = true;
-           m_spriteRendererColor = m_renderer.color;
-           m_timestampedDash = 0.0f;
+            m_isDashing = true;
+            m_spriteRendererColor = m_renderer.color;
+            m_timestampedDash = 0.0f;
             m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
         }
 
@@ -290,7 +289,7 @@ namespace SpaceBaboon
                 float dashCurvePosition = m_timestampedDash / m_activeDashDuration;
                 m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
                 //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),true);
-                m_dahsTrail.SetActive(true);            
+                m_dahsTrail.SetActive(true);
                 yield return null;
             }
             AfterDashCoroutine();
