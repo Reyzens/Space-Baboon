@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 
 namespace SpaceBaboon.UI_Toolkit
@@ -12,10 +10,10 @@ namespace SpaceBaboon.UI_Toolkit
         private Label ressourceone;
         private Label ressourcetwo;
         private Label ressourcetree;
-        
+
         private VisualElement root;
 
-        
+
         private void OnEnable()
         {
             playerGameObject = GameObject.FindGameObjectWithTag("Player");
@@ -29,12 +27,16 @@ namespace SpaceBaboon.UI_Toolkit
         private void Update()
         {
             //hpBar.value = playerRef.m_currentHealth;
-            //ressourceone.text = playerRef.GetRessourceOne().ToString();
-            //ressourcetwo.text = playerRef.GetRessourceTwo().ToString();
-            //ressourcetree.text = playerRef.GetRessourceTree().ToString();
-            
+            if (playerRef != null)
+            {
+                ressourceone.text = playerRef.GetRessourceOne().ToString();
+                ressourcetwo.text = playerRef.GetRessourceTwo().ToString();
+                ressourcetree.text = playerRef.GetRessourceTree().ToString();
+            }
+
+
         }
-        
-        
+
+
     }
 }

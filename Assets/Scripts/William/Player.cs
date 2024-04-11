@@ -347,15 +347,36 @@ namespace SpaceBaboon
 
         public int GetRessourceOne()
         {
-            return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)0];
+            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)0))
+            {
+                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)0];
+            }
+            else
+            {
+                return 0;
+            }
         }
         public int GetRessourceTwo()
         {
-            return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)1];
+            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)1))
+            {
+                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)1];
+            }
+            else
+            {
+                return 0;
+            }
         }
         public int GetRessourceTree()
         {
-            return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)2];
+            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)2))
+            {
+                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)2];
+            }
+            else
+            {
+                return 0;
+            }
         }
         private void DictionaryInistalisation()
         {
