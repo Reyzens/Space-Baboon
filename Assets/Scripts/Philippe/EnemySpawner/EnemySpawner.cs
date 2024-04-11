@@ -17,7 +17,8 @@ namespace SpaceBaboon.EnemySystem
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<GameObject> m_enemyTypesToSpawn = new List<GameObject>();
-        [SerializeField][Range(0, 10)] private List<int> spawnProbability = new List<int>();
+        [SerializeField][Range(0, 10)] private List<int> m_spawnProbability = new List<int>();
+        private List<bool> m_canSpawn = new List<bool>();
 
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public GameObject m_shootingEnemyProjectile;
@@ -39,11 +40,6 @@ namespace SpaceBaboon.EnemySystem
             foreach (GameObject enemyPrefab in m_enemyTypesToSpawn)
                 enemyList.Add(enemyPrefab);
 
-            // TODO to check which initialisation logic to keep
-            //List<GameObject> list = new List<GameObject>();
-            //list.Add(m_prefab1);
-            //list.Add(m_prefab2);
-
             m_enemyPool.CreatePool(enemyList, "Enemy");
 
 
@@ -57,12 +53,19 @@ namespace SpaceBaboon.EnemySystem
             m_enemyProjectilesPool.CreatePool(enemyProjectileList, "Shooting Enemy Weapon Projectile");
 
 
+            foreach(GameObject enemyPrefab in m_enemyTypesToSpawn)
+            {
+                m_canSpawn.Add(true);
+            }
 
-            if (spawnProbability.Count != m_enemyTypesToSpawn.Count)
+            if (m_spawnProbability.Count != m_enemyTypesToSpawn.Count)
             {
                 Debug.LogError("Spawn probability count is not the same as Enemy types to spawn count");
             }
-
+            if (m_canSpawn.Count != m_enemyTypesToSpawn.Count)
+            {
+                Debug.LogError("Can spawn count is not the same as Enemy types to spawn count");
+            }
 
 
         }
@@ -134,18 +137,24 @@ namespace SpaceBaboon.EnemySystem
 
         private void ChooseRandomlyAnEnemyTypeToSpawn(Vector3 spawnWorldPos)
         {
+
+
             int totalProbabilities = 0;
-            foreach (int probability in spawnProbability)
+            foreach (int probability in m_spawnProbability)
             {
+                //if (m_canSpawn) 
+                //{
+                //
+                //}
                 totalProbabilities += probability;
             }
 
             int randomValue = Random.Range(0, totalProbabilities);
             int cumulativeProbability = 0;
 
-            for (int i = 0; i < spawnProbability.Count; i++)
+            for (int i = 0; i < m_spawnProbability.Count; i++)
             {
-                cumulativeProbability += spawnProbability[i];
+                cumulativeProbability += m_spawnProbability[i];
                 
                 if (randomValue < cumulativeProbability)
                 {

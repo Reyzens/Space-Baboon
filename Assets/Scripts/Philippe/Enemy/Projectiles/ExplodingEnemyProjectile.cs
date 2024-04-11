@@ -1,4 +1,3 @@
-using SpaceBaboon.EnemySystem;
 using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
@@ -16,8 +15,6 @@ namespace SpaceBaboon.WeaponSystem
         private Color m_baseColor;
         private SpriteRenderer m_spriteRenderer;
 
-        private Rigidbody2D m_rb;
-
         private float m_explosionTimer = 0.0f;
         private bool m_isExploding = false;
         private float m_currentExplosionTime = 0.0f;        
@@ -33,7 +30,7 @@ namespace SpaceBaboon.WeaponSystem
             m_spriteRenderer = GetComponent<SpriteRenderer>();
             m_baseColor = m_spriteRenderer.color;
             
-            m_rb = GetComponent<Rigidbody2D>();
+            //m_rb = GetComponent<Rigidbody2D>();
 
             // TODO to change find, most likely a reference that would be stored in an upcoming gameManager                  
             m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -65,6 +62,15 @@ namespace SpaceBaboon.WeaponSystem
             UpdateColorBasedOnAnimCurve();
         }
 
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Player") && m_isExploding)
+            {
+                m_player.OnDamageTaken(m_projectileData.damage);
+                m_collider.enabled = false;
+            }
+        }
+
         private void UpdateColorBasedOnAnimCurve()
         {
             m_colorChangeTimer += Time.deltaTime;
@@ -80,23 +86,7 @@ namespace SpaceBaboon.WeaponSystem
             newColor.g = g;
             newColor.b = b;
             m_spriteRenderer.color = newColor;            
-        }
-
-        protected override void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Player") && m_isExploding)
-            {
-                m_player.OnDamageTaken(m_projectileData.damage);
-                m_collider.enabled = false;                
-            }            
-        }
-
-        public void Explode()
-        {
-            // May become obsolete after explosion fx integration
-            gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
-            // Maybe use coroutine for explosion scale expansion
-        }
+        }        
 
         public void IExplodableSetUp()
         {
@@ -124,11 +114,24 @@ namespace SpaceBaboon.WeaponSystem
             Explode();
         }
 
+        public void Explode()
+        {
+            // May become obsolete after explosion fx integration
+            gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
+            // Maybe use coroutine for explosion scale expansion
+        }
+
         protected override void ResetValues(Vector2 pos)
         {
+            //Debug.Log("current Explosion time" + );
+
+            m_explosionTimer = m_uniqueData.delayBeforeExplosion;
+            Debug.Log("m_uniqueData.delayBeforeExplosion " + m_uniqueData.delayBeforeExplosion);
+            m_currentExplosionTime = 0.0f;
+            m_isExploding = false;
             m_colorChangeTimer = 0.0f;
             m_spriteRenderer.color = m_baseColor;
-            m_lifetime = 0.0f;
+            m_lifetime = m_uniqueData.maxLifetime;
             transform.position = pos;
             gameObject.transform.localScale = m_initialScaleOfProjectile;
         }
