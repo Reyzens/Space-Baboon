@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
-    [CreateAssetMenu(fileName = "NewShootingEnemyData", menuName = "SpaceBaboon/ScriptableObjects/ShootingEnemyData")]
-    public class ShootingEnemyData : EnemyData
+    [CreateAssetMenu(fileName = "NewEnemyData", menuName = "SpaceBaboon/ScriptableObjects/ShootingEnemyData")]
+    public class ShootingEnemyData : ScriptableObject
     {
         [Header("ShootingEnemyUniqueStats")]
         public float maxTargetAcquisitionRange;
