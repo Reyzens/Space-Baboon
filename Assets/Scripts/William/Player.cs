@@ -41,6 +41,8 @@ namespace SpaceBaboon
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private CinemachineVirtualCamera m_playerCam;
         [SerializeField] private GameObject m_dahsTrail;
+        [SerializeField] private float m_screenShakeAmplitude = 5.0f;
+        [SerializeField] private float m_screenShakeFrequency = 1.0f;
 
         //Cheats related
         private bool m_isInvincible = false;
@@ -98,6 +100,8 @@ namespace SpaceBaboon
             m_collider = GetComponent<BoxCollider2D>();
             m_renderer = GetComponent<SpriteRenderer>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
+            m_spriteRendererColor = m_renderer.color;
+
 
             m_activeHealth = m_playerData.defaultHealth + m_bonusHealth;
             m_activeDashCoolDown = m_playerData.defaultDashCd;
@@ -251,7 +255,6 @@ namespace SpaceBaboon
         private void BeforeDashCoroutine()
         {
             m_isDashing = true;
-            m_spriteRendererColor = m_renderer.color;
             m_timestampedDash = 0.0f;
             m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
         }
@@ -270,8 +273,8 @@ namespace SpaceBaboon
             // We could change the IDammageable interface to IAttackable
             // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
             m_screenShake = true;
-            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 5.0f;
-            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 1f;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = m_screenShakeAmplitude;
+            m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = m_screenShakeFrequency;
             m_renderer.material.color = Color.red;
             if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
                 m_activeHealth -= damage;

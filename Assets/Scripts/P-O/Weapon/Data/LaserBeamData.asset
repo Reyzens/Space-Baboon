@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 100
   maxRange: 50
-  attackSpeed: 1
+  attackZone: 0
+  attackSpeed: 5
   weaponName: Laser beam
   icon: {fileID: 0}
   projectilePrefab: {fileID: 8320263620006976790, guid: 9f301f683ed0f2e4bb4c34a13d046a3e, type: 3}

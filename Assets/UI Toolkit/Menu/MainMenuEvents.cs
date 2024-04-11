@@ -16,7 +16,7 @@ namespace SpaceBaboon.MenuSystem
         {
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
-            
+
             m_startButton = visualElement.Q<Button>("StartButton");
             m_settingsButton = visualElement.Q<Button>("SettingsButton");
             m_quitButton = visualElement.Q<Button>("QuitButton");
@@ -41,7 +41,7 @@ namespace SpaceBaboon.MenuSystem
         {
             //Debug.Log("Start Game");
 
-            SceneManager.LoadScene("SB_03-28_Map_Version 2");
+            SceneManager.LoadScene("SB_04-11_Sprint2");
         }
 
         private void OpenSettings()

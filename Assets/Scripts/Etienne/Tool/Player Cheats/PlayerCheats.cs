@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -25,9 +24,8 @@ namespace SpaceBaboon
         private Toggle m_grenadeLauncherToggle;
 
 
-
         private void Awake()
-        {            
+        {
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
 
@@ -53,8 +51,8 @@ namespace SpaceBaboon
         {
             m_displayButton.clicked += OnDisplayButtonClicked;
             //m_displayBoolProperty.RegisterValueChangeCallback(OnDisplayToggled);
-            
-            
+
+
             m_invincibilityToggle.RegisterValueChangedCallback(OnInvincibilityToggled);
             m_maxHealthButton.clicked += OnMaxHealthButtonClicked;
             m_speedSlider.RegisterValueChangedCallback(OnSpeedChanged);
@@ -76,10 +74,6 @@ namespace SpaceBaboon
             {
                 m_elementsToHide.style.display = DisplayStyle.None;
             }
-        }
-
-        private void OnDisplayToggled(SerializedPropertyChangeEvent evt)
-        {
         }
 
         private void OnGrenadeLauncherToggled(ChangeEvent<bool> evt)

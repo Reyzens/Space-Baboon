@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 0
   maxRange: 35
-  attackSpeed: 1
+  attackZone: 0
+  attackSpeed: 2
   weaponName: GrenadeLauncher
   icon: {fileID: 0}
   projectilePrefab: {fileID: 8783084722343162297, guid: 6ba7be42c0a74a148a75f0049b45baf7, type: 3}

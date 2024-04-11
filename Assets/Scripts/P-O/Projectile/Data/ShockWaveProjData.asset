@@ -16,5 +16,5 @@ MonoBehaviour:
   sprite: {fileID: 0}
   projectileName: 
   speed: 10
-  damage: 10
+  damage: 1
   maxLifetime: 10

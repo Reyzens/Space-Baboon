@@ -16,5 +16,5 @@ MonoBehaviour:
   sprite: {fileID: 0}
   projectileName: Grenade
   speed: 2
-  damage: 15
+  damage: 3
   maxLifetime: 15

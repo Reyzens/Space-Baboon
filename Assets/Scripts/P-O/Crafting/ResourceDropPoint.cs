@@ -17,7 +17,7 @@ namespace SpaceBaboon
         private SpaceBaboon.InteractableResource.EResourceType m_resourceTypeNeeded;
 
         // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
             m_resourceAmountDisplay = GetComponentInChildren<TextMeshPro>();
         }
@@ -25,7 +25,7 @@ namespace SpaceBaboon
         // Update is called once per frame
         void Update()
         {
-            m_resourceAmountDisplay.text = m_resourceAmountNeeded.ToString();
+
         }
 
         public void CollectResource(Player playerRef)
@@ -71,7 +71,7 @@ namespace SpaceBaboon
                     //Light blue
                     newColor = Color.cyan;
                 }
-
+                m_resourceAmountDisplay.text = m_resourceAmountNeeded.ToString();
                 GetComponent<SpriteRenderer>().color = newColor;
                 GetComponent<CircleCollider2D>().enabled = true;
                 m_resourceAmountDisplay.enabled = true;

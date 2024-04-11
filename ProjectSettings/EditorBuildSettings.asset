@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Space Baboon/SB_MainMenu.unity
     guid: cb2b28dee0f734342956cbe348b5431d
   - enabled: 1
-    path: Assets/Scenes/Space Baboon/SB_03-28_MAP_VERSION 2.unity
-    guid: cc40cbe00dad96f4dbb4801409e1983f
+    path: Assets/Scenes/Space Baboon/SB_04-11_Sprint2.unity
+    guid: 6d2f7a2b22ad871418145223cc73f082
   m_configObjects: {}
