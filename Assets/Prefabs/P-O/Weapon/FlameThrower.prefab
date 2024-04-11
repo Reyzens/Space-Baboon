@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4597069849186856216}
   - component: {fileID: 5311949026823479907}
-  - component: {fileID: 1157803308480797726}
+  - component: {fileID: 4106815023539932166}
   m_Layer: 0
   m_Name: FlameThrower
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1157803308480797726
+--- !u!114 &4106815023539932166
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
