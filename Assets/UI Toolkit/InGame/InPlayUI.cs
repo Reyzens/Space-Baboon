@@ -31,7 +31,7 @@ namespace SpaceBaboon.UI_Toolkit
             {
                 ressourceone.text = playerRef.GetRessourceOne().ToString();
                 ressourcetwo.text = playerRef.GetRessourceTwo().ToString();
-                ressourcetree.text = playerRef.GetRessourceTree().ToString();
+                ressourcetree.text = playerRef.GetRessourceThree().ToString();
             }
 
 

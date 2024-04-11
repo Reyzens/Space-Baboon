@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -12,18 +13,19 @@ namespace SpaceBaboon
 
         //Private variables
         private int m_resourceAmountNeeded;
+        private TextMeshPro m_resourceAmountDisplay;
         private SpaceBaboon.InteractableResource.EResourceType m_resourceTypeNeeded;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            m_resourceAmountDisplay = GetComponentInChildren<TextMeshPro>();
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            m_resourceAmountDisplay.text = m_resourceAmountNeeded.ToString();
         }
 
         public void CollectResource(Player playerRef)
@@ -40,6 +42,7 @@ namespace SpaceBaboon
                     if (m_DebugMode) { Debug.Log(gameObject.name + " collected " + m_resourceTypeNeeded); }
                     GetComponent<SpriteRenderer>().color = Color.clear;
                     GetComponent<CircleCollider2D>().enabled = false;
+                    m_resourceAmountDisplay.enabled = false;
                 }
             }
         }
@@ -71,12 +74,14 @@ namespace SpaceBaboon
 
                 GetComponent<SpriteRenderer>().color = newColor;
                 GetComponent<CircleCollider2D>().enabled = true;
+                m_resourceAmountDisplay.enabled = true;
             }
             else
             {
                 //Invisible
                 GetComponent<SpriteRenderer>().color = Color.clear;
                 GetComponent<CircleCollider2D>().enabled = false;
+                m_resourceAmountDisplay.enabled = false;
             }
         }
     }
