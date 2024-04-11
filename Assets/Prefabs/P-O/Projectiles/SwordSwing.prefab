@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2732118151978036439}
   - component: {fileID: 93283146366189358}
   - component: {fileID: 6659888706000155166}
+  - component: {fileID: 7221156080143800210}
   m_Layer: 8
   m_Name: SwordSwing
   m_TagString: Projectile
@@ -47,8 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectileData: {fileID: 11400000, guid: 5182548d0a73518479228475f2aaa914, type: 2}
-  m_hiltPosition: {fileID: 2735618044478210096}
   m_attackZoneScaling: 5
+  m_bladeRenderer: {fileID: 1943279935327261509}
+  m_piercingData: {fileID: 11400000, guid: e13f3edaa496bd940854a14192119941, type: 2}
 --- !u!212 &6659888706000155166
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -101,6 +103,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!70 &7221156080143800210
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735966916451001486}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1.1}
+  m_Size: {x: 1, y: 1.9999999}
+  m_Direction: 0
 --- !u!1 &9153147828919873803
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,8 +149,8 @@ GameObject:
   - component: {fileID: 2735618044478210096}
   - component: {fileID: 1943279935327261509}
   m_Layer: 8
-  m_Name: hilt
-  m_TagString: Untagged
+  m_Name: blade
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

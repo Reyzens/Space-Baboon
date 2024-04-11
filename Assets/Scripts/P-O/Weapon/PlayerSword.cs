@@ -22,9 +22,16 @@ namespace SpaceBaboon.WeaponSystem
 
             projectile.GetComponent<Projectile>()?.Shoot(targetTransform, m_weaponData.maxRange, m_weaponData.attackZone, transform);
         }
+        protected override void Update()
+        {
+            base.Update();
+            if (m_playerDirection.GetPlayerDirection().magnitude > 0.0f)
+            {
+                m_directionalHelper.transform.position = transform.position + (Vector3)m_playerDirection.GetPlayerDirection();
+            }
+        }
         protected override Transform GetTarget()
         {
-            m_directionalHelper.transform.position = transform.position + (Vector3)m_playerDirection.GetPlayerDirection();
             return m_directionalHelper;
         }
     }

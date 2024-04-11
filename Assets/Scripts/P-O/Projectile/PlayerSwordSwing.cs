@@ -6,19 +6,45 @@ namespace SpaceBaboon.WeaponSystem
     public class PlayerSwordSwing : Projectile, IPiercing
     {
         [SerializeField] private float m_attackZoneScaling;
+        [SerializeField] private SpriteRenderer m_bladeRenderer;
         private Transform m_playerPos;
         private float m_swingArc;
+        private CapsuleCollider2D m_swordHitbox;
 
+        //IPiercing
+        private int m_currentAmountOfPierceLeft;
+        [SerializeField] private PiercingData m_piercingData;
+
+        protected override void Awake()
+        {
+            m_renderer = GetComponentInChildren<SpriteRenderer>();
+            m_swordHitbox = GetComponentInChildren<CapsuleCollider2D>();
+        }
+        protected override void MovingDirection()
+        {
+            //Laisser vide
+        }
         public override void Shoot(Transform direction, float maxRange, float attackZone, Transform swordPosition)
         {
             m_playerPos = swordPosition;
             StartSwing(direction, maxRange, attackZone);
         }
-
         protected void StartSwing(Transform direction, float maxRange, float attackZone)
         {
             m_swingArc = m_attackZoneScaling * attackZone;
             StartCoroutine(SwingCoroutine(direction, maxRange, attackZone));
+        }
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                OnPiercing();
+                LastPierce();
+            }
+        }
+        protected override void Update()
+        {
+            //base.Update();
         }
         private IEnumerator SwingCoroutine(Transform direction, float maxRange, float attackZone)
         {
@@ -45,21 +71,30 @@ namespace SpaceBaboon.WeaponSystem
 
                 yield return null;
             }
-
+            m_currentAmountOfPierceLeft = 0;
+            LastPierce();
         }
         public void IPiercingSetUp()
         {
-            throw new System.NotImplementedException();
+            m_currentAmountOfPierceLeft = m_piercingData.m_maxAmountOfPiercing;
         }
 
         public void LastPierce()
         {
-            throw new System.NotImplementedException();
+            if (m_currentAmountOfPierceLeft <= 0)
+            {
+                m_parentPool.UnSpawn(gameObject);
+            }
         }
 
         public void OnPiercing()
         {
-            throw new System.NotImplementedException();
+            m_currentAmountOfPierceLeft--;
+        }
+        protected override void ResetValues(Vector2 pos)
+        {
+            base.ResetValues(pos);
+            IPiercingSetUp();
         }
 
         protected override void SetComponents(bool value)
@@ -67,54 +102,8 @@ namespace SpaceBaboon.WeaponSystem
             //Debug.Log("SetComponents parent appeler");
             m_isActive = value;
             m_renderer.enabled = value;
-            //m_collider.enabled = value;
+            m_bladeRenderer.enabled = value;
+            m_swordHitbox.enabled = value;
         }
     }
 }
-
-//public override void Shoot(ref Transform direction, float maxRange, float attackZone)
-//{
-//    m_middleSwingDirection = direction;
-//    m_swingArc = attackZone * m_attackZoneScaling;
-//    StartSwing();
-//}
-//protected override void SetComponents(bool value)
-//{
-//    //Debug.Log("SetComponents parent appeler");
-//    m_isActive = value;
-//    m_renderer.enabled = value;
-//    //m_collider.enabled = value;
-//}
-////protected void StartSwing()
-////{
-////    StartCoroutine(SwingRoutine());
-////}
-////private IEnumerator SwingRoutine()
-////{
-////    ////float timeSwinging = 0.0f;
-
-////    //float timeSwinging = 0.0f;
-////    //float swingDuration = m_projectileData.speed; // Assuming this represents the duration of the swing
-
-////    //Vector2 middleVector = m_middleSwingDirection.position - transform.position;
-
-////    //float startRotation = m_middleSwingDirection.eulerAngles.z - m_swingArc / 2;
-////    //float endRotation = m_middleSwingDirection.eulerAngles.z + m_swingArc / 2;
-
-////    //while (timeSwinging < swingDuration)
-////    //{
-////    //    //float currentRotation = Mathf.Lerp(0, m_swingArc, timeSwinging / m_projectileData.speed);
-
-////    //    //transform.RotateAround(m_hiltPosition.position, Vector3.forward, currentRotation - transform.eulerAngles.z);
-
-////    //    //timeSwinging += Time.deltaTime;
-////    //    //yield return null;
-
-////    //    float currentRotation = Mathf.Lerp(startRotation, endRotation, timeSwinging / swingDuration);
-
-////    //    transform.rotation = Quaternion.Euler(0, 0, currentRotation);
-
-////    //    timeSwinging += Time.deltaTime;
-////    //    yield return null;
-////    //}
-////}

@@ -74,7 +74,7 @@ namespace SpaceBaboon.WeaponSystem
 
                 if (m_currentLaserDuration < 0)
                 {
-                    Debug.Log("calling last pierce");
+                    //Debug.Log("calling last pierce");
                     LastPierce();
                 }
             }
@@ -98,14 +98,14 @@ namespace SpaceBaboon.WeaponSystem
         }
         protected override void SetComponents(bool value)
         {
-            Debug.Log("SetComponents laserbeam appeler avec " + value);
+            //Debug.Log("SetComponents laserbeam appeler avec " + value);
             m_isActive = value;
             m_laserDisplay.enabled = value;
             m_laserHitBox.enabled = value;
         }
         private void SetLaserPosition()
         {
-            Debug.Log("Laser entre les points : " + m_initialWeaponPosition.position + " et " + m_lastEnemyPosition.position);
+            //Debug.Log("Laser entre les points : " + m_initialWeaponPosition.position + " et " + m_lastEnemyPosition.position);
             m_laserDisplay.positionCount = 2;
             m_laserDisplay.SetPosition(0, m_initialWeaponPosition.position);
             m_laserDisplay.SetPosition(1, m_lastEnemyPosition.position);

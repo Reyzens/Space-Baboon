@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 0
   maxRange: 15
-  attackZone: 5
-  attackSpeed: 1
+  attackZone: 15
+  attackSpeed: 2
   weaponName: 
   icon: {fileID: 0}
   projectilePrefab: {fileID: 6735966916451001486, guid: a735f90179f5b4841a34c2fc22bf6cd6, type: 3}

@@ -44,7 +44,6 @@ namespace SpaceBaboon.WeaponSystem
             {
                 m_parentPool.UnSpawn(gameObject);
                 Debug.Log("UnSpawning (lifetime)");
-
             }
             m_lifetime += Time.deltaTime;
 
