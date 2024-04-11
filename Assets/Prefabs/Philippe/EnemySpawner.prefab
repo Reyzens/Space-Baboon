@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5922132008873241954}
-  - component: {fileID: 4993226661606122766}
+  - component: {fileID: 2982256101968009546}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4993226661606122766
+--- !u!114 &2982256101968009546
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,7 +49,15 @@ MonoBehaviour:
     m_poolStartingSize: 10
   m_enemyTypesToSpawn:
   - {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
+  - {fileID: 6346816228064842483, guid: 2079feb3c5ff88e41810bfbb34a470cf, type: 3}
+  - {fileID: 712864204504289401, guid: aa87346484d35714b87980a9c02d4cb9, type: 3}
+  spawnProbability: 050000000500000005000000
+  m_enemyProjectilesPool:
+    m_container: {fileID: 0}
+    m_poolStartingSize: 0
+  m_shootingEnemyProjectile: {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
+  m_explodingEnemyProjectile: {fileID: 5261725043433172466, guid: 9ef2d5f73657e9f41ba625d7e55cf355, type: 3}
   m_map: {fileID: 0}
   m_spawnRadiusFromScreenCorner: 1
   m_spawningDelay: 1
-  m_isSpawning: 0
+  m_isSpawning: 1

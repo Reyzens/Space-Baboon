@@ -5,18 +5,21 @@ namespace SpaceBaboon.EnemySystem
 {
     public class ShootingEnemy : Enemy
     {
-        [SerializeField] private ShootingEnemyData m_uniqueData;
+        private ShootingEnemyData m_uniqueData;
         private EnemyWeapon m_weapon;
-
-        private float m_distanceToPlayer;
+                
         private float m_targetAcquisitionTimer = 0.0f;
         private bool m_targetInRange = false;
 
         protected override void Start()
-        {
+        {            
             base.Start();
-            m_weapon = GetComponentInChildren<EnemyWeapon>();
-            m_targetAcquisitionTimer = m_uniqueData.targetAcquisitionDelay;
+
+            m_uniqueData = m_data as ShootingEnemyData;
+
+            m_weapon = GetComponentInChildren<EnemyWeapon>();           
+
+            m_targetAcquisitionTimer = m_uniqueData.targetAcquisitionDelay;            
         }
 
         protected override void Update()
@@ -24,9 +27,7 @@ namespace SpaceBaboon.EnemySystem
             base.Update();
             
             if (!m_isActive)
-                return;
-            
-            CalculateDistanceToPlayer();
+                return;            
 
             if (m_distanceToPlayer > m_uniqueData.maxTargetAcquisitionRange)
                 return;
@@ -70,12 +71,7 @@ namespace SpaceBaboon.EnemySystem
             }                
 
             StopMovement();
-        }
-
-        private void CalculateDistanceToPlayer()
-        {            
-            m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
-        }
+        }        
 
         private void StopMovement()
         {
