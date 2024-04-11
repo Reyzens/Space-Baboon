@@ -9,18 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c67f2134eb33142bdfa3ca8744ed4a, type: 3}
-  m_Name: ShootingEnemyDafaultData
+  m_Script: {fileID: 11500000, guid: a2460f886752bd94980a8f45c452db62, type: 3}
+  m_Name: ExplodingEnemyData
   m_EditorClassIdentifier: 
   index: 0
-  characterName: Shooting Enemy
-  defaultHealth: 5
+  characterName: Exploding Enemy
+  defaultHealth: 10
   sprite: {fileID: 0}
   prefab: {fileID: 0}
   defaultAcceleration: 30
-  defaultMaxVelocity: 15
-  enemyType: 1
-  defaultContactAttackDamage: 5
-  defaultContactAttackDelay: 5
+  defaultMaxVelocity: 10
+  enemyType: 2
+  defaultContactAttackDamage: 0
+  defaultContactAttackDelay: 0
   size: 0
   obstructionPushForce: 25
+  minDistanceForTriggeringBomb: 10

@@ -21,7 +21,8 @@ namespace SpaceBaboon.EnemySystem
 
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public GameObject m_shootingEnemyProjectile;
-        
+        [SerializeField] public GameObject m_explodingEnemyProjectile;
+
         [field: Header("SPAWNER LOGIC")]
         [SerializeField] private GameObject m_map; // TODO Change so we have a centralized map data, resource and enemy spawner could benefit from it
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
@@ -49,11 +50,10 @@ namespace SpaceBaboon.EnemySystem
 
 
 
-
-
             List<GameObject> enemyProjectileList = new List<GameObject>();
             enemyProjectileList.Add(m_shootingEnemyProjectile);
-            
+            enemyProjectileList.Add(m_explodingEnemyProjectile);
+
             m_enemyProjectilesPool.CreatePool(enemyProjectileList, "Shooting Enemy Weapon Projectile");
 
 
@@ -120,7 +120,14 @@ namespace SpaceBaboon.EnemySystem
                 {
                     validPosFound = true;                    
                 }
-            }
+            }            
+
+            //if ()
+            //{
+            //
+            //}
+            // Toggle each enemy type spawning
+            // 1 type with quantity
 
             ChooseRandomlyAnEnemyTypeToSpawn(spawnWorldPos);
         }
