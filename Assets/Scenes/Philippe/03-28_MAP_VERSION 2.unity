@@ -334,17 +334,9 @@ PrefabInstance:
       propertyPath: m_pool.m_poolStartingSize
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 2530840754726643175, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3512676852682700305, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3963291794530835258, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
@@ -356,7 +348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7028550398629583105, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7635588206681898065, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Camera
@@ -3945,40 +3937,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_spawningDelay
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_shootingEnemyProjectile
       value: 
       objectReference: {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_explodingEnemyProjectile
-      value: 
-      objectReference: {fileID: 5261725043433172466, guid: 9ef2d5f73657e9f41ba625d7e55cf355, type: 3}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: spawnProbability.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: spawnProbabilityYo.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyTypesToSpawn.Array.size
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: spawnProbability.Array.data[0]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: spawnProbability.Array.data[1]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: spawnProbability.Array.data[2]
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyTypesToSpawn.Array.data[0]
@@ -3991,7 +3955,7 @@ PrefabInstance:
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyTypesToSpawn.Array.data[2]
       value: 
-      objectReference: {fileID: 712864204504289401, guid: aa87346484d35714b87980a9c02d4cb9, type: 3}
+      objectReference: {fileID: 3761769005896388766, guid: 820d8d6b510fa7f48a6f3848e8d8c461, type: 3}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemySpawnProbabilities.Array.size
       value: 3
@@ -4018,15 +3982,15 @@ PrefabInstance:
       objectReference: {fileID: 3761769005896388766, guid: 820d8d6b510fa7f48a6f3848e8d8c461, type: 3}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemySpawnProbabilities.Array.data[0].spawnProbability
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemySpawnProbabilities.Array.data[1].spawnProbability
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4993226661606122766, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemySpawnProbabilities.Array.data[2].spawnProbability
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x

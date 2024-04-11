@@ -9,15 +9,14 @@ namespace SpaceBaboon.EnemySystem
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
 
-        protected GenericObjectPool m_parentPool;
+        private GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
-        //private EnemySpawner m_enemySpawner;
+        private EnemySpawner m_enemySpawner;
 
         private GameObject m_playerObject;
         protected Player m_player;
 
-        protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
         protected bool m_contactAttackReady = true;
         private float m_bonusDamage = 0.0f;
@@ -46,8 +45,6 @@ namespace SpaceBaboon.EnemySystem
         {
             if (!m_isActive)
                 return;
-
-            CalculateDistanceToPlayer();
 
             if (!m_contactAttackReady)
                 ReadyContactAttack();
@@ -82,11 +79,6 @@ namespace SpaceBaboon.EnemySystem
         private void OnCollisionStay2D(Collision2D collision)
         {
             SlightPushFromObstructingObject(collision);
-        }
-
-        private void CalculateDistanceToPlayer()
-        {
-            m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
         }
 
         private void SlightPushFromObstructingObject(Collision2D collision)
