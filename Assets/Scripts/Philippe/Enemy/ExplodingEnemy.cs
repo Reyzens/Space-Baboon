@@ -1,4 +1,3 @@
-using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
@@ -10,8 +9,6 @@ namespace SpaceBaboon.EnemySystem
         private GameObject m_enemySpawner;
         private EnemySpawner m_enemySpawnerScript;
 
-
-
         protected override void Start()
         {
             base.Start();
@@ -20,6 +17,7 @@ namespace SpaceBaboon.EnemySystem
             
             // Maybe randomize distance to trigger bomb from data
 
+            // TODO change this to ref to manager when GameManager is set up
             m_enemySpawner = GameObject.Find("EnemySpawner");
             m_enemySpawnerScript = m_enemySpawner.GetComponent<EnemySpawner>();
         }

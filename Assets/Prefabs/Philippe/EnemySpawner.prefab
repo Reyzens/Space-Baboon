@@ -47,17 +47,27 @@ MonoBehaviour:
   m_enemyPool:
     m_container: {fileID: 0}
     m_poolStartingSize: 10
-  m_enemyTypesToSpawn:
-  - {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
-  - {fileID: 6346816228064842483, guid: 2079feb3c5ff88e41810bfbb34a470cf, type: 3}
-  - {fileID: 712864204504289401, guid: aa87346484d35714b87980a9c02d4cb9, type: 3}
-  spawnProbability: 050000000500000005000000
+  m_pooledEnemies:
+  - enemyPrefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
+    enemyType: 0
+    spawnProbability: 5
+    canSpawn: 1
+  - enemyPrefab: {fileID: 6346816228064842483, guid: 2079feb3c5ff88e41810bfbb34a470cf, type: 3}
+    enemyType: 1
+    spawnProbability: 5
+    canSpawn: 1
+  - enemyPrefab: {fileID: 712864204504289401, guid: aa87346484d35714b87980a9c02d4cb9, type: 3}
+    enemyType: 2
+    spawnProbability: 5
+    canSpawn: 1
   m_enemyProjectilesPool:
     m_container: {fileID: 0}
-    m_poolStartingSize: 0
+    m_poolStartingSize: 100
   m_shootingEnemyProjectile: {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
   m_explodingEnemyProjectile: {fileID: 5261725043433172466, guid: 9ef2d5f73657e9f41ba625d7e55cf355, type: 3}
   m_map: {fileID: 0}
   m_spawnRadiusFromScreenCorner: 1
   m_spawningDelay: 1
   m_isSpawning: 1
+  m_enemiesAmountToSpawnOneShot: 0
+  m_spawnGroup: 0

@@ -3182,30 +3182,6 @@ PrefabInstance:
       propertyPath: m_map
       value: 
       objectReference: {fileID: 1881240103}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_spawningDelay
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_spawnProbability.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_spawnProbability.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_spawnProbability.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_spawnProbability.Array.data[2]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_enemyProjectilesPool.m_poolStartingSize
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
