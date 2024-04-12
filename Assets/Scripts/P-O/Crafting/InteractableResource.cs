@@ -1,6 +1,6 @@
+using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
-using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon
 {
@@ -129,6 +129,7 @@ namespace SpaceBaboon
         }
         private void SetComponents(bool value)
         {
+
             m_renderer.enabled = value;
             m_circleCollider.enabled = value;
             m_capsuleCollider.enabled = value;
