@@ -10,16 +10,24 @@ namespace SpaceBaboon.EnemySystem
         Shooting,
         Kamikaze,
         Count
-    }    
+    }
+
+    [System.Serializable]
+    public struct EnemyToPool
+    {
+        public GameObject enemyPrefab;
+        public EEnemyTypes enemyType;
+        [Range(0, 10)] public int spawnProbability;
+        public bool canSpawn;
+    }
 
     public class EnemySpawner : MonoBehaviour
     {
+        // TODO Refactor: instead of GameObject list, create a list of struct
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
-        [SerializeField] private List<GameObject> m_enemyTypesToSpawn = new List<GameObject>();
-        [SerializeField][Range(0, 10)] private List<int> m_spawnProbability = new List<int>();
-        private List<bool> m_canSpawn = new List<bool>();
-
+        [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
+        
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public GameObject m_shootingEnemyProjectile;
         [SerializeField] public GameObject m_explodingEnemyProjectile;
@@ -29,45 +37,18 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
         [SerializeField] private float m_spawningDelay = 0.0f;
         [SerializeField] private bool m_isSpawning = true;
+        [SerializeField] private int m_enemiesAmountToSpawnOneShot = 0;
+        // TODO maybe remove [SerializeField] of bool
+        [SerializeField] private bool m_spawnGroup = false;
 
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
 
         private void Awake()
         {
-            List<GameObject> enemyList = new List<GameObject>();
-
-            foreach (GameObject enemyPrefab in m_enemyTypesToSpawn)
-                enemyList.Add(enemyPrefab);
-
-            m_enemyPool.CreatePool(enemyList, "Enemy");
-
-
-
-
-
-            List<GameObject> enemyProjectileList = new List<GameObject>();
-            enemyProjectileList.Add(m_shootingEnemyProjectile);
-            enemyProjectileList.Add(m_explodingEnemyProjectile);
-
-            m_enemyProjectilesPool.CreatePool(enemyProjectileList, "Shooting Enemy Weapon Projectile");
-
-
-            foreach(GameObject enemyPrefab in m_enemyTypesToSpawn)
-            {
-                m_canSpawn.Add(true);
-            }
-
-            if (m_spawnProbability.Count != m_enemyTypesToSpawn.Count)
-            {
-                Debug.LogError("Spawn probability count is not the same as Enemy types to spawn count");
-            }
-            if (m_canSpawn.Count != m_enemyTypesToSpawn.Count)
-            {
-                Debug.LogError("Can spawn count is not the same as Enemy types to spawn count");
-            }
-
-
+            // TODO maybe check for a way to use same method, different parameter
+            CreateEnemiesPool();   
+            CreateEnemyProjectilesPool(); 
         }
 
         private void Start()
@@ -83,7 +64,10 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_isSpawning)
                 SpawnWithTimer();
-        }
+
+            if (m_spawnGroup)
+                SpawnGroup(m_enemiesAmountToSpawnOneShot);
+        }        
 
         private void SpawnWithTimer()
         {
@@ -94,6 +78,15 @@ namespace SpaceBaboon.EnemySystem
                 m_spawningTimer = m_spawningDelay;
                 CalculateSpawnPosition();
             }
+        }
+
+        private void SpawnGroup(int numberOfEnemies)
+        {
+            for (int i = 0; i < numberOfEnemies; i++)
+            {
+                CalculateSpawnPosition();
+            }
+            m_spawnGroup = false;
         }
 
         private void CalculateSpawnPosition()
@@ -123,45 +116,39 @@ namespace SpaceBaboon.EnemySystem
                 {
                     validPosFound = true;                    
                 }
-            }            
+            }    
 
-            //if ()
-            //{
-            //
-            //}
-            // Toggle each enemy type spawning
-            // 1 type with quantity
-
-            ChooseRandomlyAnEnemyTypeToSpawn(spawnWorldPos);
+            ChooseRandomlyEnemyTypeToSpawn(spawnWorldPos);
         }
 
-        private void ChooseRandomlyAnEnemyTypeToSpawn(Vector3 spawnWorldPos)
+        private void ChooseRandomlyEnemyTypeToSpawn(Vector3 spawnWorldPos) // TODO maybe change method name so it better reflects what it does now with cheats integration
         {
-
-
             int totalProbabilities = 0;
-            foreach (int probability in m_spawnProbability)
+            for (int i = 0; i < m_pooledEnemies.Count; i++)
             {
-                //if (m_canSpawn) 
-                //{
-                //
-                //}
-                totalProbabilities += probability;
+                if (m_pooledEnemies[i].canSpawn)
+                {
+                    totalProbabilities += m_pooledEnemies[i].spawnProbability;
+                }
             }
 
             int randomValue = Random.Range(0, totalProbabilities);
             int cumulativeProbability = 0;
 
-            for (int i = 0; i < m_spawnProbability.Count; i++)
+            for (int i = 0; i < m_pooledEnemies.Count; i++)
             {
-                cumulativeProbability += m_spawnProbability[i];
+                if (!m_pooledEnemies[i].canSpawn)
+                {
+                    continue;
+                }
+
+                cumulativeProbability += m_pooledEnemies[i].spawnProbability;
                 
                 if (randomValue < cumulativeProbability)
                 {
-                    if (i < m_enemyTypesToSpawn.Count && m_enemyTypesToSpawn[i] != null)
-                    {
-                        GameObject enemyPrefab = m_enemyTypesToSpawn[i];
-                        m_enemyPool.Spawn(enemyPrefab, spawnWorldPos);
+                    if (i < m_pooledEnemies.Count && m_pooledEnemies[i].enemyPrefab != null)
+                    {                        
+                        m_enemyPool.Spawn(m_pooledEnemies[i].enemyPrefab, spawnWorldPos);
                     }
                     break;
                 }
@@ -176,6 +163,25 @@ namespace SpaceBaboon.EnemySystem
             float y = radius * Mathf.Sin(randomAngle);
 
             return new Vector2(x, y);
+        }
+
+        private void CreateEnemiesPool()
+        {
+            List<GameObject> enemyList = new List<GameObject>();
+
+            foreach (EnemyToPool enemy in m_pooledEnemies)
+                enemyList.Add(enemy.enemyPrefab);
+
+            m_enemyPool.CreatePool(enemyList, "Enemy");
+        }
+
+        private void CreateEnemyProjectilesPool()
+        {
+            List<GameObject> enemyProjectileList = new List<GameObject>();
+            enemyProjectileList.Add(m_shootingEnemyProjectile);
+            enemyProjectileList.Add(m_explodingEnemyProjectile);
+
+            m_enemyProjectilesPool.CreatePool(enemyProjectileList, "Shooting Enemy Weapon Projectile");
         }
 
         public EnemySpawner GetEnemySpawner()
@@ -198,31 +204,31 @@ namespace SpaceBaboon.EnemySystem
 
         public void CheatSpawn(EEnemyTypes type, int amount)
         {
-            // Exemple d'implÃ©mentation possible
-            // Ã€ rÃ©Ã©valuer lorsque tu auras une logique pour spawner diffÃ©rents ennemis
+            // Exemple d'implémentation possible
+            // À réévaluer lorsque tu auras une logique pour spawner différents ennemis
 
             // P.S. J'ai besoin d'un enum pour le type d'ennemi
-            //      alors peut-Ãªtre qu'on peut s'en servir pour l'index
+            //      alors peut-être qu'on peut s'en servir pour l'index
             //      de m_enemyTypesToSpawn[EEnemyTypes.blabla] ?
 
-       //    return;
-
-       //    switch (type)
-       //    {
-       //        case EEnemyTypes.Melee:
-       //            Vector2 somePosition = Vector2.zero;
-       //            m_enemyPool.Spawn(m_enemyTypesToSpawn[0], somePosition);
-       //            break;
-       //        case EEnemyTypes.Shooting:
-       //            break;
-       //        case EEnemyTypes.Kamikaze:
-       //            break;
-       //        case EEnemyTypes.Count:
-       //            break;
-       //        default:
-       //            break;
-       //    }
-       }
-       #endregion
+            //return;
+            //
+            //switch (type)
+            //{
+            //    case EEnemyTypes.Melee:
+            //        Vector2 somePosition = Vector2.zero;
+            //        //m_enemyPool.Spawn(m_enemyTypesToSpawn[0], somePosition);
+            //        break;
+            //    case EEnemyTypes.Shooting:
+            //        break;
+            //    case EEnemyTypes.Kamikaze:
+            //        break;
+            //    case EEnemyTypes.Count:
+            //        break;
+            //    default:
+            //        break;
+            //}
+        }
+        #endregion
     }
 }
