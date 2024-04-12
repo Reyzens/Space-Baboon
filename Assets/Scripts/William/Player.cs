@@ -1,6 +1,7 @@
 using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -249,6 +250,7 @@ namespace SpaceBaboon
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
+            m_rB.GameObject().layer = LayerMask.NameToLayer("Player");
             //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),false);
         }
 
@@ -291,6 +293,7 @@ namespace SpaceBaboon
                 m_timestampedDash += Time.deltaTime;
                 float dashCurvePosition = m_timestampedDash / m_activeDashDuration;
                 m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
+                m_rB.GameObject().layer = LayerMask.NameToLayer("ImmunityDash");
                 //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),true);
                 m_dahsTrail.SetActive(true);
                 yield return null;
