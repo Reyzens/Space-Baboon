@@ -198,31 +198,31 @@ namespace SpaceBaboon.EnemySystem
 
         public void CheatSpawn(EEnemyTypes type, int amount)
         {
-            // Exemple d'implémentation possible
-            // À réévaluer lorsque tu auras une logique pour spawner différents ennemis
+            // Exemple d'implÃ©mentation possible
+            // Ã€ rÃ©Ã©valuer lorsque tu auras une logique pour spawner diffÃ©rents ennemis
 
             // P.S. J'ai besoin d'un enum pour le type d'ennemi
-            //      alors peut-être qu'on peut s'en servir pour l'index
+            //      alors peut-Ãªtre qu'on peut s'en servir pour l'index
             //      de m_enemyTypesToSpawn[EEnemyTypes.blabla] ?
 
-            return;
+       //    return;
 
-            switch (type)
-            {
-                case EEnemyTypes.Melee:
-                    Vector2 somePosition = Vector2.zero;
-                    m_enemyPool.Spawn(m_enemyTypesToSpawn[0], somePosition);
-                    break;
-                case EEnemyTypes.Shooting:
-                    break;
-                case EEnemyTypes.Kamikaze:
-                    break;
-                case EEnemyTypes.Count:
-                    break;
-                default:
-                    break;
-            }
-        }
-        #endregion
+       //    switch (type)
+       //    {
+       //        case EEnemyTypes.Melee:
+       //            Vector2 somePosition = Vector2.zero;
+       //            m_enemyPool.Spawn(m_enemyTypesToSpawn[0], somePosition);
+       //            break;
+       //        case EEnemyTypes.Shooting:
+       //            break;
+       //        case EEnemyTypes.Kamikaze:
+       //            break;
+       //        case EEnemyTypes.Count:
+       //            break;
+       //        default:
+       //            break;
+       //    }
+       }
+       #endregion
     }
 }
