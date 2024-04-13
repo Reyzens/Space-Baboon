@@ -41,12 +41,12 @@ namespace SpaceBaboon
 
             m_displayButton = visualElement.Q<Button>("DisplayButton");
             m_elementsToHide = visualElement.Q<VisualElement>("ElementsToHide");
-            //m_elementsToHide.style.display = DisplayStyle.None;
             m_elementsToHide.style.visibility = Visibility.Hidden;
 
             m_spawningToggle = visualElement.Q<Toggle>("SpawningToggle");
             m_spawnBossButton = visualElement.Q<Button>("SpawnBossButton");
             m_delaySlider = visualElement.Q<Slider>("SpawningDelay");
+            InitDelaySliderValue();
 
             m_meleeToggle = visualElement.Q<Toggle>("MeleeToggle");
             m_meleeAmount = visualElement.Q<IntegerField>("MeleeSpawnAmount");
@@ -106,6 +106,23 @@ namespace SpaceBaboon
             throw new NotImplementedException();
         }
 
+        //---------------------------------
+        private void InitDelaySliderValue()
+        {
+            float startingValue = m_spawner.GetDelay();
+            if (startingValue < 0)
+            {
+                Debug.LogError("Spawning Delay cannot be negative");
+                return;
+            }
+            if (startingValue > m_delaySlider.highValue)
+            {
+                m_delaySlider.highValue = startingValue;
+            }
+
+            m_delaySlider.value = startingValue;
+        }
+
         private void OnDelayChanged(ChangeEvent<float> evt)
         {
             m_spawner.SetDelay(evt.newValue);
@@ -114,33 +131,35 @@ namespace SpaceBaboon
         //---------------------------------
         private void OnMeleeToggled(ChangeEvent<bool> evt)
         {
-            throw new NotImplementedException();
+            m_spawner.ToggleSpawnByEnemyType(EEnemyTypes.Melee, evt.newValue);
         }
         private void OnSpawnMeleeButtonClicked()
         {
             int amount = m_meleeAmount.value;
-            m_spawner.CheatSpawn(EEnemyTypes.Melee, amount);
+            m_spawner.CheatSpawnGroup(EEnemyTypes.Melee, amount);
         }
 
         //---------------------------------
         private void OnShootingToggled(ChangeEvent<bool> evt)
         {
-            throw new NotImplementedException();
+            m_spawner.ToggleSpawnByEnemyType(EEnemyTypes.Shooting, evt.newValue);
         }
 
         private void OnSpawnShootingButtonClicked()
         {
-            throw new NotImplementedException();
+            int amount = m_shootingAmount.value;
+            m_spawner.CheatSpawnGroup(EEnemyTypes.Shooting, amount);
         }
 
         //---------------------------------
         private void OnKamikazeToggled(ChangeEvent<bool> evt)
         {
-            throw new NotImplementedException();
+            m_spawner.ToggleSpawnByEnemyType(EEnemyTypes.Kamikaze, evt.newValue);
         }
         private void OnSpawnKamikazeButtonClicked()
         {
-            throw new NotImplementedException();
+            int amount = m_kamikazeAmount.value;
+            m_spawner.CheatSpawnGroup(EEnemyTypes.Kamikaze, amount);
         }
     }
 }

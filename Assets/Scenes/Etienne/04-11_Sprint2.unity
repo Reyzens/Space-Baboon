@@ -3125,7 +3125,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5121084026466593204, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_DebugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5121084026466593204, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_levelScaling
@@ -3205,6 +3205,10 @@ PrefabInstance:
       propertyPath: m_map
       value: 
       objectReference: {fileID: 1881240103}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_spawningDelay
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -19,6 +19,11 @@ namespace SpaceBaboon.EnemySystem
         public EEnemyTypes enemyType;
         [Range(0, 10)] public int spawnProbability;
         public bool canSpawn;
+
+        public void SetCanSpawn(bool value)
+        {
+            canSpawn = value;
+        }
     }
 
     public class EnemySpawner : MonoBehaviour
@@ -202,31 +207,24 @@ namespace SpaceBaboon.EnemySystem
             m_spawningDelay = value;
         }
 
-        public void CheatSpawn(EEnemyTypes type, int amount)
+        public float GetDelay()
         {
-            // Exemple d'implémentation possible
-            // À réévaluer lorsque tu auras une logique pour spawner différents ennemis
+            return m_spawningDelay;
+        }
 
-            // P.S. J'ai besoin d'un enum pour le type d'ennemi
-            //      alors peut-être qu'on peut s'en servir pour l'index
-            //      de m_enemyTypesToSpawn[EEnemyTypes.blabla] ?
+        public void ToggleSpawnByEnemyType(EEnemyTypes type, bool value)
+        {
+            m_pooledEnemies[(int)type].SetCanSpawn(value);
+        }
 
-            //return;
-            //
-            //switch (type)
+        public void CheatSpawnGroup(EEnemyTypes type, int amount)
+        {
+            Debug.Log(m_pooledEnemies[(int)type].enemyPrefab.name + "   " + amount);
+
+            
+            //for (int i = 0; i < amount; i++)
             //{
-            //    case EEnemyTypes.Melee:
-            //        Vector2 somePosition = Vector2.zero;
-            //        //m_enemyPool.Spawn(m_enemyTypesToSpawn[0], somePosition);
-            //        break;
-            //    case EEnemyTypes.Shooting:
-            //        break;
-            //    case EEnemyTypes.Kamikaze:
-            //        break;
-            //    case EEnemyTypes.Count:
-            //        break;
-            //    default:
-            //        break;
+            //    m_enemyPool.Spawn(m_pooledEnemies[(int)type].enemyPrefab, /* spawnWorldPos */);
             //}
         }
         #endregion
