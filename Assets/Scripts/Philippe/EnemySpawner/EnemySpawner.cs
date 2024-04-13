@@ -75,8 +75,8 @@ namespace SpaceBaboon.EnemySystem
 
         private void SpawnOneEnemy()
         {
-            Vector3 spawnWorldPos = FindValidRandomPos();
-            m_enemyPool.Spawn(ChooseRandomEnemyType(), spawnWorldPos);
+            Vector3 spawnWorldPos = FindValidEnemyRandomPos();
+            m_enemyPool.Spawn(GetRandomEnemyType(), spawnWorldPos);
         }
 
         private void SpawnWithTimer()
@@ -99,7 +99,7 @@ namespace SpaceBaboon.EnemySystem
             m_spawnGroup = false;
         }
 
-        private Vector3 FindValidRandomPos()
+        private Vector3 FindValidEnemyRandomPos()
         {
             Vector2 mapMin = new Vector2(-(float)(m_map.transform.localScale.x * 0.5f), -(float)(m_map.transform.localScale.y * 0.5f));
             Vector2 mapMax = new Vector2((float)(m_map.transform.localScale.x * 0.5f), (float)(m_map.transform.localScale.y * 0.5f));
@@ -131,7 +131,7 @@ namespace SpaceBaboon.EnemySystem
             return spawnWorldPos;
         }
 
-        private GameObject ChooseRandomEnemyType()
+        private GameObject GetRandomEnemyType()
         {
             int totalProbabilities = 0;
             for (int i = 0; i < m_pooledEnemies.Count; i++)
