@@ -28,11 +28,10 @@ namespace SpaceBaboon.EnemySystem
 
     public class EnemySpawner : MonoBehaviour
     {
-        // TODO Refactor: instead of GameObject list, create a list of struct
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
-        
+
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public GameObject m_shootingEnemyProjectile;
         [SerializeField] public GameObject m_explodingEnemyProjectile;
@@ -52,8 +51,8 @@ namespace SpaceBaboon.EnemySystem
         private void Awake()
         {
             // TODO maybe check for a way to use same method, different parameter
-            CreateEnemiesPool();   
-            CreateEnemyProjectilesPool(); 
+            CreateEnemiesPool();
+            CreateEnemyProjectilesPool();
         }
 
         private void Start()
@@ -65,14 +64,20 @@ namespace SpaceBaboon.EnemySystem
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
-                CalculateSpawnPosition();
+                SpawnOneEnemy();
 
             if (m_isSpawning)
                 SpawnWithTimer();
 
             if (m_spawnGroup)
                 SpawnGroup(m_enemiesAmountToSpawnOneShot);
-        }        
+        }
+
+        private void SpawnOneEnemy()
+        {
+            Vector3 spawnWorldPos = FindValidRandomPos();
+            m_enemyPool.Spawn(ChooseRandomEnemyType(), spawnWorldPos);
+        }
 
         private void SpawnWithTimer()
         {
@@ -81,7 +86,7 @@ namespace SpaceBaboon.EnemySystem
             if (m_spawningTimer <= 0.0f)
             {
                 m_spawningTimer = m_spawningDelay;
-                CalculateSpawnPosition();
+                SpawnOneEnemy();
             }
         }
 
@@ -89,12 +94,12 @@ namespace SpaceBaboon.EnemySystem
         {
             for (int i = 0; i < numberOfEnemies; i++)
             {
-                CalculateSpawnPosition();
+                SpawnOneEnemy();
             }
             m_spawnGroup = false;
         }
 
-        private void CalculateSpawnPosition()
+        private Vector3 FindValidRandomPos()
         {
             Vector2 mapMin = new Vector2(-(float)(m_map.transform.localScale.x * 0.5f), -(float)(m_map.transform.localScale.y * 0.5f));
             Vector2 mapMax = new Vector2((float)(m_map.transform.localScale.x * 0.5f), (float)(m_map.transform.localScale.y * 0.5f));
@@ -119,14 +124,14 @@ namespace SpaceBaboon.EnemySystem
                    spawnWorldPos.x > mapMin.x &&
                    spawnWorldPos.y > mapMin.y)
                 {
-                    validPosFound = true;                    
+                    validPosFound = true;
                 }
-            }    
+            }
 
-            ChooseRandomlyEnemyTypeToSpawn(spawnWorldPos);
+            return spawnWorldPos;
         }
 
-        private void ChooseRandomlyEnemyTypeToSpawn(Vector3 spawnWorldPos) // TODO maybe change method name so it better reflects what it does now with cheats integration
+        private GameObject ChooseRandomEnemyType()
         {
             int totalProbabilities = 0;
             for (int i = 0; i < m_pooledEnemies.Count; i++)
@@ -148,16 +153,19 @@ namespace SpaceBaboon.EnemySystem
                 }
 
                 cumulativeProbability += m_pooledEnemies[i].spawnProbability;
-                
+
                 if (randomValue < cumulativeProbability)
                 {
                     if (i < m_pooledEnemies.Count && m_pooledEnemies[i].enemyPrefab != null)
-                    {                        
-                        m_enemyPool.Spawn(m_pooledEnemies[i].enemyPrefab, spawnWorldPos);
+                    {
+                        return m_pooledEnemies[i].enemyPrefab;
                     }
                     break;
                 }
             }
+
+            Debug.LogError("Did not find an enemy type");
+            return null;
         }
 
         private Vector2 RandomPosOnCircle(float radius)
