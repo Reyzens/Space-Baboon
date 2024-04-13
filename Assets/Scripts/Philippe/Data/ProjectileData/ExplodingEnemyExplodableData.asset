@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a96c80c0f41e894a85aa67f78f01616, type: 3}
   m_Name: ExplodingEnemyExplodableData
   m_EditorClassIdentifier: 
-  m_explosionRadius: 10
-  m_maxExplosionTime: 2
+  m_explosionRadius: 22
+  m_maxExplosionTime: 1

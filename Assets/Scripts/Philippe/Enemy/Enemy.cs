@@ -98,16 +98,17 @@ namespace SpaceBaboon.EnemySystem
         protected override void Move(Vector2 value)
         {
             MoveTowardsPlayer();
+            CheckForSpriteDirectionSwap(m_movementDirection);
         }
 
         private void MoveTowardsPlayer()
         {
             Vector3 playerPosition = m_playerObject.transform.position;
 
-            Vector2 direction = (playerPosition - transform.position).normalized;
-            m_rB.AddForce(direction * m_data.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
-
-            if (direction.magnitude > 0)
+            m_movementDirection = (playerPosition - transform.position).normalized;
+            m_rB.AddForce(m_movementDirection * m_data.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
+            
+            if (m_movementDirection.magnitude > 0)
                 RegulateVelocity();
         }
 

@@ -22,7 +22,7 @@ namespace SpaceBaboon
         private float m_activeDashDuration;
         private float m_timestampedDash;
 
-        private Vector2 m_playerDirectionVector2;
+        //private Vector2 m_movementDirection;
         private AnimationCurve m_dashCurve;
         private Color m_spriteRendererColor;
 
@@ -75,7 +75,7 @@ namespace SpaceBaboon
         {
             PlayerMovement();
             ActiveDashCdReduction();
-            PlayerSpriteDirectionSwap();
+            CheckForSpriteDirectionSwap(m_movementDirection);            
             PlayerDamageTakenScreenShake();
         }
 
@@ -146,15 +146,15 @@ namespace SpaceBaboon
 
         protected override void Move(Vector2 values)
         {
-            m_playerDirectionVector2 = new Vector2(values.x, values.y).normalized;
+            m_movementDirection = new Vector2(values.x, values.y).normalized;
         }
         public Vector2 GetPlayerDirection()
         {
-            return m_playerDirectionVector2;
+            return m_movementDirection;
         }
         private void DashStart()
         {
-            if (m_activeDashCD <= 0.0f && m_playerDirectionVector2 != Vector2.zero)
+            if (m_activeDashCD <= 0.0f && m_movementDirection != Vector2.zero)
             {
                 m_dashInputReceiver = true;
             }
@@ -219,25 +219,25 @@ namespace SpaceBaboon
 
         private void PlayerMovement()
         {
-            if (m_playerDirectionVector2 != Vector2.zero)
+            if (m_movementDirection != Vector2.zero)
             {
-                m_rB.AddForce(m_playerDirectionVector2 * m_playerData.defaultAcceleration, ForceMode2D.Force);
+                m_rB.AddForce(m_movementDirection * m_playerData.defaultAcceleration, ForceMode2D.Force);
                 RegulateVelocity();
             }
             if (m_dashInputReceiver)
             {
                 StartCoroutine(DashCoroutine());
-                m_rB.AddForce(m_playerDirectionVector2 * (m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
+                m_rB.AddForce(m_movementDirection * (m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
             }
         }
 
         private void PlayerSpriteDirectionSwap()
         {
-            if (m_playerDirectionVector2.x > 0)
+            if (m_movementDirection.x > 0)
             {
                 m_renderer.flipX = false;
             }
-            if (m_playerDirectionVector2.x < 0)
+            if (m_movementDirection.x < 0)
             {
                 m_renderer.flipX = true;
             }

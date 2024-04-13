@@ -11,8 +11,10 @@ namespace SpaceBaboon.WeaponSystem
 
         [SerializeField] private AnimationCurve m_colorChangeCurve;
         [SerializeField] private Color m_imminentExplosionColor;
+        [SerializeField] private Sprite m_explosionSprite;
+        [SerializeField] private GameObject m_explosionObject; //TODO to change, right now only there for testing
         private float m_colorChangeTimer = 0.0f;
-        private Color m_baseColor;
+        private Color m_baseColor;        
         private SpriteRenderer m_spriteRenderer;
 
         private float m_explosionTimer = 0.0f;
@@ -28,9 +30,7 @@ namespace SpaceBaboon.WeaponSystem
 
             m_explosionTimer = m_uniqueData.delayBeforeExplosion;
             m_spriteRenderer = GetComponent<SpriteRenderer>();
-            m_baseColor = m_spriteRenderer.color;
-            
-            //m_rb = GetComponent<Rigidbody2D>();
+            m_baseColor = m_spriteRenderer.color;           
 
             // TODO to change find, most likely a reference that would be stored in an upcoming gameManager                  
             m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -117,16 +117,16 @@ namespace SpaceBaboon.WeaponSystem
         public void Explode()
         {
             // May become obsolete after explosion fx integration
+            Instantiate(m_explosionObject, transform.position, Quaternion.identity); // TODO Bad, will have new explosion vfx from vfx manager        
+            m_spriteRenderer.enabled = false;
             gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
             // Maybe use coroutine for explosion scale expansion
+            // Explosion not registering if player already colliding with projectile
         }
 
         protected override void ResetValues(Vector2 pos)
         {
-            //Debug.Log("current Explosion time" + );
-
-            m_explosionTimer = m_uniqueData.delayBeforeExplosion;
-            Debug.Log("m_uniqueData.delayBeforeExplosion " + m_uniqueData.delayBeforeExplosion);
+            m_explosionTimer = m_uniqueData.delayBeforeExplosion;            
             m_currentExplosionTime = 0.0f;
             m_isExploding = false;
             m_colorChangeTimer = 0.0f;

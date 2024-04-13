@@ -12,6 +12,7 @@ namespace SpaceBaboon
         protected Rigidbody2D m_rB;
         
         //BaseVariables
+        protected Vector2 m_movementDirection;
         protected float m_activeHealth;
         protected float m_activeVelocity;
         
@@ -23,6 +24,18 @@ namespace SpaceBaboon
         protected virtual void Move(Vector2 values) {}
 
         protected virtual void RegulateVelocity() {}
+
+        protected virtual void CheckForSpriteDirectionSwap(Vector2 direction)
+        {
+            if (direction.x > 0)
+            {
+                m_renderer.flipX = false;
+            }
+            if (direction.x < 0)
+            {
+                m_renderer.flipX = true;
+            }
+        }   
         
         public virtual void OnDamageTaken(float values) {}
     }
