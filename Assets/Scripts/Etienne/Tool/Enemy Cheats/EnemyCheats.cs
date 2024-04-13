@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using SpaceBaboon.EnemySystem;
@@ -12,6 +10,10 @@ namespace SpaceBaboon
         [SerializeField] private EnemySpawner m_spawner;
 
         private UIDocument m_uiDoc;
+
+        private bool m_displayBool;
+        private Button m_displayButton;
+        private VisualElement m_elementsToHide;
 
         private Toggle m_spawningToggle;
         private Button m_spawnBossButton;
@@ -37,8 +39,13 @@ namespace SpaceBaboon
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
 
+            m_displayButton = visualElement.Q<Button>("DisplayButton");
+            m_elementsToHide = visualElement.Q<VisualElement>("ElementsToHide");
+            //m_elementsToHide.style.display = DisplayStyle.None;
+            m_elementsToHide.style.visibility = Visibility.Hidden;
+
             m_spawningToggle = visualElement.Q<Toggle>("SpawningToggle");
-            m_spawnBossButton = visualElement.Q<Button>("SpawnBossToggle");
+            m_spawnBossButton = visualElement.Q<Button>("SpawnBossButton");
             m_delaySlider = visualElement.Q<Slider>("SpawningDelay");
 
             m_meleeToggle = visualElement.Q<Toggle>("MeleeToggle");
@@ -58,6 +65,8 @@ namespace SpaceBaboon
 
         private void OnEnable()
         {
+            m_displayButton.clicked += OnDisplayButtonClicked;
+
             m_spawningToggle.RegisterValueChangedCallback(OnSpawningToggled);
             m_spawnBossButton.clicked += OnSpawnBossButtonClicked;
             m_delaySlider.RegisterValueChangedCallback(OnDelayChanged);
@@ -73,6 +82,19 @@ namespace SpaceBaboon
 
         }
 
+        private void OnDisplayButtonClicked()
+        {
+            m_displayBool = !m_displayBool;
+
+            if (m_displayBool)
+            {
+                m_elementsToHide.style.visibility = Visibility.Visible;
+            }
+            else
+            {
+                m_elementsToHide.style.visibility = Visibility.Hidden;
+            }
+        }
 
         private void OnSpawningToggled(ChangeEvent<bool> evt)
         {

@@ -11,7 +11,6 @@ namespace SpaceBaboon
         private UIDocument m_uiDoc;
 
         private bool m_displayBool;
-        //private PropertyField m_displayBoolProperty;
         private Button m_displayButton;
         private VisualElement m_elementsToHide;
 
@@ -29,11 +28,10 @@ namespace SpaceBaboon
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
 
-            //m_displayBoolProperty = visualElement.Q<PropertyField>("DisplayBool");
             m_displayButton = visualElement.Q<Button>("DisplayButton");
             m_elementsToHide = visualElement.Q<VisualElement>("ElementsToHide");
-
-            m_elementsToHide.style.display = DisplayStyle.None;
+            m_elementsToHide.style.visibility = Visibility.Hidden;
+            //m_elementsToHide.style.display = DisplayStyle.None;
 
 
 
@@ -50,7 +48,6 @@ namespace SpaceBaboon
         private void OnEnable()
         {
             m_displayButton.clicked += OnDisplayButtonClicked;
-            //m_displayBoolProperty.RegisterValueChangeCallback(OnDisplayToggled);
 
 
             m_invincibilityToggle.RegisterValueChangedCallback(OnInvincibilityToggled);
@@ -68,11 +65,11 @@ namespace SpaceBaboon
 
             if (m_displayBool)
             {
-                m_elementsToHide.style.display = DisplayStyle.Flex;
+                m_elementsToHide.style.visibility = Visibility.Visible;
             }
             else
             {
-                m_elementsToHide.style.display = DisplayStyle.None;
+                m_elementsToHide.style.visibility = Visibility.Hidden;
             }
         }
 

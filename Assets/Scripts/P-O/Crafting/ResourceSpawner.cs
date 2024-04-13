@@ -17,6 +17,7 @@ namespace SpaceBaboon
         private Dictionary<GameObject, ObjectPool> m_resourceDictionary = new Dictionary<GameObject, ObjectPool>();
         private SMapData m_mapData;
 
+
         private void Awake()
         {
             foreach (GameObject resource in m_resourcesPrefab)
