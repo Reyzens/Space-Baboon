@@ -4,7 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - m_tree: {fileID: 9197481963319205126, guid: be63a6c87e8f8d5479f816d007c98efe, type: 3}
+  - m_floatTemplate: {fileID: 9197481963319205126, guid: be63a6c87e8f8d5479f816d007c98efe, type: 3}
+  - m_header: {fileID: 9197481963319205126, guid: c11cf5e6fa65873439f2b2bf095d0763, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -10,7 +10,8 @@ namespace SpaceBaboon
     [CanEditMultipleObjects]
     public class StatsEditor : Editor
     {
-        [SerializeField] private VisualTreeAsset m_tree;
+        [SerializeField] private VisualTreeAsset m_floatTemplate;
+        [SerializeField] private VisualTreeAsset m_header;
 
 
 
@@ -30,21 +31,19 @@ namespace SpaceBaboon
 
             if (so is ScriptableObject scriptableObject)
             {
+                VisualElement header = m_header.CloneTree();
+                root.Add(header);
+
+
                 var fields = GetFields(scriptableObject);
 
                 foreach (var item in fields)
                 {
                     if (item.FieldType == typeof(float))
                     {
-                        //var button = new Button();
-                        //button.style.height = 20;
-                        //button.text = item.Name;
-                        //root.Add(button);
-
-
                         //Instead of 
                         //m_tree.CloneTree(root);
-                        VisualElement clone = m_tree.CloneTree();
+                        VisualElement clone = m_floatTemplate.CloneTree();
                         root.Add(clone);
 
                         var variable = clone.Q<Label>("Name");
