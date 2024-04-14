@@ -1557,6 +1557,26 @@ PrefabInstance:
       propertyPath: m_playerCam
       value: 
       objectReference: {fileID: 1559854409}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_equippedWeapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 927908632}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_equippedWeapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 371174313}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_equippedWeapons.Array.data[2]
+      value: 
+      objectReference: {fileID: 996047656}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_equippedWeapons.Array.data[3]
+      value: 
+      objectReference: {fileID: 286834844}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_equippedWeapons.Array.data[4]
+      value: 
+      objectReference: {fileID: 2050035434}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

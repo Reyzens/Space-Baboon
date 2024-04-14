@@ -4,6 +4,16 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
+    public enum EPlayerWeaponType
+    {
+        Melee,
+        FlameThrower,
+        GrenadeLauncher,
+        Shockwave,
+        LaserBeam,
+        Count
+    }
+
     public class PlayerWeapon : Weapon
     {
         [SerializeField] protected WeaponData m_weaponData;
@@ -96,5 +106,6 @@ namespace SpaceBaboon.WeaponSystem
             m_currentLevel++;
         }
         #endregion
+
     }
 }

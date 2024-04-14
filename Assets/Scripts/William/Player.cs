@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using SpaceBaboon.WeaponSystem;
 
 namespace SpaceBaboon
 {
+
     public class Player : Character, SpaceBaboon.IDamageable
     {
         //BaseVraiables
@@ -27,8 +29,9 @@ namespace SpaceBaboon
         private Color m_spriteRendererColor;
 
         private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
-        private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
-        private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
+        //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
+        //private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
+        [SerializeField] private PlayerWeapon[] m_equippedWeapons = new PlayerWeapon[(int)EPlayerWeaponType.Count];
 
         //BonusVariables
         private float m_bonusDashCD;
@@ -47,8 +50,16 @@ namespace SpaceBaboon
 
         //Cheats related
         private bool m_isInvincible = false;
-        private float m_maxVelocityMultiplierCheat = 1.0f;
+        private float m_speedMultiplierCheat = 1.0f;
 
+        private float AccelerationValue
+        {
+            get { return m_playerData.defaultAcceleration * m_speedMultiplierCheat; }
+        }
+        private float MaxVelocity
+        {
+            get { return m_playerData.defaultMaxVelocity * m_speedMultiplierCheat; }
+        }
 
         //Unity Methods
 
@@ -94,8 +105,8 @@ namespace SpaceBaboon
             SubscribeToInputEvent();
 
             m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
-            m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
-            m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
+            //m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
+            //m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
 
             m_rB = GetComponent<Rigidbody2D>();
             m_collider = GetComponent<BoxCollider2D>();
@@ -210,10 +221,12 @@ namespace SpaceBaboon
 
         protected override void RegulateVelocity()
         {
-            if (m_rB.velocity.magnitude > m_playerData.defaultMaxVelocity)
+            Debug.Log("Magnitude: " + m_rB.velocity.magnitude + "    MaxVel: " + MaxVelocity);
+            
+            if (m_rB.velocity.magnitude > MaxVelocity)  //Etienne : change maxVelocity from data.defaultVel
             {
                 m_rB.velocity = m_rB.velocity.normalized;
-                m_rB.velocity *= m_playerData.defaultMaxVelocity;
+                m_rB.velocity *= MaxVelocity;   //Etienne : change maxVelocity from data.defaultVel
             }
         }
 
@@ -221,7 +234,7 @@ namespace SpaceBaboon
         {
             if (m_movementDirection != Vector2.zero)
             {
-                m_rB.AddForce(m_movementDirection * m_playerData.defaultAcceleration, ForceMode2D.Force);
+                m_rB.AddForce(m_movementDirection * AccelerationValue, ForceMode2D.Force);   //Etienne : change Acceleration from data.defaultAccel
                 RegulateVelocity();
             }
             if (m_dashInputReceiver)
@@ -278,7 +291,7 @@ namespace SpaceBaboon
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = m_screenShakeAmplitude;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = m_screenShakeFrequency;
             m_renderer.material.color = Color.red;
-            if (m_alive && !m_isInvincible) // TODO if statement may not be useful, if so remove it
+            if (m_alive && !m_isInvincible)
                 m_activeHealth -= damage;
         }
 
@@ -385,10 +398,19 @@ namespace SpaceBaboon
 
         public void SetSpeedWithMultiplier(float value)
         {
-            m_maxVelocityMultiplierCheat = value;
-            Debug.Log("Max Velocity Mult : " + m_maxVelocityMultiplierCheat);
+            m_speedMultiplierCheat = value;
+            Debug.Log("Max Velocity Mult : " + m_speedMultiplierCheat);
         }
 
+        public void SetWeaponStatus(EPlayerWeaponType type, bool value)
+        {
+            m_equippedWeapons[(int)type].SetIsCollecting(value);
+        }
+
+        public void KillPlayer()
+        {
+            m_activeHealth = 0;
+        }
         #endregion
     }
 }
