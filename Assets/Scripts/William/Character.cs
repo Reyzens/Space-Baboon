@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class Character : MonoBehaviour  , SpaceBaboon.IDamageable
+    public class Character : BaseStats<MonoBehaviour>, SpaceBaboon.IDamageable, IStatsEditable
     {
         //BaseRef
         protected CharacterData m_characterData;
@@ -38,5 +38,8 @@ namespace SpaceBaboon
         }   
         
         public virtual void OnDamageTaken(float values) {}
+
+        public override ScriptableObject GetData() { return m_characterData; }
     }
+
 }

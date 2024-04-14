@@ -9,7 +9,7 @@ using SpaceBaboon.WeaponSystem;
 namespace SpaceBaboon
 {
 
-    public class Player : Character, SpaceBaboon.IDamageable
+    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable
     {
         //BaseVraiables
         private bool m_alive;
@@ -411,6 +411,12 @@ namespace SpaceBaboon
         {
             m_activeHealth = 0;
         }
+
         #endregion
+
+        public override ScriptableObject GetData()
+        {
+            return m_playerData;
+        }
     }
 }

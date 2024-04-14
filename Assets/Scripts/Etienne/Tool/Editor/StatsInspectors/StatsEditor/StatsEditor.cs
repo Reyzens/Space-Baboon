@@ -41,9 +41,16 @@ namespace SpaceBaboon
                         //button.text = item.Name;
                         //root.Add(button);
 
-                        m_tree.CloneTree(root);
 
+                        //Instead of 
+                        //m_tree.CloneTree(root);
+                        VisualElement clone = m_tree.CloneTree();
+                        root.Add(clone);
 
+                        var variable = clone.Q<Label>("Name");
+                        variable.text = item.Name;
+
+                        Debug.Log(item.Name);
                     }
                 }
             }
