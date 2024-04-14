@@ -222,7 +222,12 @@ namespace SpaceBaboon.EnemySystem
 
         public void ToggleSpawnByEnemyType(EEnemyTypes type, bool value)
         {
-            m_pooledEnemies[(int)type].SetCanSpawn(value);
+            //little gymnastics because List<Structs> can't be directly modified
+            
+            EnemyToPool currentEnemy = m_pooledEnemies[(int)type];
+            currentEnemy.canSpawn = value;
+            m_pooledEnemies[(int)type] = currentEnemy;
+
         }
 
         public void CheatSpawnGroup(EEnemyTypes type, int amount)
@@ -230,10 +235,11 @@ namespace SpaceBaboon.EnemySystem
             Debug.Log(m_pooledEnemies[(int)type].enemyPrefab.name + "   " + amount);
 
             
-            //for (int i = 0; i < amount; i++)
-            //{
-            //    m_enemyPool.Spawn(m_pooledEnemies[(int)type].enemyPrefab, /* spawnWorldPos */);
-            //}
+            for (int i = 0; i < amount; i++)
+            {
+                Vector2 spawnWorldPos = FindValidEnemyRandomPos();
+                m_enemyPool.Spawn(m_pooledEnemies[(int)type].enemyPrefab, spawnWorldPos);
+            }
         }
         #endregion
     }
