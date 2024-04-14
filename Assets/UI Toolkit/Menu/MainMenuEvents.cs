@@ -51,8 +51,8 @@ namespace SpaceBaboon.MenuSystem
 
         private void QuitGame()
         {
-            //Application.Quit();
-            Debug.Log("Quit Game");
+            Application.Quit();
+            //Debug.Log("Quit Game");
         }
     }
 }
