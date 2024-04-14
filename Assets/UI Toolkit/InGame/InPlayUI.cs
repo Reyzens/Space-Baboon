@@ -29,9 +29,9 @@ namespace SpaceBaboon.UI_Toolkit
             //hpBar.value = playerRef.m_currentHealth;
             if (playerRef != null)
             {
-                ressourceone.text = playerRef.GetRessourceOne().ToString();
-                ressourcetwo.text = playerRef.GetRessourceTwo().ToString();
-                ressourcetree.text = playerRef.GetRessourceThree().ToString();
+                ressourceone.text = playerRef.GetResources(0).ToString();
+                ressourcetwo.text = playerRef.GetResources(1).ToString();
+                ressourcetree.text = playerRef.GetResources(2).ToString();
             }
 
 

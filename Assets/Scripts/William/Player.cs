@@ -350,34 +350,11 @@ namespace SpaceBaboon
         {
             return m_activeHealth;
         }
-
-        public int GetRessourceOne()
+        public int GetResources(int resourceType)
         {
-            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)0))
+            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)resourceType))
             {
-                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)0];
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        public int GetRessourceTwo()
-        {
-            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)1))
-            {
-                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)1];
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        public int GetRessourceThree()
-        {
-            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)2))
-            {
-                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)2];
+                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)resourceType];
             }
             else
             {
