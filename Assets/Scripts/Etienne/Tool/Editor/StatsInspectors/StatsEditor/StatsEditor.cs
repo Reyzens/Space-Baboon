@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using System.Reflection;
+using System;
 
 namespace SpaceBaboon
 {
@@ -34,6 +35,8 @@ namespace SpaceBaboon
                 VisualElement header = m_header.CloneTree();
                 root.Add(header);
 
+                Label title = header.Q<Label>("Title");
+                title.text = scriptableObject.name + " - Floats";
 
                 var fields = GetFields(scriptableObject);
 
@@ -46,8 +49,16 @@ namespace SpaceBaboon
                         VisualElement clone = m_floatTemplate.CloneTree();
                         root.Add(clone);
 
-                        var variable = clone.Q<Label>("Name");
-                        variable.text = item.Name;
+                        //Label name = clone.Q<Label>("Name");
+                        //name.text = item.Name;
+                        //
+                        //var currentValue = clone.Q<FloatField>("Value");
+                        //currentValue.value = (float)item.GetValue(scriptableObject);
+                        //currentValue.RegisterValueChangedCallback(OnCurrentValueChanged);
+
+
+                        StatInstance inst = new StatInstance();
+                        inst.Create(clone, item, scriptableObject);
 
                         Debug.Log(item.Name);
                     }
