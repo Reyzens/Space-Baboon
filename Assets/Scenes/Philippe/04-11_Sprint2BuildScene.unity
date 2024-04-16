@@ -1569,6 +1569,10 @@ PrefabInstance:
       propertyPath: m_playerCam
       value: 
       objectReference: {fileID: 1559854409}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_characterData
+      value: 
+      objectReference: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
     - target: {fileID: 7028550398629583105, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3208,15 +3212,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[1].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[2].canSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyProjectilesPool.m_poolStartingSize

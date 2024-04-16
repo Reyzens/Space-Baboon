@@ -19,16 +19,30 @@ namespace SpaceBaboon
         //BonusVariables
         protected float m_bonusHealth;
         protected float m_bonusVelocity;
-        
+
+        //Cheats related
+        //private bool m_isInvincible = false; // TODO make it more genral also
+        protected float m_speedMultiplierCheat = 1.0f;
+
+        protected float AccelerationValue
+        {
+            get { return m_characterData.defaultAcceleration * m_speedMultiplierCheat; }
+        }
+        protected float MaxVelocity
+        {
+            get { return m_characterData.defaultMaxVelocity * m_speedMultiplierCheat; }
+        }
+
+
         //Methods        
         protected virtual void Move(Vector2 values) {}
 
         protected virtual void RegulateVelocity() 
         {
-            if (m_rB.velocity.magnitude > m_characterData.defaultMaxVelocity /* + or * bonus */)
+            if (m_rB.velocity.magnitude > MaxVelocity)
             {
                 m_rB.velocity = m_rB.velocity.normalized;
-                m_rB.velocity *= m_characterData.defaultMaxVelocity /* + or * bonus */;
+                m_rB.velocity *= MaxVelocity;
             }
         }
 

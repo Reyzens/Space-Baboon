@@ -50,16 +50,7 @@ namespace SpaceBaboon
 
         //Cheats related
         private bool m_isInvincible = false;
-        private float m_speedMultiplierCheat = 1.0f;
-
-        private float AccelerationValue
-        {
-            get { return m_playerData.defaultAcceleration * m_speedMultiplierCheat; }
-        }
-        private float MaxVelocity
-        {
-            get { return m_playerData.defaultMaxVelocity * m_speedMultiplierCheat; }
-        }
+        
 
         //Unity Methods
 
@@ -216,17 +207,6 @@ namespace SpaceBaboon
             if (m_activeDashCD > 0.0f)
             {
                 m_activeDashCD -= Time.deltaTime;
-            }
-        }
-
-        protected override void RegulateVelocity()
-        {
-            Debug.Log("Magnitude: " + m_rB.velocity.magnitude + "    MaxVel: " + MaxVelocity);
-            
-            if (m_rB.velocity.magnitude > MaxVelocity)  //Etienne : change maxVelocity from data.defaultVel
-            {
-                m_rB.velocity = m_rB.velocity.normalized;
-                m_rB.velocity *= MaxVelocity;   //Etienne : change maxVelocity from data.defaultVel
             }
         }
 
