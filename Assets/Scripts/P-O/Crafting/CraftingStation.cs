@@ -38,7 +38,6 @@ namespace SpaceBaboon
             m_currentStationLevel = 1;
             ResourceNeededAllocation();
         }
-
         // Update is called once per frame
         void Update()
         {
@@ -52,7 +51,29 @@ namespace SpaceBaboon
                 }
             }
         }
+        private void ResetDropStation()
+        {
+            m_isUpgrading = false;
+            ResetPossibleResourceList();
+            ResourceNeededAllocation();
+        }
+        #region UpgradeManagement
+        private void CheckIfUpgradable()
+        {
+            //Sort both list before comparing their values
+            if (m_resourceNeeded.Count == 0)
+            {
+                if (m_DebugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
 
+                m_linkedWeapon.Upgrade();
+                m_currentResources.Clear();
+                m_isUpgrading = true;
+                m_currentUpgradeCD = m_maxUpgradeCooldown;
+                m_currentStationLevel++;
+            }
+        }
+        #endregion
+        #region ResourceManagement
         public bool AddResource(SpaceBaboon.InteractableResource.EResourceType resourceType)
         {
 
@@ -77,28 +98,6 @@ namespace SpaceBaboon
             }
             return false;
         }
-
-        private void ResetDropStation()
-        {
-            m_isUpgrading = false;
-            ResetPossibleResourceList();
-            ResourceNeededAllocation();
-        }
-        private void CheckIfUpgradable()
-        {
-            //Sort both list before comparing their values
-            if (m_resourceNeeded.Count == 0)
-            {
-                if (m_DebugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
-
-                m_linkedWeapon.Upgrade();
-                m_currentResources.Clear();
-                m_isUpgrading = true;
-                m_currentUpgradeCD = m_maxUpgradeCooldown;
-                m_currentStationLevel++;
-            }
-        }
-
         private void ResetPossibleResourceList()
         {
             m_possibleResources.Clear();
@@ -143,5 +142,6 @@ namespace SpaceBaboon
                 if (currentResourceAllocation != 0) { m_resourceNeeded.Add((InteractableResource.EResourceType)resourceIndex); }
             }
         }
+        #endregion
     }
 }

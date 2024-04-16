@@ -28,10 +28,10 @@ namespace SpaceBaboon.WeaponSystem
         private bool m_weaponToggle = true;
 
         //Upgrade variables
-        protected float m_rangeLevel;
-        protected float m_speedLevel;
-        protected float m_damageLevel;
-        protected float m_zoneLevel;
+        protected float m_rangeLevel = 1;
+        protected float m_speedLevel = 1;
+        protected float m_damageLevel = 1;
+        protected float m_zoneLevel = 1;
 
         private float currentRange
         {
