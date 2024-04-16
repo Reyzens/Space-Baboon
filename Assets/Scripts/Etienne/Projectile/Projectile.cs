@@ -47,6 +47,7 @@ namespace SpaceBaboon.WeaponSystem
             }
             m_lifetime += Time.deltaTime;
 
+            //TODO change translate for force
             MovingDirection();
         }
 

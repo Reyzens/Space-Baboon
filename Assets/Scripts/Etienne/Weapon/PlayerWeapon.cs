@@ -18,7 +18,6 @@ namespace SpaceBaboon.WeaponSystem
     {
         [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] protected GenericObjectPool m_pool = new GenericObjectPool();
-        [SerializeField] protected float m_attackSpeedScaling;
         [SerializeField] protected bool m_debugMode = false;
         [SerializeField] float m_rotationAroundPlayerSpeed;
 
@@ -27,6 +26,29 @@ namespace SpaceBaboon.WeaponSystem
         protected int m_currentLevel = 1;
         protected bool m_isCollecting = false;
         private bool m_weaponToggle = true;
+
+        //Upgrade variables
+        protected float m_rangeLevel;
+        protected float m_speedLevel;
+        protected float m_damageLevel;
+        protected float m_zoneLevel;
+
+        private float currentRange
+        {
+            get { return m_weaponData.maxRange * (m_rangeLevel * m_weaponData.m_rangeScaling); }
+        }
+        private float currentSpeed
+        {
+            get { return m_weaponData.attackSpeed * (m_speedLevel * m_weaponData.m_speedScaling); }
+        }
+        private float currentDamage
+        {
+            get { return m_weaponData.baseDamage * (m_damageLevel * m_weaponData.m_damageScaling); }
+        }
+        private float currentZone
+        {
+            get { return m_weaponData.attackZone * (m_zoneLevel * m_weaponData.m_zoneScaling); }
+        }
 
         protected virtual void Awake()
         {
@@ -49,7 +71,7 @@ namespace SpaceBaboon.WeaponSystem
                 Attack();
                 m_attackingCooldown = 0.0f;
             }
-            m_attackingCooldown += Time.deltaTime * m_attackSpeedModifier;
+            m_attackingCooldown += Time.deltaTime * currentSpeed;
             RotateAroundPlayer();
         }
         protected virtual void FixedUpdate()
@@ -77,7 +99,7 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(direction, m_weaponData.maxRange, m_weaponData.attackZone);
+            projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone);
         }
 
         protected virtual Transform GetTarget()
@@ -89,11 +111,6 @@ namespace SpaceBaboon.WeaponSystem
         {
             m_isCollecting = value;
         }
-
-        public float GetWeaponRange()
-        {
-            return m_weaponData.maxRange;
-        }
         public override ScriptableObject GetData()
         {
             return m_weaponData;
@@ -104,7 +121,7 @@ namespace SpaceBaboon.WeaponSystem
             if (m_debugMode)
             {
                 Debug.Log("Weapon upgraded");
-                m_attackSpeedModifier += m_attackSpeedScaling;
+                //m_attackSpeedModifier += m_attackSpeedScaling;
             }
             m_currentLevel++;
         }
