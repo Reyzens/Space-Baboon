@@ -168,7 +168,7 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        public override ScriptableObject GetData() { return m_enemyUniqueData; }
+        public override ScriptableObject GetData() { return m_characterData as EnemyData; }
 
         #region ObjectPooling
         public bool IsActive

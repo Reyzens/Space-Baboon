@@ -37,7 +37,7 @@ namespace SpaceBaboon
         //Methods        
         protected virtual void Move(Vector2 values) {}
 
-        protected virtual void RegulateVelocity() 
+        protected void RegulateVelocity() 
         {
             if (m_rB.velocity.magnitude > MaxVelocity)
             {
