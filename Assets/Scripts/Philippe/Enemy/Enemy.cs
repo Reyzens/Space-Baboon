@@ -112,16 +112,7 @@ namespace SpaceBaboon.EnemySystem
             if (m_movementDirection.magnitude > 0)
                 RegulateVelocity();
         }
-
-        //protected override void RegulateVelocity()
-        //{
-        //    if (m_rB.velocity.magnitude > m_uniqueData.defaultMaxVelocity /* + or * bonus */)
-        //    {
-        //        m_rB.velocity = m_rB.velocity.normalized;
-        //        m_rB.velocity *= m_uniqueData.defaultMaxVelocity /* + or * bonus */;
-        //    }
-        //}
-
+                
         private void ReadyContactAttack()
         {
             m_contactAttackTimer -= Time.deltaTime;

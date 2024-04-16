@@ -33,7 +33,6 @@ namespace SpaceBaboon
             get { return m_characterData.defaultMaxVelocity * m_speedMultiplierCheat; }
         }
 
-
         //Methods        
         protected virtual void Move(Vector2 values) {}
 
