@@ -13,7 +13,7 @@ namespace SpaceBaboon.EnemySystem
         {
             base.Start();
 
-            m_uniqueData = m_data as ExplodingEnemyData;
+            m_uniqueData = m_characterData as ExplodingEnemyData;
             
             // Maybe randomize distance to trigger bomb from data
 

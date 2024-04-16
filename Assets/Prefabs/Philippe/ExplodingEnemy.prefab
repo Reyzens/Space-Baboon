@@ -193,5 +193,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c983844538c3024680d469f1ac95544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: 56604385146fe7e48b063e6479ea8c2c, type: 2}
+  m_characterData: {fileID: 11400000, guid: 56604385146fe7e48b063e6479ea8c2c, type: 2}
   m_contactAttackParticleSystem: {fileID: 0}

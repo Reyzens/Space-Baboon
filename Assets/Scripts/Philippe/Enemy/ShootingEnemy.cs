@@ -15,7 +15,7 @@ namespace SpaceBaboon.EnemySystem
         {            
             base.Start();
 
-            m_uniqueData = m_data as ShootingEnemyData;
+            m_uniqueData = m_characterData as ShootingEnemyData;
 
             m_weapon = GetComponentInChildren<EnemyWeapon>();           
 
@@ -75,7 +75,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void StopMovement()
         {
-            m_rB.AddForce(-m_rB.velocity.normalized * m_data.defaultAcceleration, ForceMode2D.Force);
+            m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
         }
     }
 }

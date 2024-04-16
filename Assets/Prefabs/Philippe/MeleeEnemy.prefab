@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd1ab401fdf12f540b0f879d5db20dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_data: {fileID: 11400000, guid: 66ffc4dae1bb93f45ada626e302182c3, type: 2}
+  m_characterData: {fileID: 11400000, guid: 66ffc4dae1bb93f45ada626e302182c3, type: 2}
   m_contactAttackParticleSystem: {fileID: 6891219805674916465, guid: 4f196797a860ad94f8f5ba1fd8ba580b, type: 3}
 --- !u!95 &5250626322411330583
 Animator:

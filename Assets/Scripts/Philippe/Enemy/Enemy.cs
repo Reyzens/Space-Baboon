@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class Enemy : Character, IPoolableGeneric
-    {
-        [SerializeField] protected EnemyData m_data;
+    public class Enemy : Character, IPoolableGeneric, IStatsEditable
+    {        
+        private EnemyData m_enemyUniqueData;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
 
@@ -32,14 +32,15 @@ namespace SpaceBaboon.EnemySystem
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_rB = GetComponent<Rigidbody2D>();
-            m_activeHealth = m_data.defaultHealth;
-
         }
 
         protected virtual void Start()
         {
             m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
             m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+            m_enemyUniqueData = m_characterData as EnemyData;
+            m_activeHealth = m_enemyUniqueData.defaultHealth;
         }
 
         protected virtual void Update()
@@ -92,7 +93,7 @@ namespace SpaceBaboon.EnemySystem
         private void SlightPushFromObstructingObject(Collision2D collision)
         {
             Vector3 direction = collision.transform.position - transform.position;
-            m_rB.AddForce(-direction * m_data.obstructionPushForce, ForceMode2D.Force);
+            m_rB.AddForce(-direction * m_enemyUniqueData.obstructionPushForce, ForceMode2D.Force);
         }
 
         protected override void Move(Vector2 value)
@@ -106,20 +107,20 @@ namespace SpaceBaboon.EnemySystem
             Vector3 playerPosition = m_playerObject.transform.position;
 
             m_movementDirection = (playerPosition - transform.position).normalized;
-            m_rB.AddForce(m_movementDirection * m_data.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
+            m_rB.AddForce(m_movementDirection * m_enemyUniqueData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
             
             if (m_movementDirection.magnitude > 0)
                 RegulateVelocity();
         }
 
-        protected override void RegulateVelocity()
-        {
-            if (m_rB.velocity.magnitude > m_data.defaultMaxVelocity /* + or * bonus */)
-            {
-                m_rB.velocity = m_rB.velocity.normalized;
-                m_rB.velocity *= m_data.defaultMaxVelocity /* + or * bonus */;
-            }
-        }
+        //protected override void RegulateVelocity()
+        //{
+        //    if (m_rB.velocity.magnitude > m_uniqueData.defaultMaxVelocity /* + or * bonus */)
+        //    {
+        //        m_rB.velocity = m_rB.velocity.normalized;
+        //        m_rB.velocity *= m_uniqueData.defaultMaxVelocity /* + or * bonus */;
+        //    }
+        //}
 
         private void ReadyContactAttack()
         {
@@ -131,11 +132,11 @@ namespace SpaceBaboon.EnemySystem
 
         private void ContactAttack(Vector2 contactPos)
         {
-            m_player.OnDamageTaken(m_data.defaultContactAttackDamage);
+            m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
 
             InstantiateContactAttackParticuleSystem(contactPos);
 
-            m_contactAttackTimer = m_data.defaultContactAttackDelay /* + or * bonus */;
+            m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
         }
 
@@ -166,6 +167,8 @@ namespace SpaceBaboon.EnemySystem
                 m_parentPool.UnSpawn(gameObject);
             }
         }
+
+        public override ScriptableObject GetData() { return m_enemyUniqueData; }
 
         #region ObjectPooling
         public bool IsActive

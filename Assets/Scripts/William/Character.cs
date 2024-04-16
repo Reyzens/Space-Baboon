@@ -5,7 +5,7 @@ namespace SpaceBaboon
     public class Character : BaseStats<MonoBehaviour>, SpaceBaboon.IDamageable, IStatsEditable
     {
         //BaseRef
-        protected CharacterData m_characterData;
+        [SerializeField] protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
         protected SpriteRenderer m_renderer;
         protected BoxCollider2D m_collider;
@@ -23,7 +23,14 @@ namespace SpaceBaboon
         //Methods        
         protected virtual void Move(Vector2 values) {}
 
-        protected virtual void RegulateVelocity() {}
+        protected virtual void RegulateVelocity() 
+        {
+            if (m_rB.velocity.magnitude > m_characterData.defaultMaxVelocity /* + or * bonus */)
+            {
+                m_rB.velocity = m_rB.velocity.normalized;
+                m_rB.velocity *= m_characterData.defaultMaxVelocity /* + or * bonus */;
+            }
+        }
 
         protected virtual void CheckForSpriteDirectionSwap(Vector2 direction)
         {
