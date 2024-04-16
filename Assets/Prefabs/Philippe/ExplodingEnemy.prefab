@@ -195,3 +195,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 56604385146fe7e48b063e6479ea8c2c, type: 2}
   m_contactAttackParticleSystem: {fileID: 0}
+  m_projectilePrefab: {fileID: 5261725043433172466, guid: 9ef2d5f73657e9f41ba625d7e55cf355, type: 3}

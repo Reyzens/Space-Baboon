@@ -4,6 +4,8 @@ namespace SpaceBaboon.EnemySystem
 {
     public class ExplodingEnemy : Enemy
     {
+        [SerializeField] private GameObject m_projectilePrefab;
+
         private ExplodingEnemyData m_uniqueData;        
 
         private GameObject m_enemySpawner;
@@ -31,7 +33,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_distanceToPlayer < m_uniqueData.minDistanceForTriggeringBomb)
             {
-                m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_enemySpawnerScript.m_explodingEnemyProjectile, transform.position);
+                m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_projectilePrefab, transform.position);
                 m_parentPool.UnSpawn(gameObject);
             }           
         }
