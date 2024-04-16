@@ -2,8 +2,13 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class Weapon : MonoBehaviour
+    public class Weapon : BaseStats<MonoBehaviour>, IStatsEditable
     {
-        protected virtual void Attack() {}
+        public override ScriptableObject GetData()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected virtual void Attack() { }
     }
 }

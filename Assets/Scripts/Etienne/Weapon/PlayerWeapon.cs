@@ -14,7 +14,7 @@ namespace SpaceBaboon.WeaponSystem
         Count
     }
 
-    public class PlayerWeapon : Weapon
+    public class PlayerWeapon : Weapon, IStatsEditable
     {
         [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] protected GenericObjectPool m_pool = new GenericObjectPool();
@@ -94,7 +94,10 @@ namespace SpaceBaboon.WeaponSystem
         {
             return m_weaponData.maxRange;
         }
-
+        public override ScriptableObject GetData()
+        {
+            return m_weaponData;
+        }
         #region Crafting
         public void Upgrade()
         {

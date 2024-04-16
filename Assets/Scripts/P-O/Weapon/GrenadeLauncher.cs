@@ -20,6 +20,7 @@ namespace SpaceBaboon
                 }
             }
 
+
             //Didn't find an enemy
             return transform;
         }
