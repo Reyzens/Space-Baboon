@@ -1,10 +1,10 @@
 using Cinemachine;
+using SpaceBaboon.WeaponSystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using SpaceBaboon.WeaponSystem;
 
 namespace SpaceBaboon
 {
@@ -50,7 +50,7 @@ namespace SpaceBaboon
 
         //Cheats related
         private bool m_isInvincible = false;
-        
+
 
         //Unity Methods
 
@@ -77,7 +77,7 @@ namespace SpaceBaboon
         {
             PlayerMovement();
             ActiveDashCdReduction();
-            CheckForSpriteDirectionSwap(m_movementDirection);            
+            CheckForSpriteDirectionSwap(m_movementDirection);
             PlayerDamageTakenScreenShake();
         }
 
@@ -171,7 +171,7 @@ namespace SpaceBaboon
             {
                 if (m_DebugMode) { Debug.Log("CollisionDetected with structure"); }
 
-                collision.gameObject.GetComponent<ResourceDropPoint>().CollectResource(this);
+                collision.gameObject.GetComponent<SpaceBaboon.Crafting.ResourceDropPoint>().CollectResource(this);
             }
 
         }

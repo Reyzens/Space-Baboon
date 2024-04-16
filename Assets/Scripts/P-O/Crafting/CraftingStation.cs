@@ -2,7 +2,7 @@ using SpaceBaboon.WeaponSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.Crafting
 {
     public class CraftingStation : MonoBehaviour
     {
