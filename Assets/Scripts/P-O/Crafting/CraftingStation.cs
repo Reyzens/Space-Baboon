@@ -85,6 +85,7 @@ namespace SpaceBaboon
                 m_isUpgrading = true;
                 m_currentUpgradeCD = m_maxUpgradeCooldown;
                 m_currentStationLevel++;
+                ResetUpgrade();
             }
         }
         #endregion
