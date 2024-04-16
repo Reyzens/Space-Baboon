@@ -19,9 +19,6 @@ namespace SpaceBaboon.WeaponSystem
         protected SpriteRenderer m_renderer;
         protected CircleCollider2D m_collider;
 
-
-
-
         protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
