@@ -116,14 +116,37 @@ namespace SpaceBaboon.WeaponSystem
             return m_weaponData;
         }
         #region Crafting
-        public void Upgrade()
+        public void Upgrade(Crafting.CraftingStation.EWeaponUpgrades upgrade)
         {
             if (m_debugMode)
             {
                 Debug.Log("Weapon upgraded");
-                //m_attackSpeedModifier += m_attackSpeedScaling;
             }
+            ApplyUpgrade(upgrade);
             m_currentLevel++;
+        }
+
+        private void ApplyUpgrade(Crafting.CraftingStation.EWeaponUpgrades upgrade)
+        {
+            switch (upgrade)
+            {
+                case Crafting.CraftingStation.EWeaponUpgrades.AttackZone:
+                    m_zoneLevel++;
+                    Debug.Log("Upgraded zone to " + m_zoneLevel);
+                    break;
+                case Crafting.CraftingStation.EWeaponUpgrades.AttackSpeed:
+                    m_speedLevel++;
+                    Debug.Log("Upgraded attack speed to " + m_speedLevel);
+                    break;
+                case Crafting.CraftingStation.EWeaponUpgrades.AttackRange:
+                    m_rangeLevel++;
+                    Debug.Log("Upgraded range to " + m_rangeLevel);
+                    break;
+                case Crafting.CraftingStation.EWeaponUpgrades.AttackDamage:
+                    m_damageLevel++;
+                    Debug.Log("Upgraded damage to " + m_damageLevel);
+                    break;
+            }
         }
         #endregion
 

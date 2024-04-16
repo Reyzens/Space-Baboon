@@ -1,10 +1,10 @@
+using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
-using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon
 {
-    public class ObjectPool : MonoBehaviour
+    public class ObjectPool
     {
         [SerializeField] private GameObject m_prefab;
         [SerializeField] private GameObject m_container;
@@ -27,7 +27,7 @@ namespace SpaceBaboon
 
             for (int i = 0; i < m_poolSize; i++)
             {
-                GameObject obj = Instantiate(m_prefab, m_container.transform);
+                GameObject obj = GameObject.Instantiate(m_prefab, m_container.transform);
 
                 obj.GetComponent<IPoolable>()?.Deactivate();
                 m_pooledObjects.Enqueue(obj);
@@ -49,7 +49,7 @@ namespace SpaceBaboon
             }
 
             //If pool is empty 
-            GameObject newObj = Instantiate(m_prefab, m_container.transform);
+            GameObject newObj = GameObject.Instantiate(m_prefab, m_container.transform);
             newObj.GetComponent<IPoolable>()?.Activate(pos, this);
             //Debug.Log("activating new : " + pooledObjects.Count);
 

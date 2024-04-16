@@ -80,7 +80,7 @@ namespace SpaceBaboon.Crafting
             {
                 if (m_debugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
 
-                m_linkedWeapon.Upgrade();
+                m_linkedWeapon.Upgrade(m_currentUpgrade);
                 m_currentResources.Clear();
                 m_isUpgrading = true;
                 m_currentUpgradeCD = m_maxUpgradeCooldown;
