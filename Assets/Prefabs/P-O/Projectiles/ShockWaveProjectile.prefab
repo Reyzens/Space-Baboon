@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7253716150849822993}
   - component: {fileID: 1917201872243798429}
   - component: {fileID: 7018469808317747442}
+  - component: {fileID: -2573133781615070159}
   m_Layer: 8
   m_Name: ShockWaveProjectile
   m_TagString: Projectile
@@ -271,3 +272,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-2573133781615070159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8783084722343162297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CanHit>k__BackingField: 1
+  <CanReceiveHit>k__BackingField: 0
+  <AgentType>k__BackingField: 0
+  <AffectedAgents>k__BackingField: 01000000

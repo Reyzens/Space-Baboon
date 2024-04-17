@@ -264,6 +264,8 @@ namespace SpaceBaboon
 
         public override void OnDamageTaken(float damage)
         {
+            Debug.Log("player takes damage");
+
             // TODO change name of OnDamageTaken to AttackReceived
             // We could change the IDammageable interface to IAttackable
             // Player could eventually react to an attack here (for example momentarilly impervious, etc.)

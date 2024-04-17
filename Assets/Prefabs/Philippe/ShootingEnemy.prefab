@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 3862173082535036978}
   - component: {fileID: 1342881825712544679}
   - component: {fileID: 4503694478007303297}
+  - component: {fileID: 8354101210267825147}
   m_Layer: 10
   m_Name: ShootingEnemy
   m_TagString: Enemy
@@ -241,3 +242,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8354101210267825147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6346816228064842483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CanHit>k__BackingField: 0
+  <CanReceiveHit>k__BackingField: 1
+  <AgentType>k__BackingField: 1
+  <AffectedAgents>k__BackingField: 

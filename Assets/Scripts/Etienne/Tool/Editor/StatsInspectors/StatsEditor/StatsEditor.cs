@@ -60,7 +60,7 @@ namespace SpaceBaboon
                         StatInstance inst = new StatInstance();
                         inst.Create(clone, item, scriptableObject);
 
-                        Debug.Log(item.Name);
+                        //Debug.Log(item.Name);
                     }
                 }
             }

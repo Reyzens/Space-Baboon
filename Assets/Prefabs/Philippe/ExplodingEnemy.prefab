@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -330612339082038482}
   - component: {fileID: 1802336768623347837}
   - component: {fileID: 5079498157631258817}
+  - component: {fileID: -2736597421460320040}
   m_Layer: 10
   m_Name: ExplodingEnemy
   m_TagString: Enemy
@@ -196,3 +197,19 @@ MonoBehaviour:
   m_characterData: {fileID: 11400000, guid: 56604385146fe7e48b063e6479ea8c2c, type: 2}
   m_contactAttackParticleSystem: {fileID: 0}
   m_projectilePrefab: {fileID: 5261725043433172466, guid: 9ef2d5f73657e9f41ba625d7e55cf355, type: 3}
+--- !u!114 &-2736597421460320040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712864204504289401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CanHit>k__BackingField: 0
+  <CanReceiveHit>k__BackingField: 1
+  <AgentType>k__BackingField: 1
+  <AffectedAgents>k__BackingField: 

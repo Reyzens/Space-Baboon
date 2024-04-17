@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8755267836279607801}
   - component: {fileID: 4952661374852370799}
   - component: {fileID: -5052818198424764885}
+  - component: {fileID: -6880981647696383796}
   m_Layer: 8
   m_Name: LaserBeamProjectile
   m_TagString: Projectile
@@ -248,3 +249,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-6880981647696383796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8320263620006976790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CanHit>k__BackingField: 1
+  <CanReceiveHit>k__BackingField: 0
+  <AgentType>k__BackingField: 0
+  <AffectedAgents>k__BackingField: 01000000
