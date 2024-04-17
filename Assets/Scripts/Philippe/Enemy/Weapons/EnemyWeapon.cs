@@ -32,7 +32,7 @@ namespace SpaceBaboon.WeaponSystem
 
             var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_projectilePrefab, spawnPos);
 
-            projectile.GetComponent<Projectile>()?.Shoot(m_target, 0, 0);
+            projectile.GetComponent<Projectile>()?.Shoot(m_target, 0, 0, 0);
         }
     }
 }

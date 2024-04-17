@@ -20,9 +20,8 @@ namespace SpaceBaboon
         private bool m_isExploding = false;
         private Vector3 m_initialScaleOfProjectile;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             m_target = null;
             IExplodableSetUp();
         }
@@ -36,9 +35,10 @@ namespace SpaceBaboon
 
             IExplodableUpdate();
         }
-        public override void Shoot(Transform direction, float maxrange, float attackZone, Transform playerPosition)
+        public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
-            m_target = direction;
+            base.Shoot(target, maxRange, attackZone, damage, playerPosition);
+            m_target = target;
             m_initialShootingPosition = transform.position;
             Vector2 initialPosition = transform.position;
             if (m_target != null)

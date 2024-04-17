@@ -33,21 +33,22 @@ namespace SpaceBaboon.WeaponSystem
         protected float m_damageLevel = 1;
         protected float m_zoneLevel = 1;
 
-        private float currentRange
+        protected float currentRange
         {
-            get { return m_weaponData.maxRange * (m_rangeLevel * m_weaponData.m_rangeScaling); }
+            get { return m_weaponData.maxRange + (m_rangeLevel * m_weaponData.m_rangeScaling); }
         }
-        private float currentSpeed
+        //TODO add safety so it doesn't get to zero eventually
+        protected float currentSpeed
         {
-            get { return m_weaponData.attackSpeed * (m_speedLevel * m_weaponData.m_speedScaling); }
+            get { return m_weaponData.attackSpeed - (m_speedLevel * m_weaponData.m_speedScaling); }
         }
-        private float currentDamage
+        protected float currentDamage
         {
-            get { return m_weaponData.baseDamage * (m_damageLevel * m_weaponData.m_damageScaling); }
+            get { return m_weaponData.baseDamage + (m_damageLevel * m_weaponData.m_damageScaling); }
         }
-        private float currentZone
+        protected float currentZone
         {
-            get { return m_weaponData.attackZone * (m_zoneLevel * m_weaponData.m_zoneScaling); }
+            get { return m_weaponData.attackZone + (m_zoneLevel * m_weaponData.m_zoneScaling); }
         }
 
         protected virtual void Awake()
@@ -60,23 +61,26 @@ namespace SpaceBaboon.WeaponSystem
 
         protected virtual void Update()
         {
-            if (m_isCollecting)
+            if (CheckIfCollecting())
             {
-                return;
+                AttackUpdate();
+                RotateAroundPlayer();
             }
+        }
 
-            if (m_attackingCooldown > m_weaponData.attackSpeed)
+        private bool CheckIfCollecting()
+        {
+            return !m_isCollecting;
+        }
+        private void AttackUpdate()
+        {
+            if (m_attackingCooldown < 0)
             {
                 //Debug.Log("Attacking with weapon");
                 Attack();
-                m_attackingCooldown = 0.0f;
+                m_attackingCooldown = currentSpeed;
             }
-            m_attackingCooldown += Time.deltaTime * currentSpeed;
-            RotateAroundPlayer();
-        }
-        protected virtual void FixedUpdate()
-        {
-
+            m_attackingCooldown -= Time.deltaTime;
         }
         private void RotateAroundPlayer()
         {
@@ -99,7 +103,7 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
             //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone);
+            projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone, currentDamage);
         }
 
         protected virtual Transform GetTarget()

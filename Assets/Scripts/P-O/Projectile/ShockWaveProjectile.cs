@@ -74,9 +74,10 @@ namespace SpaceBaboon.WeaponSystem
             base.ResetValues(pos);
             IExplodableSetUp();
         }
-        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform playerPosition)
+        public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
-            m_weaponPos = direction;
+            base.Shoot(target, maxRange, attackZone, damage, playerPosition);
+            m_weaponPos = target;
             StartExplosion();
         }
         public void Explode()

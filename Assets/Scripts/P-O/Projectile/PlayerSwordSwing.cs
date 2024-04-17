@@ -20,14 +20,11 @@ namespace SpaceBaboon.WeaponSystem
             m_renderer = GetComponentInChildren<SpriteRenderer>();
             m_swordHitbox = GetComponentInChildren<CapsuleCollider2D>();
         }
-        protected override void MovingDirection()
+        public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform swordPosition)
         {
-            //Laisser vide
-        }
-        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform swordPosition)
-        {
+            base.Shoot(target, maxRange, attackZone, damage, swordPosition);
             m_playerPos = swordPosition;
-            StartSwing(direction, maxRange, attackZone);
+            StartSwing(target, maxRange, attackZone);
         }
         protected void StartSwing(Transform direction, float maxRange, float attackZone)
         {

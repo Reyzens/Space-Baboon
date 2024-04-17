@@ -8,8 +8,8 @@ namespace SpaceBaboon.WeaponSystem
         Enemy,
         Boss
     }
-    
-    
+
+
     [CreateAssetMenu(fileName = "NewProjectileData", menuName = "SpaceBaboon/ScriptableObjects/ProjectileData")]
     public class ProjectileData : ScriptableObject
     {

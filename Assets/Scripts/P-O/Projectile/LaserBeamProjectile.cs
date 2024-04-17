@@ -23,15 +23,15 @@ namespace SpaceBaboon.WeaponSystem
             m_laserDisplay = GetComponent<LineRenderer>();
             m_laserHitBox = GetComponent<EdgeCollider2D>();
         }
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             IPiercingSetUp();
         }
-        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform playerPosition)
+        public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
+            base.Shoot(target, maxRange, attackZone, damage, playerPosition);
             //Debug.Log("Laser was shot");
-            Vector2 directionVector = (direction.position - transform.position).normalized;
+            Vector2 directionVector = (target.position - transform.position).normalized;
             RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, directionVector, maxRange);
 
             foreach (RaycastHit2D hit in enemyHits)
@@ -52,10 +52,6 @@ namespace SpaceBaboon.WeaponSystem
                 SetLaserPosition();
                 OnPiercing();
             }
-        }
-        protected override void MovingDirection()
-        {
-            //Empty in this case
         }
         public void IPiercingSetUp()
         {

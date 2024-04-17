@@ -22,10 +22,11 @@ namespace SpaceBaboon.WeaponSystem
             m_flames = GetComponentInChildren<ParticleSystem>();
             m_flameCollider = GetComponent<PolygonCollider2D>();
         }
-        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform weaponPosition = null)
+        public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform weaponPosition = null)
         {
+            base.Shoot(target, maxRange, attackZone, damage, weaponPosition);
             m_flamethrowerPosition = weaponPosition;
-            m_target = direction;
+            m_target = target;
             m_flameRange = maxRange;
             m_flameWidth = attackZone;
 
