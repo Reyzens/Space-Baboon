@@ -98,17 +98,19 @@ namespace SpaceBaboon.WeaponSystem
         protected override void Attack()
         {
             Transform direction = GetTarget();
+            if (direction != null)
+            {
+                Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
+                var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
+                //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
-            Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
-            var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
-            //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
-
-            projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone, currentDamage);
+                projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone, currentDamage, gameObject.transform);
+            }
         }
 
         protected virtual Transform GetTarget()
         {
-            return transform;
+            return null;
         }
 
         public void SetIsCollecting(bool value)

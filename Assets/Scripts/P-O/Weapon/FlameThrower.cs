@@ -4,13 +4,28 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class FlameThrower : PlayerWeapon
     {
-        protected override void Attack()
-        {
-            Transform targetTransform = GetTarget();
-            Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
-            var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
+        [SerializeField] private float m_detectionOffSet = 5;
+        private float m_detectionRange;
 
-            projectile.GetComponent<Projectile>()?.Shoot(targetTransform, m_weaponData.maxRange, m_weaponData.attackZone, currentDamage, transform);
+        protected void Start()
+        {
+            m_detectionRange = currentRange + m_detectionOffSet;
+        }
+        protected override Transform GetTarget()
+        {
+            for (int i = 0; i < m_detectionRange; i++)
+            {
+                var colliders = Physics2D.OverlapCircleAll(transform.position, i);
+
+                foreach (var collider in colliders)
+                {
+                    if (collider.gameObject.tag == "Enemy")
+                    {
+                        return collider.gameObject.transform;
+                    }
+                }
+            }
+            return base.GetTarget();
         }
     }
 }
