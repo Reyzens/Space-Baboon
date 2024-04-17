@@ -5,6 +5,8 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class EnemyWeapon : Weapon
     {
+        [SerializeField] private GameObject m_projectilePrefab;
+
         private GameObject m_enemySpawner;
         private EnemySpawner m_enemySpawnerScript;
 
@@ -28,9 +30,9 @@ namespace SpaceBaboon.WeaponSystem
         {
             Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
 
-            var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_enemySpawnerScript.m_shootingEnemyProjectile, spawnPos);
+            var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_projectilePrefab, spawnPos);
 
-            projectile.GetComponent<Projectile>()?.Shoot(m_target, 0, 0);
+            projectile.GetComponent<Projectile>()?.Shoot(m_target, 0, 0, 0);
         }
     }
 }

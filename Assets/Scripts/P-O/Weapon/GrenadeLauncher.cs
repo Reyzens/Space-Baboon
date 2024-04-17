@@ -1,13 +1,12 @@
-using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.WeaponSystem
 {
     public class GrenadeLauncher : PlayerWeapon
     {
         protected override Transform GetTarget()
         {
-            for (int i = 0; i < m_weaponData.maxRange; i++)
+            for (int i = 0; i < currentRange; i++)
             {
                 var colliders = Physics2D.OverlapCircleAll(transform.position, i);
 
@@ -19,8 +18,6 @@ namespace SpaceBaboon
                     }
                 }
             }
-
-
             //Didn't find an enemy
             return transform;
         }

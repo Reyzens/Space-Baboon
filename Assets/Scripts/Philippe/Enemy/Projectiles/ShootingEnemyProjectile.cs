@@ -7,14 +7,13 @@ namespace SpaceBaboon.WeaponSystem
         private GameObject m_playerObject;
         protected Player m_player;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
             m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
             m_player = m_playerObject.GetComponent<Player>();
         }
 
-        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform playerPosition)
+        public override void Shoot(Transform direction, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
             Vector2 newDirection = direction.position;
             Vector2 currentPosition = transform.position;

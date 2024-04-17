@@ -19,20 +19,11 @@ namespace SpaceBaboon.WeaponSystem
         protected SpriteRenderer m_renderer;
         protected CircleCollider2D m_collider;
 
-
-
-
         protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
         }
-
-        protected virtual void Start()
-        {
-            m_damage = m_projectileData.damage;
-        }
-
         protected virtual void Update()
         {
             if (!m_isActive)
@@ -46,25 +37,17 @@ namespace SpaceBaboon.WeaponSystem
                 Debug.Log("UnSpawning (lifetime)");
             }
             m_lifetime += Time.deltaTime;
-
-            MovingDirection();
-        }
-
-        protected virtual void MovingDirection()
-        {
-            //Debug.Log("Called parent proj MovingDirection with thos data : m_direction = " + m_direction + " m_projectileDataSpeed = " + m_projectileData.speed);
-
-            transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime);
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision) { }
-        public virtual void Shoot(Transform direction, float maxRange, float attackZone, Transform playerPosition = null)
+        public virtual void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform playerPosition = null)
         {
-            m_direction = new Vector2(direction.position.x, direction.position.y).normalized;
+            m_damage = damage;
         }
 
         public virtual float OnHit()
         {
+            //Debug.Log("OnHit called by :  " + gameObject.name);
             return m_damage;
         }
 

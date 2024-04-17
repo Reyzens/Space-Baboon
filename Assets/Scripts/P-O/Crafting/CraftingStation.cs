@@ -2,16 +2,16 @@ using SpaceBaboon.WeaponSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.Crafting
 {
     public class CraftingStation : MonoBehaviour
     {
         //Serializable variables
         [SerializeField] private PlayerWeapon m_linkedWeapon;
-        [SerializeField] private float m_MaxHealth;
+        [SerializeField] private float m_maxHealth;
         [SerializeField] private List<ResourceDropPoint> m_resourceDropPoints = new List<ResourceDropPoint>();
         [SerializeField] private float m_levelScaling;
-        [SerializeField] private bool m_DebugMode;
+        [SerializeField] private bool m_debugMode;
         [SerializeField] private float m_maxUpgradeCooldown;
 
         //Private variables
@@ -29,16 +29,13 @@ namespace SpaceBaboon
         //Static variables
         //static Upgrade currentUpgrade;
         static List<CraftingStation> m_craftingStationsList = new List<CraftingStation>();
-
-
+        static EWeaponUpgrades m_currentUpgrade = EWeaponUpgrades.Count;
 
         // Start is called before the first frame update
         void Start()
         {
-            m_currentStationLevel = 1;
-            ResourceNeededAllocation();
+            Initialization();
         }
-
         // Update is called once per frame
         void Update()
         {
@@ -52,7 +49,47 @@ namespace SpaceBaboon
                 }
             }
         }
+        #region StationManagement
+        private void Initialization()
+        {
+            m_currentStationLevel = 1;
+            m_craftingStationsList.Add(this);
+            ResourceNeededAllocation();
+            if (m_currentUpgrade == EWeaponUpgrades.Count)
+            {
+                ResetUpgrade();
+            }
+        }
+        static void ResetUpgrade()
+        {
+            m_currentUpgrade = (EWeaponUpgrades)Random.Range(0, (int)EWeaponUpgrades.Count);
+            Debug.Log("Chosen upgrade is " + m_currentUpgrade);
+        }
+        #endregion
+        private void ResetDropStation()
+        {
+            m_isUpgrading = false;
+            ResetPossibleResourceList();
+            ResourceNeededAllocation();
+        }
+        #region UpgradeManagement
+        private void CheckIfUpgradable()
+        {
+            //Sort both list before comparing their values
+            if (m_resourceNeeded.Count == 0)
+            {
+                if (m_debugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
 
+                m_linkedWeapon.Upgrade(m_currentUpgrade);
+                m_currentResources.Clear();
+                m_isUpgrading = true;
+                m_currentUpgradeCD = m_maxUpgradeCooldown;
+                m_currentStationLevel++;
+                ResetUpgrade();
+            }
+        }
+        #endregion
+        #region ResourceManagement
         public bool AddResource(SpaceBaboon.InteractableResource.EResourceType resourceType)
         {
 
@@ -64,7 +101,7 @@ namespace SpaceBaboon
                 m_resourceNeeded.Remove(resourceType);
                 CheckIfUpgradable();
 
-                if (m_DebugMode)
+                if (m_debugMode)
                 {
                     Debug.Log("AddResource called on " + gameObject.name);
                     foreach (SpaceBaboon.InteractableResource.EResourceType resource in m_currentResources)
@@ -77,34 +114,12 @@ namespace SpaceBaboon
             }
             return false;
         }
-
-        private void ResetDropStation()
-        {
-            m_isUpgrading = false;
-            ResetPossibleResourceList();
-            ResourceNeededAllocation();
-        }
-        private void CheckIfUpgradable()
-        {
-            //Sort both list before comparing their values
-            if (m_resourceNeeded.Count == 0)
-            {
-                if (m_DebugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
-
-                m_linkedWeapon.Upgrade();
-                m_currentResources.Clear();
-                m_isUpgrading = true;
-                m_currentUpgradeCD = m_maxUpgradeCooldown;
-                m_currentStationLevel++;
-            }
-        }
-
         private void ResetPossibleResourceList()
         {
             m_possibleResources.Clear();
             for (int i = 0; i != (int)SpaceBaboon.InteractableResource.EResourceType.Count; i++)
             {
-                if (m_DebugMode) { Debug.Log("Added to m_possibleResource : " + (SpaceBaboon.InteractableResource.EResourceType)i); }
+                if (m_debugMode) { Debug.Log("Added to m_possibleResource : " + (SpaceBaboon.InteractableResource.EResourceType)i); }
                 m_possibleResources.Add((SpaceBaboon.InteractableResource.EResourceType)i);
             }
         }
@@ -143,5 +158,16 @@ namespace SpaceBaboon
                 if (currentResourceAllocation != 0) { m_resourceNeeded.Add((InteractableResource.EResourceType)resourceIndex); }
             }
         }
+        #endregion
+        #region Enums
+        public enum EWeaponUpgrades
+        {
+            AttackSpeed,
+            AttackZone,
+            AttackRange,
+            AttackDamage,
+            Count
+        }
+        #endregion
     }
 }

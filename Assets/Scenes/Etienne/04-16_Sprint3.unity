@@ -1549,38 +1549,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerSprite
       objectReference: {fileID: 0}
-    - target: {fileID: 6116818984849239150, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -771582896, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
     - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_playerCam
       value: 
       objectReference: {fileID: 1559854409}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_characterData
-      value: 
-      objectReference: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 927908632}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[1]
-      value: 
-      objectReference: {fileID: 371174313}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[2]
-      value: 
-      objectReference: {fileID: 996047656}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[3]
-      value: 
-      objectReference: {fileID: 286834844}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[4]
-      value: 
-      objectReference: {fileID: 2050035434}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3231,7 +3203,7 @@ PrefabInstance:
       objectReference: {fileID: 1881240103}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[1].canSpawn
@@ -3239,7 +3211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[2].canSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x

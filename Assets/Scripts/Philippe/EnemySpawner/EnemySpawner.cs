@@ -30,11 +30,10 @@ namespace SpaceBaboon.EnemySystem
     {
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
-        [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
+        [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();        
 
-        [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
-        [SerializeField] public GameObject m_shootingEnemyProjectile;
-        [SerializeField] public GameObject m_explodingEnemyProjectile;
+        [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();        
+        [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
 
         [field: Header("SPAWNER LOGIC")]
         [SerializeField] private GameObject m_map; // TODO Change so we have a centralized map data, resource and enemy spawner could benefit from it
@@ -50,9 +49,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            // TODO maybe check for a way to use same method, different parameter
-            CreateEnemiesPool();
-            CreateEnemyProjectilesPool();
+            CreateEnemySpawnerPools();
         }
 
         private void Start()
@@ -176,25 +173,16 @@ namespace SpaceBaboon.EnemySystem
             float y = radius * Mathf.Sin(randomAngle);
 
             return new Vector2(x, y);
-        }
+        }        
 
-        private void CreateEnemiesPool()
+        private void CreateEnemySpawnerPools()
         {
-            List<GameObject> enemyList = new List<GameObject>();
-
+            List<GameObject> enemyPrefabs = new List<GameObject>();
             foreach (EnemyToPool enemy in m_pooledEnemies)
-                enemyList.Add(enemy.enemyPrefab);
+                enemyPrefabs.Add(enemy.enemyPrefab);
 
-            m_enemyPool.CreatePool(enemyList, "Enemy");
-        }
-
-        private void CreateEnemyProjectilesPool()
-        {
-            List<GameObject> enemyProjectileList = new List<GameObject>();
-            enemyProjectileList.Add(m_shootingEnemyProjectile);
-            enemyProjectileList.Add(m_explodingEnemyProjectile);
-
-            m_enemyProjectilesPool.CreatePool(enemyProjectileList, "Shooting Enemy Weapon Projectile");
+            m_enemyPool.CreatePool(enemyPrefabs, "Enemies");
+            m_enemyProjectilesPool.CreatePool(m_pooledEnemyProjectiles, "Shooting Enemy Weapon Projectile");
         }
 
         public EnemySpawner GetEnemySpawner()

@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.Crafting
 {
     public class ResourceDropPoint : MonoBehaviour
     {

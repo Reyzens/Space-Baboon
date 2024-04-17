@@ -6,7 +6,8 @@ namespace SpaceBaboon.WeaponSystem
     {
         public override ScriptableObject GetData()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            return null;
         }
 
         protected virtual void Attack() { }

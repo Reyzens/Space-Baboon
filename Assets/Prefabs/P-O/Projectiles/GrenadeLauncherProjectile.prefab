@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5340949708925729821}
   - component: {fileID: -590500805817574263}
   - component: {fileID: 7048399848413064234}
+  - component: {fileID: 248022031562660407}
   m_Layer: 8
   m_Name: GrenadeLauncherProjectile
   m_TagString: Projectile
@@ -198,3 +199,19 @@ MonoBehaviour:
   m_curveMaxHeight: 5
   m_curveDuration: 0.5
   m_explodableData: {fileID: 11400000, guid: 08f584798c6bb3f4fa5a11426378b65c, type: 2}
+--- !u!114 &248022031562660407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8783084722343162297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CanHit>k__BackingField: 1
+  <CanReceiveHit>k__BackingField: 0
+  <AgentType>k__BackingField: 0
+  <AffectedAgents>k__BackingField: 01000000

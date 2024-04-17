@@ -14,23 +14,21 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] private Sprite m_explosionSprite;
         [SerializeField] private GameObject m_explosionObject; //TODO to change, right now only there for testing
         private float m_colorChangeTimer = 0.0f;
-        private Color m_baseColor;        
+        private Color m_baseColor;
         private SpriteRenderer m_spriteRenderer;
 
         private float m_explosionTimer = 0.0f;
         private bool m_isExploding = false;
-        private float m_currentExplosionTime = 0.0f;        
+        private float m_currentExplosionTime = 0.0f;
         private Vector3 m_initialScaleOfProjectile;
 
-        protected override void Start()
+        protected void Start()
         {
-            base.Start();
-
             m_uniqueData = m_projectileData as ExplodingEnemyProjectileData;
 
             m_explosionTimer = m_uniqueData.delayBeforeExplosion;
             m_spriteRenderer = GetComponent<SpriteRenderer>();
-            m_baseColor = m_spriteRenderer.color;           
+            m_baseColor = m_spriteRenderer.color;
 
             // TODO to change find, most likely a reference that would be stored in an upcoming gameManager                  
             m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
@@ -39,7 +37,7 @@ namespace SpaceBaboon.WeaponSystem
         }
 
         protected override void Update()
-        {            
+        {
             if (!m_isActive)
             {
                 return;
@@ -52,13 +50,13 @@ namespace SpaceBaboon.WeaponSystem
             }
 
             if (m_explosionTimer < 0.0f)
-            {                
+            {
                 StartExplosion();
                 return;
             }
 
             m_explosionTimer -= Time.deltaTime;
-            
+
             UpdateColorBasedOnAnimCurve();
         }
 
@@ -76,17 +74,17 @@ namespace SpaceBaboon.WeaponSystem
             m_colorChangeTimer += Time.deltaTime;
 
             float colorScale = m_colorChangeCurve.Evaluate(m_colorChangeTimer / m_uniqueData.delayBeforeExplosion);
-            
+
             float r = Mathf.Lerp(m_baseColor.r, m_imminentExplosionColor.r, colorScale);
             float g = Mathf.Lerp(m_baseColor.g, m_imminentExplosionColor.g, colorScale);
             float b = Mathf.Lerp(m_baseColor.b, m_imminentExplosionColor.b, colorScale);
-                        
+
             Color newColor = m_spriteRenderer.color;
             newColor.r = r;
             newColor.g = g;
             newColor.b = b;
-            m_spriteRenderer.color = newColor;            
-        }        
+            m_spriteRenderer.color = newColor;
+        }
 
         public void IExplodableSetUp()
         {
@@ -126,7 +124,7 @@ namespace SpaceBaboon.WeaponSystem
 
         protected override void ResetValues(Vector2 pos)
         {
-            m_explosionTimer = m_uniqueData.delayBeforeExplosion;            
+            m_explosionTimer = m_uniqueData.delayBeforeExplosion;
             m_currentExplosionTime = 0.0f;
             m_isExploding = false;
             m_colorChangeTimer = 0.0f;

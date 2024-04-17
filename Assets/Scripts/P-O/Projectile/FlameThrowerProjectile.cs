@@ -18,14 +18,18 @@ namespace SpaceBaboon.WeaponSystem
 
         protected override void Awake()
         {
-            //base.Awake();
             m_flames = GetComponentInChildren<ParticleSystem>();
             m_flameCollider = GetComponent<PolygonCollider2D>();
         }
-        public override void Shoot(Transform direction, float maxRange, float attackZone, Transform weaponPosition = null)
+        public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform weaponPosition = null)
         {
+            base.Shoot(target, maxRange, attackZone, damage, weaponPosition);
+
+            //The flame shoot from the weapon
             m_flamethrowerPosition = weaponPosition;
-            m_target = direction;
+            m_target = target;
+
+            //Values that scale from weapon
             m_flameRange = maxRange;
             m_flameWidth = attackZone;
 
@@ -38,14 +42,9 @@ namespace SpaceBaboon.WeaponSystem
             {
                 transform.position = m_flamethrowerPosition.position;
 
-                Vector3 mousePosition = Input.mousePosition;
-                mousePosition.z = Camera.main.transform.position.z - transform.position.z;
-                Vector3 cursorWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                //m_target.position = cursorWorldPosition;
-
-                Vector2 directionToCursor = cursorWorldPosition - transform.position;
-                float angle = Mathf.Atan2(directionToCursor.y, directionToCursor.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 200); // Adjust rotation speed as necessary
+                Vector2 directionToTarget = m_target.position - transform.position;
+                float angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 100);
             }
             if (m_isFiring)
             {
@@ -87,12 +86,9 @@ namespace SpaceBaboon.WeaponSystem
                 m_flameCollider.enabled = value;
             }
             m_isFiring = value;
-            //m_renderer.enabled = value;
-            //m_collider.enabled = value;
         }
         protected override void ResetValues(Vector2 pos)
         {
-            //base.ResetValues(pos);
             m_lifetime = 0.0f;
             m_cooldownBetweenTick = -1;
             m_currentFlameDuration = m_maxFlameDuration;

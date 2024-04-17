@@ -62,22 +62,28 @@ namespace SpaceBaboon.EnemySystem
             Move(m_noVectorValue);
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.gameObject.CompareTag("Projectile"))
-            {
-                OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
-            }
-        }
+        //private void OnTriggerEnter2D(Collider2D collision)
+        //{
+        //    Debug.Log("OnTriggerEnter" + gameObject.name);
+        //    //if (collision.gameObject.CompareTag("Projectile"))
+        //    //{
+        //    //    OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
+        //    //}
+        //}
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        //private void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    if (collision.gameObject.CompareTag("Player") && m_contactAttackReady)
+        //    {
+        //        ContactPoint2D contactPoint = collision.contacts[0];
+        //        Vector2 contactPos = contactPoint.point;
+        //        ContactAttack(contactPos);
+        //    }
+        //}
+
+        public bool CanAttack()
         {
-            if (collision.gameObject.CompareTag("Player") && m_contactAttackReady)
-            {
-                ContactPoint2D contactPoint = collision.contacts[0];
-                Vector2 contactPos = contactPoint.point;
-                ContactAttack(contactPos);
-            }
+            return m_contactAttackReady;
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -121,7 +127,7 @@ namespace SpaceBaboon.EnemySystem
                 m_contactAttackReady = true;
         }
 
-        private void ContactAttack(Vector2 contactPos)
+        public void ContactAttack(Vector2 contactPos)
         {
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
 
@@ -152,7 +158,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_activeHealth -= damage;
 
-            //Debug.Log("enemy hit have " + m_activeHealth + " health");
+            //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_parentPool.UnSpawn(gameObject);
