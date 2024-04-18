@@ -81,11 +81,6 @@ namespace SpaceBaboon.EnemySystem
         //    }
         //}
 
-        public bool CanAttack()
-        {
-            return m_contactAttackReady;
-        }
-
         private void OnCollisionStay2D(Collision2D collision)
         {
             SlightPushFromObstructingObject(collision);
@@ -163,9 +158,18 @@ namespace SpaceBaboon.EnemySystem
             {
                 m_parentPool.UnSpawn(gameObject);
             }
-        }
+        }        
 
+        #region HitBox
+        public bool CanAttack()
+        {
+            return m_contactAttackReady;
+        }
+        #endregion
+
+        #region Tools
         public override ScriptableObject GetData() { return m_characterData as EnemyData; }
+        #endregion
 
         #region ObjectPooling
         public bool IsActive

@@ -2,15 +2,16 @@ using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class ExplodingEnemy : Enemy
+    public class ExplodingEnemy : Enemy, IExplodable
     {
         [SerializeField] private GameObject m_projectilePrefab;
+        [SerializeField] private Sprite m_chargingExplosion;
 
         private ExplodingEnemyData m_uniqueData;        
 
         private GameObject m_enemySpawner;
         private EnemySpawner m_enemySpawnerScript;
-
+        
         protected override void Start()
         {
             base.Start();
@@ -37,5 +38,24 @@ namespace SpaceBaboon.EnemySystem
                 m_parentPool.UnSpawn(gameObject);
             }           
         }
+
+        public void IExplodableSetUp()
+        {
+            throw new System.NotImplementedException();
+        }
+        public void StartExplosion()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Explode()
+        {
+            throw new System.NotImplementedException();
+        }        
+
+        public void IExplodableUpdate()
+        {
+            throw new System.NotImplementedException();
+        }        
     }
 }
