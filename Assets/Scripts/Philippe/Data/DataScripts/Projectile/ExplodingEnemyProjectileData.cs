@@ -7,7 +7,7 @@ namespace SpaceBaboon
     public class ExplodingEnemyProjectileData : ProjectileData
     {
         [Header("ExplodingEnemyProjectileUniqueStats")]
-        public int test;
+        public float maxExplosionSize;
         //public float delayBeforeExplosion;
     }
 }

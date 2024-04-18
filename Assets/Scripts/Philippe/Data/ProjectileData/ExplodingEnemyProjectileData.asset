@@ -17,5 +17,5 @@ MonoBehaviour:
   projectileName: Exploding Enemy Bomb
   speed: 0
   damage: 40
-  maxLifetime: 15
-  delayBeforeExplosion: 3
+  maxLifetime: 0.5
+  maxExplosionSize: 5
