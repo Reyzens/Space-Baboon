@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable
-    {        
+    {
         private EnemyData m_enemyUniqueData;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
@@ -114,11 +114,11 @@ namespace SpaceBaboon.EnemySystem
 
             m_movementDirection = (playerPosition - transform.position).normalized;
             m_rB.AddForce(m_movementDirection * m_enemyUniqueData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
-            
+
             if (m_movementDirection.magnitude > 0)
                 RegulateVelocity();
         }
-                
+
         private void ReadyContactAttack()
         {
             m_contactAttackTimer -= Time.deltaTime;
@@ -158,7 +158,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_activeHealth -= damage;
 
-            //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
+            Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_parentPool.UnSpawn(gameObject);

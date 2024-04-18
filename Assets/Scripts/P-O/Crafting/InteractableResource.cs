@@ -63,7 +63,8 @@ namespace SpaceBaboon
             if (m_currentCooldown < 0) { FinishCollecting(); }
         }
 
-        void OnCollisionEnter2D(Collision2D collision)
+        #region CollectingLogic
+        void OnCollisionStay2D(Collision2D collision)
         {
             if (m_DebugMode && collision.gameObject.tag == "Player") { Debug.Log("CollisionDetected with player"); }
 
@@ -72,7 +73,6 @@ namespace SpaceBaboon
                 Collect(collision.gameObject.GetComponent<Player>());
             }
         }
-
         private void Collect(Player collectingPlayer)
         {
             if (!m_isBeingCollected)
@@ -89,21 +89,8 @@ namespace SpaceBaboon
             m_collectingPlayer.AddResource(m_resourceData.m_resourceType, m_resourceData.m_resourceAmount);
             m_parentPool.UnSpawn(gameObject);
         }
-
-        //public void Activate(Vector2 pos, ObjectPool pool)
-        //{
-        //    ResetValues(pos);
-        //    SetComponents(true);
-        //    m_isActive = true;
-
-        //    m_parentPool = pool;
-        //}
-
-        //public void Deactivate()
-        //{
-        //    throw new System.NotImplementedException();
-        //}
-
+        #endregion
+        #region IPoolable
         public void Activate(Vector2 pos, ObjectPool pool)
         {
             ResetValues(pos);
@@ -113,14 +100,11 @@ namespace SpaceBaboon
 
             m_parentPool = pool;
         }
-
-
         public void Deactivate()
         {
             m_isActive = false;
             SetComponents(false);
         }
-
         private void ResetValues(Vector2 pos)
         {
             transform.position = pos;
@@ -134,5 +118,6 @@ namespace SpaceBaboon
             m_circleCollider.enabled = value;
             m_capsuleCollider.enabled = value;
         }
+        #endregion
     }
 }
