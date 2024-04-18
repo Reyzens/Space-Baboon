@@ -20,9 +20,9 @@ namespace SpaceBaboon.Crafting
         private int m_currentStationLevel;
 
         //Serialized for test purpose
-        [SerializeField] private List<SpaceBaboon.InteractableResource.EResourceType> m_resourceNeeded = new List<SpaceBaboon.InteractableResource.EResourceType>();
-        [SerializeField] private List<SpaceBaboon.InteractableResource.EResourceType> m_currentResources = new List<SpaceBaboon.InteractableResource.EResourceType>();
-        [SerializeField] private List<SpaceBaboon.InteractableResource.EResourceType> m_possibleResources = new List<SpaceBaboon.InteractableResource.EResourceType>();
+        [SerializeField] private List<Crafting.InteractableResource.EResourceType> m_resourceNeeded = new List<Crafting.InteractableResource.EResourceType>();
+        [SerializeField] private List<Crafting.InteractableResource.EResourceType> m_currentResources = new List<Crafting.InteractableResource.EResourceType>();
+        [SerializeField] private List<Crafting.InteractableResource.EResourceType> m_possibleResources = new List<Crafting.InteractableResource.EResourceType>();
         [SerializeField] private float m_currentUpgradeCD = 0.0f;
         [SerializeField] private bool m_isUpgrading = false;
 
@@ -90,9 +90,8 @@ namespace SpaceBaboon.Crafting
         }
         #endregion
         #region ResourceManagement
-        public bool AddResource(SpaceBaboon.InteractableResource.EResourceType resourceType)
+        public bool AddResource(Crafting.InteractableResource.EResourceType resourceType)
         {
-
             //Check if the resource is needed
             if (m_resourceNeeded.Contains(resourceType))
             {
@@ -104,7 +103,7 @@ namespace SpaceBaboon.Crafting
                 if (m_debugMode)
                 {
                     Debug.Log("AddResource called on " + gameObject.name);
-                    foreach (SpaceBaboon.InteractableResource.EResourceType resource in m_currentResources)
+                    foreach (Crafting.InteractableResource.EResourceType resource in m_currentResources)
                     {
                         Debug.Log("For crafting station " + gameObject.name + " there is a " + resource);
                     }
@@ -117,10 +116,10 @@ namespace SpaceBaboon.Crafting
         private void ResetPossibleResourceList()
         {
             m_possibleResources.Clear();
-            for (int i = 0; i != (int)SpaceBaboon.InteractableResource.EResourceType.Count; i++)
+            for (int i = 0; i != (int)Crafting.InteractableResource.EResourceType.Count; i++)
             {
-                if (m_debugMode) { Debug.Log("Added to m_possibleResource : " + (SpaceBaboon.InteractableResource.EResourceType)i); }
-                m_possibleResources.Add((SpaceBaboon.InteractableResource.EResourceType)i);
+                if (m_debugMode) { Debug.Log("Added to m_possibleResource : " + (Crafting.InteractableResource.EResourceType)i); }
+                m_possibleResources.Add((Crafting.InteractableResource.EResourceType)i);
             }
         }
 
@@ -152,7 +151,7 @@ namespace SpaceBaboon.Crafting
                 amountOfResourceNeeded -= currentResourceAllocation;
 
                 //Add resource to the point
-                m_resourceDropPoints[i].AllocateResource((InteractableResource.EResourceType)resourceIndex, currentResourceAllocation);
+                m_resourceDropPoints[i].AllocateResource((Crafting.InteractableResource.EResourceType)resourceIndex, currentResourceAllocation);
 
                 //Check if the amount is 0 before adding it to neededResources
                 if (currentResourceAllocation != 0) { m_resourceNeeded.Add((InteractableResource.EResourceType)resourceIndex); }

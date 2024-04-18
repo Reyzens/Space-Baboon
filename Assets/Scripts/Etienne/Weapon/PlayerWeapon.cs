@@ -28,10 +28,11 @@ namespace SpaceBaboon.WeaponSystem
         private bool m_weaponToggle = true;
 
         //Upgrade variables
-        protected float m_rangeLevel = 1;
-        protected float m_speedLevel = 1;
-        protected float m_damageLevel = 1;
-        protected float m_zoneLevel = 1;
+        protected float m_rangeLevel = 0;
+        protected float m_speedLevel = 0;
+        protected float m_damageLevel = 0;
+        protected float m_zoneLevel = 0;
+        private const float ATTACKSPEEDLIMIT = 0.15f;
 
         protected float currentRange
         {
@@ -58,7 +59,6 @@ namespace SpaceBaboon.WeaponSystem
 
             m_pool.CreatePool(list, "Weapon Projectiles");
         }
-
         protected virtual void Update()
         {
             if (CheckIfCollecting())
@@ -67,7 +67,6 @@ namespace SpaceBaboon.WeaponSystem
                 RotateAroundPlayer();
             }
         }
-
         private bool CheckIfCollecting()
         {
             return !m_isCollecting;
@@ -107,12 +106,10 @@ namespace SpaceBaboon.WeaponSystem
                 projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone, currentDamage, gameObject.transform);
             }
         }
-
         protected virtual Transform GetTarget()
         {
             return null;
         }
-
         public void SetIsCollecting(bool value)
         {
             m_isCollecting = value;
@@ -141,6 +138,11 @@ namespace SpaceBaboon.WeaponSystem
                     Debug.Log("Upgraded zone to " + m_zoneLevel);
                     break;
                 case Crafting.CraftingStation.EWeaponUpgrades.AttackSpeed:
+                    if (SpeedLimitReached())
+                    {
+                        ApplyUpgrade(Crafting.CraftingStation.EWeaponUpgrades.AttackDamage);
+                        break;
+                    }
                     m_speedLevel++;
                     Debug.Log("Upgraded attack speed to " + m_speedLevel);
                     break;
@@ -153,6 +155,15 @@ namespace SpaceBaboon.WeaponSystem
                     Debug.Log("Upgraded damage to " + m_damageLevel);
                     break;
             }
+        }
+        private bool SpeedLimitReached()
+        {
+            if (currentSpeed < ATTACKSPEEDLIMIT)
+            {
+                Debug.Log("Attack speed limit reached");
+                return true;
+            }
+            return false;
         }
         #endregion
 

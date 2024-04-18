@@ -1,4 +1,3 @@
-using SpaceBaboon.WeaponSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ namespace SpaceBaboon
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //Debug.Log("Hitbox OnCollisionEnter  " + gameObject.name);
-            
+
             var otherHb = collision.gameObject.GetComponent<Hitbox>();
             if (otherHb == null)
             {
@@ -71,6 +70,7 @@ namespace SpaceBaboon
 
         void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log("Entered ontrigger");
             var otherHb = other.gameObject.GetComponent<Hitbox>();
             if (otherHb == null)
             {

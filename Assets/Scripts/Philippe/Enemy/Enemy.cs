@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable
-    {        
+    {
         private EnemyData m_enemyUniqueData;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
@@ -54,7 +54,7 @@ namespace SpaceBaboon.EnemySystem
                 ReadyContactAttack();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (!m_isActive)
                 return;
@@ -81,14 +81,14 @@ namespace SpaceBaboon.EnemySystem
         //    }
         //}
 
-        public bool CanAttack()
-        {
-            return m_contactAttackReady;
-        }
-
         private void OnCollisionStay2D(Collision2D collision)
         {
             SlightPushFromObstructingObject(collision);
+        }
+
+        protected void StopMovement()
+        {
+            m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
         }
 
         private void CalculateDistanceToPlayer()
@@ -114,11 +114,11 @@ namespace SpaceBaboon.EnemySystem
 
             m_movementDirection = (playerPosition - transform.position).normalized;
             m_rB.AddForce(m_movementDirection * m_enemyUniqueData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
-            
+
             if (m_movementDirection.magnitude > 0)
                 RegulateVelocity();
         }
-                
+
         private void ReadyContactAttack()
         {
             m_contactAttackTimer -= Time.deltaTime;
@@ -158,14 +158,23 @@ namespace SpaceBaboon.EnemySystem
         {
             m_activeHealth -= damage;
 
-            //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
+            Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_parentPool.UnSpawn(gameObject);
             }
-        }
+        }        
 
+        #region HitBox
+        public bool CanAttack()
+        {
+            return m_contactAttackReady;
+        }
+        #endregion
+
+        #region Tools
         public override ScriptableObject GetData() { return m_characterData as EnemyData; }
+        #endregion
 
         #region ObjectPooling
         public bool IsActive

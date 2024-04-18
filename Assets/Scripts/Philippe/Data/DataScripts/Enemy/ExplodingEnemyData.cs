@@ -7,5 +7,6 @@ namespace SpaceBaboon.EnemySystem
     {
         [Header("ExplodingEnemyUniqueStats")]
         public float minDistanceForTriggeringBomb;
+        public float delayBeforeExplosion;
     }
 }

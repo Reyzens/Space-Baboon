@@ -14,7 +14,7 @@ namespace SpaceBaboon.Crafting
         //Private variables
         private int m_resourceAmountNeeded;
         private TextMeshPro m_resourceAmountDisplay;
-        private SpaceBaboon.InteractableResource.EResourceType m_resourceTypeNeeded;
+        private Crafting.InteractableResource.EResourceType m_resourceTypeNeeded;
 
         // Start is called before the first frame update
         void Awake()
@@ -47,7 +47,7 @@ namespace SpaceBaboon.Crafting
             }
         }
 
-        public void AllocateResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int resourceAmount)
+        public void AllocateResource(Crafting.InteractableResource.EResourceType resourceType, int resourceAmount)
         {
             if (m_DebugMode) { Debug.Log("To " + gameObject.name + " was allocated " + resourceAmount + " " + resourceType); }
             m_resourceTypeNeeded = resourceType;

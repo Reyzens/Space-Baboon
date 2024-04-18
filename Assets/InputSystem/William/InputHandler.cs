@@ -1,24 +1,25 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static SpaceBaboon.PlayerInput;
 
 namespace SpaceBaboon
 {
-    public class InputHandler : MonoBehaviour, IPlayerMovementActions
+    public class InputHandler : MonoBehaviour, IPlayerMovementActions, IPlayerInteractionActions
     {
         public static InputHandler instance;
 
         public delegate void MoveEvent(Vector2 values);
         public delegate void DashEvent();
-        
+        public delegate void CollectResourceEvent();
+
 
         public PlayerInput m_Input;
         public MoveEvent m_MoveEvent;
         public DashEvent m_DashStartEvent;
+        public CollectResourceEvent m_CollectResourceEvent;
         //public DashEvent m_DashEndEvent;
-        
-        
+
+
 
         void Awake()
         {
@@ -30,7 +31,7 @@ namespace SpaceBaboon
             instance ??= this;
 
             m_Input = new PlayerInput();
-          
+
         }
 
         private void KillInstance()
@@ -44,6 +45,7 @@ namespace SpaceBaboon
             m_Input.PlayerMovement.PlayerDash.started += OnPlayerDash;
             m_Input.PlayerMovement.PlayerDirection.performed += OnPlayerDirection;
             m_Input.PlayerMovement.PlayerDirection.canceled += OnPlayerDirection;
+            m_Input.PlayerInteraction.CollectResource.started += OnCollectResource;
         }
 
         private void OnEnable()
@@ -64,6 +66,11 @@ namespace SpaceBaboon
         public void OnPlayerDash(InputAction.CallbackContext context)
         {
             m_DashStartEvent?.Invoke();
+        }
+
+        public void OnCollectResource(InputAction.CallbackContext context)
+        {
+            m_CollectResourceEvent?.Invoke();
         }
 
         //public void OnPlayerDashEnd(InputAction.CallbackContext context)

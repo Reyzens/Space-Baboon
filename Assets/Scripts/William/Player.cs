@@ -16,6 +16,7 @@ namespace SpaceBaboon
         private bool m_isDashing;
         private bool m_dashInputReceiver;
         private bool m_screenShake;
+        private bool m_collectibleInRange;
 
         private float m_currentDashCDCounter;
         private float m_activeDashCD;
@@ -28,7 +29,7 @@ namespace SpaceBaboon
         private AnimationCurve m_dashCurve;
         private Color m_spriteRendererColor;
 
-        private Dictionary<SpaceBaboon.InteractableResource.EResourceType, int> m_collectibleInventory;
+        private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
         //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
         //private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
         [SerializeField] private PlayerWeapon[] m_equippedWeapons = new PlayerWeapon[(int)EPlayerWeaponType.Count];
@@ -47,6 +48,7 @@ namespace SpaceBaboon
         [SerializeField] private GameObject m_dahsTrail;
         [SerializeField] private float m_screenShakeAmplitude = 5.0f;
         [SerializeField] private float m_screenShakeFrequency = 1.0f;
+        [SerializeField] private float m_collectRange;
 
         //Cheats related
         private bool m_isInvincible = false;
@@ -95,7 +97,7 @@ namespace SpaceBaboon
             InputHandler.instance.m_Input.Enable();
             SubscribeToInputEvent();
 
-            m_collectibleInventory = new Dictionary<InteractableResource.EResourceType, int>();
+            m_collectibleInventory = new Dictionary<Crafting.InteractableResource.EResourceType, int>();
             //m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
             //m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
 
@@ -134,12 +136,14 @@ namespace SpaceBaboon
         {
             InputHandler.instance.m_MoveEvent += Move;
             InputHandler.instance.m_DashStartEvent += DashStart;
+            InputHandler.instance.m_CollectResourceEvent += OnCollectResource;
         }
 
         private void UnsubscribeToInputEvent()
         {
             InputHandler.instance.m_MoveEvent -= Move;
             InputHandler.instance.m_DashStartEvent -= DashStart;
+            InputHandler.instance.m_CollectResourceEvent -= OnCollectResource;
         }
 
         #endregion Events
@@ -161,6 +165,17 @@ namespace SpaceBaboon
                 m_dashInputReceiver = true;
             }
         }
+        private void OnCollectResource()
+        {
+            if (m_collectibleInRange)
+            {
+                Crafting.InteractableResource resourceToCollect = SearchClosestResource();
+                if (resourceToCollect != null)
+                {
+                    resourceToCollect.Collect(this);
+                }
+            }
+        }
         #endregion EventMethods
 
         #region Collider
@@ -174,6 +189,20 @@ namespace SpaceBaboon
                 collision.gameObject.GetComponent<SpaceBaboon.Crafting.ResourceDropPoint>().CollectResource(this);
             }
 
+        }
+        private void OnTriggerStay2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Resource"))
+            {
+                m_collectibleInRange = true;
+            }
+        }
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.CompareTag("Resource"))
+            {
+                m_collectibleInRange = false;
+            }
         }
 
         //private void OnCollisionEnter2D(Collision2D collision)
@@ -308,7 +337,7 @@ namespace SpaceBaboon
         #endregion PlayerCoroutine
 
         #region Crafting
-        public void AddResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
+        public void AddResource(Crafting.InteractableResource.EResourceType resourceType, int amount)
         {
             if (!m_collectibleInventory.ContainsKey(resourceType))
             {
@@ -325,7 +354,7 @@ namespace SpaceBaboon
             }
         }
 
-        public bool DropResource(SpaceBaboon.InteractableResource.EResourceType resourceType, int amount)
+        public bool DropResource(Crafting.InteractableResource.EResourceType resourceType, int amount)
         {
             if (m_collectibleInventory.ContainsKey(resourceType) && !(m_collectibleInventory[resourceType] < amount))
             {
@@ -337,6 +366,23 @@ namespace SpaceBaboon
 
             return false;
         }
+
+        private Crafting.InteractableResource SearchClosestResource()
+        {
+            for (int i = 0; i < m_collectRange; i++)
+            {
+                var colliders = Physics2D.OverlapCircleAll(transform.position, i);
+
+                foreach (var collider in colliders)
+                {
+                    if (collider.gameObject.tag == "Resource")
+                    {
+                        return collider.gameObject.GetComponent<Crafting.InteractableResource>();
+                    }
+                }
+            }
+            return null;
+        }
         #endregion
 
         #region Gets
@@ -347,9 +393,9 @@ namespace SpaceBaboon
         }
         public int GetResources(int resourceType)
         {
-            if (m_collectibleInventory.ContainsKey((SpaceBaboon.InteractableResource.EResourceType)resourceType))
+            if (m_collectibleInventory.ContainsKey((Crafting.InteractableResource.EResourceType)resourceType))
             {
-                return m_collectibleInventory[(SpaceBaboon.InteractableResource.EResourceType)resourceType];
+                return m_collectibleInventory[(Crafting.InteractableResource.EResourceType)resourceType];
             }
             else
             {
@@ -358,9 +404,9 @@ namespace SpaceBaboon
         }
         private void DictionaryInistalisation()
         {
-            for (int i = 0; i != (int)SpaceBaboon.InteractableResource.EResourceType.Count; i++)
+            for (int i = 0; i != (int)Crafting.InteractableResource.EResourceType.Count; i++)
             {
-                m_collectibleInventory.Add((SpaceBaboon.InteractableResource.EResourceType)i, 0);
+                m_collectibleInventory.Add((Crafting.InteractableResource.EResourceType)i, 0);
             }
         }
 

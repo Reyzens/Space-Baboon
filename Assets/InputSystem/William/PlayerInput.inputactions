@@ -92,6 +92,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PlayerInteraction",
+            "id": "5bdefbba-13bf-4e41-aaf6-fae2776bf019",
+            "actions": [
+                {
+                    "name": "CollectResource",
+                    "type": "Button",
+                    "id": "710a26fd-ba19-47af-8a47-caa162017612",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0e998e7e-e2b3-479f-9014-06187291d305",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CollectResource",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
