@@ -5,24 +5,43 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class FlameThrowerProjectile : Projectile
     {
-        private Transform m_flamethrowerPosition;
-        private ParticleSystem m_flames;
-        private float m_flameRange;
-        private float m_flameWidth;
-        private float m_cooldownBetweenTick;
-        private float m_tickMaxDuration;
         [SerializeField] private float m_maxFlameDuration;
         [SerializeField] private float m_flameRotationSpeed = 100;
         [SerializeField] private const float m_targetUpdateTiming = 0.2f;
-        private float m_currentTargetUpdateTime;
-        private float m_currentFlameDuration;
-        private bool m_isFiring;
+
+        private Transform m_flamethrowerPosition;
+        private ParticleSystem m_flames;
         private PolygonCollider2D m_flameCollider;
 
+        private float m_tickMaxDuration;
+        private float m_cooldownBetweenTick;
+        private float m_currentFlameDuration;
+        private float m_flameRange;
+        private float m_flameWidth;
+        private float m_currentTargetUpdateTime;
+
+        private bool m_isFiring;
+
+        #region ParentOverride
         protected override void Awake()
         {
             m_flames = GetComponentInChildren<ParticleSystem>();
             m_flameCollider = GetComponent<PolygonCollider2D>();
+        }
+        protected override void Update()
+        {
+            if (m_flamethrowerPosition != null)
+            {
+                FollowTargetPosition(m_flamethrowerPosition.position);
+                RotateTowardTarget();
+            }
+            if (m_isFiring)
+            {
+                TargetUpdate();
+                TickUpdate();
+                OnProjectileEnd();
+                TimersUpdate();
+            }
         }
         public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform weaponPosition = null)
         {
@@ -42,6 +61,8 @@ namespace SpaceBaboon.WeaponSystem
             SetFlameSize(m_flameRange, m_flameWidth);
             ParticleEffectInitialization();
         }
+        #endregion
+        #region FlameThrowerLogic
         protected void SetFlameSize(float flameLenght, float flameWidth)
         {
             transform.localScale = new Vector3(flameLenght, flameWidth);
@@ -71,21 +92,6 @@ namespace SpaceBaboon.WeaponSystem
             m_damage = m_damage / (m_maxFlameDuration / m_tickMaxDuration);
 
             Debug.Log("Damage per tick = " + m_damage);
-        }
-        protected override void Update()
-        {
-            if (m_flamethrowerPosition != null)
-            {
-                FollowTargetPosition(m_flamethrowerPosition.position);
-                RotateTowardTarget();
-            }
-            if (m_isFiring)
-            {
-                TargetUpdate();
-                TickUpdate();
-                OnProjectileEnd();
-                TimersUpdate();
-            }
         }
         private void TargetUpdate()
         {
@@ -178,6 +184,12 @@ namespace SpaceBaboon.WeaponSystem
             }
             m_flameCollider.enabled = false;
         }
+        protected void ParticleEffectInitialization()
+        {
+            m_flames.transform.localScale = new Vector3(m_flames.transform.localScale.x, transform.localScale.y, transform.localScale.x);
+        }
+        #endregion
+        #region IPoolable
         protected override void SetComponents(bool value)
         {
             //Debug.Log("SetComponents parent appeler");
@@ -197,9 +209,6 @@ namespace SpaceBaboon.WeaponSystem
             m_currentTargetUpdateTime = -1;
             m_currentFlameDuration = m_maxFlameDuration;
         }
-        protected void ParticleEffectInitialization()
-        {
-            m_flames.transform.localScale = new Vector3(m_flames.transform.localScale.x, transform.localScale.y, transform.localScale.x);
-        }
+        #endregion
     }
 }
