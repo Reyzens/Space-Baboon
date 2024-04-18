@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3985185299581359242}
   - component: {fileID: 6536154603445995872}
-  - component: {fileID: 5252145231231116045}
+  - component: {fileID: -281119131247610033}
+  - component: {fileID: -3321795963661488798}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: ExplodingEnemyExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,7 +86,42 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5252145231231116045
+--- !u!58 &-281119131247610033
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8703325170743144796}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
+--- !u!114 &-3321795963661488798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,7 +130,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8703325170743144796}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba5baffee02be64bb36f232070147dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 62e6f282bcaac094ab8d3db11dd860ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_timer: 1
+  m_projectileData: {fileID: 11400000, guid: 75e52fdd15d7e03438dce1b4873135be, type: 2}
+  m_sizeChangeCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

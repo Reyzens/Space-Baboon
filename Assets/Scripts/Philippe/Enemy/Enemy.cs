@@ -54,7 +54,7 @@ namespace SpaceBaboon.EnemySystem
                 ReadyContactAttack();
         }
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             if (!m_isActive)
                 return;
@@ -84,6 +84,11 @@ namespace SpaceBaboon.EnemySystem
         private void OnCollisionStay2D(Collision2D collision)
         {
             SlightPushFromObstructingObject(collision);
+        }
+
+        protected void StopMovement()
+        {
+            m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
         }
 
         private void CalculateDistanceToPlayer()
