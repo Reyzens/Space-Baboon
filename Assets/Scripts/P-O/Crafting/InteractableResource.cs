@@ -2,7 +2,7 @@ using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.Crafting
 {
     public class InteractableResource : MonoBehaviour, IPoolable
     {
@@ -64,16 +64,7 @@ namespace SpaceBaboon
         }
 
         #region CollectingLogic
-        void OnCollisionStay2D(Collision2D collision)
-        {
-            if (m_DebugMode && collision.gameObject.tag == "Player") { Debug.Log("CollisionDetected with player"); }
-
-            if (collision.gameObject.tag == "Player" && !m_isBeingCollected)
-            {
-                Collect(collision.gameObject.GetComponent<Player>());
-            }
-        }
-        private void Collect(Player collectingPlayer)
+        public void Collect(Player collectingPlayer)
         {
             if (!m_isBeingCollected)
             {
@@ -82,7 +73,6 @@ namespace SpaceBaboon
                 m_collectingPlayer = collectingPlayer;
             }
         }
-
         private void FinishCollecting()
         {
             if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }

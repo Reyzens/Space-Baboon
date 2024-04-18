@@ -116,6 +116,34 @@ namespace SpaceBaboon
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""PlayerInteraction"",
+            ""id"": ""5bdefbba-13bf-4e41-aaf6-fae2776bf019"",
+            ""actions"": [
+                {
+                    ""name"": ""CollectResource"",
+                    ""type"": ""Button"",
+                    ""id"": ""710a26fd-ba19-47af-8a47-caa162017612"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""0e998e7e-e2b3-479f-9014-06187291d305"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CollectResource"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -124,6 +152,9 @@ namespace SpaceBaboon
             m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
             m_PlayerMovement_PlayerDirection = m_PlayerMovement.FindAction("PlayerDirection", throwIfNotFound: true);
             m_PlayerMovement_PlayerDash = m_PlayerMovement.FindAction("PlayerDash", throwIfNotFound: true);
+            // PlayerInteraction
+            m_PlayerInteraction = asset.FindActionMap("PlayerInteraction", throwIfNotFound: true);
+            m_PlayerInteraction_CollectResource = m_PlayerInteraction.FindAction("CollectResource", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -235,10 +266,60 @@ namespace SpaceBaboon
             }
         }
         public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+
+        // PlayerInteraction
+        private readonly InputActionMap m_PlayerInteraction;
+        private List<IPlayerInteractionActions> m_PlayerInteractionActionsCallbackInterfaces = new List<IPlayerInteractionActions>();
+        private readonly InputAction m_PlayerInteraction_CollectResource;
+        public struct PlayerInteractionActions
+        {
+            private @PlayerInput m_Wrapper;
+            public PlayerInteractionActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+            public InputAction @CollectResource => m_Wrapper.m_PlayerInteraction_CollectResource;
+            public InputActionMap Get() { return m_Wrapper.m_PlayerInteraction; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(PlayerInteractionActions set) { return set.Get(); }
+            public void AddCallbacks(IPlayerInteractionActions instance)
+            {
+                if (instance == null || m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces.Add(instance);
+                @CollectResource.started += instance.OnCollectResource;
+                @CollectResource.performed += instance.OnCollectResource;
+                @CollectResource.canceled += instance.OnCollectResource;
+            }
+
+            private void UnregisterCallbacks(IPlayerInteractionActions instance)
+            {
+                @CollectResource.started -= instance.OnCollectResource;
+                @CollectResource.performed -= instance.OnCollectResource;
+                @CollectResource.canceled -= instance.OnCollectResource;
+            }
+
+            public void RemoveCallbacks(IPlayerInteractionActions instance)
+            {
+                if (m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces.Remove(instance))
+                    UnregisterCallbacks(instance);
+            }
+
+            public void SetCallbacks(IPlayerInteractionActions instance)
+            {
+                foreach (var item in m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces)
+                    UnregisterCallbacks(item);
+                m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces.Clear();
+                AddCallbacks(instance);
+            }
+        }
+        public PlayerInteractionActions @PlayerInteraction => new PlayerInteractionActions(this);
         public interface IPlayerMovementActions
         {
             void OnPlayerDirection(InputAction.CallbackContext context);
             void OnPlayerDash(InputAction.CallbackContext context);
+        }
+        public interface IPlayerInteractionActions
+        {
+            void OnCollectResource(InputAction.CallbackContext context);
         }
     }
 }

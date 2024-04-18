@@ -5,7 +5,9 @@ namespace SpaceBaboon.WeaponSystem
     public class FlameThrower : PlayerWeapon
     {
         [SerializeField] private float m_detectionOffSet = 5;
+
         private float m_detectionRange;
+        private Transform m_target;
 
         protected void Start()
         {

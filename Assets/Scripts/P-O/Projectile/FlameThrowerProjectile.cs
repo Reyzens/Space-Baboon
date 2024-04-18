@@ -5,6 +5,7 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class FlameThrowerProjectile : Projectile
     {
+        #region Variables
         [SerializeField] private float m_maxFlameDuration;
         [SerializeField] private float m_flameRotationSpeed = 100;
         [SerializeField] private const float m_targetUpdateTiming = 0.2f;
@@ -21,7 +22,7 @@ namespace SpaceBaboon.WeaponSystem
         private float m_currentTargetUpdateTime;
 
         private bool m_isFiring;
-
+        #endregion
         #region ParentOverride
         protected override void Awake()
         {
