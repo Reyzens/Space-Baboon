@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public class Projectile : MonoBehaviour, IPoolableGeneric
+    public class Projectile : BaseStats<MonoBehaviour>, IPoolableGeneric, IStatsEditable
     {
         [SerializeField] protected ProjectileData m_projectileData;
 
@@ -107,6 +107,11 @@ namespace SpaceBaboon.WeaponSystem
             m_collider.enabled = value;
         }
         #endregion
+
+        public override ScriptableObject GetData()
+        {
+            return m_projectileData;
+        }
 
 
     }
