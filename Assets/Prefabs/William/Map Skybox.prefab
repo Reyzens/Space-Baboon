@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 7087967535053298871}
   - component: {fileID: 3305312452624549020}
   - component: {fileID: 6640620187096152118}
+  - component: {fileID: 2266229733227757277}
   m_Layer: 5
   m_Name: Map Skybox
   m_TagString: Untagged
@@ -177,3 +178,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2266229733227757277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9143551381496259412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c78724f29a8d7846868cf7dc7545869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
