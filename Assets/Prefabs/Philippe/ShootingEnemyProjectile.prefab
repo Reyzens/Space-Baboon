@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3937295202690764495}
   - component: {fileID: 7478251897150344263}
   - component: {fileID: -2916069396274091028}
+  - component: {fileID: -5253946195126456537}
   m_Layer: 11
   m_Name: ShootingEnemyProjectile
   m_TagString: Untagged
@@ -116,7 +117,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -162,3 +163,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectileData: {fileID: 11400000, guid: bd4178eb8351cdb4f8851e92cccc6766, type: 2}
+--- !u!114 &-5253946195126456537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3232392315396720683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CanHit>k__BackingField: 1
+  <CanReceiveHit>k__BackingField: 0
+  <AgentType>k__BackingField: 1
+  <AffectedAgents>k__BackingField: 00000000

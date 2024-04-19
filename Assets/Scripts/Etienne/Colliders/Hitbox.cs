@@ -68,9 +68,9 @@ namespace SpaceBaboon
 
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        void OnTriggerEnter2D(Collider2D other) // Triggers are only used by projectiles
         {
-            Debug.Log("Entered ontrigger");
+            //Debug.Log("Entered ontrigger");
             var otherHb = other.gameObject.GetComponent<Hitbox>();
             if (otherHb == null)
             {
@@ -82,31 +82,35 @@ namespace SpaceBaboon
 
             if (OtherHitboxCanReceiveHit(otherHb))
             {
+                var projectile = GetComponent<WeaponSystem.Projectile>();
+                if (projectile == null)
+                {
+                    //Debug.Log("projectile null");
+                    return;
+                }
+
                 switch (AgentType)
                 {
                     case EAgentType.Player:
-                        //must be a projectile
                         var enemy = other.gameObject.GetComponent<EnemySystem.Enemy>();
-                        var projectile = GetComponent<WeaponSystem.Projectile>();
-                        if (enemy == null || projectile == null)
+                        if (enemy == null)
                         {
-                            //Debug.Log("enemy or projectile null");
+                            //Debug.Log("enemy null");
                             return;
                         }
-                        //if (enemy == null)
-                        //{
-                        //    Debug.Log("enemy null");
-                        //    return;
-                        //}
-                        //if (projectile == null)
-                        //{
-                        //    Debug.Log("projectile null");
-                        //    return;
-                        //}
-                        enemy.OnDamageTaken(projectile.OnHit());
 
+                        enemy.OnDamageTaken(projectile.OnHit());
                         break;
+
                     case EAgentType.Enemy:
+                        var player = other.gameObject.GetComponent<Player>();
+                        if (player == null)
+                        {
+                            //Debug.Log("player null");
+                            return;
+                        }
+
+                        player.OnDamageTaken(projectile.OnHit());
                         break;
                     case EAgentType.Count:
                         break;

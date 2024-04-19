@@ -47,13 +47,13 @@ namespace SpaceBaboon.WeaponSystem
             // TODO maybe
         }        
 
-        protected override void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.CompareTag("Player") /*&& m_isExploding*/)
-            {
-                m_player.OnDamageTaken(m_projectileData.damage);
-                m_collider.enabled = false;
-            }
-        }        
+        //protected override void OnCollisionEnter2D(Collision2D collision)
+        //{
+        //    if (collision.gameObject.CompareTag("Player") /*&& m_isExploding*/)
+        //    {
+        //        m_player.OnDamageTaken(m_projectileData.damage);
+        //        m_collider.enabled = false;
+        //    }
+        //}        
     }
 }

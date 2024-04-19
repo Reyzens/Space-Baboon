@@ -22,15 +22,16 @@ namespace SpaceBaboon.WeaponSystem
 
         protected override void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                m_player.OnDamageTaken(m_projectileData.damage);
+            //if (collision.gameObject.CompareTag("Player"))
+            //{
+            //    m_player.OnDamageTaken(m_projectileData.damage);
+            //    m_parentPool.UnSpawn(gameObject);
+            //}
+            //if (collision.gameObject.CompareTag("Obstacle"))
+            //{
+            //    m_parentPool.UnSpawn(gameObject);
+            //}
                 m_parentPool.UnSpawn(gameObject);
-            }
-            if (collision.gameObject.CompareTag("Obstacle"))
-            {
-                m_parentPool.UnSpawn(gameObject);
-            }
         }
     }
 }

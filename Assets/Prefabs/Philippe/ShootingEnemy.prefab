@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CanHit>k__BackingField: 0
+  <CanHit>k__BackingField: 1
   <CanReceiveHit>k__BackingField: 1
   <AgentType>k__BackingField: 1
-  <AffectedAgents>k__BackingField: 
+  <AffectedAgents>k__BackingField: 00000000
