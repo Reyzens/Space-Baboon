@@ -1,4 +1,3 @@
-using SpaceBaboon.Crafting;
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
@@ -162,11 +161,6 @@ namespace SpaceBaboon
             public Vector2 GetMapOffset() { return m_mapOffset; }
             public float GetMapHalfWidth() { return m_mapHalfWidth; }
             public float GetMapHalfHeight() { return m_mapHalfHeight; }
-        }
-
-        private void HandleShardSpawn(GameObject shardPrefab, Vector2 spawnPosition, Vector2 direction, float strength, Player player)
-        {
-            m_shardPool.Spawn(shardPrefab, spawnPosition).GetComponent<ResourceShards>().Initialization(direction, strength, player);
         }
     }
 }

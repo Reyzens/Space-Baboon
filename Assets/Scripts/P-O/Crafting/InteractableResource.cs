@@ -15,10 +15,6 @@ namespace SpaceBaboon.Crafting
         private float m_currentCooldown = 0;
         private Player m_collectingPlayer;
 
-        //Events
-        public delegate void ShardSpawnHandler(GameObject shardPrefab, Vector2 spawnPosition, Vector2 direction, float strength, Player player);
-        public event ShardSpawnHandler OnShardSpawn;
-
         //Ipoolable variables
         private bool m_isActive = false;
         private ObjectPool m_parentPool;
@@ -87,7 +83,6 @@ namespace SpaceBaboon.Crafting
             {
                 spawnAngle = i * angleBetweenShards * Mathf.Deg2Rad;
                 direction = new Vector2(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle));
-                OnShardSpawn?.Invoke(m_resourceData.m_shardPrefab, transform.position, direction, shardsSpawnStrenght, m_collectingPlayer);
             }
 
             m_collectingPlayer.AddResource(m_resourceData.m_resourceType, m_resourceData.m_resourceAmount);
