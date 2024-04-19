@@ -4,6 +4,9 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ExplodingEnemyExplosion : Projectile
     {
+        // TODO Check if I need to integrate IExplodableData scriptable object,
+        // right now the exploding enemy logic don't need it. Delete scriptable object 
+        // in project if I realise I don't use it
         private ExplodingEnemyProjectileData m_uniqueData;
         [SerializeField] private AnimationCurve m_sizeChangeCurve;       
 
@@ -22,6 +25,8 @@ namespace SpaceBaboon.WeaponSystem
             m_animator = GetComponent<Animator>();
 
             m_initialScale = transform.localScale;
+
+            m_damage = m_uniqueData.damage;
         }
 
         protected override void Update()
@@ -45,7 +50,13 @@ namespace SpaceBaboon.WeaponSystem
         private void UpdateDamageBasedOnAnimCurve()
         {
             // TODO maybe
-        }        
+        }
+
+        public override float OnHit()
+        {
+            Debug.Log("OnHit called by :  " + gameObject.name + "with " + m_uniqueData.damage + " damage");
+            return m_uniqueData.damage;
+        }
 
         //protected override void OnCollisionEnter2D(Collision2D collision)
         //{

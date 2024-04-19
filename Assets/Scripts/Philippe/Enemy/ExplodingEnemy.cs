@@ -1,4 +1,4 @@
-using UnityEditor.PackageManager.Requests;
+using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
@@ -125,6 +125,11 @@ namespace SpaceBaboon.EnemySystem
             m_renderer.sprite = m_baseSprite;
             m_renderer.color = m_baseColor;
             m_chargingExplosionTimer = m_uniqueData.delayBeforeExplosion;
+        }
+
+        public override bool CanAttack()
+        {
+            return false;
         }
     }
 }
