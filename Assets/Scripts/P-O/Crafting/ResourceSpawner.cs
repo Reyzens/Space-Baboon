@@ -1,3 +1,5 @@
+using SpaceBaboon.Crafting;
+using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +17,8 @@ namespace SpaceBaboon
         [SerializeField] private float m_mapBorderOffSet;
 
         private Dictionary<GameObject, ObjectPool> m_resourceDictionary = new Dictionary<GameObject, ObjectPool>();
+        private List<GameObject> m_resourceShardList = new List<GameObject>();
+        private GenericObjectPool m_shardPool = new GenericObjectPool();
         private SMapData m_mapData;
 
 
@@ -25,6 +29,7 @@ namespace SpaceBaboon
                 if (!m_resourceDictionary.ContainsKey(resource))
                 {
                     m_resourceDictionary.Add(resource, new ObjectPool());
+                    m_resourceShardList.Add(resource.GetComponent<Crafting.InteractableResource>().GetResourceShardPrefab());
                 }
             }
 
@@ -39,8 +44,10 @@ namespace SpaceBaboon
             {
                 resource.Value.SetPoolSize(m_poolSize);
                 resource.Value.CreatePool(resource.Key);
-
             }
+
+            m_shardPool.SetPoolStartingSize(m_poolSize);
+            m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
         }
 
         private void Update()
@@ -155,6 +162,11 @@ namespace SpaceBaboon
             public Vector2 GetMapOffset() { return m_mapOffset; }
             public float GetMapHalfWidth() { return m_mapHalfWidth; }
             public float GetMapHalfHeight() { return m_mapHalfHeight; }
+        }
+
+        private void HandleShardSpawn(GameObject shardPrefab, Vector2 spawnPosition, Vector2 direction, float strength, Player player)
+        {
+            m_shardPool.Spawn(shardPrefab, spawnPosition).GetComponent<ResourceShards>().Initialization(direction, strength, player);
         }
     }
 }
