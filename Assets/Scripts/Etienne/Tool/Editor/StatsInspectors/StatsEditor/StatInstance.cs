@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -32,6 +33,7 @@ namespace SpaceBaboon
         private void OnCurrentValueChanged(ChangeEvent<float> evt)
         {
             m_item.SetValue(m_scriptableObject, evt.newValue);
+            EditorUtility.SetDirty(m_scriptableObject);
         }
     }
 }

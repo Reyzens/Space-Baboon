@@ -19,5 +19,7 @@ namespace SpaceBaboon.WeaponSystem
         public float speed;
         public float damage;
         public float maxLifetime;
+        public float defaultAcceleration;
+        public float defaultMaxVelocity;
     }
 }

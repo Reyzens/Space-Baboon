@@ -65,7 +65,7 @@ MonoBehaviour:
     m_poolStartingSize: 100
   m_pooledEnemyProjectiles:
   - {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
-  - {fileID: 5261725043433172466, guid: 9ef2d5f73657e9f41ba625d7e55cf355, type: 3}
+  - {fileID: 8703325170743144796, guid: 8109816a57a5c5c418efd2f44c0c4aa3, type: 3}
   m_map: {fileID: 0}
   m_spawnRadiusFromScreenCorner: 1
   m_spawningDelay: 1

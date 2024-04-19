@@ -91,7 +91,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_isChargingExplosion = true;
             m_animator.enabled = false;
-            m_rB.constraints = RigidbodyConstraints2D.FreezePosition;
+            m_rB.constraints = RigidbodyConstraints2D.FreezeAll;
             m_renderer.sprite = m_chargingExplosionSprite;            
         }
 
