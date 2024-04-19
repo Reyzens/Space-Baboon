@@ -9,6 +9,7 @@ namespace SpaceBaboon.EnemySystem
         Melee,
         Shooting,
         Kamikaze,
+        Boss,
         Count
     }
 
@@ -72,6 +73,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void SpawnOneEnemy()
         {
+            Debug.Log("Try to spawn one");
             Vector3 spawnWorldPos = FindValidEnemyRandomPos();
             m_enemyPool.Spawn(GetRandomEnemyType(), spawnWorldPos);
         }

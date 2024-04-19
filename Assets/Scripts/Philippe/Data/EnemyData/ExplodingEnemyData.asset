@@ -25,3 +25,4 @@ MonoBehaviour:
   size: 0
   obstructionPushForce: 25
   minDistanceForTriggeringBomb: 10
+  delayBeforeExplosion: 3

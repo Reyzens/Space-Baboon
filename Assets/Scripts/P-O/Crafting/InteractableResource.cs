@@ -7,10 +7,8 @@ namespace SpaceBaboon.Crafting
     public class InteractableResource : MonoBehaviour, IPoolable
     {
         //Serializable
-        [SerializeField]
-        private ResourceData m_resourceData;
-        [SerializeField]
-        private bool m_DebugMode;
+        [SerializeField] private ResourceData m_resourceData;
+        [SerializeField] private bool m_DebugMode;
 
         //Private variables
         private bool m_isBeingCollected = false;
@@ -26,6 +24,7 @@ namespace SpaceBaboon.Crafting
 
         //Static variables
         static Dictionary<EResourceType, ResourceData> Resources = new Dictionary<EResourceType, ResourceData>();
+        [SerializeField] static float shardsSpawnStrenght;
 
         public bool IsActive { get { return m_isActive; } }
 
@@ -76,8 +75,22 @@ namespace SpaceBaboon.Crafting
         private void FinishCollecting()
         {
             if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }
+            Vector2 direction;
+            float angleBetweenShards = 360 / m_resourceData.m_resourceAmount;
+            float spawnAngle;
+
+            for (int i = 0; i < m_resourceData.m_resourceAmount; i++)
+            {
+                spawnAngle = i * angleBetweenShards * Mathf.Deg2Rad;
+                direction = new Vector2(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle));
+            }
+
             m_collectingPlayer.AddResource(m_resourceData.m_resourceType, m_resourceData.m_resourceAmount);
             m_parentPool.UnSpawn(gameObject);
+        }
+        public GameObject GetResourceShardPrefab()
+        {
+            return m_resourceData.m_shardPrefab;
         }
         #endregion
         #region IPoolable

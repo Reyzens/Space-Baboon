@@ -16,3 +16,4 @@ MonoBehaviour:
   m_icon: {fileID: 0}
   m_resourceType: 2
   m_resourceAmount: 10
+  m_shardPrefab: {fileID: 1729261914930837006, guid: 2a94fcc62101658428f6b78f26d4f6c8, type: 3}

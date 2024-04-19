@@ -12,5 +12,6 @@ namespace SpaceBaboon
         public Sprite m_icon;
         public Crafting.InteractableResource.EResourceType m_resourceType;
         public int m_resourceAmount;
+        public GameObject m_shardPrefab;
     }
 }

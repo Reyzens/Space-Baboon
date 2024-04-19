@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e54b8645e89a52d40a49e7beee5081fc, type: 3}
+  m_Name: BossEnemyData
+  m_EditorClassIdentifier: 
+  index: 0
+  characterName: Boss
+  defaultHealth: 50
+  sprite: {fileID: 0}
+  prefab: {fileID: 0}
+  defaultAcceleration: 30
+  defaultMaxVelocity: 10
+  enemyType: 3
+  defaultContactAttackDamage: 0
+  defaultContactAttackDelay: 0
+  size: 0
+  obstructionPushForce: 25
+  test: 0

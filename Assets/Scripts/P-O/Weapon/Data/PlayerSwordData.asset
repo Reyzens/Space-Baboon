@@ -16,6 +16,11 @@ MonoBehaviour:
   maxRange: 15
   attackZone: 15
   attackSpeed: 2
+  baseDamage: 5
   weaponName: 
   icon: {fileID: 0}
   projectilePrefab: {fileID: 6735966916451001486, guid: a735f90179f5b4841a34c2fc22bf6cd6, type: 3}
+  m_rangeScaling: 0.25
+  m_speedScaling: 0.25
+  m_zoneScaling: 0.25
+  m_damageScaling: 0.25
