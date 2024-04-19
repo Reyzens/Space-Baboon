@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.CollisionSystem
 {
     public enum EAgentType
     {
