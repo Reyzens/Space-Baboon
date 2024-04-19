@@ -166,7 +166,7 @@ namespace SpaceBaboon.EnemySystem
         }        
 
         #region HitBox
-        public bool CanAttack()
+        public virtual bool CanAttack()
         {
             return m_contactAttackReady;
         }
