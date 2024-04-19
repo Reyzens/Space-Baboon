@@ -21,11 +21,6 @@ namespace SpaceBaboon
             VisualElement root = new VisualElement();
             root.Add(new IMGUIContainer(OnInspectorGUI));
 
-            //var button = new Button(OnButtonClicked);
-            //button.style.height = 20;
-            //button.text = "test button";
-            //root.Add(button);
-
             var feature = target as IStatsEditable;
             var so = feature.GetData();
 
@@ -48,14 +43,6 @@ namespace SpaceBaboon
                         //m_tree.CloneTree(root);
                         VisualElement clone = m_floatTemplate.CloneTree();
                         root.Add(clone);
-
-                        //Label name = clone.Q<Label>("Name");
-                        //name.text = item.Name;
-                        //
-                        //var currentValue = clone.Q<FloatField>("Value");
-                        //currentValue.value = (float)item.GetValue(scriptableObject);
-                        //currentValue.RegisterValueChangedCallback(OnCurrentValueChanged);
-
 
                         StatInstance inst = new StatInstance();
                         inst.Create(clone, item, scriptableObject);
