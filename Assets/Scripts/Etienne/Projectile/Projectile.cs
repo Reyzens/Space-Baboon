@@ -19,10 +19,13 @@ namespace SpaceBaboon.WeaponSystem
         protected SpriteRenderer m_renderer;
         protected CircleCollider2D m_collider;
 
+        protected Rigidbody2D m_rb;
+
         protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
+            m_rb = GetComponent<Rigidbody2D>();
         }
         protected virtual void Update()
         {
@@ -49,6 +52,23 @@ namespace SpaceBaboon.WeaponSystem
         {
             Debug.Log("OnHit called by :  " + gameObject.name + "with " + m_damage + " damage");
             return m_damage;
+        }
+
+        protected void Move()
+        {
+            m_rb.AddForce(m_direction * m_projectileData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
+
+            if (m_direction.magnitude > 0)
+                RegulateVelocity();
+        }
+
+        private void RegulateVelocity()
+        {
+            if (m_rb.velocity.magnitude > m_projectileData.defaultMaxVelocity)
+            {
+                m_rb.velocity = m_rb.velocity.normalized;
+                m_rb.velocity *= m_projectileData.defaultMaxVelocity;
+            }
         }
 
         #region ObjectPooling

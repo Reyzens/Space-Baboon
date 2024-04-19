@@ -13,6 +13,16 @@ namespace SpaceBaboon.WeaponSystem
             m_player = m_playerObject.GetComponent<Player>();
         }
 
+        protected override void Update()
+        {
+            base.Update();
+
+            if (!m_isActive)
+                return;
+
+            Move();
+        }
+
         public override void Shoot(Transform direction, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
             Vector2 newDirection = direction.position;
@@ -32,6 +42,6 @@ namespace SpaceBaboon.WeaponSystem
             //    m_parentPool.UnSpawn(gameObject);
             //}
                 m_parentPool.UnSpawn(gameObject);
-        }
+        }        
     }
 }
