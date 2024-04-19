@@ -1,3 +1,4 @@
+using SpaceBaboon.FXSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +50,7 @@ namespace SpaceBaboon.CollisionSystem
                         var enemy = GetComponent<EnemySystem.Enemy>();
                         if (enemy == null)
                         {
-                            Debug.Log("enemy null");
+                            //Debug.Log("enemy null");
                             return;
                         }
 
@@ -109,6 +110,8 @@ namespace SpaceBaboon.CollisionSystem
                             //Debug.Log("player null");
                             return;
                         }
+
+                        FXManager.Instance.PlayAudio(EFXType.PlayerHit);
 
                         player.OnDamageTaken(projectile.OnHit());
                         break;
