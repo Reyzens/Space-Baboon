@@ -1,3 +1,4 @@
+using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ namespace SpaceBaboon
         [SerializeField] private float m_mapBorderOffSet;
 
         private Dictionary<GameObject, ObjectPool> m_resourceDictionary = new Dictionary<GameObject, ObjectPool>();
+        private List<GameObject> m_resourceShardList = new List<GameObject>();
+        private GenericObjectPool m_shardPool = new GenericObjectPool();
         private SMapData m_mapData;
 
 
@@ -25,6 +28,7 @@ namespace SpaceBaboon
                 if (!m_resourceDictionary.ContainsKey(resource))
                 {
                     m_resourceDictionary.Add(resource, new ObjectPool());
+                    m_resourceShardList.Add(resource.GetComponent<Crafting.InteractableResource>().GetResourceShardPrefab());
                 }
             }
 
@@ -39,8 +43,10 @@ namespace SpaceBaboon
             {
                 resource.Value.SetPoolSize(m_poolSize);
                 resource.Value.CreatePool(resource.Key);
-
             }
+
+            m_shardPool.SetPoolStartingSize(m_poolSize);
+            m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
         }
 
         private void Update()

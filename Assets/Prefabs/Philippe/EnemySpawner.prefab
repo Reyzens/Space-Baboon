@@ -51,7 +51,7 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
     enemyType: 0
     spawnProbability: 5
-    canSpawn: 1
+    canSpawn: 0
   - enemyPrefab: {fileID: 6346816228064842483, guid: 2079feb3c5ff88e41810bfbb34a470cf, type: 3}
     enemyType: 1
     spawnProbability: 5
@@ -60,6 +60,10 @@ MonoBehaviour:
     enemyType: 2
     spawnProbability: 5
     canSpawn: 0
+  - enemyPrefab: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
+    enemyType: 3
+    spawnProbability: 5
+    canSpawn: 1
   m_enemyProjectilesPool:
     m_container: {fileID: 0}
     m_poolStartingSize: 100

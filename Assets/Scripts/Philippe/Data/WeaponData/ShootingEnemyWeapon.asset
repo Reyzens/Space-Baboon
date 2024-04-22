@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63be2cecab8df284f8e245155ee3b07e, type: 3}
-  m_Name: PlayerSwordData
+  m_Name: ShootingEnemyWeapon
   m_EditorClassIdentifier: 
   maxLevel: 0
-  maxRange: 15
-  attackZone: 15
-  attackSpeed: 2
-  baseDamage: 5
+  maxRange: 0
+  attackZone: 0
+  attackSpeed: 0
+  baseDamage: 15
   weaponName: 
   icon: {fileID: 0}
-  projectilePrefab: {fileID: 6735966916451001486, guid: a735f90179f5b4841a34c2fc22bf6cd6, type: 3}
-  m_rangeScaling: 0.25
-  m_speedScaling: 0.25
-  m_zoneScaling: 0.25
-  m_damageScaling: 0.25
+  projectilePrefab: {fileID: 0}
+  m_rangeScaling: 0
+  m_speedScaling: 0
+  m_zoneScaling: 0
+  m_damageScaling: 0

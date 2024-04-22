@@ -9,20 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2460f886752bd94980a8f45c452db62, type: 3}
-  m_Name: ExplodingEnemyData
+  m_Script: {fileID: 11500000, guid: e54b8645e89a52d40a49e7beee5081fc, type: 3}
+  m_Name: BossEnemyData
   m_EditorClassIdentifier: 
   index: 0
-  characterName: Exploding Enemy
-  defaultHealth: 10
+  characterName: Boss
+  defaultHealth: 50
   sprite: {fileID: 0}
   prefab: {fileID: 0}
   defaultAcceleration: 30
   defaultMaxVelocity: 10
-  enemyType: 2
+  enemyType: 3
   defaultContactAttackDamage: 0
   defaultContactAttackDelay: 0
   size: 0
   obstructionPushForce: 25
-  minDistanceForTriggeringBomb: 10
-  delayBeforeExplosion: 3
+  test: 0
