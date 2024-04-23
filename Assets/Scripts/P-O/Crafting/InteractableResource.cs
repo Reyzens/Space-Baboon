@@ -104,6 +104,10 @@ namespace SpaceBaboon.Crafting
         {
             m_collectingWeapon = weapon;
         }
+        public float GetCollectTimer()
+        {
+            return m_resourceData.m_cooldownMax;
+        }
         #endregion
         #region IPoolable
         public void Activate(Vector2 pos, ObjectPool pool)
