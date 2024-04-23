@@ -15,7 +15,7 @@ namespace SpaceBaboon
         [SerializeField]
         private int m_currentkill;
         [SerializeField]
-        private List<GameObject> m_enemiesInArea;
+        private List<GameObject> m_enemiesInArea = new List<GameObject>();
         [SerializeField] 
         private List<ResourceDropPoint> m_dropPointList;
         [SerializeField]
@@ -26,8 +26,7 @@ namespace SpaceBaboon
         {
             m_craftingPuzzleEnable = true;
             m_craftingStationScript = GetComponent<CraftingStation>();
-            m_dropPointList = m_craftingStationScript.m_resourceDropPoints;
-            m_enemiesInArea = new List<GameObject>();
+            m_dropPointList = m_craftingStationScript.GetDropPopint();
             m_currentkill = 0;
             SetDropPoints();
         }
@@ -74,20 +73,38 @@ namespace SpaceBaboon
             PuzzleCounter();
         }
 
-        private void OnTriggerEnter2D(Collider2D collidedObject)
-        {
-            if (collidedObject.gameObject.CompareTag("Enemy") && m_craftingPuzzleEnable == true)
-            {
-                m_enemiesInArea.Add(collidedObject.gameObject);
-            }
-        }
+       // private void OnTriggerEnter2D(Collider2D collidedObject)
+       // {
+       //     Debug.Log("Something Detected");
+       //     if (collidedObject.gameObject.CompareTag("Enemy") && m_craftingPuzzleEnable == true)
+       //     {
+       //         Debug.Log("Enemy Detected");
+       //         m_enemiesInArea.Add(collidedObject.gameObject);
+       //         //if (collidedObject.GetType().ToString().Equals("UnityEngine.CircleCollider2D"))
+       //         //{
+       //         //    Debug.Log("Enemy Detected");
+       //         //    m_enemiesInArea.Add(collidedObject.gameObject);
+       //         //}
+       //     }
+       // }
+       //
+       // private void OnTriggerExit(Collider collidedObject)
+       // {
+       //     if (collidedObject.gameObject.CompareTag("Enemy") && m_craftingPuzzleEnable == true)
+       //     {
+       //         m_enemiesInArea.Remove(collidedObject.gameObject);
+       //     }
+       // }
 
-        private void OnTriggerExit(Collider collidedObject)
+        private void OnEnemyDetected(GameObject collider)
         {
-            if (collidedObject.gameObject.CompareTag("Enemy") && m_craftingPuzzleEnable == true)
-            {
-                m_enemiesInArea.Remove(collidedObject.gameObject);
-            }
+            Debug.Log("Enemy Detected");
+            //m_enemiesInArea.Add(collidedObject.gameObject);
+        }
+        private void OnEnemyExit(GameObject collider)
+        {
+            Debug.Log("Enemy Exit");
+            //m_enemiesInArea.Remove(collidedObject.gameObject);
         }
     }
 }

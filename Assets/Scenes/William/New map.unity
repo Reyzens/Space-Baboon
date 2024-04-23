@@ -689,6 +689,14 @@ PrefabInstance:
       propertyPath: m_map
       value: 
       objectReference: {fileID: 1579317090}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[0].canSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[3].canSpawn
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -808,6 +816,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3780022483908942413, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3780022483908942413, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+      propertyPath: m_LayerOverridePriority
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5186741816614294327, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_Name
       value: CraftingStationOne
