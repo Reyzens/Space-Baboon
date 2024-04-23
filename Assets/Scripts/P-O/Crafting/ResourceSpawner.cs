@@ -128,7 +128,8 @@ namespace SpaceBaboon
                 int resourceIndex = Random.Range(0, m_resourcesPrefab.Count);
                 if (m_resourceDictionary[m_resourcesPrefab[resourceIndex]].GetPoolQueueSize() != 0)
                 {
-                    m_resourceDictionary[m_resourcesPrefab[resourceIndex]].Spawn(spawnPosition);
+                    var spawnedResource = m_resourceDictionary[m_resourcesPrefab[resourceIndex]].Spawn(spawnPosition);
+                    spawnedResource.GetComponent<Crafting.InteractableResource>().SetShardPoolRef(m_shardPool);
                     canSpawn = false;
                 }
                 else
