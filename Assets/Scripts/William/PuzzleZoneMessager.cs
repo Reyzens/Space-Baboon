@@ -18,14 +18,15 @@ namespace SpaceBaboon
         
         }
 
-        private void OnTriggerEnter2D(CircleCollider2D collidedObject)
+        private void OnTriggerEnter2D(Collider2D collidedObject)
         {
-            
+            if (collidedObject.gameObject.CompareTag("Enemy"))
+            {
                 SendMessageUpwards("OnEnemyDetected", collidedObject.gameObject);
-            
+            }
         }
 
-        private void OnTriggerExit2D(CircleCollider2D collidedObject)
+        private void OnTriggerExit2D(Collider2D collidedObject)
         {
             if (collidedObject.gameObject.CompareTag("Enemy"))
             {
