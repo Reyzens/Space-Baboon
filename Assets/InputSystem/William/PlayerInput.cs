@@ -136,7 +136,7 @@ namespace SpaceBaboon
                     ""name"": """",
                     ""id"": ""0e998e7e-e2b3-479f-9014-06187291d305"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CollectResource"",
@@ -286,15 +286,15 @@ namespace SpaceBaboon
                 if (instance == null || m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_PlayerInteractionActionsCallbackInterfaces.Add(instance);
                 @CollectResource.started += instance.OnCollectResource;
-                //@CollectResource.performed += instance.OnCollectResource;
-                //@CollectResource.canceled += instance.OnCollectResource;
+                @CollectResource.performed += instance.OnCollectResource;
+                @CollectResource.canceled += instance.OnCollectResource;
             }
 
             private void UnregisterCallbacks(IPlayerInteractionActions instance)
             {
                 @CollectResource.started -= instance.OnCollectResource;
-                //@CollectResource.performed -= instance.OnCollectResource;
-                //@CollectResource.canceled -= instance.OnCollectResource;
+                @CollectResource.performed -= instance.OnCollectResource;
+                @CollectResource.canceled -= instance.OnCollectResource;
             }
 
             public void RemoveCallbacks(IPlayerInteractionActions instance)

@@ -81,7 +81,8 @@ namespace SpaceBaboon
         private void Start()
         {
             DictionaryInistalisation();
-            PlayerVariablesInitialization();
+            //So we don't forget our mistakes
+            //PlayerVariablesInitialization();
             FreezePlayerRotation();
         }
 
@@ -176,6 +177,7 @@ namespace SpaceBaboon
         }
         private void DashStart()
         {
+            Debug.Log("Dash was called");
             if (m_activeDashCD <= 0.0f && m_movementDirection != Vector2.zero)
             {
                 m_dashInputReceiver = true;

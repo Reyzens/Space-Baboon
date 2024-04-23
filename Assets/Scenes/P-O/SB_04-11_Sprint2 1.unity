@@ -1577,6 +1577,10 @@ PrefabInstance:
       propertyPath: m_MaxDistanceFromRotationTarget
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4296487818868317848, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
       value: PlayerSprite
@@ -1591,7 +1595,7 @@ PrefabInstance:
       objectReference: {fileID: 1559854409}
     - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_collectRange
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_characterData
@@ -3925,10 +3929,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheatTools
       objectReference: {fileID: 0}
+    - target: {fileID: 3491749154905766244, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3862230477894048768, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
       propertyPath: m_player
       value: 
       objectReference: {fileID: 852788654}
+    - target: {fileID: 4766390635266929583, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
