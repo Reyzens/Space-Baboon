@@ -3670,24 +3670,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyPool.m_poolStartingSize
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemyProjectiles.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[1].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[2].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemyProjectiles.Array.data[0]
@@ -3698,8 +3702,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[0].enemyType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[1].enemyType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[2].enemyType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyProjectilesPool.m_poolStartingSize
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[1].enemyPrefab
+      value: 
+      objectReference: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[2].enemyPrefab
+      value: 
+      objectReference: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[0].spawnProbability
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x

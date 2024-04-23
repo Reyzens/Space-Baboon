@@ -27,7 +27,7 @@ namespace SpaceBaboon.EnemySystem
 
         protected Vector2 m_noVectorValue = Vector2.zero;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization

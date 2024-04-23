@@ -6,8 +6,6 @@ namespace SpaceBaboon.EnemySystem
 {
     public class BossEnemy : Enemy
     {
-        // Faire attention que le move soit dans fixed update je crois
-
         private BossEnemyData m_uniqueData;
 
         private NavMeshAgent m_agent;
@@ -36,87 +34,34 @@ namespace SpaceBaboon.EnemySystem
             m_targetedCraftingStation = GetRandomCraftingStationIndex();
         }
 
-        protected override void Update()
+        protected override void FixedUpdate()
         {
-            base.Update();
-
             if (!m_isActive)
                 return;
 
-            //Move(m_player.transform.position);
-
-            //DebugDrawCircleRange(m_craftingStations[m_targetedCraftingStation].transform.position, 64, m_uniqueData.possibleAggroRange, Color.green);
-            //DebugDrawCircleRange(transform.position, 64, m_uniqueData.playerAggroRange, Color.red);
-
-
-
-            // Check if the player is within the player aggro range
-            //bool playerInRange = m_distanceToPlayer < m_uniqueData.playerAggroRange;
-            //
-            //// Check if the crafting station is within the possible aggro range
+            DebugDrawCircleRange(m_craftingStations[m_targetedCraftingStation].transform.position, 64, m_uniqueData.possibleAggroRange, Color.green);
+            DebugDrawCircleRange(transform.position, 64, m_uniqueData.playerAggroRange, Color.red);
+                        
+            bool playerInRange = m_distanceToPlayer < m_uniqueData.playerAggroRange;
+            
             //bool craftingStationInRange = DistanceToTargetedCraftingStation() < m_uniqueData.possibleAggroRange;
-            //
-            //// Check if the player is within the possible aggro range of the crafting station
-            //bool playerToCraftingStationInRange = PlayerDistanceToTargetedCraftingStation() < m_uniqueData.possibleAggroRange;
-            //
-            //if (playerInRange && playerToCraftingStationInRange && craftingStationInRange)
-            //{
-            //    Move(m_player.transform.position);
-            //}
-            //else
-            //{
-            //    Move(m_craftingStations[m_targetedCraftingStation].transform.position);
-            //}
+            
+            bool playerToCraftingStationInRange = PlayerDistanceToTargetedCraftingStation() < m_uniqueData.possibleAggroRange;
 
-
-
-            //if (m_distanceToPlayer < m_uniqueData.playerAggroRange
-            //    && DistanceToTargetedCraftingStation() < m_uniqueData.possibleAggroRange
-            //    && PlayerDistanceToTargetedCraftingStation() < m_uniqueData.possibleAggroRange)
-            //{
-            //    Move(m_player.transform.position);                
-            //}
-            //else
-            //{
-            //    Move(m_craftingStations[m_targetedCraftingStation].transform.position);
-            //}
-
-
-
+            if (playerInRange && playerToCraftingStationInRange)
+            {
+                Move(m_player.transform.position);
+            }
+            else
+            {
+                Move(m_craftingStations[m_targetedCraftingStation].transform.position);
+            }
         }
-
-        //protected override void FixedUpdate()
-        //{
-        //    if (!m_isActive)
-        //        return;
-        //
-        //    Move(m_player.transform.position);
-        //}
 
         protected override void Move(Vector2 value)
         {
-            //Vector3 destination = new Vector3(value.x, value.y, 0);
-
-            
-
-            m_agent.SetDestination(m_player.transform.position);
-
-            //Debug.Log("Destination " + value);
-            //NavMeshPath path = new NavMeshPath();
-            //
-            //if (m_agent.CalculatePath(value, path))
-            //{
-            //    //m_agent.SetDestination(m_player.transform.position);
-            //    m_agent.SetPath(path);
-            //}
-
-            //m_agent.SetDestination(m_player.transform.position);
+            m_agent.SetDestination(value);
         }
-
-        //protected override void MoveTowardsPlayer()
-        //{
-        //    
-        //}
 
         protected override void SlightPushFromObstructingObject(Collision2D collision)
         {
@@ -138,7 +83,29 @@ namespace SpaceBaboon.EnemySystem
             return Vector3.Distance(m_player.transform.position, m_craftingStations[m_targetedCraftingStation].transform.position);
         }
 
+        private void DebugDrawCircleRange(Vector3 origin, int segments, float radius, Color color)
+        {
+            float angleStep = 360f / segments;
+            float angle = 0f;
         
+            for (int i = 0; i < segments; i++)
+            {
+                float x = origin.x + Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+                float y = origin.y + Mathf.Cos(Mathf.Deg2Rad * angle) * radius; // Use origin.y for the vertical position
+        
+                Vector3 startPoint = new Vector3(x, origin.y, y);
+                angle += angleStep;
+        
+                x = origin.x + Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
+                y = origin.y + Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
+        
+                Vector3 endPoint = new Vector3(x, origin.y, y);
+        
+                Debug.DrawLine(startPoint, endPoint, color);
+            }
+        }
+
+
 
     }
 }
