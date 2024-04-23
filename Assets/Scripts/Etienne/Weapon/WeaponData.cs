@@ -5,12 +5,22 @@ namespace SpaceBaboon.WeaponSystem
     [CreateAssetMenu(fileName = "NewWeaponData", menuName = "SpaceBaboon/ScriptableObjects/WeaponData")]
     public class WeaponData : ScriptableObject
     {
+        public enum EPlayerWeaponType
+        {
+            Melee,
+            FlameThrower,
+            GrenadeLauncher,
+            Shockwave,
+            LaserBeam,
+            Count
+        }
+
         public int maxLevel;
         public float maxRange;
         public float attackZone;
         public float attackSpeed;
         public float baseDamage;
-        public string weaponName;
+        public EPlayerWeaponType weaponName;
         public Sprite icon;
         public GameObject projectilePrefab;
 

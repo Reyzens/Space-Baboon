@@ -17,7 +17,7 @@ MonoBehaviour:
   attackZone: 1
   attackSpeed: 1.5
   baseDamage: 3
-  weaponName: ShockWave
+  weaponName: 3
   icon: {fileID: 0}
   projectilePrefab: {fileID: 8783084722343162297, guid: dc63a433c9fb77d4fa20ce2952a7ff55, type: 3}
   m_rangeScaling: 0.25

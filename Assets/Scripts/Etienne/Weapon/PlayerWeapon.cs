@@ -4,28 +4,24 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public enum EPlayerWeaponType
-    {
-        Melee,
-        FlameThrower,
-        GrenadeLauncher,
-        Shockwave,
-        LaserBeam,
-        Count
-    }
-
     public class PlayerWeapon : Weapon, IStatsEditable
     {
         [SerializeField] protected WeaponData m_weaponData;
         [SerializeField] protected GenericObjectPool m_pool = new GenericObjectPool();
         [SerializeField] protected bool m_debugMode = false;
         [SerializeField] float m_rotationAroundPlayerSpeed;
+        [SerializeField] protected float m_MaxDistanceFromRotationTarget;
+        [SerializeField] protected Transform m_owner;
 
         protected float m_attackingCooldown = 0.0f;
         protected float m_attackSpeedModifier = 1.0f;
         protected int m_currentLevel = 1;
-        protected bool m_isCollecting = false;
         private bool m_weaponToggle = true;
+        private Transform m_rotationTarget;
+
+        //Collect Variables
+        protected bool m_isCollecting = false;
+        protected float m_currentCollectTimer;
 
         //Upgrade variables
         protected float m_rangeLevel = 0;
@@ -38,7 +34,6 @@ namespace SpaceBaboon.WeaponSystem
         {
             get { return m_weaponData.maxRange + (m_rangeLevel * m_weaponData.m_rangeScaling); }
         }
-        //TODO add safety so it doesn't get to zero eventually
         protected float currentSpeed
         {
             get { return m_weaponData.attackSpeed - (m_speedLevel * m_weaponData.m_speedScaling); }
@@ -58,18 +53,23 @@ namespace SpaceBaboon.WeaponSystem
             list.Add(m_weaponData.projectilePrefab);
 
             m_pool.CreatePool(list, "Weapon Projectiles");
+            m_rotationTarget = transform.parent;
         }
         protected virtual void Update()
         {
-            if (CheckIfCollecting())
+            if (!CheckIfCollecting())
             {
                 AttackUpdate();
-                RotateAroundPlayer();
             }
+            else
+            {
+                CollectUpdate();
+            }
+            RotateAroundPlayer();
         }
-        private bool CheckIfCollecting()
+        public bool CheckIfCollecting()
         {
-            return !m_isCollecting;
+            return m_isCollecting;
         }
         private void AttackUpdate()
         {
@@ -81,13 +81,42 @@ namespace SpaceBaboon.WeaponSystem
             }
             m_attackingCooldown -= Time.deltaTime;
         }
+        private void CollectUpdate()
+        {
+            m_currentCollectTimer -= Time.deltaTime;
+            if (m_currentCollectTimer < 0)
+            {
+                m_isCollecting = false;
+                transform.parent = m_owner;
+                m_rotationTarget = m_owner;
+            }
+        }
         private void RotateAroundPlayer()
         {
-
-            if (transform.parent != null)
+            if (CanRotate())
             {
-                transform.RotateAround(transform.parent.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
+                transform.RotateAround(m_rotationTarget.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
             }
+            if (Vector2.Distance(transform.position, m_rotationTarget.position) > m_MaxDistanceFromRotationTarget)
+            {
+                MoveTowardTarget();
+            }
+        }
+        private void MoveTowardTarget()
+        {
+            float distanceTowardTarget = Vector2.Distance(transform.position, m_rotationTarget.position);
+            float scalingSpeed = Mathf.Lerp(0, m_rotationAroundPlayerSpeed, distanceTowardTarget / m_MaxDistanceFromRotationTarget);
+
+            transform.position = Vector3.MoveTowards(transform.position, m_rotationTarget.position, scalingSpeed * Time.deltaTime);
+        }
+        private bool CanRotate()
+        {
+            if (m_rotationTarget != null && Vector2.Distance(transform.position, m_rotationTarget.position) < m_MaxDistanceFromRotationTarget)
+            {
+                return true;
+            }
+
+            return false;
         }
         public void ToggleWeapon()
         {
@@ -110,10 +139,24 @@ namespace SpaceBaboon.WeaponSystem
         {
             return null;
         }
-        public void SetIsCollecting(bool value)
+        public float SetIsCollecting(bool value, Crafting.InteractableResource resourceToCollect)
         {
             m_isCollecting = value;
+            m_rotationTarget = resourceToCollect.transform;
+            m_currentCollectTimer = resourceToCollect.GetCollectTimer();
+
+            //Set new parent or if resourceToCollect is null, return 0
+            if (resourceToCollect != null)
+            {
+                transform.parent = resourceToCollect.transform;
+            }
+            else
+            {
+                return 0.0f;
+            }
+            return resourceToCollect.GetCollectTimer();
         }
+        public WeaponData GetWeaponData() { return m_weaponData; }
         public override ScriptableObject GetData()
         {
             return m_weaponData;
@@ -166,6 +209,5 @@ namespace SpaceBaboon.WeaponSystem
             return false;
         }
         #endregion
-
     }
 }
