@@ -1549,110 +1549,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1713673375032617643, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_owner
-      value: 
-      objectReference: {fileID: 1859649687}
-    - target: {fileID: 1713673375032617643, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_MaxDistanceFromRotationTarget
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1826869931587835494, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_owner
-      value: 
-      objectReference: {fileID: 1859649687}
-    - target: {fileID: 1826869931587835494, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_MaxDistanceFromRotationTarget
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1868890104875087309, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_owner
-      value: 
-      objectReference: {fileID: 1859649687}
-    - target: {fileID: 1868890104875087309, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_MaxDistanceFromRotationTarget
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2284442226634216257, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_owner
-      value: 
-      objectReference: {fileID: 1859649687}
-    - target: {fileID: 2284442226634216257, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_MaxDistanceFromRotationTarget
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4296487818868317848, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
       value: PlayerSprite
       objectReference: {fileID: 0}
-    - target: {fileID: 6116818984849239150, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -771582896, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
     - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_playerCam
       value: 
       objectReference: {fileID: 1559854409}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_collectRange
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_characterData
-      value: 
-      objectReference: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_weaponList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_weaponList.Array.data[0]
-      value: 
-      objectReference: {fileID: 996047656}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_weaponList.Array.data[1]
-      value: 
-      objectReference: {fileID: 286834844}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_weaponList.Array.data[2]
-      value: 
-      objectReference: {fileID: 2050035434}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_weaponList.Array.data[3]
-      value: 
-      objectReference: {fileID: 927908632}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_weaponList.Array.data[4]
-      value: 
-      objectReference: {fileID: 371174313}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[0]
-      value: 
-      objectReference: {fileID: 927908632}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[1]
-      value: 
-      objectReference: {fileID: 371174313}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[2]
-      value: 
-      objectReference: {fileID: 996047656}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[3]
-      value: 
-      objectReference: {fileID: 286834844}
-    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_equippedWeapons.Array.data[4]
-      value: 
-      objectReference: {fileID: 2050035434}
-    - target: {fileID: 8925079415549850528, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_owner
-      value: 
-      objectReference: {fileID: 1859649687}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

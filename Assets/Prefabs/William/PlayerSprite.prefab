@@ -613,6 +613,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b9c77b2a-7edb-46fb-a683-f58503159798
     m_ActionName: PlayerMovement/PlayerDash[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 710a26fd-ba19-47af-8a47-caa162017612
+    m_ActionName: PlayerInteraction/CollectResource[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -643,18 +647,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
-  m_equippedWeapons:
-  - {fileID: 8925079415549850528}
-  - {fileID: 2284442226634216257}
+  m_weaponList:
   - {fileID: 1868890104875087309}
   - {fileID: 1826869931587835494}
   - {fileID: 1713673375032617643}
+  - {fileID: 8925079415549850528}
+  - {fileID: 2284442226634216257}
   m_DebugMode: 0
   m_playerData: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
   m_playerCam: {fileID: 0}
   m_dahsTrail: {fileID: 6586887044849874503}
   m_screenShakeAmplitude: 10
   m_screenShakeFrequency: 2
+  m_collectRange: 1
 --- !u!95 &763723706492497818
 Animator:
   serializedVersion: 5
@@ -1171,6 +1176,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 81698932589112113}
     m_Modifications:
+    - target: {fileID: 4106815023539932166, guid: f157941b5a94feb49b63d34dea48f4f5, type: 3}
+      propertyPath: m_owner
+      value: 
+      objectReference: {fileID: 81698932589112113}
+    - target: {fileID: 4106815023539932166, guid: f157941b5a94feb49b63d34dea48f4f5, type: 3}
+      propertyPath: m_MaxDistanceFromRotationTarget
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4597069849186856216, guid: f157941b5a94feb49b63d34dea48f4f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.25
@@ -1248,6 +1261,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BananaSword
       objectReference: {fileID: 0}
+    - target: {fileID: 5804093740481577080, guid: 02147b4e5d6d1b343bc01cb8d4278548, type: 3}
+      propertyPath: m_owner
+      value: 
+      objectReference: {fileID: 81698932589112113}
     - target: {fileID: 5804093740481577080, guid: 02147b4e5d6d1b343bc01cb8d4278548, type: 3}
       propertyPath: m_pool.m_poolStartingSize
       value: 5
@@ -1330,7 +1347,15 @@ PrefabInstance:
       value: LaserBeam
       objectReference: {fileID: 0}
     - target: {fileID: 4257277738590854236, guid: d50465d15e9430843bec8273098db17f, type: 3}
+      propertyPath: m_owner
+      value: 
+      objectReference: {fileID: 81698932589112113}
+    - target: {fileID: 4257277738590854236, guid: d50465d15e9430843bec8273098db17f, type: 3}
       propertyPath: m_pool.m_poolStartingSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4257277738590854236, guid: d50465d15e9430843bec8273098db17f, type: 3}
+      propertyPath: m_MaxDistanceFromRotationTarget
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4626064250469981135, guid: d50465d15e9430843bec8273098db17f, type: 3}
@@ -1443,8 +1468,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3250909844759871497, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
+      propertyPath: m_owner
+      value: 
+      objectReference: {fileID: 81698932589112113}
+    - target: {fileID: 3250909844759871497, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
       propertyPath: m_pool.m_poolStartingSize
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3250909844759871497, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
+      propertyPath: m_MaxDistanceFromRotationTarget
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6158744752462687429, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
       propertyPath: m_Name
@@ -1524,7 +1557,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5042341845743915895, guid: a31d008be74caec4881acf034eb34361, type: 3}
+      propertyPath: m_owner
+      value: 
+      objectReference: {fileID: 81698932589112113}
+    - target: {fileID: 5042341845743915895, guid: a31d008be74caec4881acf034eb34361, type: 3}
       propertyPath: m_pool.m_poolStartingSize
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5042341845743915895, guid: a31d008be74caec4881acf034eb34361, type: 3}
+      propertyPath: m_MaxDistanceFromRotationTarget
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7756279743313272363, guid: a31d008be74caec4881acf034eb34361, type: 3}
