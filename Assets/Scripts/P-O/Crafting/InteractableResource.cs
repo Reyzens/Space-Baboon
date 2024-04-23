@@ -14,6 +14,8 @@ namespace SpaceBaboon.Crafting
         private bool m_isBeingCollected = false;
         private float m_currentCooldown = 0;
         private Player m_collectingPlayer;
+        private GenericObjectPool m_shardPoolRef;
+        private float shardsSpawnStrenght = 20f;
 
         //Ipoolable variables
         private bool m_isActive = false;
@@ -24,7 +26,6 @@ namespace SpaceBaboon.Crafting
 
         //Static variables
         static Dictionary<EResourceType, ResourceData> Resources = new Dictionary<EResourceType, ResourceData>();
-        [SerializeField] static float shardsSpawnStrenght;
 
         public bool IsActive { get { return m_isActive; } }
 
@@ -78,14 +79,16 @@ namespace SpaceBaboon.Crafting
             Vector2 direction;
             float angleBetweenShards = 360 / m_resourceData.m_resourceAmount;
             float spawnAngle;
+            GameObject spawnedShard;
 
             for (int i = 0; i < m_resourceData.m_resourceAmount; i++)
             {
                 spawnAngle = i * angleBetweenShards * Mathf.Deg2Rad;
                 direction = new Vector2(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle));
+                spawnedShard = m_shardPoolRef.Spawn(m_resourceData.m_shardPrefab, transform.position);
+                spawnedShard.GetComponent<Crafting.ResourceShards>().Initialization(direction, Random.Range(0, shardsSpawnStrenght), m_collectingPlayer);
             }
 
-            m_collectingPlayer.AddResource(m_resourceData.m_resourceType, m_resourceData.m_resourceAmount);
             m_parentPool.UnSpawn(gameObject);
         }
         public GameObject GetResourceShardPrefab()
@@ -120,6 +123,10 @@ namespace SpaceBaboon.Crafting
             m_renderer.enabled = value;
             m_circleCollider.enabled = value;
             m_capsuleCollider.enabled = value;
+        }
+        public void SetShardPoolRef(GenericObjectPool shardPool)
+        {
+            m_shardPoolRef = shardPool;
         }
         #endregion
     }
