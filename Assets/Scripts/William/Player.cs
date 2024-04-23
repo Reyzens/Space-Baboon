@@ -25,7 +25,21 @@ namespace SpaceBaboon
         private float m_activeDashDuration;
         private float m_timestampedDash;
 
-        private Dictionary<PlayerWeapon, bool> m_weaponInventory = new Dictionary<PlayerWeapon, bool>();
+        //Weapons variables
+        [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
+        private Dictionary<PlayerWeapon, SWeaponInventoryInfo> m_weaponInventory = new Dictionary<PlayerWeapon, SWeaponInventoryInfo>();
+
+        class SWeaponInventoryInfo
+        {
+            public bool m_isReadyToCollect;
+            public float m_collectTimer;
+
+            public SWeaponInventoryInfo(bool collectStatus, float collectTimer = 0.0f)
+            {
+                m_isReadyToCollect = collectStatus;
+                m_collectTimer = collectTimer;
+            }
+        }
 
         //private Vector2 m_movementDirection;
         private AnimationCurve m_dashCurve;
@@ -34,7 +48,6 @@ namespace SpaceBaboon
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
         //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
         //private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
-        [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
 
         //BonusVariables
         private float m_bonusDashCD;
@@ -68,13 +81,15 @@ namespace SpaceBaboon
         private void Start()
         {
             DictionaryInistalisation();
-            PlayerVariablesInitialization();
+            //So we don't forget our mistakes
+            //PlayerVariablesInitialization();
             FreezePlayerRotation();
         }
 
         private void Update()
         {
             OnPlayerDeath();
+            InventoryManagement();
         }
 
         private void FixedUpdate()
@@ -162,6 +177,7 @@ namespace SpaceBaboon
         }
         private void DashStart()
         {
+            Debug.Log("Dash was called");
             if (m_activeDashCD <= 0.0f && m_movementDirection != Vector2.zero)
             {
                 m_dashInputReceiver = true;
@@ -169,12 +185,16 @@ namespace SpaceBaboon
         }
         private void OnCollectResource()
         {
+            Debug.Log("OnCollectResource was called");
             if (m_collectibleInRange)
             {
                 Crafting.InteractableResource resourceToCollect = SearchClosestResource();
-                if (resourceToCollect != null && !resourceToCollect.IsBeingCollected())
+                if (resourceToCollect != null)
                 {
-                    resourceToCollect.Collect(this);
+                    if (PickWeaponForCollect(resourceToCollect))
+                    {
+                        resourceToCollect.Collect(this);
+                    }
                 }
             }
         }
@@ -355,7 +375,21 @@ namespace SpaceBaboon
                 Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]);
             }
         }
+        private void InventoryManagement()
+        {
+            foreach (KeyValuePair<PlayerWeapon, SWeaponInventoryInfo> weapon in m_weaponInventory)
+            {
+                ReduceColletTimer(weapon.Value);
+            }
+        }
+        private void ReduceColletTimer(SWeaponInventoryInfo collectTimerWeapon)
+        {
+            if (collectTimerWeapon.m_collectTimer > 0)
+            { collectTimerWeapon.m_collectTimer -= Time.deltaTime; }
 
+            if (collectTimerWeapon.m_collectTimer < 0)
+            { collectTimerWeapon.m_isReadyToCollect = true; }
+        }
         public bool DropResource(Crafting.InteractableResource.EResourceType resourceType, int amount)
         {
             if (m_collectibleInventory.ContainsKey(resourceType) && !(m_collectibleInventory[resourceType] < amount))
@@ -379,17 +413,68 @@ namespace SpaceBaboon
                 {
                     if (collider.gameObject.tag == "Resource")
                     {
-                        return collider.gameObject.GetComponent<Crafting.InteractableResource>();
+                        if (!collider.gameObject.GetComponent<Crafting.InteractableResource>().IsBeingCollected())
+                        {
+                            return collider.gameObject.GetComponent<Crafting.InteractableResource>();
+                        }
                     }
                 }
             }
             return null;
         }
 
-        private void PickWeaponForCollect()
+        private bool PickWeaponForCollect(Crafting.InteractableResource resourceToCollect)
         {
             //Since melee weapon is index 0 of the enum and is the only one that can't collect, we start at index 1
-            Random.Range(1, (int)WeaponSystem.WeaponData.EPlayerWeaponType.Count);
+            List<PlayerWeapon> availableWeapons = new List<PlayerWeapon>();
+
+            //Check if weapon is available for collecting
+            foreach (KeyValuePair<PlayerWeapon, SWeaponInventoryInfo> possibleWeapon in m_weaponInventory)
+            {
+                if (CheckIfWeaponIsAvailableForCollect(possibleWeapon.Value.m_isReadyToCollect, possibleWeapon.Key))
+                {
+                    availableWeapons.Add(possibleWeapon.Key);
+                }
+            }
+
+            Debug.Log(availableWeapons.Count);
+
+            //Pick a weapon at random
+            if (availableWeapons.Count > 0)
+            {
+                //Choose weapon index
+                int chosenWeaponindex = Random.Range(0, availableWeapons.Count);
+
+                //Set chosen weapon to collecting and store the collect timer for later
+                float newCollectTimer = availableWeapons[chosenWeaponindex].SetIsCollecting(true, resourceToCollect);
+
+                List<PlayerWeapon> weaponsToUpdate = new List<PlayerWeapon>();
+
+                foreach (KeyValuePair<PlayerWeapon, SWeaponInventoryInfo> weapon in m_weaponInventory)
+                {
+                    if (weapon.Key.GetWeaponData().weaponName == availableWeapons[chosenWeaponindex].GetWeaponData().weaponName)
+                    {
+                        weaponsToUpdate.Add(weapon.Key);
+                    }
+                }
+
+                foreach (PlayerWeapon weapon in weaponsToUpdate)
+                {
+                    m_weaponInventory[weapon].m_isReadyToCollect = false;
+                    m_weaponInventory[weapon].m_collectTimer = newCollectTimer;
+                    Debug.Log(m_weaponInventory[weapon]);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool CheckIfWeaponIsAvailableForCollect(bool collectingState, PlayerWeapon weaponTypeToCheck)
+        {
+            //Melee weapon is the only type that shouldn't ever collect
+            return (collectingState && weaponTypeToCheck.GetWeaponData().weaponName != WeaponData.EPlayerWeaponType.Melee);
         }
         #endregion
 
@@ -421,7 +506,7 @@ namespace SpaceBaboon
             //Initialize weapon inventory
             foreach (PlayerWeapon weapon in m_weaponList)
             {
-                m_weaponInventory.Add(weapon, weapon.CheckIfCollecting());
+                m_weaponInventory.Add(weapon, new SWeaponInventoryInfo(!weapon.CheckIfCollecting()));
             }
         }
 
@@ -447,9 +532,9 @@ namespace SpaceBaboon
 
         public void SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType type, bool value)
         {
-            foreach (KeyValuePair<PlayerWeapon, bool> weapon in m_weaponInventory)
+            foreach (KeyValuePair<PlayerWeapon, SWeaponInventoryInfo> weapon in m_weaponInventory)
             {
-                if (weapon.Key.GetWeaponData().weaponName == type) { weapon.Key.SetIsCollecting(value); }
+                if (weapon.Key.GetWeaponData().weaponName == type) { weapon.Key.SetIsCollecting(value, null); }
             }
         }
 

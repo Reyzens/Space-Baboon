@@ -1,10 +1,13 @@
 using SpaceBaboon.PoolingSystem;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable
     {
+        public event Action m_eventEnemyDeath = delegate { };
         private EnemyData m_enemyUniqueData;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
@@ -161,9 +164,19 @@ namespace SpaceBaboon.EnemySystem
             Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
+                m_eventEnemyDeath?.Invoke();
                 m_parentPool.UnSpawn(gameObject);
             }
-        }        
+        }
+
+        public void registerPuzzle(CraftingPuzzle craftstation)
+        {
+            m_eventEnemyDeath += () => craftstation.PuzzleCounter();
+        }
+        public void UnregisterPuzzle(CraftingPuzzle craftstation)
+        {
+            m_eventEnemyDeath = null;
+        }
 
         #region HitBox
         public virtual bool CanAttack()

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -18,14 +19,20 @@ namespace SpaceBaboon
         
         }
 
-        private void OnTriggerEnter2D(CircleCollider2D collidedObject)
+        private void DisableCircleMsg()
         {
-            
-                SendMessageUpwards("OnEnemyDetected", collidedObject.gameObject);
-            
+            SendMessageUpwards("ReactivateCraftingStation", this.gameObject);
         }
 
-        private void OnTriggerExit2D(CircleCollider2D collidedObject)
+        private void OnTriggerEnter2D(Collider2D collidedObject)
+        {
+            if (collidedObject.gameObject.CompareTag("Enemy"))
+            {
+                SendMessageUpwards("OnEnemyDetected", collidedObject.gameObject);
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collidedObject)
         {
             if (collidedObject.gameObject.CompareTag("Enemy"))
             {

@@ -70,6 +70,7 @@ namespace SpaceBaboon
 
         public void OnCollectResource(InputAction.CallbackContext context)
         {
+            Debug.Log("On collect ressource was called twice with started true");
             m_CollectResourceEvent?.Invoke();
         }
 

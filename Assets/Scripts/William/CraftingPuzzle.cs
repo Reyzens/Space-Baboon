@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using SpaceBaboon.Crafting;
+using SpaceBaboon.EnemySystem;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace SpaceBaboon
 {
@@ -14,12 +16,14 @@ namespace SpaceBaboon
         private int m_killneeded;
         [SerializeField]
         private int m_currentkill;
-        [SerializeField]
-        private List<GameObject> m_enemiesInArea = new List<GameObject>();
         [SerializeField] 
         private List<ResourceDropPoint> m_dropPointList;
         [SerializeField]
         private CraftingStation m_craftingStationScript;
+        private GameObject m_zoneCircle;
+
+        
+        
 
 
         private void Initialisation()
@@ -28,8 +32,24 @@ namespace SpaceBaboon
             m_craftingStationScript = GetComponent<CraftingStation>();
             m_dropPointList = m_craftingStationScript.GetDropPopint();
             m_currentkill = 0;
+            m_zoneCircle = GameObject.Find("Circle");
             SetDropPoints();
+           
         }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            Initialisation();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            PuzzleDisabler();
+            ReactivateCraftingStation();
+        }
+
         private void SetDropPoints()
         {
             foreach (var dropPoint in m_dropPointList)
@@ -46,65 +66,46 @@ namespace SpaceBaboon
             }
         }
 
-        private void PuzzleCounter()
+        public void PuzzleCounter()
         {
             if (m_craftingPuzzleEnable == true)
             {
-                foreach (GameObject enemy in m_enemiesInArea)
+                m_currentkill += 1;
+            }
+        }
+
+        private void ReactivateCraftingStation()
+        {
+            if(m_craftingPuzzleEnable == false)
+            {
+                m_zoneCircle.gameObject.SetActive(false);
+                foreach (var dropPoint in m_dropPointList)
                 {
-                    if (enemy == null)
-                    {
-                        m_currentkill += 1;
-                        m_enemiesInArea.Remove(enemy);
-                    }
+                    dropPoint.gameObject.SetActive(true);
                 }
             }
         }
-        // Start is called before the first frame update
-        void Start()
-        {
-            Initialisation();
+        private void OnEnemyDeathSubsribe(GameObject collider)
+        {          
+            collider.GetComponent<Enemy>().registerPuzzle(this);
         }
-
-        // Update is called once per frame
-        void Update()
+        private void OnEnemyDeathUnsubscribe(GameObject collider)
         {
-            PuzzleDisabler();
-            PuzzleCounter();
+            collider.GetComponent<Enemy>().UnregisterPuzzle(this);
         }
-
-       // private void OnTriggerEnter2D(Collider2D collidedObject)
-       // {
-       //     Debug.Log("Something Detected");
-       //     if (collidedObject.gameObject.CompareTag("Enemy") && m_craftingPuzzleEnable == true)
-       //     {
-       //         Debug.Log("Enemy Detected");
-       //         m_enemiesInArea.Add(collidedObject.gameObject);
-       //         //if (collidedObject.GetType().ToString().Equals("UnityEngine.CircleCollider2D"))
-       //         //{
-       //         //    Debug.Log("Enemy Detected");
-       //         //    m_enemiesInArea.Add(collidedObject.gameObject);
-       //         //}
-       //     }
-       // }
-       //
-       // private void OnTriggerExit(Collider collidedObject)
-       // {
-       //     if (collidedObject.gameObject.CompareTag("Enemy") && m_craftingPuzzleEnable == true)
-       //     {
-       //         m_enemiesInArea.Remove(collidedObject.gameObject);
-       //     }
-       // }
-
         private void OnEnemyDetected(GameObject collider)
         {
-            Debug.Log("Enemy Detected");
-            //m_enemiesInArea.Add(collidedObject.gameObject);
+            if(m_craftingPuzzleEnable) 
+            { 
+                OnEnemyDeathSubsribe(collider);
+            }    
         }
         private void OnEnemyExit(GameObject collider)
         {
-            Debug.Log("Enemy Exit");
-            //m_enemiesInArea.Remove(collidedObject.gameObject);
+            if (m_craftingPuzzleEnable)
+            { 
+                OnEnemyDeathUnsubscribe(collider);
+            }       
         }
     }
 }

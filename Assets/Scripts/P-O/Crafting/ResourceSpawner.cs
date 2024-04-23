@@ -1,6 +1,7 @@
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace SpaceBaboon
 {
@@ -8,17 +9,21 @@ namespace SpaceBaboon
     {
         [SerializeField] private List<GameObject> m_resourcesPrefab;
         //[SerializeField] private List<ObjectPool> m_resourcePool;
-        [SerializeField] private GameObject m_map;
+        //[SerializeField] private GameObject m_map;
         //[SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
         [SerializeField] private float m_spawningDelay = 0.0f;
         [SerializeField] private float m_spawningTimer = 0.0f;
         [SerializeField] private int m_poolSize;
         [SerializeField] private float m_mapBorderOffSet;
 
+        //Tilemap refacto
+        [SerializeField] private Tilemap m_tilemapRef;
+        [SerializeField] private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
+
         private Dictionary<GameObject, ObjectPool> m_resourceDictionary = new Dictionary<GameObject, ObjectPool>();
         private List<GameObject> m_resourceShardList = new List<GameObject>();
         private GenericObjectPool m_shardPool = new GenericObjectPool();
-        private SMapData m_mapData;
+        //private SMapData m_mapData;
 
 
         private void Awake()
@@ -32,7 +37,7 @@ namespace SpaceBaboon
                 }
             }
 
-            m_mapData = new SMapData(m_map);
+            //m_mapData = new SMapData(m_map);
         }
 
         private void Start()
@@ -44,7 +49,7 @@ namespace SpaceBaboon
                 resource.Value.SetPoolSize(m_poolSize);
                 resource.Value.CreatePool(resource.Key);
             }
-
+            GenerateGrid();
             m_shardPool.SetPoolStartingSize(m_poolSize);
             m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
         }
@@ -63,52 +68,44 @@ namespace SpaceBaboon
             }
         }
 
+        private void GenerateGrid()
+        {
+            foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
+            {
+                if (m_tilemapRef.HasTile(positions))
+                {
+                    m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(positions));
+                }
+            }
+        }
         private void CalculateSpawnPosition()
         {
             bool validPosFound = false;
             Vector2 spawnPosition = Vector2.zero;
+            int whileiteration = 0;
 
             while (!validPosFound)
             {
                 spawnPosition = RandomPosOnMap();
 
                 validPosFound = CheckPosValidity(spawnPosition);
+
+                //TODO fix this safety better
+                whileiteration++;
+                if (whileiteration > 50)
+                {
+                    Debug.Log("Reach max iteration of calculate spawn position");
+                    validPosFound = true;
+                }
             }
 
             SpawnResource(spawnPosition);
         }
-
-        private Vector2 RandomPosOnMap()
+        private Vector3 RandomPosOnMap()
         {
-            //Get map width and heigth
-            float x = m_mapData.GetMapWidth();
-            float y = m_mapData.GetMapHeight();
-
-            //Get a position on the map
-            Vector2 pos = new Vector2(Random.Range(0, x) - m_mapData.GetMapHalfWidth(), Random.Range(0, y) - m_mapData.GetMapHalfHeight());
-
-            //Apply map border offset to make sure it's not too close to the map edge
-            if (pos.x < 0)
-            {
-                pos.x += m_mapBorderOffSet;
-            }
-            else
-            {
-                pos.x -= m_mapBorderOffSet;
-            }
-
-            if (pos.y < 0)
-            {
-                pos.y += m_mapBorderOffSet;
-            }
-            else
-            {
-                pos.y -= m_mapBorderOffSet;
-            }
-
-            return pos;
+            int newPos = Random.Range(0, m_spawnPositionsAvailable.Count);
+            return (Vector2)m_spawnPositionsAvailable[newPos] + new Vector2(0.5f, 0.5f);
         }
-
         private bool CheckPosValidity(Vector2 positionToTest)
         {
             //Check if the position is valid
@@ -123,6 +120,7 @@ namespace SpaceBaboon
             //Choose resource to spawn
             bool canSpawn = true;
             int poolAmountTested = 0;
+            int whileiteration = 0;
             while (canSpawn && poolAmountTested < m_poolSize * m_resourcesPrefab.Count)
             {
                 int resourceIndex = Random.Range(0, m_resourcesPrefab.Count);
@@ -137,31 +135,14 @@ namespace SpaceBaboon
                     poolAmountTested += m_poolSize;
                     canSpawn = true;
                 }
+                whileiteration++;
+                if (whileiteration > 50)
+                {
+                    Debug.Log("Reach max iteration of SpawnResource");
+                    canSpawn = true;
+                    poolAmountTested = m_poolSize * m_resourcesPrefab.Count + 1;
+                }
             }
-        }
-
-        private struct SMapData
-        {
-            float m_mapWidth;
-            float m_mapHeight;
-            Vector2 m_mapOffset;
-            float m_mapHalfWidth;
-            float m_mapHalfHeight;
-
-            public SMapData(GameObject map)
-            {
-                m_mapWidth = map.transform.localScale.x;
-                m_mapHeight = map.transform.localScale.y;
-                m_mapHalfHeight = m_mapHeight * 0.5f;
-                m_mapHalfWidth = m_mapWidth * 0.5f;
-                m_mapOffset = new Vector2(map.transform.position.x, map.transform.position.y);
-            }
-
-            public float GetMapWidth() { return m_mapWidth; }
-            public float GetMapHeight() { return m_mapHeight; }
-            public Vector2 GetMapOffset() { return m_mapOffset; }
-            public float GetMapHalfWidth() { return m_mapHalfWidth; }
-            public float GetMapHalfHeight() { return m_mapHalfHeight; }
         }
     }
 }
