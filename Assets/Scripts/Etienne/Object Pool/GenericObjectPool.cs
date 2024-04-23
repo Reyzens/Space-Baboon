@@ -12,7 +12,7 @@ namespace SpaceBaboon.PoolingSystem
         private Dictionary<string, Queue<GameObject>> m_pooledObjects = new Dictionary<string, Queue<GameObject>>();
 
         public void CreatePool(List<GameObject> prefabList, string poolName)
-        {            
+        {
             m_container = new GameObject();
             m_container.name = poolName + " pool";
 
@@ -28,12 +28,12 @@ namespace SpaceBaboon.PoolingSystem
 
                 Queue<GameObject> newQueue = new Queue<GameObject>();
                 for (int i = 0; i < m_poolStartingSize; i++)
-                {                    
+                {
                     GameObject obj = GameObject.Instantiate(prefab, m_container.transform);
 
                     obj.GetComponent<IPoolableGeneric>().Deactivate();
                     newQueue.Enqueue(obj);
-                }               
+                }
 
                 string keyName = prefab.name + "(Clone)";
                 m_pooledObjects.Add(keyName, newQueue);
@@ -54,6 +54,11 @@ namespace SpaceBaboon.PoolingSystem
             }
 
             //If pool is empty 
+            if (m_pooledObjects[keyName].Count > 51)
+            {
+                Debug.Log("Pool is empty");
+                return null;
+            }
             GameObject newObj = GameObject.Instantiate(prefabToSpawn, m_container.transform);
             newObj.GetComponent<IPoolableGeneric>().Activate(pos, this);
             //Debug.Log("activating new : " + prefabToSpawn.name);

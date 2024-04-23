@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3bdf1138189264686994382b386db3, type: 3}
   m_Name: Crystal
   m_EditorClassIdentifier: 
-  m_cooldownMax: 1
+  m_cooldownMax: 4
   m_icon: {fileID: 0}
   m_resourceType: 1
   m_resourceAmount: 2

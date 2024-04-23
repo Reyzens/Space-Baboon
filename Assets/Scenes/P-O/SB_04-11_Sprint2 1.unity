@@ -1106,6 +1106,10 @@ PrefabInstance:
       propertyPath: m_map
       value: 
       objectReference: {fileID: 1881240103}
+    - target: {fileID: 2138000670960736348, guid: 9a54356fd129d6c47a83585c7e6ce17b, type: 3}
+      propertyPath: m_spawningDelay
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7669005487397378860, guid: 9a54356fd129d6c47a83585c7e6ce17b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.162008

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de3bdf1138189264686994382b386db3, type: 3}
   m_Name: Technologie
   m_EditorClassIdentifier: 
-  m_cooldownMax: 5
+  m_cooldownMax: 12
   m_icon: {fileID: 0}
   m_resourceType: 2
-  m_resourceAmount: 10
+  m_resourceAmount: 6
   m_shardPrefab: {fileID: 1729261914930837006, guid: 2a94fcc62101658428f6b78f26d4f6c8, type: 3}
