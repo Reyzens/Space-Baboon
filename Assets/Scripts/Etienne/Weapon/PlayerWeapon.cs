@@ -4,16 +4,6 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
-    public enum EPlayerWeaponType
-    {
-        Melee,
-        FlameThrower,
-        GrenadeLauncher,
-        Shockwave,
-        LaserBeam,
-        Count
-    }
-
     public class PlayerWeapon : Weapon, IStatsEditable
     {
         [SerializeField] protected WeaponData m_weaponData;
@@ -26,6 +16,7 @@ namespace SpaceBaboon.WeaponSystem
         protected int m_currentLevel = 1;
         protected bool m_isCollecting = false;
         private bool m_weaponToggle = true;
+        private Transform m_rotationTarget;
 
         //Upgrade variables
         protected float m_rangeLevel = 0;
@@ -38,7 +29,6 @@ namespace SpaceBaboon.WeaponSystem
         {
             get { return m_weaponData.maxRange + (m_rangeLevel * m_weaponData.m_rangeScaling); }
         }
-        //TODO add safety so it doesn't get to zero eventually
         protected float currentSpeed
         {
             get { return m_weaponData.attackSpeed - (m_speedLevel * m_weaponData.m_speedScaling); }
@@ -58,18 +48,19 @@ namespace SpaceBaboon.WeaponSystem
             list.Add(m_weaponData.projectilePrefab);
 
             m_pool.CreatePool(list, "Weapon Projectiles");
+            m_rotationTarget = transform.parent;
         }
         protected virtual void Update()
         {
-            if (CheckIfCollecting())
+            if (!CheckIfCollecting())
             {
                 AttackUpdate();
                 RotateAroundPlayer();
             }
         }
-        private bool CheckIfCollecting()
+        public bool CheckIfCollecting()
         {
-            return !m_isCollecting;
+            return m_isCollecting;
         }
         private void AttackUpdate()
         {
@@ -83,10 +74,9 @@ namespace SpaceBaboon.WeaponSystem
         }
         private void RotateAroundPlayer()
         {
-
-            if (transform.parent != null)
+            if (m_rotationTarget != null)
             {
-                transform.RotateAround(transform.parent.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
+                transform.RotateAround(m_rotationTarget.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
             }
         }
         public void ToggleWeapon()
@@ -114,6 +104,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             m_isCollecting = value;
         }
+        public WeaponData GetWeaponData() { return m_weaponData; }
         public override ScriptableObject GetData()
         {
             return m_weaponData;

@@ -72,6 +72,11 @@ namespace SpaceBaboon.Crafting
             ResetPossibleResourceList();
             ResourceNeededAllocation();
         }
+
+        public List<ResourceDropPoint> GetDropPopint()
+        {
+            return m_resourceDropPoints;
+        }
         #region UpgradeManagement
         private void CheckIfUpgradable()
         {
