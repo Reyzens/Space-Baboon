@@ -11,7 +11,13 @@ namespace SpaceBaboon.MenuSystem
 
         private Toggle m_fullscreenToggle;
         private Slider m_masterVolumeSlider;
+        private Slider m_windowSizeSlider;
         private Button m_backButton;
+
+        private const int DEFAULT_SIZE = 120;
+        private const int WIDTH_RATIO = 16;
+        private const int HEIGHT_RATIO = 9;
+        
 
 
         public void Create(VisualElement visualElement, MenuManager manager)
@@ -24,6 +30,9 @@ namespace SpaceBaboon.MenuSystem
 
             m_masterVolumeSlider = m_root.Q<Slider>("VolumeSlider");
             m_masterVolumeSlider.value = AudioListener.volume;
+
+            m_windowSizeSlider = m_root.Q<Slider>("WindowSizeSlider");
+            m_windowSizeSlider.value = DEFAULT_SIZE;
 
             m_backButton = m_root.Q<Button>("BackButton");
 
@@ -53,6 +62,11 @@ namespace SpaceBaboon.MenuSystem
         private void OnVolumeChanged(ChangeEvent<float> evt)
         {
             AudioListener.volume = evt.newValue;
+        }
+
+        private void SetResolution()
+        {
+            //Screen.SetResolution
         }
 
         private void BackToMainMenu()
