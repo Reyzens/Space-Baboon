@@ -16,12 +16,11 @@ namespace SpaceBaboon
         private int m_killneeded;
         [SerializeField]
         private int m_currentkill;
-        [SerializeField]
-        private List<GameObject> m_enemiesInArea = new List<GameObject>();
         [SerializeField] 
         private List<ResourceDropPoint> m_dropPointList;
         [SerializeField]
         private CraftingStation m_craftingStationScript;
+        private GameObject m_zoneCircle;
 
         
         
@@ -33,6 +32,7 @@ namespace SpaceBaboon
             m_craftingStationScript = GetComponent<CraftingStation>();
             m_dropPointList = m_craftingStationScript.GetDropPopint();
             m_currentkill = 0;
+            m_zoneCircle = GameObject.Find("Circle");
             SetDropPoints();
            
         }
@@ -47,18 +47,9 @@ namespace SpaceBaboon
         void Update()
         {
             PuzzleDisabler();
+            ReactivateCraftingStation();
         }
 
-        private void OnEnemyDeathSubsribe(GameObject collider)
-        {
-            Debug.LogError("Sub");
-            collider.GetComponent<Enemy>().registerPuzzle(this);
-        }
-        private void OnEnemyDeathUnsubscribe(GameObject collider)
-        {
-            Debug.LogError("Unsub");
-            collider.GetComponent<Enemy>().UnregisterPuzzle(this);
-        }
         private void SetDropPoints()
         {
             foreach (var dropPoint in m_dropPointList)
@@ -83,25 +74,38 @@ namespace SpaceBaboon
             }
         }
 
+        private void ReactivateCraftingStation()
+        {
+            if(m_craftingPuzzleEnable == false)
+            {
+                m_zoneCircle.gameObject.SetActive(false);
+                foreach (var dropPoint in m_dropPointList)
+                {
+                    dropPoint.gameObject.SetActive(true);
+                }
+            }
+        }
+        private void OnEnemyDeathSubsribe(GameObject collider)
+        {          
+            collider.GetComponent<Enemy>().registerPuzzle(this);
+        }
+        private void OnEnemyDeathUnsubscribe(GameObject collider)
+        {
+            collider.GetComponent<Enemy>().UnregisterPuzzle(this);
+        }
         private void OnEnemyDetected(GameObject collider)
         {
             if(m_craftingPuzzleEnable) 
-            {
-                Debug.LogError("Enemy Detected");
-                m_enemiesInArea.Add(collider);
+            { 
                 OnEnemyDeathSubsribe(collider);
-            }
-            
+            }    
         }
         private void OnEnemyExit(GameObject collider)
         {
             if (m_craftingPuzzleEnable)
-            {
-                Debug.LogError("Enemy Exit");
+            { 
                 OnEnemyDeathUnsubscribe(collider);
-                m_enemiesInArea.Remove(collider);
-            }
-                
+            }       
         }
     }
 }

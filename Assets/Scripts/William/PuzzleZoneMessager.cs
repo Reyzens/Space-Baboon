@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -16,6 +17,11 @@ namespace SpaceBaboon
         void Update()
         {
         
+        }
+
+        private void DisableCircleMsg()
+        {
+            SendMessageUpwards("ReactivateCraftingStation", this.gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D collidedObject)
