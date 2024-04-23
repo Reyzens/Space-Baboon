@@ -16,6 +16,7 @@ namespace SpaceBaboon.Crafting
         private Player m_collectingPlayer;
         private GenericObjectPool m_shardPoolRef;
         private float shardsSpawnStrenght = 20f;
+        private GameObject m_collectingWeapon;
 
         //Ipoolable variables
         private bool m_isActive = false;
@@ -94,6 +95,14 @@ namespace SpaceBaboon.Crafting
         public GameObject GetResourceShardPrefab()
         {
             return m_resourceData.m_shardPrefab;
+        }
+        public bool IsBeingCollected()
+        {
+            return m_isBeingCollected;
+        }
+        public void SetCollectingWeapon(GameObject weapon)
+        {
+            m_collectingWeapon = weapon;
         }
         #endregion
         #region IPoolable

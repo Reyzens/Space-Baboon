@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -41,7 +40,7 @@ namespace SpaceBaboon
             m_maxHealthButton = visualElement.Q<Button>("MaxHealthButton");
             m_killPlayerButton = visualElement.Q<Button>("KillPlayerButton");
             m_speedSlider = visualElement.Q<Slider>("SpeedSlider");
-            
+
             m_meleeToggle = visualElement.Q<Toggle>("MeleeToggle");
             m_flameThrowerToggle = visualElement.Q<Toggle>("FlameThrowerToggle");
             m_grenadeLauncherToggle = visualElement.Q<Toggle>("GrenadeLauncherToggle");
@@ -59,7 +58,7 @@ namespace SpaceBaboon
             m_maxHealthButton.clicked += OnMaxHealthButtonClicked;
             m_killPlayerButton.clicked += OnKillPlayerButtonClicked;
             m_speedSlider.RegisterValueChangedCallback(OnSpeedChanged);
-            
+
             m_meleeToggle.RegisterValueChangedCallback(OnMeleeToggled);
             m_flameThrowerToggle.RegisterValueChangedCallback(OnFlameThrowerToggled);
             m_grenadeLauncherToggle.RegisterValueChangedCallback(OnGrenadeLauncherToggled);
@@ -102,31 +101,31 @@ namespace SpaceBaboon
         {
             m_player.SetSpeedWithMultiplier(evt.newValue);
         }
-        
+
         //----------------------------------
         private void OnMeleeToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.Melee, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.Melee, !evt.newValue);
         }
 
         private void OnFlameThrowerToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.FlameThrower, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.FlameThrower, !evt.newValue);
         }
 
         private void OnGrenadeLauncherToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.GrenadeLauncher, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.GrenadeLauncher, !evt.newValue);
         }
 
         private void OnShockwaveToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.Shockwave, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.Shockwave, !evt.newValue);
         }
 
         private void OnLaserBeamToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.LaserBeam, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.LaserBeam, !evt.newValue);
         }
 
     }

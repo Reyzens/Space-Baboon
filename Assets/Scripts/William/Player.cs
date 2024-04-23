@@ -25,6 +25,8 @@ namespace SpaceBaboon
         private float m_activeDashDuration;
         private float m_timestampedDash;
 
+        private Dictionary<PlayerWeapon, bool> m_weaponInventory = new Dictionary<PlayerWeapon, bool>();
+
         //private Vector2 m_movementDirection;
         private AnimationCurve m_dashCurve;
         private Color m_spriteRendererColor;
@@ -32,7 +34,7 @@ namespace SpaceBaboon
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
         //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
         //private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
-        [SerializeField] private PlayerWeapon[] m_equippedWeapons = new PlayerWeapon[(int)EPlayerWeaponType.Count];
+        [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
 
         //BonusVariables
         private float m_bonusDashCD;
@@ -170,7 +172,7 @@ namespace SpaceBaboon
             if (m_collectibleInRange)
             {
                 Crafting.InteractableResource resourceToCollect = SearchClosestResource();
-                if (resourceToCollect != null)
+                if (resourceToCollect != null && !resourceToCollect.IsBeingCollected())
                 {
                     resourceToCollect.Collect(this);
                 }
@@ -383,6 +385,12 @@ namespace SpaceBaboon
             }
             return null;
         }
+
+        private void PickWeaponForCollect()
+        {
+            //Since melee weapon is index 0 of the enum and is the only one that can't collect, we start at index 1
+            Random.Range(1, (int)WeaponSystem.WeaponData.EPlayerWeaponType.Count);
+        }
         #endregion
 
         #region Gets
@@ -404,9 +412,16 @@ namespace SpaceBaboon
         }
         private void DictionaryInistalisation()
         {
+            //Initialize collectible inventory
             for (int i = 0; i != (int)Crafting.InteractableResource.EResourceType.Count; i++)
             {
                 m_collectibleInventory.Add((Crafting.InteractableResource.EResourceType)i, 0);
+            }
+
+            //Initialize weapon inventory
+            foreach (PlayerWeapon weapon in m_weaponList)
+            {
+                m_weaponInventory.Add(weapon, weapon.CheckIfCollecting());
             }
         }
 
@@ -430,9 +445,12 @@ namespace SpaceBaboon
             Debug.Log("Max Velocity Mult : " + m_speedMultiplierCheat);
         }
 
-        public void SetWeaponStatus(EPlayerWeaponType type, bool value)
+        public void SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType type, bool value)
         {
-            m_equippedWeapons[(int)type].SetIsCollecting(value);
+            foreach (KeyValuePair<PlayerWeapon, bool> weapon in m_weaponInventory)
+            {
+                if (weapon.Key.GetWeaponData().weaponName == type) { weapon.Key.SetIsCollecting(value); }
+            }
         }
 
         public void KillPlayer()
