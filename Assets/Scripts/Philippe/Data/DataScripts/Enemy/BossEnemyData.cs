@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
@@ -7,5 +8,8 @@ namespace SpaceBaboon.EnemySystem
     {
         [Header("EnemyUniqueStats")]
         public int test;
+        public List<Sprite> sprites;
+        public float possibleAggroRange;
+        public float playerAggroRange;
     }
 }
