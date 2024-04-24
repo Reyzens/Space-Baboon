@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,19 +7,27 @@ namespace SpaceBaboon.EnemySystem
 {
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
     {
-        public BossEnemyData UniqueData { get; private set; }
-        public NavMeshAgent Agent { get; private set; }
+        public BossEnemyData UniqueData { get; private set; } // TODO maybe remove field
+        public NavMeshAgent Agent { get; private set; } // TODO maybe remove field
 
-        [field: SerializeField] public List<GameObject> CraftingStations { get; private set; } //= new List<GameObject>();
-        public int TargetedCraftingStation { get; private set; }
+        [field: SerializeField] public List<GameObject> CraftingStations { get; private set; } // TODO maybe remove field //= new List<GameObject>();
+        public int TargetedCraftingStation { get; private set; } // TODO maybe remove field
 
-        public Player Player { get; private set; }
+        public Player Player { get; private set; } // TODO maybe remove field
         public float DistanceToPlayer { get; private set; }
+        public bool PlayerInAggroRange { get; private set; }
+        public bool PlayerInTargetedCraftingStationRange { get; private set; }
+        public bool InTargetedCraftingStationAttackRange { get; private set; }
+        public bool SpecialAttackReady { get; set; } = false;
+        public float SpecialAttackTimer { get; set; }
         
         protected override void CreatePossibleStates()
         {
-            m_possibleStates = new List<BossEnemyState>();
-            m_possibleStates.Add(new TestState());            
+            m_possibleStates = new List<BossEnemyState>();            
+            m_possibleStates.Add(new MovingToStation());
+            m_possibleStates.Add(new ChasingPlayer());
+            m_possibleStates.Add(new DoSpecialAttack());
+            m_possibleStates.Add(new AttackingStation());            
         }
 
         protected override void Awake()
@@ -55,7 +64,7 @@ namespace SpaceBaboon.EnemySystem
             CraftingStations.Add(GameObject.Find("CraftingStationOne (3)"));
             CraftingStations.Add(GameObject.Find("CraftingStationOne (4)"));
 
-            TargetedCraftingStation = GetRandomCraftingStationIndex();
+            TargetedCraftingStation = GetRandomCraftingStationIndex();            
         }
 
         protected override void Update()
@@ -64,9 +73,10 @@ namespace SpaceBaboon.EnemySystem
                 return;
 
             base.Update();            
-
-            DistanceToPlayer = m_distanceToPlayer;
-            
+                        
+            PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
+            PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
+            InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;                       
         }
 
         protected override void FixedUpdate()
@@ -82,29 +92,33 @@ namespace SpaceBaboon.EnemySystem
             return Random.Range(0, CraftingStations.Count);
         }
 
-        public float GetCalculatePlayerDistanceToTargetedCraftingStation()
+        private float GetPlayerDistanceToTargetedCraftingStation()
         {
             return Vector3.Distance(Player.transform.position, CraftingStations[TargetedCraftingStation].transform.position);
         }
 
-
-
-
-
-
-
-
-
-        protected override void Move(Vector2 value)
+        private float GetDistanceToTargetedCraftingStation()
         {
-            // Overriding this method
+            return Vector3.Distance(transform.position, CraftingStations[TargetedCraftingStation].transform.position);
         }
+
+        public new void Move(Vector2 value)
+        {
+            Agent.SetDestination(value);            
+        }
+
+
+
+
+
+
+        #region Overriden Methods
+
 
         protected override void SlightPushFromObstructingObject(Collision2D collision)
         {
             // Overriding this method
         }
-
-
+        #endregion
     }
 }

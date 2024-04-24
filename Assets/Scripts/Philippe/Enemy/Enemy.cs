@@ -8,6 +8,7 @@ namespace SpaceBaboon.EnemySystem
     public class Enemy : Character, IPoolableGeneric, IStatsEditable
     {
         public event Action m_eventEnemyDeath = delegate { };
+        
         private EnemyData m_enemyUniqueData;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager

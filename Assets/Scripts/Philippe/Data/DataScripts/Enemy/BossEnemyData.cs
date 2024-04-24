@@ -11,5 +11,11 @@ namespace SpaceBaboon.EnemySystem
         public List<Sprite> sprites;
         public float possibleAggroRange;
         public float playerAggroRange;
+        public float craftingStationAttackRange;
+        public float craftingStationAttackDelay;
+        public float specialAttackDelay;
+        public float specialAttackChargeDelay;        
+        public float basicAttackDelay;
+        public int basicAttacksBeforeSpecial;
     }
 }

@@ -28,3 +28,9 @@ MonoBehaviour:
   sprites: []
   possibleAggroRange: 100
   playerAggroRange: 50
+  craftingStationAttackRange: 15
+  craftingStationAttackDelay: 3
+  specialAttackDelay: 3
+  specialAttackChargeDelay: 10
+  basicAttackDelay: 2
+  basicAttacksBeforeSpecial: 3
