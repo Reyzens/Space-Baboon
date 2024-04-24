@@ -30,7 +30,7 @@ namespace SpaceBaboon.EnemySystem
 
         protected Vector2 m_noVectorValue = Vector2.zero;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
@@ -97,9 +97,9 @@ namespace SpaceBaboon.EnemySystem
         private void CalculateDistanceToPlayer()
         {
             m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
-        }
+        }        
 
-        private void SlightPushFromObstructingObject(Collision2D collision)
+        protected virtual void SlightPushFromObstructingObject(Collision2D collision)
         {
             Vector3 direction = collision.transform.position - transform.position;
             m_rB.AddForce(-direction * m_enemyUniqueData.obstructionPushForce, ForceMode2D.Force);
@@ -111,7 +111,7 @@ namespace SpaceBaboon.EnemySystem
             CheckForSpriteDirectionSwap(m_movementDirection);
         }
 
-        private void MoveTowardsPlayer()
+        protected virtual void MoveTowardsPlayer()
         {
             Vector3 playerPosition = m_playerObject.transform.position;
 
@@ -127,15 +127,17 @@ namespace SpaceBaboon.EnemySystem
             m_contactAttackTimer -= Time.deltaTime;
 
             if (m_contactAttackTimer < 0.0f)
+            {
                 m_contactAttackReady = true;
+            }                
         }
 
         public void ContactAttack(Vector2 contactPos)
         {
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
-
+        
             InstantiateContactAttackParticuleSystem(contactPos);
-
+        
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
         }
