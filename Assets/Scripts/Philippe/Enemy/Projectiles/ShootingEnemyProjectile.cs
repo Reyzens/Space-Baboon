@@ -33,7 +33,10 @@ namespace SpaceBaboon.WeaponSystem
 
         protected override void OnCollisionEnter2D(Collision2D collision)
         {           
-            m_parentPool.UnSpawn(gameObject);
+            if(collision.gameObject.CompareTag("Obstacle"))
+            {
+                m_parentPool.UnSpawn(gameObject);
+            }            
         }        
     }
 }

@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a96c80c0f41e894a85aa67f78f01616, type: 3}
-  m_Name: ExplodingEnemyExplodableData
+  m_Script: {fileID: 11500000, guid: c29b3cb4135e38545bf1b6ea714485f5, type: 3}
+  m_Name: BossSineProjectileData
   m_EditorClassIdentifier: 
-  m_explosionRadius: 22
-  m_maxExplosionTime: 1
+  owner: 1
+  sprite: {fileID: 0}
+  projectileName: 
+  speed: 0
+  damage: 0
+  maxLifetime: 10
+  defaultAcceleration: 30
+  defaultMaxVelocity: 10

@@ -3679,7 +3679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemyProjectiles.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].canSpawn
@@ -3696,7 +3696,7 @@ PrefabInstance:
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemyProjectiles.Array.data[0]
       value: 
-      objectReference: {fileID: 8703325170743144796, guid: 8109816a57a5c5c418efd2f44c0c4aa3, type: 3}
+      objectReference: {fileID: 2311894824468756343, guid: 46034ed3d36e73345b3fc661c0ac80c1, type: 3}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemyProjectiles.Array.data[1]
       value: 
@@ -3715,7 +3715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_enemyProjectilesPool.m_poolStartingSize
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].enemyPrefab

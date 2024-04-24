@@ -1,5 +1,5 @@
+using SpaceBaboon.WeaponSystem;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,20 +7,20 @@ namespace SpaceBaboon.EnemySystem
 {
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
     {
-        public BossEnemyData UniqueData { get; private set; } // TODO maybe remove field
-        public NavMeshAgent Agent { get; private set; } // TODO maybe remove field
-
-        [field: SerializeField] public List<GameObject> CraftingStations { get; private set; } // TODO maybe remove field //= new List<GameObject>();
-        public int TargetedCraftingStation { get; private set; } // TODO maybe remove field
-
-        public Player Player { get; private set; } // TODO maybe remove field
-        public float DistanceToPlayer { get; private set; }
+        public BossEnemyData UniqueData { get; private set; }
+        public Player Player { get; private set; }
+        [field: SerializeField] public List<GameObject> CraftingStations { get; private set; }
+        public EnemyWeapon SineGun { get; private set; }
+        public EnemyWeapon ShotGun { get; private set; }
+        public int TargetedCraftingStation { get; private set; }           
         public bool PlayerInAggroRange { get; private set; }
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
-        public float SpecialAttackTimer { get; set; }
+        public float SpecialAttackTimer { get; set; }        
         
+        private NavMeshAgent m_agent;
+
         protected override void CreatePossibleStates()
         {
             m_possibleStates = new List<BossEnemyState>();            
@@ -38,33 +38,8 @@ namespace SpaceBaboon.EnemySystem
         protected override void Start()
         {
             base.Start();
-            
-            foreach (BossEnemyState state in m_possibleStates)
-            {
-                state.OnStart(this);
-            }
-
-            m_currentState = m_possibleStates[0];
-            m_currentState.OnEnter();
-
-            //////////////
-            
-            UniqueData = m_characterData as BossEnemyData;
-
-            Agent = GetComponent<NavMeshAgent>();
-            Agent.updateRotation = false;
-            Agent.updateUpAxis = false;
-
-            Player = m_player;
-
-            // TODO Remove asap when we have references to stations from manager
-            CraftingStations.Add(GameObject.Find("CraftingStationOne"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (1)"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (2)"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (3)"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (4)"));
-
-            TargetedCraftingStation = GetRandomCraftingStationIndex();            
+            StartStates();
+            VariableSetUp();
         }
 
         protected override void Update()
@@ -72,11 +47,8 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            base.Update();            
-                        
-            PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
-            PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
-            InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;                       
+            base.Update();
+            UpdateDistances();
         }
 
         protected override void FixedUpdate()
@@ -94,7 +66,7 @@ namespace SpaceBaboon.EnemySystem
 
         private float GetPlayerDistanceToTargetedCraftingStation()
         {
-            return Vector3.Distance(Player.transform.position, CraftingStations[TargetedCraftingStation].transform.position);
+            return Vector3.Distance(m_player.transform.position, CraftingStations[TargetedCraftingStation].transform.position);
         }
 
         private float GetDistanceToTargetedCraftingStation()
@@ -104,17 +76,51 @@ namespace SpaceBaboon.EnemySystem
 
         public new void Move(Vector2 value)
         {
-            Agent.SetDestination(value);            
+            m_agent.SetDestination(value);            
         }
 
+        private void StartStates()
+        {
+            foreach (BossEnemyState state in m_possibleStates)
+            {
+                state.OnStart(this);
+            }
 
+            m_currentState = m_possibleStates[0];
+            m_currentState.OnEnter();
+        }
 
+        private void VariableSetUp()
+        {
+            UniqueData = m_characterData as BossEnemyData;
 
+            m_agent = GetComponent<NavMeshAgent>();
+            m_agent.updateRotation = false;
+            m_agent.updateUpAxis = false;
 
+            Player = m_player;
+
+            SineGun = GameObject.Find("SineGun").GetComponent<EnemyWeapon>();
+            ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
+
+            // TODO Remove asap when we have references to stations from manager
+            CraftingStations.Add(GameObject.Find("CraftingStationOne"));
+            CraftingStations.Add(GameObject.Find("CraftingStationOne (1)"));
+            CraftingStations.Add(GameObject.Find("CraftingStationOne (2)"));
+            CraftingStations.Add(GameObject.Find("CraftingStationOne (3)"));
+            CraftingStations.Add(GameObject.Find("CraftingStationOne (4)"));
+
+            TargetedCraftingStation = GetRandomCraftingStationIndex();
+        }
+
+        private void UpdateDistances()
+        {
+            PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
+            PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
+            InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;
+        }
 
         #region Overriden Methods
-
-
         protected override void SlightPushFromObstructingObject(Collision2D collision)
         {
             // Overriding this method

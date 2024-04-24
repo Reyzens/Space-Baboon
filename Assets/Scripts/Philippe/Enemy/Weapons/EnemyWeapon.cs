@@ -18,8 +18,6 @@ namespace SpaceBaboon.WeaponSystem
             // TODO to change when we have gameManager
             m_enemySpawner = GameObject.Find("EnemySpawner");
             m_enemySpawnerScript = m_enemySpawner.GetComponent<EnemySpawner>();
-
-
         }
 
         public void GetTarget(Transform target)

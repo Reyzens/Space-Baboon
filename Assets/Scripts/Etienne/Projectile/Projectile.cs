@@ -54,7 +54,7 @@ namespace SpaceBaboon.WeaponSystem
             return m_damage;
         }
 
-        protected void Move()
+        protected virtual void Move()
         {
             m_rb.AddForce(m_direction * m_projectileData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
 
@@ -62,7 +62,7 @@ namespace SpaceBaboon.WeaponSystem
                 RegulateVelocity();
         }
 
-        private void RegulateVelocity()
+        protected void RegulateVelocity()
         {
             if (m_rb.velocity.magnitude > m_projectileData.defaultMaxVelocity)
             {
