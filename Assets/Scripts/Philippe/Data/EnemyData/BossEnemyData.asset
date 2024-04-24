@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   characterName: Boss
-  defaultHealth: 50
+  defaultHealth: 200
   sprite: {fileID: 0}
   prefab: {fileID: 0}
-  defaultAcceleration: 30
-  defaultMaxVelocity: 10
+  defaultAcceleration: 0
+  defaultMaxVelocity: 0
   enemyType: 3
   defaultContactAttackDamage: 5
   defaultContactAttackDelay: 3
   size: 0
-  obstructionPushForce: 25
+  obstructionPushForce: 0
   test: 0
   sprites: []
   possibleAggroRange: 100

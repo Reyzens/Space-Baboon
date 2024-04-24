@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -11,49 +10,32 @@ namespace SpaceBaboon.EnemySystem
         protected override void Awake()
         {
             base.Awake();
-            BaseEnemyStateMachineAwake();            
-        }
-
-        protected void BaseEnemyStateMachineAwake()
-        {
-            base.Start();
-            CreatePossibleStates();
-        }
+            CreatePossibleStates();                      
+        }        
 
         protected override void Start()
         {
-            BaseEnemyStateMachineStart();            
-        }
-
-        protected void BaseEnemyStateMachineStart()
-        {
-            foreach (IState state in m_possibleStates)
-            {
-                state.OnStart();
-            }
-            m_currentState = m_possibleStates[0];
-            m_currentState.OnEnter();
+            base.Start();
+        
+            //foreach (IState state in m_possibleStates)
+            //{
+            //    state.OnStart();
+            //}
+            //m_currentState = m_possibleStates[0];
+            //m_currentState.OnEnter();                       
         }
 
         protected override void Update()
         {
-            BaseEnemyStateMachineUpdate();            
-        }
-
-        protected void BaseEnemyStateMachineUpdate()
-        {
+            base.Update();
             m_currentState.OnUpdate();
-            TryStateTransition();
+            TryStateTransition();      
         }
 
         protected override void FixedUpdate()
         {
-            BaseEnemyStateMachineFixedUpdate();
-        }
-
-        protected void BaseEnemyStateMachineFixedUpdate()
-        {
-            m_currentState.OnFixedUpdate();
+            base.FixedUpdate();
+            m_currentState.OnFixedUpdate();            
         }
 
         protected virtual void CreatePossibleStates()

@@ -25,13 +25,11 @@ namespace SpaceBaboon.EnemySystem
 
             bool playerInRange = m_stateMachine.DistanceToPlayer < m_stateMachine.UniqueData.playerAggroRange;
 
-            bool craftingStationInRange = DistanceToTargetedCraftingStation() < m_stateMachine.UniqueData.possibleAggroRange;
-
-            bool playerToCraftingStationInRange = PlayerDistanceToTargetedCraftingStation() < m_stateMachine.UniqueData.possibleAggroRange;
+            bool playerToCraftingStationInRange = m_stateMachine.GetCalculatePlayerDistanceToTargetedCraftingStation() < m_stateMachine.UniqueData.possibleAggroRange;
 
             if (playerInRange && playerToCraftingStationInRange)
             {
-                Move(m_stateMachine.PlayerYo.transform.position);
+                Move(m_stateMachine.Player.transform.position);
             }
             else
             {
@@ -53,17 +51,6 @@ namespace SpaceBaboon.EnemySystem
         {
             return false;
         }
-        
-
-        private float DistanceToTargetedCraftingStation()
-        {
-            return Vector3.Distance(m_stateMachine.transform.position, m_stateMachine.CraftingStations[m_stateMachine.TargetedCraftingStation].transform.position);
-        }
-
-        private float PlayerDistanceToTargetedCraftingStation()
-        {
-            return Vector3.Distance(m_stateMachine.PlayerYo.transform.position, m_stateMachine.CraftingStations[m_stateMachine.TargetedCraftingStation].transform.position);
-        }
 
         private void DebugDrawCircleRange(Vector3 origin, int segments, float radius, Color color)
         {
@@ -73,7 +60,7 @@ namespace SpaceBaboon.EnemySystem
             for (int i = 0; i < segments; i++)
             {
                 float x = origin.x + Mathf.Sin(Mathf.Deg2Rad * angle) * radius;
-                float y = origin.y + Mathf.Cos(Mathf.Deg2Rad * angle) * radius; // Use origin.y for the vertical position
+                float y = origin.y + Mathf.Cos(Mathf.Deg2Rad * angle) * radius;
 
                 Vector3 startPoint = new Vector3(x, origin.y, y);
                 angle += angleStep;
