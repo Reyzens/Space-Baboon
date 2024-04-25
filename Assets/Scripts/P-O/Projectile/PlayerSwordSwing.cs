@@ -30,6 +30,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             m_swingArc = m_attackZoneScaling * attackZone;
             StartCoroutine(SwingCoroutine(direction, maxRange, attackZone));
+            gameObject.transform.localScale = new Vector3(1, maxRange, 1);
         }
         protected override void OnCollisionEnter2D(Collision2D collision)
         {

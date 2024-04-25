@@ -40,6 +40,7 @@ namespace SpaceBaboon
             base.Shoot(target, maxRange, attackZone, damage, playerPosition);
             m_target = target;
             m_initialShootingPosition = transform.position;
+            m_explodableData.m_explosionRadius = attackZone;
             Vector2 initialPosition = transform.position;
             if (m_target != null)
             {

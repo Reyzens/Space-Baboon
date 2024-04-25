@@ -32,6 +32,7 @@ namespace SpaceBaboon.WeaponSystem
             base.Shoot(target, maxRange, attackZone, damage, playerPosition);
             //Debug.Log("Laser was shot");
             Vector2 directionVector = (target.position - transform.position).normalized;
+            m_currentPiercingLeft = (int)attackZone;
             RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, directionVector, maxRange);
 
             foreach (RaycastHit2D hit in enemyHits)
@@ -90,7 +91,6 @@ namespace SpaceBaboon.WeaponSystem
             m_lifetime = 0.0f;
             m_initialWeaponPosition.position = pos;
             m_currentLaserDuration = m_maxLaserDuration;
-            m_currentPiercingLeft = m_PiercingData.m_maxAmountOfPiercing;
         }
         protected override void SetComponents(bool value)
         {

@@ -30,9 +30,9 @@ namespace SpaceBaboon.WeaponSystem
             if (m_isActive)
             {
                 base.Update();
-                GenerateCircle();
                 FollowPlayer();
                 IExplodableUpdate();
+                GenerateCircle();
             }
         }
         protected void FollowPlayer()
@@ -78,7 +78,9 @@ namespace SpaceBaboon.WeaponSystem
         {
             base.Shoot(target, maxRange, attackZone, damage, playerPosition);
             m_weaponPos = target;
-            StartExplosion();
+            m_thickness = attackZone;
+            m_innerRadius = maxRange;
+            //StartExplosion();
         }
         public void Explode()
         {
@@ -87,8 +89,7 @@ namespace SpaceBaboon.WeaponSystem
 
         public void IExplodableSetUp()
         {
-            m_currentExplosionTime = 0.0f;
-            m_currentExplosionSize = 0.0f;
+            StartExplosion();
             m_currentExplosionSize = 0.0f;
             m_explosionSizeRatio = m_innerRadius / m_ExplodableData.m_maxExplosionTime;
         }
@@ -105,6 +106,7 @@ namespace SpaceBaboon.WeaponSystem
                 }
 
                 m_currentExplosionSize = m_innerRadius - (m_currentExplosionTime * m_explosionSizeRatio);
+                //m_currentExplosionSize = m_innerRadius - (m_currentExplosionTime * m_explosionSizeRatio);
                 m_collider.radius = m_currentExplosionSize + m_thickness;
             }
         }
