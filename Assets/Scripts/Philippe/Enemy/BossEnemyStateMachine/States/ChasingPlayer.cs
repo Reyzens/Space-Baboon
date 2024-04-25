@@ -83,8 +83,7 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void ExecuteBasicAttack()
-        {
-            Debug.Log("Shoot basic attack");
+        {                      
             m_stateMachine.SineGun.GetTarget(m_stateMachine.Player.transform);
         }
     }

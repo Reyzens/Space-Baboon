@@ -8,6 +8,7 @@ namespace SpaceBaboon.EnemySystem
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
     {
         public BossEnemyData UniqueData { get; private set; }
+        public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }
         [field: SerializeField] public List<GameObject> CraftingStations { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
@@ -18,8 +19,6 @@ namespace SpaceBaboon.EnemySystem
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }        
-        
-        private NavMeshAgent m_agent;
 
         protected override void CreatePossibleStates()
         {
@@ -76,7 +75,7 @@ namespace SpaceBaboon.EnemySystem
 
         public new void Move(Vector2 value)
         {
-            m_agent.SetDestination(value);            
+            Agent.SetDestination(value);            
         }
 
         private void StartStates()
@@ -94,9 +93,9 @@ namespace SpaceBaboon.EnemySystem
         {
             UniqueData = m_characterData as BossEnemyData;
 
-            m_agent = GetComponent<NavMeshAgent>();
-            m_agent.updateRotation = false;
-            m_agent.updateUpAxis = false;
+            Agent = GetComponent<NavMeshAgent>();
+            Agent.updateRotation = false;
+            Agent.updateUpAxis = false;
 
             Player = m_player;
 
@@ -118,6 +117,11 @@ namespace SpaceBaboon.EnemySystem
             PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
             PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
             InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;
+        }
+
+        public void TemporaryCraftingStationAttack(Vector2 pos)
+        {
+            InstantiateContactAttackParticuleSystem(pos);
         }
 
         #region Overriden Methods

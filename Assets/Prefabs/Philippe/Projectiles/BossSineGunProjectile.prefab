@@ -215,3 +215,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectileData: {fileID: 11400000, guid: 629b9b20e112a5f4ba708a5961f90910, type: 2}
+  m_sineWaveFrequency: 5
+  m_sineWaveAmplitude: 1

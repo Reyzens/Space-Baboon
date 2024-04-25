@@ -25,6 +25,14 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanEnter(IState currentState)
         {
+            if(currentState is DoSpecialAttack)
+            {
+                if (!m_stateMachine.PlayerInAggroRange || !m_stateMachine.PlayerInTargetedCraftingStationRange)
+                {
+                    return true;
+                }
+            }
+
             if(m_stateMachine.SpecialAttackReady)
             {
                 return false;

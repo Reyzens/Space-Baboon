@@ -1,25 +1,24 @@
-using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.WeaponSystem
 {
     public class BossSineProjectile : ShootingEnemyProjectile
     {
-        //[SerializeField] private float m_sineWaveFrequency;
-        //[SerializeField] private float m_sineWaveAmplitude;
-        //
-        //protected override void Move()
-        //{
-        //    m_direction = m_direction.normalized;
-        //
-        //    float horizontalMovement = Mathf.Sin(Time.time * m_sineWaveFrequency) * m_sineWaveAmplitude;
-        //               
-        //    Vector2 horizontalForce = m_direction * horizontalMovement;
-        //               
-        //    m_rb.AddForce(horizontalForce * m_projectileData.defaultAcceleration, ForceMode2D.Force);
-        //
-        //    if (m_direction.magnitude > 0)
-        //        RegulateVelocity();
-        //}
+        // TODO maybe put it in a special scriptable object data
+        [SerializeField] private float m_sineWaveFrequency;
+        [SerializeField] private float m_sineWaveAmplitude;                
+
+        protected override void Move()
+        {
+            //TODO maybe change to an anim curve
+            float horizontalMovement = Mathf.Sin(Time.time * m_sineWaveFrequency) * m_sineWaveAmplitude;                        
+            Vector2 perpendicularDirection = new Vector2(-m_direction.y, m_direction.x);
+            Vector2 combinedDirection = m_direction + perpendicularDirection * horizontalMovement;
+
+            m_rb.AddForce(combinedDirection.normalized * m_projectileData.defaultAcceleration, ForceMode2D.Force);
+
+            if (combinedDirection.magnitude > 0)
+                RegulateVelocity();
+        }
     }
 }

@@ -37,6 +37,6 @@ namespace SpaceBaboon.WeaponSystem
             {
                 m_parentPool.UnSpawn(gameObject);
             }            
-        }        
+        }
     }
 }

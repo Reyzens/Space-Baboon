@@ -19,4 +19,4 @@ MonoBehaviour:
   damage: 0
   maxLifetime: 10
   defaultAcceleration: 30
-  defaultMaxVelocity: 10
+  defaultMaxVelocity: 20

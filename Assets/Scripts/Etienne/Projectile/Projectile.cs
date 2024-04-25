@@ -45,6 +45,7 @@ namespace SpaceBaboon.WeaponSystem
         protected virtual void OnCollisionEnter2D(Collision2D collision) { }
         public virtual void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform playerPosition = null)
         {
+            //m_direction = target.position;
             m_damage = damage;
         }
 

@@ -143,9 +143,9 @@ namespace SpaceBaboon.EnemySystem
             m_contactAttackReady = false;
         }
 
-        // TODO intantiation to be removed when particle system object pool integrated to project
+        // TODO instantiation to be removed when particle system object pool integrated to project
         // TODO make sure particle system is at foreground
-        private void InstantiateContactAttackParticuleSystem(Vector2 contactPos)
+        protected void InstantiateContactAttackParticuleSystem(Vector2 contactPos)
         {
             Vector3 contactPosVec = new Vector3(contactPos.x, contactPos.y, 2);
 

@@ -5,13 +5,13 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class EnemyWeapon : Weapon
     {
-        [SerializeField] private GameObject m_projectilePrefab;
-        [SerializeField] private WeaponData m_weaponData;
+        [SerializeField] protected GameObject m_projectilePrefab;
+        [SerializeField] protected WeaponData m_weaponData;
 
         private GameObject m_enemySpawner;
-        private EnemySpawner m_enemySpawnerScript;
+        protected EnemySpawner m_enemySpawnerScript;
 
-        private Transform m_target;
+        protected Transform m_target;
 
         private void Start()
         {
@@ -27,7 +27,7 @@ namespace SpaceBaboon.WeaponSystem
         }
 
         protected override void Attack()
-        {
+        {           
             Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
 
             var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_projectilePrefab, spawnPos);
