@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShockWaveExplodableData
   m_EditorClassIdentifier: 
   m_explosionRadius: 10
-  m_maxExplosionTime: 1
+  m_maxExplosionTime: 5

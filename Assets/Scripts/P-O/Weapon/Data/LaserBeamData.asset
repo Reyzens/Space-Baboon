@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxLevel: 100
   maxRange: 50
-  attackZone: 1
+  attackZone: 2
   attackSpeed: 5
   baseDamage: 8
   weaponName: 4
