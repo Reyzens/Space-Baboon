@@ -49,7 +49,7 @@ namespace SpaceBaboon.Crafting
                 }
             }
         }
-        public static List<CraftingStation> ReturnList()
+        public static List<CraftingStation> GetCraftingStations()
         {
             return m_craftingStationsList;
         }

@@ -1,6 +1,7 @@
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -36,9 +37,8 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();        
         [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
 
-        [field: Header("SPAWNER LOGIC")]
-        [SerializeField] private GameObject m_map; // TODO Change so we have a centralized map data, resource and enemy spawner could benefit from it
-        [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
+        [field: Header("SPAWNER LOGIC")]        
+        [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f; // TODO check this out, not sure why the radius is so huge that I need to add negative distance 
         [SerializeField] private float m_spawningDelay = 0.0f;
         [SerializeField] private bool m_isSpawning = true;
         [SerializeField] private int m_enemiesAmountToSpawnOneShot = 0;
@@ -47,6 +47,9 @@ namespace SpaceBaboon.EnemySystem
 
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
+
+        [SerializeField] private Tilemap m_tilemapRef;
+        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();        
 
         private void Awake()
         {
@@ -57,6 +60,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_cam = Camera.main;
             m_spawningTimer = m_spawningDelay;
+            GenerateGrid();
         }
 
         private void Update()
@@ -69,6 +73,17 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_spawnGroup)
                 SpawnGroup(m_enemiesAmountToSpawnOneShot);
+        }
+
+        private void GenerateGrid()
+        {
+            foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
+            {
+                if (m_tilemapRef.HasTile(positions))
+                {
+                    m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(positions));
+                }
+            }
         }
 
         private void SpawnOneEnemy()
@@ -87,7 +102,7 @@ namespace SpaceBaboon.EnemySystem
                 m_spawningTimer = m_spawningDelay;
                 SpawnOneEnemy();
             }
-        }
+        }        
 
         private void SpawnGroup(int numberOfEnemies)
         {
@@ -99,36 +114,10 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private Vector3 FindValidEnemyRandomPos()
-        {
-            Vector2 mapMin = new Vector2(-(float)(m_map.transform.localScale.x * 0.5f), -(float)(m_map.transform.localScale.y * 0.5f));
-            Vector2 mapMax = new Vector2((float)(m_map.transform.localScale.x * 0.5f), (float)(m_map.transform.localScale.y * 0.5f));
-            Vector3 screenZeroWPos = m_cam.ScreenToWorldPoint(Vector3.zero);
-            Vector3 screenCenterWPos = m_cam.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, m_cam.nearClipPlane));
-            float screenCornerRadius = Vector3.Distance(screenZeroWPos, screenCenterWPos);
-
-            float spawnRadius = screenCornerRadius + m_spawnRadiusFromScreenCorner;
-
-            bool validPosFound = false;
-            Vector3 spawnWorldPos = Vector3.zero;
-
-            while (!validPosFound)
-            {
-                Vector2 randomPosOnCircle = RandomPosOnCircle(spawnRadius);
-                Vector3 spawnPos = new Vector3(randomPosOnCircle.x, randomPosOnCircle.y, m_cam.nearClipPlane);
-
-                spawnWorldPos = m_cam.transform.position + spawnPos;
-
-                if (spawnWorldPos.x < mapMax.x &&
-                   spawnWorldPos.y < mapMax.y &&
-                   spawnWorldPos.x > mapMin.x &&
-                   spawnWorldPos.y > mapMin.y)
-                {
-                    validPosFound = true;
-                }
-            }
-
-            return spawnWorldPos;
-        }
+        {             
+            float spawnRadius = CalculateValidSpawnRadius();
+            return RandomValidPosOnCircleAroundPlayer(spawnRadius);
+        }   
 
         private GameObject GetRandomEnemyType()
         {
@@ -167,15 +156,57 @@ namespace SpaceBaboon.EnemySystem
             return null;
         }
 
-        private Vector2 RandomPosOnCircle(float radius)
+        private Vector3 RandomValidPosOnCircleAroundPlayer(float radius)
         {
-            float randomAngle = Random.Range(0.0f, Mathf.PI * 2.0f);
+            Vector3 validTilePos = Vector3.zero;
+            Vector3Int currentPlayerTilePos = m_tilemapRef.WorldToCell(m_cam.transform.position);
+            int radiusThreshold = 1;
 
-            float x = radius * Mathf.Cos(randomAngle);
-            float y = radius * Mathf.Sin(randomAngle);
+            List<Vector3Int> positionsNearRadius = new List<Vector3Int>();
 
-            return new Vector2(x, y);
-        }        
+            foreach (var tilePos in m_tilemapRef.cellBounds.allPositionsWithin)
+            {
+                if (m_tilemapRef.HasTile(tilePos))
+                {
+                    float distance = Vector3Int.Distance(currentPlayerTilePos, tilePos);
+                    if (distance > radius - radiusThreshold && distance < radius + radiusThreshold)
+                    {
+                        positionsNearRadius.Add(tilePos);
+                    }
+                }
+            }
+
+            if (positionsNearRadius.Count > 0)
+            {
+                int randomIndex = Random.Range(0, positionsNearRadius.Count);
+                validTilePos = m_tilemapRef.CellToWorld(positionsNearRadius[randomIndex]) + new Vector3(0.5f, 0.5f, 0f);
+            }
+            else 
+            {
+                Debug.Log("No valid pos found on circle");
+            }
+
+            return validTilePos;
+        }
+
+        private float CalculateValidSpawnRadius()
+        {
+            Vector3 screenZeroWPos = m_cam.ScreenToWorldPoint(Vector3.zero);
+            Vector3 screenCenterWPos = m_cam.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, m_cam.nearClipPlane));
+            float screenCornerRadius = Vector3.Distance(screenZeroWPos, screenCenterWPos);
+
+            return screenCornerRadius + m_spawnRadiusFromScreenCorner;
+        }
+
+        private bool CheckPosValidity(Vector2 positionToTest)
+        {
+            //Check if the position is valid
+            Collider2D colliderOnPos = Physics2D.OverlapPoint(positionToTest);
+
+            if (colliderOnPos != null) { return false; }
+
+            return true;
+        }
 
         private void CreateEnemySpawnerPools()
         {
@@ -186,12 +217,6 @@ namespace SpaceBaboon.EnemySystem
             m_enemyPool.CreatePool(enemyPrefabs, "Enemies");
             m_enemyProjectilesPool.CreatePool(m_pooledEnemyProjectiles, "Shooting Enemy Weapon Projectile");
         }
-
-        public EnemySpawner GetEnemySpawner()
-        {
-            return this;
-        }
-
 
         #region Cheats
 

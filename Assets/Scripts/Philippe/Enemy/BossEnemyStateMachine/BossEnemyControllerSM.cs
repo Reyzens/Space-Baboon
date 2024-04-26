@@ -1,4 +1,5 @@
 using SpaceBaboon.WeaponSystem;
+using SpaceBaboon.Crafting;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,7 +11,7 @@ namespace SpaceBaboon.EnemySystem
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }
-        [field: SerializeField] public List<GameObject> CraftingStations { get; private set; }
+        public List<CraftingStation> CraftingStations { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
         public EnemyWeapon ShotGun { get; private set; }
         public int TargetedCraftingStation { get; private set; }           
@@ -98,16 +99,12 @@ namespace SpaceBaboon.EnemySystem
             Agent.updateUpAxis = false;
 
             Player = m_player;
+            
+            SineGun = GetComponentInChildren<EnemyWeapon>();
+            // TODO Use a GetComponentInChildren when/if implemented
+            //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
 
-            SineGun = GameObject.Find("SineGun").GetComponent<EnemyWeapon>();
-            ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
-
-            // TODO Remove asap when we have references to stations from manager
-            CraftingStations.Add(GameObject.Find("CraftingStationOne"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (1)"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (2)"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (3)"));
-            CraftingStations.Add(GameObject.Find("CraftingStationOne (4)"));
+            CraftingStations = CraftingStation.GetCraftingStations();
 
             TargetedCraftingStation = GetRandomCraftingStationIndex();
         }

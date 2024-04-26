@@ -78,6 +78,7 @@ namespace SpaceBaboon
                 }
             }
         }
+
         private void CalculateSpawnPosition()
         {
             bool validPosFound = false;
@@ -101,11 +102,13 @@ namespace SpaceBaboon
 
             SpawnResource(spawnPosition);
         }
+
         private Vector3 RandomPosOnMap()
         {
             int newPos = Random.Range(0, m_spawnPositionsAvailable.Count);
             return (Vector2)m_spawnPositionsAvailable[newPos] + new Vector2(0.5f, 0.5f);
         }
+
         private bool CheckPosValidity(Vector2 positionToTest)
         {
             //Check if the position is valid
@@ -115,6 +118,7 @@ namespace SpaceBaboon
 
             return true;
         }
+
         private void SpawnResource(Vector2 spawnPosition)
         {
             //Choose resource to spawn
