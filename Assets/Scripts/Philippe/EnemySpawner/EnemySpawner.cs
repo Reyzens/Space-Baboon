@@ -114,22 +114,18 @@ namespace SpaceBaboon.EnemySystem
             foreach (var obstaclePosition in m_obstacleTileMapRef.cellBounds.allPositionsWithin)
             {
                 if (m_obstacleTileMapRef.HasTile(obstaclePosition))
-                {
-                    // Get the world position of the obstacle tile
+                {                    
                     Vector3 obstacleWorldPos = m_obstacleTileMapRef.CellToWorld(obstaclePosition);
-
-                    // Check the distance between the obstacle and the current tile
+                                        
                     float distance = Vector3.Distance(obstacleWorldPos, currentWorldPos);
-
-                    // Return false if the distance is less than the threshold
+                                        
                     if (distance < m_minDistanceFromAMapCollider)
                     {
                         return false;
                     }
                 }
             }
-
-            // If no obstacle is too close, return true
+            
             return true;
         }
 
@@ -137,7 +133,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void SpawnOneEnemy()
         {
-            Debug.Log("Try to spawn one");
+            //Debug.Log("Try to spawn one");
             Vector3 spawnWorldPos = FindValidEnemyRandomPos();
             m_enemyPool.Spawn(GetRandomEnemyType(), spawnWorldPos);
         }
