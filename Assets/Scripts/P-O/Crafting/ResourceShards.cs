@@ -10,6 +10,7 @@ namespace SpaceBaboon.Crafting
         [SerializeField] private float m_timeBeforeAutoCollect;
         [SerializeField] private float m_autoCollectTravelSpeed;
         [SerializeField] private float m_maxVelocity;
+        [SerializeField] private float m_MaxStuckSafetyTimer;
 
         //Variables
         private Player m_recoltingPlayer;
@@ -17,6 +18,7 @@ namespace SpaceBaboon.Crafting
         private Vector2 m_pushDirection;
         private float m_currentAutoCollectTimer;
         private bool m_isAutoCollecting = false;
+        private float m_currentStuckSafetyTimer;
 
         //For ObjectPool        
         protected GenericObjectPool m_parentPool;
@@ -42,6 +44,10 @@ namespace SpaceBaboon.Crafting
             {
                 WaitingForAutoCollectLogic();
             }
+            if (m_isAutoCollecting)
+            {
+                StuckSafety();
+            }
         }
         void FixedUpdate()
         {
@@ -53,6 +59,7 @@ namespace SpaceBaboon.Crafting
         private void StartAutoCollect()
         {
             m_isAutoCollecting = true;
+            m_currentStuckSafetyTimer = m_MaxStuckSafetyTimer;
         }
         private void MoveTowardsPlayer()
         {
@@ -86,6 +93,14 @@ namespace SpaceBaboon.Crafting
         {
             m_recoltingPlayer.AddResource(m_resourceData.m_resourceType, 1);
             m_parentPool.UnSpawn(gameObject);
+        }
+        private void StuckSafety()
+        {
+            m_currentStuckSafetyTimer -= Time.fixedDeltaTime;
+            if (m_currentStuckSafetyTimer < 0)
+            {
+                GetCollected();
+            }
         }
         #region ObjectPooling
         public bool IsActive

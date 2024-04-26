@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3799252919573705736}
   - component: {fileID: -2355523754940955149}
   - component: {fileID: -7181694858709034926}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: MetalShard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_timeBeforeAutoCollect: 3
   m_autoCollectTravelSpeed: 5
   m_maxVelocity: 40
+  m_MaxStuckSafetyTimer: 15
 --- !u!50 &-7181694858709034926
 Rigidbody2D:
   serializedVersion: 4
@@ -160,7 +161,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4096
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
