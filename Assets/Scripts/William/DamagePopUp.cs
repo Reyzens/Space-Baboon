@@ -45,6 +45,10 @@ namespace SpaceBaboon
                 m_popUpDmgTextFadingSpeed = 1.5f;
                 m_textColor.a -= m_popUpDmgTextFadingSpeed * Time.deltaTime;
                 m_popUpDmgText.color = m_textColor;
+                if(m_textColor.a < 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }

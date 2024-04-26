@@ -61,8 +61,8 @@ namespace SpaceBaboon
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private CinemachineVirtualCamera m_playerCam;
         [SerializeField] private GameObject m_dahsTrail;
-        [SerializeField] private float m_screenShakeAmplitude = 5.0f;
-        [SerializeField] private float m_screenShakeFrequency = 1.0f;
+        [SerializeField] private float m_screenShakeAmplitude = 12.0f;
+        [SerializeField] private float m_screenShakeFrequency = 2.0f;
         [SerializeField] private float m_collectRange;
 
         //Cheats related

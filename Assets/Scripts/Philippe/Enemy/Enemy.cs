@@ -1,3 +1,4 @@
+using Cinemachine;
 using SpaceBaboon.PoolingSystem;
 using System;
 using UnityEngine;
@@ -20,6 +21,8 @@ namespace SpaceBaboon.EnemySystem
 
         private GameObject m_playerObject;
         protected Player m_player;
+        private Color m_spriteRendererColor;
+        private float m_enemyFlashingTimer;
 
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
@@ -36,6 +39,7 @@ namespace SpaceBaboon.EnemySystem
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
             m_rB = GetComponent<Rigidbody2D>();
+            m_spriteRendererColor = m_renderer.material.color;
         }
 
         protected virtual void Start()
@@ -56,6 +60,16 @@ namespace SpaceBaboon.EnemySystem
 
             if (!m_contactAttackReady)
                 ReadyContactAttack();
+
+            if(m_enemyFlashingTimer > 0.0f)
+            {
+                m_enemyFlashingTimer -= Time.deltaTime;
+               
+            }
+            if (m_enemyFlashingTimer < 0.0f)
+            {
+                m_renderer.material.color = m_spriteRendererColor;
+            }
         }
 
         protected virtual void FixedUpdate()
@@ -163,15 +177,37 @@ namespace SpaceBaboon.EnemySystem
         public override void OnDamageTaken(float damage)
         {
             m_activeHealth -= damage;
-
+            SpriteFlashing();
+            DamagePopUp.Create(this.transform.position, damage);
             Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_eventEnemyDeath?.Invoke();
-                DamagePopUp.Create(this.transform.position, damage);
                 m_parentPool.UnSpawn(gameObject);
             }
         }
+
+        private void SpriteFlashing()
+        {
+            m_enemyFlashingTimer = 0.2f;
+            m_renderer.material.color = Color.red;
+        }
+
+
+        //public override void OnDamageTaken(float damage)
+        //{
+        //    Debug.Log("player takes damage");
+        //
+        //    // TODO change name of OnDamageTaken to AttackReceived
+        //    // We could change the IDammageable interface to IAttackable
+        //    // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
+        //    m_screenShake = true;
+        //    m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = m_screenShakeAmplitude;
+        //    m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = m_screenShakeFrequency;
+        //    m_renderer.material.color = Color.red;
+        //    if (m_alive && !m_isInvincible)
+        //        m_activeHealth -= damage;
+        //}
 
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
