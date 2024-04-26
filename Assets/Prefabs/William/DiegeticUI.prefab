@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 156815027586423440}
   m_Layer: 0
-  m_Name: UI
+  m_Name: DiegeticUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
