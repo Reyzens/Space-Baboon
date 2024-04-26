@@ -19,7 +19,7 @@ namespace SpaceBaboon.WeaponSystem
                 }
             }
             //Didn't find an enemy
-            return transform;
+            return null;
         }
     }
 }
