@@ -227,6 +227,7 @@ namespace SpaceBaboon
             if (collision.gameObject.CompareTag("Resource"))
             {
                 m_collectibleInRange = true;
+                collision.GetComponent<Crafting.InteractableResource>().CollectableSizing(true);
             }
         }
         private void OnTriggerExit2D(Collider2D collision)
@@ -234,6 +235,7 @@ namespace SpaceBaboon
             if (collision.gameObject.CompareTag("Resource"))
             {
                 m_collectibleInRange = false;
+                collision.GetComponent<Crafting.InteractableResource>().CollectableSizing(false);
             }
         }
 
