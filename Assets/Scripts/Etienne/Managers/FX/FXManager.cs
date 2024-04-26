@@ -70,16 +70,19 @@ namespace SpaceBaboon.FXSystem
 
         public void PlayAudio(EFXType type)
         {
-            Debug.Log("PlayAudio called :  " + type);
+            //Debug.Log("PlayAudio called :  " + type);
             GameObject obj = m_audioPool.Spawn(transform.position);
 
             AudioSource audioSource = obj.GetComponent<AudioInstance>().AudioSource;
-            Debug.Log("audioSource " + audioSource);
+            //Debug.Log("audioSource " + audioSource);
+
+            if (type == EFXType.GrenadeExplode || type == EFXType.WeaponUpgrading)
+            {
+                audioSource.PlayOneShot(m_dictionary[type], 0.2f);
+                return;
+            }
             audioSource.PlayOneShot(m_dictionary[type]);
-            Debug.Log("dictionary value: " + m_dictionary[type].name);
-
-
-            //m_audioPool.UnSpawn(obj);
+            //Debug.Log("dictionary value: " + m_dictionary[type].name);
         }
 
     }
