@@ -94,6 +94,12 @@ namespace SpaceBaboon.Crafting
                 m_currentUpgradeCD = m_maxUpgradeCooldown;
                 m_currentStationLevel++;
                 ResetUpgrade();
+
+                FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+                if (fxManager != null)
+                {
+                    fxManager.PlayAudio(FXSystem.EFXType.WeaponUpgrading);
+                }
             }
         }
         #endregion
