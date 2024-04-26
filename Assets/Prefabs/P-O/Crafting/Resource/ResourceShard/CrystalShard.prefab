@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3524082082466684158}
   - component: {fileID: -856730291501000458}
   - component: {fileID: 3100575748710292824}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: CrystalShard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
