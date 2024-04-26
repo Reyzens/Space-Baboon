@@ -19,6 +19,7 @@ namespace SpaceBaboon.Crafting
         private GameObject m_collectingWeapon;
         private bool m_isInCollectRange = false;
         private const float m_maxCollectibleGrowt = 15f;
+        private Color m_initialSpriteColor;
 
         //Ipoolable variables
         private bool m_isActive = false;
@@ -46,6 +47,7 @@ namespace SpaceBaboon.Crafting
         private void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
+            m_initialSpriteColor = m_renderer.color;
             //Debug.Log(m_renderer);
             m_circleCollider = GetComponent<CircleCollider2D>();
             m_capsuleCollider = GetComponent<CapsuleCollider2D>();
@@ -73,11 +75,11 @@ namespace SpaceBaboon.Crafting
         {
             if (shouldGrow)
             {
-                transform.localScale = new Vector3(m_maxCollectibleGrowt, m_maxCollectibleGrowt, m_maxCollectibleGrowt);
+                m_renderer.color = Color.green;
             }
             else
             {
-                transform.localScale = new Vector3(10, 10, 10);
+                m_renderer.color = m_initialSpriteColor;
             }
         }
 
