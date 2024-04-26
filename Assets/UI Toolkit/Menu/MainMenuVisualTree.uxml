@@ -32,7 +32,8 @@
                 <ui:Button text="Window size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WindowSize" class="button" style="height: 20%; font-size: 40%; flex-direction: column; -unity-text-align: middle-left;">
                     <ui:Slider picking-mode="Ignore" value="120" high-value="120" name="WindowSizeSlider" low-value="50" style="align-items: auto; min-height: auto; width: 42%; height: 40%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row-reverse; top: 40%;" />
                 </ui:Button>
-                <ui:Button text="Back To Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BackButton" class="button" style="height: 20%; top: 10%;" />
+                <ui:Button text="Apply" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ConfirmWindowSizeButton" class="button" style="height: 10%; top: -5%; left: auto; -unity-text-align: middle-right; width: 22%;" />
+                <ui:Button text="Back To Main Menu" parse-escape-sequences="true" display-tooltip-when-elided="true" name="BackButton" class="button" style="height: 20%; top: 2%;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

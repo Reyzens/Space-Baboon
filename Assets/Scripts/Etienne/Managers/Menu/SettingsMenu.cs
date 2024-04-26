@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,6 +13,7 @@ namespace SpaceBaboon.MenuSystem
         private Toggle m_fullscreenToggle;
         private Slider m_masterVolumeSlider;
         private Slider m_windowSizeSlider;
+        private Button m_confirmWindowSizeButton;
         private Button m_backButton;
 
         private const int DEFAULT_SIZE = 120;
@@ -34,6 +36,8 @@ namespace SpaceBaboon.MenuSystem
             m_windowSizeSlider = m_root.Q<Slider>("WindowSizeSlider");
             m_windowSizeSlider.value = DEFAULT_SIZE;
 
+            m_confirmWindowSizeButton = m_root.Q<Button>("ConfirmWindowSizeButton");
+
             m_backButton = m_root.Q<Button>("BackButton");
 
 
@@ -44,6 +48,8 @@ namespace SpaceBaboon.MenuSystem
         {
             m_fullscreenToggle.RegisterValueChangedCallback(OnFullscreenToggled);
             m_masterVolumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
+            m_windowSizeSlider.RegisterValueChangedCallback(OnWindowSizeChanged);
+            m_confirmWindowSizeButton.clicked += ApplyNewResolution;
             m_backButton.clicked += BackToMainMenu;
         }
 
@@ -51,6 +57,8 @@ namespace SpaceBaboon.MenuSystem
         {
             m_fullscreenToggle.UnregisterValueChangedCallback(OnFullscreenToggled);
             m_masterVolumeSlider.UnregisterValueChangedCallback(OnVolumeChanged);
+            m_windowSizeSlider.UnregisterValueChangedCallback(OnWindowSizeChanged);
+            m_confirmWindowSizeButton.clicked -= ApplyNewResolution;
             m_backButton.clicked -= BackToMainMenu;
         }
 
@@ -64,9 +72,26 @@ namespace SpaceBaboon.MenuSystem
             AudioListener.volume = evt.newValue;
         }
 
-        private void SetResolution()
+        private void OnWindowSizeChanged(ChangeEvent<float> evt)
+        {
+            m_windowSizeSlider.value = evt.newValue;
+        }
+
+        private void ApplyNewResolution()
+        {
+            int size = (int)m_windowSizeSlider.value;
+            SetResolution(size);
+        }
+
+        private void SetResolution(int size)
         {
             //Screen.SetResolution
+
+            int width = size * WIDTH_RATIO;
+            int height = size * HEIGHT_RATIO;
+
+            Screen.SetResolution(width, height, FullScreenMode.Windowed);
+            m_fullscreenToggle.value = false;
         }
 
         private void BackToMainMenu()
