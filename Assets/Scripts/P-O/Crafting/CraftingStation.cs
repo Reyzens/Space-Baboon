@@ -32,6 +32,8 @@ namespace SpaceBaboon.Crafting
         static List<CraftingStation> m_craftingStationsList = new List<CraftingStation>();
         static EWeaponUpgrades m_currentUpgrade = EWeaponUpgrades.Count;
 
+        public static EWeaponUpgrades CurrentUpgrade { get { return m_currentUpgrade; } }
+
         // Start is called before the first frame update
         void Start()
         {
