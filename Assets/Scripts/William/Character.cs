@@ -45,7 +45,7 @@ namespace SpaceBaboon
             }
         }
 
-        protected virtual void CheckForSpriteDirectionSwap(Vector2 direction)
+        protected void CheckForSpriteDirectionSwap(Vector2 direction)
         {
             if (direction.x > 0)
             {

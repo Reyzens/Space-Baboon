@@ -17,6 +17,8 @@ namespace SpaceBaboon.Crafting
         private GenericObjectPool m_shardPoolRef;
         private float shardsSpawnStrenght = 20f;
         private GameObject m_collectingWeapon;
+        private bool m_isInCollectRange = false;
+        private const float m_maxCollectibleGrowt = 15f;
 
         //Ipoolable variables
         private bool m_isActive = false;
@@ -62,6 +64,21 @@ namespace SpaceBaboon.Crafting
             }
 
             if (m_currentCooldown < 0) { FinishCollecting(); }
+            if (m_isInCollectRange)
+            {
+
+            }
+        }
+        public void CollectableSizing(bool shouldGrow)
+        {
+            if (shouldGrow)
+            {
+                transform.localScale = new Vector3(m_maxCollectibleGrowt, m_maxCollectibleGrowt, m_maxCollectibleGrowt);
+            }
+            else
+            {
+                transform.localScale = new Vector3(10, 10, 10);
+            }
         }
 
         #region CollectingLogic
