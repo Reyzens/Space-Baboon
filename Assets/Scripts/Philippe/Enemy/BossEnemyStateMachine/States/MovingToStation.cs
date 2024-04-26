@@ -16,15 +16,10 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnUpdate()
         {
-            if (!m_stateMachine.ControllerIsActive)
-                return;
         }
 
         public override void OnFixedUpdate()
         {
-            if (!m_stateMachine.ControllerIsActive)
-                return;
-
             m_stateMachine.Move(m_stateMachine.CraftingStations[m_stateMachine.TargetedCraftingStation].transform.position);
         }
 
