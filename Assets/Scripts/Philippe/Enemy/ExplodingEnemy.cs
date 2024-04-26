@@ -113,7 +113,9 @@ namespace SpaceBaboon.EnemySystem
         public void Explode()
         {
             m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_projectilePrefab, transform.position);
+            m_activeHealth = 0;
             m_parentPool.UnSpawn(gameObject);
+            
         }
 
         public void StartExplosion() { /* Unused */ }        
