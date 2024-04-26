@@ -92,6 +92,8 @@ namespace SpaceBaboon.MenuSystem
 
             Screen.SetResolution(width, height, FullScreenMode.Windowed);
             m_fullscreenToggle.value = false;
+
+            GameManager.Instance.SetWindowSizeScale(size/DEFAULT_SIZE);
         }
 
         private void BackToMainMenu()
