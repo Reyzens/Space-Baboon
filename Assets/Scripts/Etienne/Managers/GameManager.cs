@@ -8,7 +8,7 @@ namespace SpaceBaboon
 
         public Transform m_dmgPopUpPrefab;
         public Player Player { get; set; }
-        public float WindowSizeScale { get; set; }
+        public float WindowSizeScale { get; set; } = 1.0f;
 
         public static GameManager Instance
         {
