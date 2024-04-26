@@ -7,8 +7,7 @@ namespace SpaceBaboon
         //BaseRef
         [SerializeField] protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
-        protected SpriteRenderer m_renderer;
-        //protected BoxCollider2D m_collider;
+        protected SpriteRenderer m_renderer;        
         protected Rigidbody2D m_rB;
         
         //BaseVariables
@@ -31,6 +30,12 @@ namespace SpaceBaboon
         protected float MaxVelocity
         {
             get { return m_characterData.defaultMaxVelocity * m_speedMultiplierCheat; }
+        }
+
+        protected virtual void Awake()
+        {
+            m_renderer = GetComponent<SpriteRenderer>();
+            m_rB = GetComponent<Rigidbody2D>();
         }
 
         //Methods        

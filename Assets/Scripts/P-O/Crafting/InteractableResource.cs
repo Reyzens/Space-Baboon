@@ -9,6 +9,7 @@ namespace SpaceBaboon.Crafting
         //Serializable
         [SerializeField] private ResourceData m_resourceData;
         [SerializeField] private bool m_DebugMode;
+        [SerializeField] private GameObject m_outline;
 
         //Private variables
         private bool m_isBeingCollected = false;
@@ -52,7 +53,7 @@ namespace SpaceBaboon.Crafting
         }
         private void Start()
         {
-
+            m_outline.SetActive(false);
         }
         private void Update()
         {
@@ -71,14 +72,7 @@ namespace SpaceBaboon.Crafting
         }
         public void CollectableSizing(bool shouldGrow)
         {
-            if (shouldGrow)
-            {
-                transform.localScale = new Vector3(m_maxCollectibleGrowt, m_maxCollectibleGrowt, m_maxCollectibleGrowt);
-            }
-            else
-            {
-                transform.localScale = new Vector3(10, 10, 10);
-            }
+            m_outline.gameObject.SetActive(shouldGrow);
         }
 
         #region CollectingLogic

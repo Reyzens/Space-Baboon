@@ -114,16 +114,15 @@ namespace SpaceBaboon
         #region Initialiazation
         private void PlayerVariablesInitialization()
         {
+            base.Awake();
             InputHandler.instance.m_Input.Enable();
             SubscribeToInputEvent();
 
             m_collectibleInventory = new Dictionary<Crafting.InteractableResource.EResourceType, int>();
             //m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
             //m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
-
-            m_rB = GetComponent<Rigidbody2D>();
-            m_collider = GetComponent<BoxCollider2D>();
-            m_renderer = GetComponent<SpriteRenderer>();
+                        
+            m_collider = GetComponent<BoxCollider2D>();            
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             m_spriteRendererColor = m_renderer.color;
 

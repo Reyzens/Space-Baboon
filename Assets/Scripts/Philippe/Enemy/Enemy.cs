@@ -1,9 +1,7 @@
-using Cinemachine;
 using SpaceBaboon.PoolingSystem;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -39,11 +37,11 @@ namespace SpaceBaboon.EnemySystem
 
         protected NavMeshAgent m_navMeshAgent;
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
-            m_renderer = GetComponent<SpriteRenderer>();
-            m_circleCollider = GetComponent<CircleCollider2D>(); // TODO Change to circle collider for optimization
-            m_rB = GetComponent<Rigidbody2D>();
+            base.Awake();
+            
+            m_circleCollider = GetComponent<CircleCollider2D>();             
             m_spriteRendererColor = m_renderer.material.color;
 
             m_navMeshAgent = GetComponent<NavMeshAgent>();
@@ -57,9 +55,7 @@ namespace SpaceBaboon.EnemySystem
             m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             m_enemyUniqueData = m_characterData as EnemyData;
-            m_activeHealth = m_enemyUniqueData.defaultHealth;
-
-            
+            m_activeHealth = m_enemyUniqueData.defaultHealth;            
         }
 
         protected virtual void Update()
@@ -119,18 +115,6 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent.SetDestination(value);
             CheckForSpriteDirectionSwap(m_navMeshAgent.velocity);
         }
-
-        //private void CheckForEnemySpriteDirectionSwap(Vector2 direction)
-        //{
-        //    if (direction.x > 0)
-        //    {
-        //        m_renderer.flipX = false;
-        //    }
-        //    if (direction.x < 0)
-        //    {
-        //        m_renderer.flipX = true;
-        //    }
-        //}
 
         protected virtual void MoveTowardsPlayer()
         {
@@ -246,8 +230,7 @@ namespace SpaceBaboon.EnemySystem
             m_isActive = value;
             m_renderer.enabled = value;
             m_circleCollider.enabled = value;
-            m_navMeshAgent.isStopped = !value;
-            //m_collider.enabled = value;
+            m_navMeshAgent.isStopped = !value;            
         }
         #endregion
     }
