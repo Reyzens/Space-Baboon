@@ -51,7 +51,7 @@ namespace SpaceBaboon.MenuSystem
         {
             //Debug.Log("Start Game");
 
-            SceneManager.LoadScene("SB_04-11_Sprint2");
+            SceneManager.LoadScene("SB_Build3");
         }
 
         private void OpenHowToPlay()

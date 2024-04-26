@@ -21,7 +21,7 @@ MonoBehaviour:
   shootAudioCue: 5
   icon: {fileID: 0}
   projectilePrefab: {fileID: 8320263620006976790, guid: 9f301f683ed0f2e4bb4c34a13d046a3e, type: 3}
-  m_rangeScaling: 0.25
+  m_rangeScaling: 1
   m_speedScaling: 0.25
-  m_zoneScaling: 0.25
-  m_damageScaling: 0.25
+  m_zoneScaling: 1
+  m_damageScaling: 1

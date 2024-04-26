@@ -43,10 +43,10 @@ namespace SpaceBaboon.Crafting
             if (m_isActive && !m_isAutoCollecting)
             {
                 WaitingForAutoCollectLogic();
-            }
-            if (m_isAutoCollecting)
-            {
-                StuckSafety();
+                if (m_isAutoCollecting)
+                {
+                    StuckSafety();
+                }
             }
         }
         void FixedUpdate()
