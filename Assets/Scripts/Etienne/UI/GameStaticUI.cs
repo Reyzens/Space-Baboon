@@ -21,7 +21,6 @@ namespace SpaceBaboon
 
         private void Awake()
         {
-            m_player = GameManager.Instance.Player;
             
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
@@ -34,8 +33,17 @@ namespace SpaceBaboon
             m_gameTimer = visualElement.Q<Label>("TimerAmount");
         }
 
+        private void Start()
+        {
+            m_player = GameManager.Instance.Player;
+        }
+
         private void Update()
         {
+            if (m_player == null)
+            {
+                Debug.Log(GameManager.Instance.Player);
+            }
             m_metalAmount.text = m_player.GetResources(0).ToString();
             m_crystalAmount.text = m_player.GetResources(1).ToString();
             m_technologyAmount.text = m_player.GetResources(2).ToString();
