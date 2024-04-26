@@ -192,23 +192,6 @@ namespace SpaceBaboon.EnemySystem
             m_enemyFlashingTimer = 0.2f;
             m_renderer.material.color = Color.red;
         }
-
-
-        //public override void OnDamageTaken(float damage)
-        //{
-        //    Debug.Log("player takes damage");
-        //
-        //    // TODO change name of OnDamageTaken to AttackReceived
-        //    // We could change the IDammageable interface to IAttackable
-        //    // Player could eventually react to an attack here (for example momentarilly impervious, etc.)
-        //    m_screenShake = true;
-        //    m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = m_screenShakeAmplitude;
-        //    m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = m_screenShakeFrequency;
-        //    m_renderer.material.color = Color.red;
-        //    if (m_alive && !m_isInvincible)
-        //        m_activeHealth -= damage;
-        //}
-
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
