@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f50ee13d4bd7f46b3f71fe4a3ff2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmgPopUpPrefab: {fileID: 11902161937539268, guid: 687d7e70f82c59249bca549100e98605, type: 3}
+  m_dmgPopUpPrefab: {fileID: 11902161937539268, guid: 687d7e70f82c59249bca549100e98605, type: 3}
