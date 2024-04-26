@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Etienne/MainMenu.unity
-    guid: 3491c89d39f102f46ba31a11fbea1e5a
+    path: Assets/Scenes/Space Baboon/SB_MainMenu.unity
+    guid: 125e82f235fb8ee45b54e149169c95f6
   - enabled: 1
-    path: Assets/Scenes/Space Baboon/SB_04-11_Sprint2.unity
-    guid: 6d2f7a2b22ad871418145223cc73f082
+    path: Assets/Scenes/Space Baboon/SB_Build3.unity
+    guid: 70e91e31f5e4b6548aee1eb32b4ba834
   m_configObjects: {}
