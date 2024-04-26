@@ -94,9 +94,11 @@ namespace SpaceBaboon.EnemySystem
         {
             UniqueData = m_characterData as BossEnemyData;
 
-            Agent = GetComponent<NavMeshAgent>();
-            Agent.updateRotation = false;
-            Agent.updateUpAxis = false;
+            Agent = m_navMeshAgent;
+
+            //Agent = GetComponent<NavMeshAgent>();
+            //Agent.updateRotation = false;
+            //Agent.updateUpAxis = false;
 
             Player = m_player;
             

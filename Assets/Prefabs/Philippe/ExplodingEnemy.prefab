@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 91884844438432130}
   - component: {fileID: 6189829936780980565}
-  - component: {fileID: -7130044733001325446}
+  - component: {fileID: 1063784469054857922}
   - component: {fileID: -330612339082038482}
   - component: {fileID: 1802336768623347837}
   - component: {fileID: 5079498157631258817}
   - component: {fileID: -2736597421460320040}
+  - component: {fileID: 1369875931497967225}
   m_Layer: 10
   m_Name: ExplodingEnemy
   m_TagString: Enemy
@@ -31,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 712864204504289401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.889572, y: 27.30685, z: 0}
+  m_LocalPosition: {x: -8.889572, y: 28.88, z: 0}
   m_LocalScale: {x: 12, y: 12, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -89,8 +90,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &-7130044733001325446
-BoxCollider2D:
+--- !u!58 &1063784469054857922
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -121,19 +122,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0065316707, y: -0.06811583}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5, y: 1.5}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0, y: -0.07}
   serializedVersion: 2
-  m_Size: {x: 0.266587, y: 0.37855864}
-  m_EdgeRadius: 0
+  m_Radius: 0.2
 --- !u!50 &-330612339082038482
 Rigidbody2D:
   serializedVersion: 4
@@ -160,7 +151,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!95 &1802336768623347837
 Animator:
   serializedVersion: 5
@@ -365,3 +356,25 @@ MonoBehaviour:
   <CanReceiveHit>k__BackingField: 1
   <AgentType>k__BackingField: 1
   <AffectedAgents>k__BackingField: 00000000
+--- !u!195 &1369875931497967225
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712864204504289401}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.18
+  m_Speed: 10
+  m_Acceleration: 50
+  avoidancePriority: 50
+  m_AngularSpeed: 200
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 0.42
+  m_BaseOffset: 0.28
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

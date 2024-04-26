@@ -8,7 +8,7 @@ namespace SpaceBaboon
         [SerializeField] protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
         protected SpriteRenderer m_renderer;
-        protected BoxCollider2D m_collider;
+        //protected BoxCollider2D m_collider;
         protected Rigidbody2D m_rB;
         
         //BaseVariables

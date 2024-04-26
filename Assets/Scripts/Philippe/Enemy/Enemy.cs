@@ -2,6 +2,7 @@ using Cinemachine;
 using SpaceBaboon.PoolingSystem;
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace SpaceBaboon.EnemySystem
@@ -17,6 +18,8 @@ namespace SpaceBaboon.EnemySystem
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
+        protected CircleCollider2D m_circleCollider;
+
         //private EnemySpawner m_enemySpawner;
 
         private GameObject m_playerObject;
@@ -27,19 +30,25 @@ namespace SpaceBaboon.EnemySystem
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
         protected bool m_contactAttackReady = true;
-        private float m_bonusDamage = 0.0f;
-        private float m_bonusAcceleration;
-        private float m_bonusMaxVelocity;
-        private float m_bonusAttackDelay;
+        //private float m_bonusDamage = 0.0f;
+        //private float m_bonusAcceleration;
+        //private float m_bonusMaxVelocity;
+        //private float m_bonusAttackDelay;
 
         protected Vector2 m_noVectorValue = Vector2.zero;
+
+        protected NavMeshAgent m_navMeshAgent;
 
         protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
-            m_collider = GetComponent<BoxCollider2D>(); // TODO Change to circle collider for optimization
+            m_circleCollider = GetComponent<CircleCollider2D>(); // TODO Change to circle collider for optimization
             m_rB = GetComponent<Rigidbody2D>();
             m_spriteRendererColor = m_renderer.material.color;
+
+            m_navMeshAgent = GetComponent<NavMeshAgent>();
+            m_navMeshAgent.updateRotation = false;
+            m_navMeshAgent.updateUpAxis = false;
         }
 
         protected virtual void Start()
@@ -49,6 +58,8 @@ namespace SpaceBaboon.EnemySystem
 
             m_enemyUniqueData = m_characterData as EnemyData;
             m_activeHealth = m_enemyUniqueData.defaultHealth;
+
+            
         }
 
         protected virtual void Update()
@@ -77,7 +88,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            Move(m_noVectorValue);
+            Move(m_player.transform.position);
         }
         
         private void OnCollisionStay2D(Collision2D collision)
@@ -87,7 +98,8 @@ namespace SpaceBaboon.EnemySystem
 
         protected void StopMovement()
         {
-            m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
+            m_navMeshAgent.acceleration = -m_characterData.defaultAcceleration;
+            //m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
         }
 
         private void CalculateDistanceToPlayer()
@@ -97,13 +109,14 @@ namespace SpaceBaboon.EnemySystem
 
         protected virtual void SlightPushFromObstructingObject(Collision2D collision)
         {
-            Vector3 direction = collision.transform.position - transform.position;
-            m_rB.AddForce(-direction * m_enemyUniqueData.obstructionPushForce, ForceMode2D.Force);
+            //Vector3 direction = collision.transform.position - transform.position;
+            //m_rB.AddForce(-direction * m_enemyUniqueData.obstructionPushForce, ForceMode2D.Force);
         }
 
         protected override void Move(Vector2 value)
         {
-            MoveTowardsPlayer();
+            //MoveTowardsPlayer();
+            m_navMeshAgent.SetDestination(value);
             CheckForSpriteDirectionSwap(m_movementDirection);
         }
 
@@ -220,7 +233,9 @@ namespace SpaceBaboon.EnemySystem
         {
             m_isActive = value;
             m_renderer.enabled = value;
-            m_collider.enabled = value;
+            m_circleCollider.enabled = value;
+            m_navMeshAgent.isStopped = !value;
+            //m_collider.enabled = value;
         }
         #endregion
     }

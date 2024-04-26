@@ -60,13 +60,15 @@ namespace SpaceBaboon.EnemySystem
             // TODO see if I can bring improvements
             if(m_distanceToPlayer > m_uniqueData.maxTargetAcquisitionRange)
             {
+                m_navMeshAgent.isStopped = false;
                 base.Move(value);
                 return;
             }
 
             if (m_rB.velocity.magnitude < 0.1f)
             {
-                m_rB.velocity = Vector2.zero;
+                m_navMeshAgent.isStopped = true;
+                //m_rB.velocity = Vector2.zero;
                 return;
             }                
 
