@@ -105,8 +105,7 @@ namespace SpaceBaboon.WeaponSystem
                     m_parentPool.UnSpawn(gameObject);
                 }
 
-                m_currentExplosionSize = m_innerRadius - (m_currentExplosionTime * m_explosionSizeRatio);
-                //m_currentExplosionSize = m_innerRadius - (m_currentExplosionTime * m_explosionSizeRatio);
+                m_currentExplosionSize = m_explosionSizeRatio * (m_ExplodableData.m_maxExplosionTime - m_currentExplosionTime);
                 m_collider.radius = m_currentExplosionSize + m_thickness;
             }
         }
