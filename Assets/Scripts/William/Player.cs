@@ -361,6 +361,13 @@ namespace SpaceBaboon
         #region Crafting
         public void AddResource(Crafting.InteractableResource.EResourceType resourceType, int amount)
         {
+            FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+            if (fxManager != null)
+            {
+                fxManager.PlayAudio(FXSystem.EFXType.CoinCollected);
+            }
+
+
             if (!m_collectibleInventory.ContainsKey(resourceType))
             {
                 m_collectibleInventory.Add(resourceType, amount);
@@ -395,6 +402,13 @@ namespace SpaceBaboon
             if (m_collectibleInventory.ContainsKey(resourceType) && !(m_collectibleInventory[resourceType] < amount))
             {
                 m_collectibleInventory[resourceType] -= amount;
+
+                FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+                if (fxManager != null)
+                {
+                    fxManager.PlayAudio(FXSystem.EFXType.DroppingCoins);
+                }
+
 
                 if (m_DebugMode) { Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]); }
                 return true;

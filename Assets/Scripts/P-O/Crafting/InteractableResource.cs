@@ -72,10 +72,23 @@ namespace SpaceBaboon.Crafting
                 m_currentCooldown = m_resourceData.m_cooldownMax;
                 m_isBeingCollected = true;
                 m_collectingPlayer = collectingPlayer;
+
+                FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+                if (fxManager != null)
+                {
+                    fxManager.PlayAudio(FXSystem.EFXType.Mining);
+                }
             }
         }
         private void FinishCollecting()
         {
+            FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+            if (fxManager != null)
+            {
+                fxManager.PlayAudio(FXSystem.EFXType.MiningCompleted);
+            }
+
+
             if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }
             Vector2 direction;
             float angleBetweenShards = 360 / m_resourceData.m_resourceAmount;
