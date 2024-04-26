@@ -59,7 +59,7 @@ namespace SpaceBaboon.FXSystem
 
         private void Start()
         {
-            //m_audioPool.SetPoolSize(1);
+            m_audioPool.SetPoolSize(10);
             m_audioPool.CreatePool(m_audioSourcePrefab);
 
             foreach (var item in m_fxEvents)

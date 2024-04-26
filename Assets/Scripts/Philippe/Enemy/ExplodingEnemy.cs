@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -68,7 +69,8 @@ namespace SpaceBaboon.EnemySystem
             if (m_isChargingExplosion)
                 return;
 
-            Move(m_noVectorValue);
+            Move(m_player.transform.position);
+            //base.Move(m_player.transform.position);
         }
 
         private void UpdateColorBasedOnAnimCurve()
@@ -96,12 +98,13 @@ namespace SpaceBaboon.EnemySystem
 
         public void IExplodableUpdate()
         {
+            m_navMeshAgent.isStopped = true;
             m_chargingExplosionTimer -= Time.deltaTime;
 
             UpdateColorBasedOnAnimCurve();
 
             if (m_chargingExplosionTimer < 0)
-            {
+            {                
                 ResetVariables();
                 Explode();
             }

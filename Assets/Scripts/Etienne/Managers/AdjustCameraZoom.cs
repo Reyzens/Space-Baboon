@@ -31,7 +31,8 @@ namespace SpaceBaboon
             float reverseScale = 1.0f - m_scale;
             //utiliser pour savoir à quel point on augmente orthosize
 
-            m_camera.m_Lens.OrthographicSize = MIN_ORTHO_SIZE + (ORTHO_SIZE_MAX_ADDED_VALUE * reverseScale);
+            //m_camera.m_Lens.OrthographicSize = MIN_ORTHO_SIZE + (ORTHO_SIZE_MAX_ADDED_VALUE * reverseScale);
+            m_camera.m_Lens.OrthographicSize = MIN_ORTHO_SIZE;
         }
     }
 }

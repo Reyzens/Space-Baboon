@@ -31,12 +31,15 @@ namespace SpaceBaboon.WeaponSystem
             m_damage = damage;
         }
 
+        public override float OnHit()
+        {
+            m_parentPool.UnSpawn(gameObject);
+            return base.OnHit();
+        }
+
         protected override void OnCollisionEnter2D(Collision2D collision)
         {           
-            if(collision.gameObject.CompareTag("Obstacle"))
-            {
-                m_parentPool.UnSpawn(gameObject);
-            }            
+            m_parentPool.UnSpawn(gameObject);
         }
     }
 }
