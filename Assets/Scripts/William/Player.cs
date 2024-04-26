@@ -303,6 +303,12 @@ namespace SpaceBaboon
             m_isDashing = true;
             m_timestampedDash = 0.0f;
             m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
+
+            FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+            if (fxManager != null)
+            {
+                fxManager.PlayAudio(FXSystem.EFXType.PlayerDash);
+            }
         }
 
         private void PlayerDamageTakenScreenShake()
