@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Etienne/MainMenu.unity
     guid: 3491c89d39f102f46ba31a11fbea1e5a
+  - enabled: 1
+    path: Assets/Scenes/Space Baboon/SB_04-11_Sprint2.unity
+    guid: 6d2f7a2b22ad871418145223cc73f082
   m_configObjects: {}

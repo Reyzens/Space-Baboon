@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7478949057604480740}
   - component: {fileID: 8026607224170923868}
+  - component: {fileID: 1646415065902211390}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: PlayerCam
@@ -56,7 +57,7 @@ MonoBehaviour:
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 36.98
-    NearClipPlane: -3
+    NearClipPlane: 0.01
     FarClipPlane: 1000.45
     Dutch: 0
     ModeOverride: 0
@@ -72,6 +73,19 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4732838790045115523}
+--- !u!114 &1646415065902211390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1869885311002530677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22e370149303ddc458bbb8b4a4227cd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_scale: 0
 --- !u!1 &8049976109881698115
 GameObject:
   m_ObjectHideFlags: 0
