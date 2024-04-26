@@ -13,6 +13,7 @@ namespace SpaceBaboon.Crafting
         [SerializeField] private float m_levelScaling;
         [SerializeField] private bool m_debugMode;
         [SerializeField] private float m_maxUpgradeCooldown;
+        [SerializeField] private SpriteRenderer m_weaponIcon;
 
         //Private variables
         private Transform m_position;
@@ -69,13 +70,18 @@ namespace SpaceBaboon.Crafting
             m_currentUpgrade = (EWeaponUpgrades)Random.Range(0, (int)EWeaponUpgrades.Count);
             Debug.Log("Chosen upgrade is " + m_currentUpgrade);
         }
-        #endregion
         private void ResetDropStation()
         {
             m_isUpgrading = false;
             ResetPossibleResourceList();
             ResourceNeededAllocation();
         }
+        public void StationSetup(WeaponSystem.PlayerWeapon weapon)
+        {
+            m_linkedWeapon = weapon;
+            m_weaponIcon.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+        }
+        #endregion
         public List<ResourceDropPoint> GetDropPopint()
         {
             return m_resourceDropPoints;

@@ -61,8 +61,8 @@ namespace SpaceBaboon
         [SerializeField] private PlayerData m_playerData;
         [SerializeField] private CinemachineVirtualCamera m_playerCam;
         [SerializeField] private GameObject m_dahsTrail;
-        [SerializeField] private float m_screenShakeAmplitude = 5.0f;
-        [SerializeField] private float m_screenShakeFrequency = 1.0f;
+        [SerializeField] private float m_screenShakeAmplitude = 12.0f;
+        [SerializeField] private float m_screenShakeFrequency = 2.0f;
         [SerializeField] private float m_collectRange;
 
         //Cheats related
@@ -76,6 +76,7 @@ namespace SpaceBaboon
         {
             PlayerVariablesInitialization();
             FreezePlayerRotation();
+            RegisterToGameManager();
         }
 
         private void Start()
@@ -146,6 +147,10 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
         }
 
+        private void RegisterToGameManager()
+        {
+            GameManager.Instance.SetPlayer(this);
+        }
         #endregion Initialiazation
 
         #region Events
@@ -530,6 +535,10 @@ namespace SpaceBaboon
             }
         }
 
+        public List<WeaponSystem.PlayerWeapon> GetPlayerWeapons()
+        {
+            return m_weaponList;
+        }
         #endregion Gets
 
         #region Cheats
