@@ -76,6 +76,7 @@ namespace SpaceBaboon
         {
             PlayerVariablesInitialization();
             FreezePlayerRotation();
+            RegisterToGameManager();
         }
 
         private void Start()
@@ -146,6 +147,10 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
         }
 
+        private void RegisterToGameManager()
+        {
+            GameManager.Instance.SetPlayer(this);
+        }
         #endregion Initialiazation
 
         #region Events

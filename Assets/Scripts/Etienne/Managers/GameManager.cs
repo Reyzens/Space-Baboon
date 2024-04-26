@@ -1,6 +1,3 @@
-using SpaceBaboon.FXSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -8,6 +5,8 @@ namespace SpaceBaboon
     public class GameManager : MonoBehaviour
     {
         private static GameManager instance;
+        public Transform dmgPopUpPrefab;
+        private Player player;
         public static GameManager Instance
         {
             get
@@ -18,15 +17,6 @@ namespace SpaceBaboon
                 return null;
             }
         }
-
-
-        
-
-
-
-
-
-
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -36,7 +26,18 @@ namespace SpaceBaboon
             }
             instance = this;
         }
-
-        public Transform dmgPopUpPrefab;
+        #region Getters
+        public Player GetPlayerRef()
+        {
+            return player;
+        }
+        #endregion
+        #region Setters
+        public void SetPlayer(Player playerRef)
+        {
+            player = playerRef;
+            Debug.Log(player);
+        }
+        #endregion
     }
 }
