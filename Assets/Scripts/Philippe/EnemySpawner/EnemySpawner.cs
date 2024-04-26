@@ -52,7 +52,7 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] private Tilemap m_obstacleTileMapRef;
         private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
-        private float m_minDistanceFromAMapCollider = 50.0f;
+        //private float m_minDistanceFromAMapCollider = 50.0f;
 
 
         private void Awake()
@@ -89,47 +89,6 @@ namespace SpaceBaboon.EnemySystem
                 }
             }
         }
-
-        //private void GenerateGrid2()
-        //{
-        //    foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
-        //    {
-        //        if (m_tilemapRef.HasTile(positions))
-        //        {
-        //
-        //            Vector3 currentWorldPos = m_tilemapRef.CellToWorld(positions);
-        //
-        //            if (IsFarEnoughFromObstacle(currentWorldPos))
-        //            {
-        //                m_spawnPositionsAvailable.Add(currentWorldPos);
-        //            }
-        //
-        //            //m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(positions));
-        //        }
-        //    }
-        //}
-        //
-        //private bool IsFarEnoughFromObstacle(Vector3 currentWorldPos)
-        //{
-        //    foreach (var obstaclePosition in m_obstacleTileMapRef.cellBounds.allPositionsWithin)
-        //    {
-        //        if (m_obstacleTileMapRef.HasTile(obstaclePosition))
-        //        {                    
-        //            Vector3 obstacleWorldPos = m_obstacleTileMapRef.CellToWorld(obstaclePosition);
-        //                                
-        //            float distance = Vector3.Distance(obstacleWorldPos, currentWorldPos);
-        //                                
-        //            if (distance < m_minDistanceFromAMapCollider)
-        //            {
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    
-        //    return true;
-        //}
-
-
 
         private void SpawnOneEnemy()
         {
