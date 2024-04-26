@@ -121,8 +121,8 @@ namespace SpaceBaboon
             m_collectibleInventory = new Dictionary<Crafting.InteractableResource.EResourceType, int>();
             //m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
             //m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
-                        
-            m_collider = GetComponent<BoxCollider2D>();            
+
+            m_collider = GetComponent<BoxCollider2D>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             m_spriteRendererColor = m_renderer.color;
 
@@ -538,6 +538,10 @@ namespace SpaceBaboon
         public List<WeaponSystem.PlayerWeapon> GetPlayerWeapons()
         {
             return m_weaponList;
+        }
+        public float GetPlayerCollectRange()
+        {
+            return m_collectRange;
         }
         #endregion Gets
 
