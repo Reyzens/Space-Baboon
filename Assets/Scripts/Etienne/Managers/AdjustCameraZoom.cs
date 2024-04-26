@@ -12,7 +12,7 @@ namespace SpaceBaboon
         private const float MIN_ORTHO_SIZE = 40;
         private const float ORTHO_SIZE_MAX_ADDED_VALUE = 24;
 
-        private void Awake()
+        private void Start()
         {
             m_camera = GetComponent<CinemachineVirtualCamera>();
             //m_scale = GameManager.Instance.GetWindowSizeScale();
