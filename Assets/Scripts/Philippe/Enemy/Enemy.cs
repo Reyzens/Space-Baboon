@@ -117,8 +117,20 @@ namespace SpaceBaboon.EnemySystem
         {
             //MoveTowardsPlayer();
             m_navMeshAgent.SetDestination(value);
-            CheckForSpriteDirectionSwap(m_movementDirection);
+            CheckForSpriteDirectionSwap(m_navMeshAgent.velocity);
         }
+
+        //private void CheckForEnemySpriteDirectionSwap(Vector2 direction)
+        //{
+        //    if (direction.x > 0)
+        //    {
+        //        m_renderer.flipX = false;
+        //    }
+        //    if (direction.x < 0)
+        //    {
+        //        m_renderer.flipX = true;
+        //    }
+        //}
 
         protected virtual void MoveTowardsPlayer()
         {
