@@ -17,7 +17,7 @@ namespace SpaceBaboon
         public static DamagePopUp Create( Vector3 position, float damage)
         {
             // Cree le dmg
-            Transform damagePopUpTransform = Instantiate(GameManager.Instance.dmgPopUpPrefab,position,Quaternion.identity);
+            Transform damagePopUpTransform = Instantiate(GameManager.Instance.m_dmgPopUpPrefab,position,Quaternion.identity);
             // Set ref
             DamagePopUp damagePopUp = damagePopUpTransform.GetComponent<DamagePopUp>();
             damagePopUp.SetupDmgPopUp(damage);

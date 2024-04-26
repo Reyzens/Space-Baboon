@@ -5,8 +5,11 @@ namespace SpaceBaboon
     public class GameManager : MonoBehaviour
     {
         private static GameManager instance;
-        public Transform dmgPopUpPrefab;
-        private Player player;
+
+        public Transform m_dmgPopUpPrefab;
+        public Player Player { get; set; }
+        public float WindowSizeScale { get; set; }
+
         public static GameManager Instance
         {
             get
@@ -26,18 +29,19 @@ namespace SpaceBaboon
             }
             instance = this;
         }
-        #region Getters
-        public Player GetPlayerRef()
-        {
-            return player;
-        }
-        #endregion
-        #region Setters
-        public void SetPlayer(Player playerRef)
-        {
-            player = playerRef;
-            Debug.Log(player);
-        }
-        #endregion
+
+        //#region Getters
+        //public Player GetPlayerRef()
+        //{
+        //    return player;
+        //}
+        //#endregion
+        //#region Setters
+        //public void SetPlayer(Player playerRef)
+        //{
+        //    player = playerRef;
+        //    Debug.Log(player);
+        //}
+        //#endregion
     }
 }

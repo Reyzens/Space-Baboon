@@ -157,7 +157,7 @@ namespace SpaceBaboon
         private void SetupCraftingStationsIcon()
         {
             List<WeaponSystem.PlayerWeapon> weaponToSet = new List<WeaponSystem.PlayerWeapon>();
-            foreach (WeaponSystem.PlayerWeapon playerWeapon in GameManager.Instance.GetPlayerRef().GetPlayerWeapons())
+            foreach (WeaponSystem.PlayerWeapon playerWeapon in GameManager.Instance.Player.GetPlayerWeapons())
             {
                 weaponToSet.Add(playerWeapon);
             }

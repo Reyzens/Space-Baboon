@@ -15,7 +15,8 @@ namespace SpaceBaboon
         private void Awake()
         {
             m_camera = GetComponent<CinemachineVirtualCamera>();
-            m_scale = GameManager.Instance.GetWindowSizeScale();
+            //m_scale = GameManager.Instance.GetWindowSizeScale();
+            m_scale = GameManager.Instance.WindowSizeScale;
 
             //m_camera.Follow = GameManager.Instance.Player;
 

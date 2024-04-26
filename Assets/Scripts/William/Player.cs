@@ -149,7 +149,7 @@ namespace SpaceBaboon
 
         private void RegisterToGameManager()
         {
-            GameManager.Instance.SetPlayer(this);
+            GameManager.Instance.Player = this;
         }
         #endregion Initialiazation
 
