@@ -21,9 +21,10 @@ namespace SpaceBaboon
         [SerializeField]
         private CraftingStation m_craftingStationScript;
         private GameObject m_zoneCircle;
+        [SerializeField]
+        private GameObject m_blueCircle;
 
-        
-        
+
 
 
         private void Initialisation()
@@ -78,7 +79,8 @@ namespace SpaceBaboon
         {
             if(m_craftingPuzzleEnable == false)
             {
-                m_zoneCircle.gameObject.SetActive(false);
+                m_blueCircle.gameObject.SetActive(false);
+                //m_zoneCircle.gameObject.SetActive(false);
                 foreach (var dropPoint in m_dropPointList)
                 {
                     dropPoint.gameObject.SetActive(true);

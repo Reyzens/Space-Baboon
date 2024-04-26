@@ -55,6 +55,8 @@ namespace SpaceBaboon
         private float m_bonusDashDistance;
         private int m_bonusDashStack;
 
+        //Collider
+        protected BoxCollider2D m_collider;
 
         //SerializeVraiables
         [SerializeField] private bool m_DebugMode;
