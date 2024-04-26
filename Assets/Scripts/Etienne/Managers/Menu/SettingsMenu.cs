@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -44,13 +45,22 @@ namespace SpaceBaboon.MenuSystem
         {
             m_fullscreenToggle.RegisterValueChangedCallback(OnFullscreenToggled);
             m_masterVolumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
+            m_windowSizeSlider.RegisterValueChangedCallback(OnWindowSizeChanged);
+            //m_windowSizeSlider.RegisterCallback<PointerDownEvent>(Foo);
             m_backButton.clicked += BackToMainMenu;
+        }
+
+        private void Foo(PointerDownEvent evt)
+        {
+            Debug.Log("hello");
         }
 
         public void Disable()
         {
             m_fullscreenToggle.UnregisterValueChangedCallback(OnFullscreenToggled);
             m_masterVolumeSlider.UnregisterValueChangedCallback(OnVolumeChanged);
+            m_windowSizeSlider.UnregisterValueChangedCallback(OnWindowSizeChanged);
+
             m_backButton.clicked -= BackToMainMenu;
         }
 
@@ -64,9 +74,22 @@ namespace SpaceBaboon.MenuSystem
             AudioListener.volume = evt.newValue;
         }
 
-        private void SetResolution()
+        private void OnWindowSizeChanged(ChangeEvent<float> evt)
+        {
+            SetResolution((int)evt.newValue);
+        }
+
+        private void SetResolution(int size)
         {
             //Screen.SetResolution
+            int width = size * WIDTH_RATIO;
+            int height = size * HEIGHT_RATIO;
+
+            Debug.Log(width + " x " + height);
+
+            //Screen.SetResolution(width, height, FullScreenMode.Windowed);
+
+            //TODO : SET FULLSCREEN TOGGLE TO FALSE
         }
 
         private void BackToMainMenu()
