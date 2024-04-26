@@ -181,6 +181,7 @@ MonoBehaviour:
   m_currentkill: 0
   m_dropPointList: []
   m_craftingStationScript: {fileID: 0}
+  m_blueCircle: {fileID: 2667221057814623772}
 --- !u!1 &7434197111157336024
 GameObject:
   m_ObjectHideFlags: 0
