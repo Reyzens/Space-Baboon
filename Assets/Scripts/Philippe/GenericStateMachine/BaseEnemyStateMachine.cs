@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -67,6 +68,11 @@ namespace SpaceBaboon.EnemySystem
                     return;
                 }
             }
+        }
+
+        protected override void SetComponents(bool value)
+        {
+            base.SetComponents(value);            
         }
     }
 }

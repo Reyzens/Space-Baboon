@@ -20,6 +20,9 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnUpdate()
         {
+            if (!m_stateMachine.ControllerIsActive)
+                return;
+
             m_craftingStationAttackTimer -= Time.deltaTime;
 
             if (m_craftingStationAttackTimer < 0)
@@ -32,7 +35,8 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnFixedUpdate()
         {
-            
+            if (!m_stateMachine.ControllerIsActive)
+                return;
         }
 
         public override bool CanEnter(IState currentState)

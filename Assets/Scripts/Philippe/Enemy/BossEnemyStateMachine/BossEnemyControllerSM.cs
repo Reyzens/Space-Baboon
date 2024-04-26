@@ -19,7 +19,8 @@ namespace SpaceBaboon.EnemySystem
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
-        public float SpecialAttackTimer { get; set; }        
+        public float SpecialAttackTimer { get; set; }    
+        public bool ControllerIsActive { get; private set; }        
 
         protected override void CreatePossibleStates()
         {
@@ -32,14 +33,15 @@ namespace SpaceBaboon.EnemySystem
 
         protected override void Awake()
         {
-            base.Awake();            
+            base.Awake();
+            VariablesAwakeSetUp();
         }
 
         protected override void Start()
         {
             base.Start();
             StartStates();
-            VariableSetUp();
+            VariablesStartSetUp();
         }
 
         protected override void Update()
@@ -49,6 +51,7 @@ namespace SpaceBaboon.EnemySystem
 
             base.Update();
             UpdateDistances();
+            ControllerIsActive = m_isActive;
         }
 
         protected override void FixedUpdate()
@@ -90,14 +93,17 @@ namespace SpaceBaboon.EnemySystem
             m_currentState.OnEnter();
         }
 
-        private void VariableSetUp()
+        private void VariablesAwakeSetUp()
         {
-            UniqueData = m_characterData as BossEnemyData;
-
             Agent = GetComponent<NavMeshAgent>();
             Agent.updateRotation = false;
             Agent.updateUpAxis = false;
+        }
 
+        private void VariablesStartSetUp()
+        {
+            UniqueData = m_characterData as BossEnemyData;
+            ControllerIsActive = m_isActive;
             Player = m_player;
             
             SineGun = GetComponentInChildren<EnemyWeapon>();
@@ -105,7 +111,6 @@ namespace SpaceBaboon.EnemySystem
             //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
 
             CraftingStations = CraftingStation.GetCraftingStations();
-
             TargetedCraftingStation = GetRandomCraftingStationIndex();
         }
 
@@ -119,6 +124,12 @@ namespace SpaceBaboon.EnemySystem
         public void TemporaryCraftingStationAttack(Vector2 pos)
         {
             InstantiateContactAttackParticuleSystem(pos);
+        }
+
+        protected override void SetComponents(bool value)
+        {
+            base.SetComponents(value);            
+            Agent.enabled = value;
         }
 
         #region Overriden Methods

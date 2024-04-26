@@ -78,26 +78,7 @@ namespace SpaceBaboon.EnemySystem
                 return;
 
             Move(m_noVectorValue);
-        }
-
-        //private void OnTriggerEnter2D(Collider2D collision)
-        //{
-        //    Debug.Log("OnTriggerEnter" + gameObject.name);
-        //    //if (collision.gameObject.CompareTag("Projectile"))
-        //    //{
-        //    //    OnDamageTaken(collision.gameObject.GetComponent<WeaponSystem.Projectile>().OnHit());
-        //    //}
-        //}
-
-        //private void OnCollisionEnter2D(Collision2D collision)
-        //{
-        //    if (collision.gameObject.CompareTag("Player") && m_contactAttackReady)
-        //    {
-        //        ContactPoint2D contactPoint = collision.contacts[0];
-        //        Vector2 contactPos = contactPoint.point;
-        //        ContactAttack(contactPos);
-        //    }
-        //}
+        }        
 
         private void OnCollisionStay2D(Collision2D collision)
         {
@@ -252,7 +233,7 @@ namespace SpaceBaboon.EnemySystem
             transform.position = pos;
         }
 
-        private void SetComponents(bool value)
+        protected virtual void SetComponents(bool value)
         {
             m_isActive = value;
             m_renderer.enabled = value;

@@ -25,6 +25,9 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnUpdate()
         {
+            if (!m_stateMachine.ControllerIsActive)
+                return;
+
             if (m_basicAttacksDone == m_stateMachine.UniqueData.basicAttacksBeforeSpecial)
             {
                 if (!m_stateMachine.SpecialAttackReady)
@@ -51,6 +54,9 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnFixedUpdate()
         {
+            if (!m_stateMachine.ControllerIsActive)
+                return;
+
             m_stateMachine.Move(m_stateMachine.Player.transform.position);
         }
 
