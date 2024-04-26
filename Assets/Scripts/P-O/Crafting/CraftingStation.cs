@@ -35,6 +35,10 @@ namespace SpaceBaboon.Crafting
         public static EWeaponUpgrades CurrentUpgrade { get { return m_currentUpgrade; } }
 
         // Start is called before the first frame update
+        private void Awake()
+        {
+            m_craftingStationsList.Add(this);
+        }
         void Start()
         {
             Initialization();
@@ -60,7 +64,6 @@ namespace SpaceBaboon.Crafting
         private void Initialization()
         {
             m_currentStationLevel = 1;
-            m_craftingStationsList.Add(this);
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)
             {

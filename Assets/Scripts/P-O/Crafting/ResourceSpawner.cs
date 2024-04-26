@@ -15,7 +15,7 @@ namespace SpaceBaboon
         [SerializeField] private float m_spawningTimer = 0.0f;
         [SerializeField] private int m_poolSize;
         [SerializeField] private float m_mapBorderOffSet;
-        [SerializeField] private List<Crafting.CraftingStation> m_craftingStationsInScene = new List<Crafting.CraftingStation>();
+        private List<Crafting.CraftingStation> m_craftingStationsInScene = new List<Crafting.CraftingStation>();
 
         //Tilemap refacto
         [SerializeField] private Tilemap m_tilemapRef;
@@ -53,8 +53,8 @@ namespace SpaceBaboon
             GenerateGrid();
             m_shardPool.SetPoolStartingSize(m_poolSize);
             m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
+            m_craftingStationsInScene = Crafting.CraftingStation.GetCraftingStations();
             SetupCraftingStationsIcon();
-
         }
 
         private void Update()

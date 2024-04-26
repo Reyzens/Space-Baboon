@@ -431,7 +431,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 14, y: 14, z: 0}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6616432378117438511}
   - {fileID: 8064954578471118574}
@@ -693,7 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf386a75847b88f4eb1ef7da9cccf2e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <CanHit>k__BackingField: 0
+  <CanHit>k__BackingField: 1
   <CanReceiveHit>k__BackingField: 1
   <AgentType>k__BackingField: 0
   <AffectedAgents>k__BackingField: 
@@ -1359,6 +1359,14 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4626064250469981135, guid: d50465d15e9430843bec8273098db17f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626064250469981135, guid: d50465d15e9430843bec8273098db17f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4626064250469981135, guid: d50465d15e9430843bec8273098db17f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.242
       objectReference: {fileID: 0}
@@ -1427,6 +1435,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 81698932589112113}
     m_Modifications:
+    - target: {fileID: 802097290951641300, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.099999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 802097290951641300, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.099999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 802097290951641300, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.49999997
+      objectReference: {fileID: 0}
     - target: {fileID: 802097290951641300, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.17
