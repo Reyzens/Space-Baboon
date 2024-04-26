@@ -36,5 +36,7 @@ namespace SpaceBaboon
             }
             instance = this;
         }
+
+        public Transform dmgPopUpPrefab;
     }
 }
