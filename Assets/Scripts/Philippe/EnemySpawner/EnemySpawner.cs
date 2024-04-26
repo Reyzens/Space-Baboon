@@ -90,54 +90,50 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        private void GenerateGrid2()
-        {
-            foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
-            {
-                if (m_tilemapRef.HasTile(positions))
-                {
-
-                    Vector3 currentWorldPos = m_tilemapRef.CellToWorld(positions);
-
-                    if (IsFarEnoughFromObstacle(currentWorldPos))
-                    {
-                        m_spawnPositionsAvailable.Add(currentWorldPos);
-                    }
-
-                    //m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(positions));
-                }
-            }
-        }
-
-        private bool IsFarEnoughFromObstacle(Vector3 currentWorldPos)
-        {
-            foreach (var obstaclePosition in m_obstacleTileMapRef.cellBounds.allPositionsWithin)
-            {
-                if (m_obstacleTileMapRef.HasTile(obstaclePosition))
-                {
-                    // Get the world position of the obstacle tile
-                    Vector3 obstacleWorldPos = m_obstacleTileMapRef.CellToWorld(obstaclePosition);
-
-                    // Check the distance between the obstacle and the current tile
-                    float distance = Vector3.Distance(obstacleWorldPos, currentWorldPos);
-
-                    // Return false if the distance is less than the threshold
-                    if (distance < m_minDistanceFromAMapCollider)
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            // If no obstacle is too close, return true
-            return true;
-        }
+        //private void GenerateGrid2()
+        //{
+        //    foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
+        //    {
+        //        if (m_tilemapRef.HasTile(positions))
+        //        {
+        //
+        //            Vector3 currentWorldPos = m_tilemapRef.CellToWorld(positions);
+        //
+        //            if (IsFarEnoughFromObstacle(currentWorldPos))
+        //            {
+        //                m_spawnPositionsAvailable.Add(currentWorldPos);
+        //            }
+        //
+        //            //m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(positions));
+        //        }
+        //    }
+        //}
+        //
+        //private bool IsFarEnoughFromObstacle(Vector3 currentWorldPos)
+        //{
+        //    foreach (var obstaclePosition in m_obstacleTileMapRef.cellBounds.allPositionsWithin)
+        //    {
+        //        if (m_obstacleTileMapRef.HasTile(obstaclePosition))
+        //        {                    
+        //            Vector3 obstacleWorldPos = m_obstacleTileMapRef.CellToWorld(obstaclePosition);
+        //                                
+        //            float distance = Vector3.Distance(obstacleWorldPos, currentWorldPos);
+        //                                
+        //            if (distance < m_minDistanceFromAMapCollider)
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //    }
+        //    
+        //    return true;
+        //}
 
 
 
         private void SpawnOneEnemy()
         {
-            Debug.Log("Try to spawn one");
+            //Debug.Log("Try to spawn one");
             Vector3 spawnWorldPos = FindValidEnemyRandomPos();
             m_enemyPool.Spawn(GetRandomEnemyType(), spawnWorldPos);
         }
