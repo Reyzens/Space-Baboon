@@ -9,6 +9,7 @@ namespace SpaceBaboon.Crafting
         //Serializable
         [SerializeField] private ResourceData m_resourceData;
         [SerializeField] private bool m_DebugMode;
+        [SerializeField] private GameObject m_outline;
 
         //Private variables
         private bool m_isBeingCollected = false;
@@ -19,7 +20,6 @@ namespace SpaceBaboon.Crafting
         private GameObject m_collectingWeapon;
         private bool m_isInCollectRange = false;
         private const float m_maxCollectibleGrowt = 15f;
-        private Color m_initialSpriteColor;
 
         //Ipoolable variables
         private bool m_isActive = false;
@@ -47,14 +47,13 @@ namespace SpaceBaboon.Crafting
         private void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
-            m_initialSpriteColor = m_renderer.color;
             //Debug.Log(m_renderer);
             m_circleCollider = GetComponent<CircleCollider2D>();
             m_capsuleCollider = GetComponent<CapsuleCollider2D>();
         }
         private void Start()
         {
-
+            m_outline.SetActive(false);
         }
         private void Update()
         {
@@ -73,14 +72,7 @@ namespace SpaceBaboon.Crafting
         }
         public void CollectableSizing(bool shouldGrow)
         {
-            if (shouldGrow)
-            {
-                m_renderer.color = Color.green;
-            }
-            else
-            {
-                m_renderer.color = m_initialSpriteColor;
-            }
+            m_outline.gameObject.SetActive(shouldGrow);
         }
 
         #region CollectingLogic
