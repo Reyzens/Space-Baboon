@@ -168,6 +168,7 @@ namespace SpaceBaboon.EnemySystem
             if (m_activeHealth <= 0)
             {
                 m_eventEnemyDeath?.Invoke();
+                DamagePopUp.Create(this.transform.position, damage);
                 m_parentPool.UnSpawn(gameObject);
             }
         }
