@@ -535,6 +535,10 @@ namespace SpaceBaboon
             }
         }
 
+        public List<WeaponSystem.PlayerWeapon> GetPlayerWeapons()
+        {
+            return m_weaponList;
+        }
         #endregion Gets
 
         #region Cheats

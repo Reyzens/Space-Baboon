@@ -15,6 +15,7 @@ namespace SpaceBaboon
         [SerializeField] private float m_spawningTimer = 0.0f;
         [SerializeField] private int m_poolSize;
         [SerializeField] private float m_mapBorderOffSet;
+        [SerializeField] private List<Crafting.CraftingStation> m_craftingStationsInScene = new List<Crafting.CraftingStation>();
 
         //Tilemap refacto
         [SerializeField] private Tilemap m_tilemapRef;
@@ -52,6 +53,8 @@ namespace SpaceBaboon
             GenerateGrid();
             m_shardPool.SetPoolStartingSize(m_poolSize);
             m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
+            SetupCraftingStationsIcon();
+
         }
 
         private void Update()
@@ -68,6 +71,7 @@ namespace SpaceBaboon
             }
         }
 
+        #region ResourceSpawning
         private void GenerateGrid()
         {
             foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
@@ -148,5 +152,26 @@ namespace SpaceBaboon
                 }
             }
         }
+        #endregion
+        #region Crafting
+        private void SetupCraftingStationsIcon()
+        {
+            List<WeaponSystem.PlayerWeapon> weaponToSet = new List<WeaponSystem.PlayerWeapon>();
+            foreach (WeaponSystem.PlayerWeapon playerWeapon in GameManager.Instance.GetPlayerRef().GetPlayerWeapons())
+            {
+                weaponToSet.Add(playerWeapon);
+            }
+
+            foreach (WeaponSystem.PlayerWeapon weapon in weaponToSet)
+            {
+                int CurrentStationIndex = Random.Range(0, m_craftingStationsInScene.Count);
+
+                m_craftingStationsInScene[CurrentStationIndex].StationSetup(weapon);
+
+                Crafting.CraftingStation craftingStationToRemove = m_craftingStationsInScene[CurrentStationIndex];
+                m_craftingStationsInScene.Remove(craftingStationToRemove);
+            }
+        }
+        #endregion
     }
 }
