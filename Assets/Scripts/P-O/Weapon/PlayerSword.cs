@@ -21,6 +21,12 @@ namespace SpaceBaboon.WeaponSystem
             var projectile = m_pool.Spawn(m_weaponData.projectilePrefab, spawnPos);
 
             projectile.GetComponent<Projectile>()?.Shoot(targetTransform, m_weaponData.maxRange, m_weaponData.attackZone, currentDamage, transform);
+            
+            FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+            if (fxManager != null)
+            {
+                fxManager.PlayAudio(m_weaponData.shootAudioCue);
+            }
         }
         protected override void Update()
         {

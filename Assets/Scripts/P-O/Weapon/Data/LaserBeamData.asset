@@ -18,6 +18,7 @@ MonoBehaviour:
   attackSpeed: 5
   baseDamage: 8
   weaponName: 4
+  shootAudioCue: 5
   icon: {fileID: 0}
   projectilePrefab: {fileID: 8320263620006976790, guid: 9f301f683ed0f2e4bb4c34a13d046a3e, type: 3}
   m_rangeScaling: 0.25

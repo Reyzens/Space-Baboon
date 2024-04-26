@@ -78,6 +78,13 @@ namespace SpaceBaboon
             //Debug.Log("Explode");
             gameObject.transform.localScale = new Vector2(m_explodableData.m_explosionRadius, m_explodableData.m_explosionRadius);
             m_collider.enabled = true;
+
+            FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+            if (fxManager != null)
+            {
+                fxManager.PlayAudio(FXSystem.EFXType.GrenadeExplode);
+            }
+
         }
 
         public void IExplodableUpdate()

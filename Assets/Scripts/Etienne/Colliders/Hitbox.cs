@@ -111,8 +111,6 @@ namespace SpaceBaboon.CollisionSystem
                             return;
                         }
 
-                        FXManager.Instance.PlayAudio(EFXType.PlayerHit);
-
                         player.OnDamageTaken(projectile.OnHit());
                         break;
                     case EAgentType.Count:

@@ -6,7 +6,22 @@ namespace SpaceBaboon.FXSystem
     public enum EFXType
     {
         PlayerHit,
-        EnemyHit,
+        PlayerDash,
+        GrenadeLaunch,
+        GrenadeExplode,
+        Shockwave,
+        LaserBeam,
+        BananaSword,
+        FlameThrower,
+        EnemyMelee,
+        EnemyShoot,
+        EnemyExplode,
+        Mining,
+        MiningCompleted,
+        CoinCollected,
+        DroppingCoins,
+        WeaponUpgrading,
+        Count
 
     }
 
@@ -44,6 +59,7 @@ namespace SpaceBaboon.FXSystem
 
         private void Start()
         {
+            //m_audioPool.SetPoolSize(1);
             m_audioPool.CreatePool(m_audioSourcePrefab);
 
             foreach (var item in m_fxEvents)
@@ -54,12 +70,15 @@ namespace SpaceBaboon.FXSystem
 
         public void PlayAudio(EFXType type)
         {
-            Debug.Log("PLayAudio called");
+            Debug.Log("PlayAudio called :  " + type);
             GameObject obj = m_audioPool.Spawn(transform.position);
 
             AudioSource audioSource = obj.GetComponent<AudioInstance>().AudioSource;
+            Debug.Log("audioSource " + audioSource);
             audioSource.PlayOneShot(m_dictionary[type]);
-            
+            Debug.Log("dictionary value: " + m_dictionary[type].name);
+
+
             //m_audioPool.UnSpawn(obj);
         }
 

@@ -133,6 +133,12 @@ namespace SpaceBaboon.WeaponSystem
                 //Debug.Log("spawning  :" + projectile.GetComponent<Projectile>());
 
                 projectile.GetComponent<Projectile>()?.Shoot(direction, currentRange, currentZone, currentDamage, gameObject.transform);
+
+                FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
+                if (fxManager != null)
+                {
+                    fxManager.PlayAudio(m_weaponData.shootAudioCue);
+                }
             }
         }
         protected virtual Transform GetTarget()
