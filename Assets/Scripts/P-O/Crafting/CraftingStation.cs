@@ -49,6 +49,10 @@ namespace SpaceBaboon.Crafting
                 }
             }
         }
+        public static List<CraftingStation> ReturnList()
+        {
+            return m_craftingStationsList;
+        }
         #region StationManagement
         private void Initialization()
         {
@@ -72,7 +76,6 @@ namespace SpaceBaboon.Crafting
             ResetPossibleResourceList();
             ResourceNeededAllocation();
         }
-
         public List<ResourceDropPoint> GetDropPopint()
         {
             return m_resourceDropPoints;
