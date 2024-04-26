@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3799252919573705736}
   - component: {fileID: -2355523754940955149}
   - component: {fileID: -7181694858709034926}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: MetalShard
   m_TagString: Untagged
   m_Icon: {fileID: 0}

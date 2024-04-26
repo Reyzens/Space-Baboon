@@ -554,6 +554,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1559854409}
     - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_collectRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_characterData
       value: 
       objectReference: {fileID: 11400000, guid: 449c5f12f1327c8459da0b675e4612e3, type: 2}
@@ -1426,6 +1430,10 @@ PrefabInstance:
     - target: {fileID: 5928814190421086234, guid: cf15ca88a9c72cb44a9cf59a74b84aa8, type: 3}
       propertyPath: m_Name
       value: NavMeshArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 6561076443207299126, guid: cf15ca88a9c72cb44a9cf59a74b84aa8, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6831520213428893536, guid: cf15ca88a9c72cb44a9cf59a74b84aa8, type: 3}
       propertyPath: m_Name

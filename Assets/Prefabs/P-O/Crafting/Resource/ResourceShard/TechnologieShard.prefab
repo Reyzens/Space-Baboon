@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3029414656323070130}
   - component: {fileID: -3006445540366135510}
   - component: {fileID: 6620395578240927529}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: TechnologieShard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
