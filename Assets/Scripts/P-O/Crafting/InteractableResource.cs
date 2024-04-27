@@ -19,7 +19,8 @@ namespace SpaceBaboon.Crafting
         private float shardsSpawnStrenght = 20f;
         private GameObject m_collectingWeapon;
         private bool m_isInCollectRange = false;
-        private const float m_maxCollectibleGrowt = 15f;
+        private float m_collectRange;
+        private Color m_rendereInitialColor;
 
         //Ipoolable variables
         private bool m_isActive = false;
@@ -54,6 +55,9 @@ namespace SpaceBaboon.Crafting
         private void Start()
         {
             m_outline.SetActive(false);
+            m_collectRange = GameManager.Instance.Player.GetPlayerCollectRange();
+            m_circleCollider.radius = m_collectRange;
+            m_rendereInitialColor = m_renderer.color;
         }
         private void Update()
         {
@@ -72,7 +76,10 @@ namespace SpaceBaboon.Crafting
         }
         public void CollectableSizing(bool shouldGrow)
         {
-            m_outline.gameObject.SetActive(shouldGrow);
+            if (!m_isBeingCollected)
+            {
+                m_outline.gameObject.SetActive(shouldGrow);
+            }
         }
 
         #region CollectingLogic
@@ -83,6 +90,8 @@ namespace SpaceBaboon.Crafting
                 m_currentCooldown = m_resourceData.m_cooldownMax;
                 m_isBeingCollected = true;
                 m_collectingPlayer = collectingPlayer;
+                m_renderer.color = Color.red;
+                m_outline.gameObject.SetActive(false);
 
                 FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
                 if (fxManager != null)
@@ -153,6 +162,7 @@ namespace SpaceBaboon.Crafting
             transform.position = pos;
             m_isBeingCollected = false;
             m_currentCooldown = 0;
+            m_renderer.color = m_rendereInitialColor;
         }
         private void SetComponents(bool value)
         {
