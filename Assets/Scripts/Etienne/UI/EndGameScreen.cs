@@ -10,6 +10,7 @@ namespace SpaceBaboon
         private UIDocument m_uiDoc;
 
         private VisualElement m_root;
+        private Label m_scoreAmount;
         private Button m_playAgainButton;
 
         private void Awake()
@@ -17,9 +18,11 @@ namespace SpaceBaboon
             GameManager.Instance.SetEndGameScreenScript(this);
             
             m_uiDoc = GetComponent<UIDocument>();
-            m_root = m_uiDoc.rootVisualElement;
+            VisualElement visualElement = m_uiDoc.rootVisualElement;
 
-            m_playAgainButton = m_root.Q<Button>("BackButton");
+            m_root = visualElement.Q<VisualElement>("EndGameScreen");
+            m_scoreAmount = visualElement.Q<Label>("ScoreAmount");
+            m_playAgainButton = visualElement.Q<Button>("BackButton");
 
         }
 
@@ -42,8 +45,9 @@ namespace SpaceBaboon
 
         public void ActivateScreen()
         {
-            Debug.Log("activatescreen");
             m_root.style.display = DisplayStyle.Flex;
+            int score = (int)GameManager.Instance.GameTimer;
+            m_scoreAmount.text = score.ToString();
         }
     }
 }

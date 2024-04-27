@@ -7,7 +7,7 @@ namespace SpaceBaboon.WeaponSystem
         protected override Transform GetTarget()
         {
             //Get furthest enemy
-            Debug.Log("Laser beam get target");
+            //Debug.Log("Laser beam get target");
             Transform furthestEnemy = null;
             float furthestDistance = 0.0f;
 

@@ -76,9 +76,8 @@ namespace SpaceBaboon
 
         public void EndGame()
         {
-            Debug.Log("endgame");
             m_endGameScreen.ActivateScreen();
-            //m_isPaused = true;
+            m_isPaused = true;
             m_isCountingTime = false;
         }
 

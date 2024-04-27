@@ -73,7 +73,7 @@ namespace SpaceBaboon.Crafting
         static void ResetUpgrade()
         {
             m_currentUpgrade = (EWeaponUpgrades)Random.Range(0, (int)EWeaponUpgrades.Count);
-            Debug.Log("Chosen upgrade is " + m_currentUpgrade);
+            //Debug.Log("Chosen upgrade is " + m_currentUpgrade);
         }
         private void ResetDropStation()
         {
