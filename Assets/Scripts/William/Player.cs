@@ -260,7 +260,8 @@ namespace SpaceBaboon
             {
                 m_alive = false;
                 InputHandler.instance.m_Input.Disable();
-                SceneManager.LoadScene("SB_MainMenu");
+                //SceneManager.LoadScene("SB_MainMenu");
+                GameManager.Instance.EndGame();
             }
         }
 

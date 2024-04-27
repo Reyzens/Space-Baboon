@@ -49,6 +49,8 @@ namespace SpaceBaboon
             m_technologyAmount.text = m_player.GetResources(2).ToString();
 
             m_currentUpgrade.text = Crafting.CraftingStation.CurrentUpgrade.ToString();
+            int time = (int)GameManager.Instance.GameTimer;
+            m_gameTimer.text = time.ToString();
         }
     }
 }
