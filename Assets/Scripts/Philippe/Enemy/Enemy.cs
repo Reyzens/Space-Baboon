@@ -8,7 +8,7 @@ namespace SpaceBaboon.EnemySystem
     public class Enemy : Character, IPoolableGeneric, IStatsEditable
     {
         public event Action m_eventEnemyDeath = delegate { };
-        
+
         private EnemyData m_enemyUniqueData;
 
         [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
@@ -40,8 +40,8 @@ namespace SpaceBaboon.EnemySystem
         protected override void Awake()
         {
             base.Awake();
-            
-            m_circleCollider = GetComponent<CircleCollider2D>();             
+
+            m_circleCollider = GetComponent<CircleCollider2D>();
             m_spriteRendererColor = m_renderer.material.color;
 
             m_navMeshAgent = GetComponent<NavMeshAgent>();
@@ -55,7 +55,7 @@ namespace SpaceBaboon.EnemySystem
             m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             m_enemyUniqueData = m_characterData as EnemyData;
-            m_activeHealth = m_enemyUniqueData.defaultHealth;            
+            m_activeHealth = m_enemyUniqueData.defaultHealth;
         }
 
         protected virtual void Update()
@@ -68,10 +68,10 @@ namespace SpaceBaboon.EnemySystem
             if (!m_contactAttackReady)
                 ReadyContactAttack();
 
-            if(m_enemyFlashingTimer > 0.0f)
+            if (m_enemyFlashingTimer > 0.0f)
             {
                 m_enemyFlashingTimer -= Time.deltaTime;
-               
+
             }
             if (m_enemyFlashingTimer < 0.0f)
             {
@@ -86,7 +86,7 @@ namespace SpaceBaboon.EnemySystem
 
             Move(m_player.transform.position);
         }
-        
+
         private void OnCollisionStay2D(Collision2D collision)
         {
             SlightPushFromObstructingObject(collision);
@@ -101,7 +101,7 @@ namespace SpaceBaboon.EnemySystem
         private void CalculateDistanceToPlayer()
         {
             m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
-        }        
+        }
 
         protected virtual void SlightPushFromObstructingObject(Collision2D collision)
         {
@@ -134,15 +134,15 @@ namespace SpaceBaboon.EnemySystem
             if (m_contactAttackTimer < 0.0f)
             {
                 m_contactAttackReady = true;
-            }                
+            }
         }
 
         public void ContactAttack(Vector2 contactPos)
         {
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
-        
+
             InstantiateContactAttackParticuleSystem(contactPos);
-        
+
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
         }
@@ -169,7 +169,7 @@ namespace SpaceBaboon.EnemySystem
             m_activeHealth -= damage;
             SpriteFlashing();
             DamagePopUp.Create(this.transform.position, damage);
-            Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
+            //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_eventEnemyDeath?.Invoke();
@@ -230,7 +230,7 @@ namespace SpaceBaboon.EnemySystem
             m_isActive = value;
             m_renderer.enabled = value;
             m_circleCollider.enabled = value;
-            m_navMeshAgent.isStopped = !value;            
+            m_navMeshAgent.isStopped = !value;
         }
         #endregion
     }

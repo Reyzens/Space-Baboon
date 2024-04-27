@@ -51,7 +51,7 @@ namespace SpaceBaboon.WeaponSystem
 
         public virtual float OnHit()
         {
-            Debug.Log("OnHit called by :  " + gameObject.name + "with " + m_damage + " damage");
+            //Debug.Log("OnHit called by :  " + gameObject.name + "with " + m_damage + " damage");
             return m_damage;
         }
 

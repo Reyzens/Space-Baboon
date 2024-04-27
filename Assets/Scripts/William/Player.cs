@@ -327,7 +327,7 @@ namespace SpaceBaboon
 
         public override void OnDamageTaken(float damage)
         {
-            Debug.Log("player takes damage");
+            //Debug.Log("player takes damage");
 
             // TODO change name of OnDamageTaken to AttackReceived
             // We could change the IDammageable interface to IAttackable
@@ -568,7 +568,7 @@ namespace SpaceBaboon
         {
             foreach (KeyValuePair<PlayerWeapon, SWeaponInventoryInfo> weapon in m_weaponInventory)
             {
-                if (weapon.Key.GetWeaponData().weaponName == type) { weapon.Key.SetIsCollecting(value, null); }
+                if (weapon.Key.GetWeaponData().weaponName == type) { weapon.Key.ToggleWeapon(value); }
             }
         }
 

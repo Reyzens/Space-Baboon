@@ -118,11 +118,6 @@ namespace SpaceBaboon.WeaponSystem
 
             return false;
         }
-        public void ToggleWeapon()
-        {
-            m_weaponToggle = !m_weaponToggle;
-            gameObject.SetActive(m_weaponToggle);
-        }
         protected override void Attack()
         {
             Transform direction = GetTarget();
@@ -148,12 +143,13 @@ namespace SpaceBaboon.WeaponSystem
         public float SetIsCollecting(bool value, Crafting.InteractableResource resourceToCollect)
         {
             m_isCollecting = value;
-            m_rotationTarget = resourceToCollect.transform;
-            m_currentCollectTimer = resourceToCollect.GetCollectTimer();
+            Debug.Log(m_isCollecting);
 
             //Set new parent or if resourceToCollect is null, return 0
             if (resourceToCollect != null)
             {
+                m_currentCollectTimer = resourceToCollect.GetCollectTimer();
+                m_rotationTarget = resourceToCollect.transform;
                 transform.parent = resourceToCollect.transform;
             }
             else
@@ -161,6 +157,12 @@ namespace SpaceBaboon.WeaponSystem
                 return 0.0f;
             }
             return resourceToCollect.GetCollectTimer();
+        }
+        public void ToggleWeapon(bool value)
+        {
+            m_isCollecting = value;
+            //Need to be almost eternal
+            m_currentCollectTimer = 14400.0f;
         }
         public WeaponData GetWeaponData() { return m_weaponData; }
         public override ScriptableObject GetData()
