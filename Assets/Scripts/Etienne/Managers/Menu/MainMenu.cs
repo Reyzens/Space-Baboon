@@ -51,7 +51,8 @@ namespace SpaceBaboon.MenuSystem
         {
             //Debug.Log("Start Game");
 
-            SceneManager.LoadScene("SB_Build3");
+            //SceneManager.LoadScene("SB_Build3");
+            GameManager.Instance.StartGame();
         }
 
         private void OpenHowToPlay()

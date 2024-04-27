@@ -39,7 +39,8 @@ namespace SpaceBaboon.WeaponSystem
 
         protected override void OnCollisionEnter2D(Collision2D collision)
         {           
-            m_parentPool.UnSpawn(gameObject);
+            if (m_parentPool != null)
+                m_parentPool.UnSpawn(gameObject);
         }
     }
 }
