@@ -175,7 +175,7 @@ namespace SpaceBaboon.WeaponSystem
         private IEnumerator ColliderTickCoroutine()
         {
             m_flameCollider.enabled = true;
-            Debug.Log("Flame collider is " + m_flameCollider.enabled);
+            //Debug.Log("Flame collider is " + m_flameCollider.enabled);
             float timePassed = 0;
 
             while (timePassed < m_tickMaxDuration / 2)
