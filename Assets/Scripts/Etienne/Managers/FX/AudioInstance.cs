@@ -30,7 +30,7 @@ namespace SpaceBaboon.FXSystem
             if (!m_audioSource.isPlaying)
             {
                 m_parentPool.UnSpawn(gameObject);
-                Debug.Log("audio unspawning");
+                //Debug.Log("audio unspawning");
             }
         
         }
