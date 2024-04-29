@@ -50,7 +50,7 @@ namespace SpaceBaboon.EnemySystem
         private float m_spawningTimer = 0.0f;
 
         [SerializeField] private Tilemap m_tilemapRef;
-        [SerializeField] private Tilemap m_obstacleTileMapRef;
+        //[SerializeField] private Tilemap m_obstacleTileMapRef; // TODO to remove
         private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
         //private float m_minDistanceFromAMapCollider = 50.0f;
 

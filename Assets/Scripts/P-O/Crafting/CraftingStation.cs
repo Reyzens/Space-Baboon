@@ -37,7 +37,7 @@ namespace SpaceBaboon.Crafting
         // Start is called before the first frame update
         private void Awake()
         {
-            m_craftingStationsList.Add(this);
+            m_craftingStationsList.Add(this);            
         }
         void Start()
         {
@@ -57,7 +57,7 @@ namespace SpaceBaboon.Crafting
             }
         }
         public static List<CraftingStation> GetCraftingStations()
-        {
+        {            
             return m_craftingStationsList;
         }
         #region StationManagement
