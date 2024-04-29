@@ -20,7 +20,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnFixedUpdate()
         {
-            m_stateMachine.Move(m_stateMachine.CraftingStations[m_stateMachine.TargetedCraftingStation].transform.position);
+            m_stateMachine.Move(m_stateMachine.TargetedCraftingStation.transform.position);
         }
 
         public override bool CanEnter(IState currentState)

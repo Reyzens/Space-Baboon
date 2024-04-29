@@ -11,10 +11,11 @@ namespace SpaceBaboon.EnemySystem
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }
-        public List<CraftingStation> CraftingStations { get; private set; }
+        [SerializeField] public List<CraftingStation> CraftingStations { get; private set; }
+        public CraftingStation TargetedCraftingStation { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
         public EnemyWeapon ShotGun { get; private set; }
-        public int TargetedCraftingStation { get; private set; }           
+        public int TargetedCraftingStationIndex { get; private set; }          
         public bool PlayerInAggroRange { get; private set; }
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
         public bool InTargetedCraftingStationAttackRange { get; private set; }
@@ -66,12 +67,12 @@ namespace SpaceBaboon.EnemySystem
 
         private float GetPlayerDistanceToTargetedCraftingStation()
         {
-            return Vector3.Distance(m_player.transform.position, CraftingStations[TargetedCraftingStation].transform.position);
+            return Vector3.Distance(m_player.transform.position, TargetedCraftingStation.transform.position);
         }
 
         private float GetDistanceToTargetedCraftingStation()
         {
-            return Vector3.Distance(transform.position, CraftingStations[TargetedCraftingStation].transform.position);
+            return Vector3.Distance(transform.position, CraftingStations[TargetedCraftingStationIndex].transform.position);
         }
 
         public new void Move(Vector2 value)
@@ -96,19 +97,16 @@ namespace SpaceBaboon.EnemySystem
 
             Agent = m_navMeshAgent;
 
-            //Agent = GetComponent<NavMeshAgent>();
-            //Agent.updateRotation = false;
-            //Agent.updateUpAxis = false;
-
             Player = m_player;
             
             SineGun = GetComponentInChildren<EnemyWeapon>();
             // TODO Use a GetComponentInChildren when/if implemented
             //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
-
+           
             CraftingStations = CraftingStation.GetCraftingStations();
 
-            TargetedCraftingStation = GetRandomCraftingStationIndex();
+            TargetedCraftingStationIndex = GetRandomCraftingStationIndex();
+            TargetedCraftingStation = CraftingStations[TargetedCraftingStationIndex];
         }
 
         private void UpdateDistances()
