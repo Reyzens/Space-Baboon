@@ -44,6 +44,7 @@ namespace SpaceBaboon
         //private Vector2 m_movementDirection;
         private AnimationCurve m_dashCurve;
         private Color m_spriteRendererColor;
+        private Animator m_animator;
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
         //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
@@ -146,6 +147,7 @@ namespace SpaceBaboon
             m_screenShake = false;
             m_dashCurveStrength = 0.0f;
             m_timestampedDash = 0.0f;
+            m_animator = GetComponent<Animator>();
         }
 
         private void RegisterToGameManager()
@@ -277,11 +279,17 @@ namespace SpaceBaboon
         {
             if (m_movementDirection != Vector2.zero)
             {
+                m_animator.SetBool("Moving", true);
                 m_rB.AddForce(m_movementDirection * AccelerationValue, ForceMode2D.Force);   //Etienne : change Acceleration from data.defaultAccel
                 RegulateVelocity();
             }
+            if (m_movementDirection == Vector2.zero)
+            {
+                m_animator.SetBool("Moving", false);
+            }
             if (m_dashInputReceiver)
             {
+                
                 StartCoroutine(DashCoroutine());
                 m_rB.AddForce(m_movementDirection * (m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
             }

@@ -545,6 +545,10 @@ PrefabInstance:
       propertyPath: m_equippedWeapons.Array.data[4]
       value: 
       objectReference: {fileID: 2050035434}
+    - target: {fileID: 8407589311898464629, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
