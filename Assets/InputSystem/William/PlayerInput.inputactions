@@ -13,15 +13,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "PlayerDash",
-                    "type": "Value",
-                    "id": "b9c77b2a-7edb-46fb-a683-f58503159798",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -79,17 +70,6 @@
                     "action": "PlayerDirection",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "fce1e842-c3bf-46e1-947f-47d3e68dc1bd",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "PlayerDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -105,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "PlayerDash",
+                    "type": "Button",
+                    "id": "41c78c27-4dd3-48b6-bad2-2819d69c8263",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -116,6 +105,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CollectResource",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbfcca9d-0b2c-48ae-afe8-720fbaa373ca",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerDash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
