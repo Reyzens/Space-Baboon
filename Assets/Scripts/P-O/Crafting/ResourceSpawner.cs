@@ -52,7 +52,7 @@ namespace SpaceBaboon
             }
             GenerateGrid();
             m_shardPool.SetPoolStartingSize(m_poolSize);
-            m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
+            m_shardPool.CreatePool(m_resourceShardList, "Resource shard"); 
             m_craftingStationsInScene = Crafting.CraftingStation.GetCraftingStations();
             SetupCraftingStationsIcon();
         }
@@ -162,14 +162,21 @@ namespace SpaceBaboon
                 weaponToSet.Add(playerWeapon);
             }
 
+            List<Crafting.CraftingStation> craftingStationsToSetUp = new List<Crafting.CraftingStation>();
+
+            foreach(Crafting.CraftingStation station in m_craftingStationsInScene)
+            {
+                craftingStationsToSetUp.Add(station);
+            }
+
             foreach (WeaponSystem.PlayerWeapon weapon in weaponToSet)
             {
-                int CurrentStationIndex = Random.Range(0, m_craftingStationsInScene.Count);
+                int CurrentStationIndex = Random.Range(0, craftingStationsToSetUp.Count);
 
-                m_craftingStationsInScene[CurrentStationIndex].StationSetup(weapon);
+                craftingStationsToSetUp[CurrentStationIndex].StationSetup(weapon);
 
-                Crafting.CraftingStation craftingStationToRemove = m_craftingStationsInScene[CurrentStationIndex];
-                m_craftingStationsInScene.Remove(craftingStationToRemove);
+                Crafting.CraftingStation craftingStationToRemove = craftingStationsToSetUp[CurrentStationIndex];
+                craftingStationsToSetUp.Remove(craftingStationToRemove);
             }
         }
         #endregion
