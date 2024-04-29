@@ -54,6 +54,8 @@ namespace SpaceBaboon
             {
                 GameTimer += Time.deltaTime;
             }
+
+            Debug.Log("Current Player Damage Taken =  " + GameStats.GetPlayerDamageTaken());
         }
 
         public void SetPlayer(Player player)
