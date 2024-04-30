@@ -11,10 +11,12 @@ namespace SpaceBaboon.EnemySystem
             Debug.Log("BossEnemy entering state: AttackingStation\n");
 
             m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
+            m_stateMachine.Agent.isStopped = true;
         }
 
         public override void OnExit()
         {
+            m_stateMachine.Agent.isStopped = false;
             Debug.Log("BossEnemy exiting state: AttackingStation\n");
         }
 
@@ -25,7 +27,8 @@ namespace SpaceBaboon.EnemySystem
             if (m_craftingStationAttackTimer < 0)
             {
                 Debug.Log("Crafting station attacked");
-                m_stateMachine.TemporaryCraftingStationAttack(m_stateMachine.TargetedCraftingStation.transform.position);
+                m_stateMachine.CraftingStationAttack(m_stateMachine.TargetedCraftingStation.transform.position);
+                //m_stateMachine.TemporaryCraftingStationAttack(m_stateMachine.TargetedCraftingStation.transform.position);
                 m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
             }
         }

@@ -11,6 +11,7 @@ namespace SpaceBaboon.WeaponSystem
 
         protected void Start()
         {
+            base.Start();
             m_detectionRange = currentRange + m_detectionOffSet;
         }
         protected override Transform GetTarget()

@@ -15,8 +15,6 @@ namespace SpaceBaboon
 
         private void Awake()
         {
-            GameManager.Instance.SetEndGameScreenScript(this);
-            
             m_uiDoc = GetComponent<UIDocument>();
             VisualElement visualElement = m_uiDoc.rootVisualElement;
 
@@ -24,6 +22,12 @@ namespace SpaceBaboon
             m_scoreAmount = visualElement.Q<Label>("ScoreAmount");
             m_playAgainButton = visualElement.Q<Button>("BackButton");
 
+        }
+
+        private void Start()
+        {
+            GameManager.Instance.SetEndGameScreenScript(this);
+            
         }
 
         private void OnEnable()

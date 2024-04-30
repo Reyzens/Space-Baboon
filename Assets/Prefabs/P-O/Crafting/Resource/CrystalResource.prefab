@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6512866892332310219}
   - component: {fileID: 482924058165501279}
   - component: {fileID: 293947934903021209}
+  - component: {fileID: 3215072545501550106}
   m_Layer: 0
   m_Name: CrystalResource
   m_TagString: Resource
@@ -201,6 +202,27 @@ CircleCollider2D:
   m_Offset: {x: 0.06395829, y: 0.0111784935}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!114 &3215072545501550106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7374271548386975700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c0ca3ed318c7340ba37f001638702c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_defaultRotationSpeed: 50
+  m_currentTimer: 0
+  m_currentRotationSpeed: 0
+  m_rotationRange: 8
+  m_acceptableRangeOffset: 0.5
+  m_isOnTimer: 0
+  m_isResource: 0
+  m_collectTimer: 0
+  m_accelerationRatio: 0
 --- !u!1001 &93385661433736487
 PrefabInstance:
   m_ObjectHideFlags: 0

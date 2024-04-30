@@ -24,12 +24,12 @@ MonoBehaviour:
   defaultContactAttackDelay: 3
   size: 0
   obstructionPushForce: 0
-  test: 0
   sprites: []
   possibleAggroRange: 100
   playerAggroRange: 50
   craftingStationAttackRange: 15
   craftingStationAttackDelay: 3
+  craftingStationAttackDamage: 10
   specialAttackDelay: 3
   specialAttackChargeDelay: 10
   basicAttackDelay: 2
