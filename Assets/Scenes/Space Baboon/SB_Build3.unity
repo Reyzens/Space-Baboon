@@ -1346,6 +1346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheatTools
       objectReference: {fileID: 0}
+    - target: {fileID: 3491749154905766244, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3862230477894048768, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
       propertyPath: m_player
       value: 

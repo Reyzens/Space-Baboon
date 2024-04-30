@@ -26,6 +26,8 @@ namespace SpaceBaboon
         private float m_dashCurveStrength;
         private float m_activeDashDuration;
         private float m_timestampedDash;
+        private float m_maxDashVelocity;
+        private float m_currentMaximumVelocity;
 
         //Weapons variables
         [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
@@ -153,6 +155,8 @@ namespace SpaceBaboon
             m_animator = GetComponent<Animator>();
             m_playerFlash = GetComponent<PlayerFlash>();
             m_playerCanDash = true;
+            m_maxDashVelocity = m_characterData.dashMaximumVelocity;
+            m_currentMaximumVelocity = m_characterData.defaultMaxVelocity;
         }
 
         private void RegisterToGameManager()
@@ -193,17 +197,13 @@ namespace SpaceBaboon
         }
         private void DashStart()
         {
-            Debug.LogError("Dash was called");
             if (m_activeDashCD <= 0.0f && m_movementDirection != Vector2.zero)
             {
-                Debug.LogError("DASH");
                 m_dashInputReceiver = true;
             }
         }
         private void OnCollectResource()
         {
-            Debug.LogError("Press E");
-            Debug.Log("OnCollectResource was called");
             if (m_collectibleInRange)
             {
                 Crafting.InteractableResource resourceToCollect = SearchClosestResource();
@@ -288,20 +288,18 @@ namespace SpaceBaboon
             {
                 m_animator.SetBool("Moving", true);
                 m_rB.AddForce(m_movementDirection * AccelerationValue, ForceMode2D.Force);   //Etienne : change Acceleration from data.defaultAccel
-                RegulateVelocity();
+                //RegulateVelocity();
             }
             if (m_movementDirection == Vector2.zero)
             {
                 m_animator.SetBool("Moving", false);
             }
-            if (m_dashInputReceiver)
+            if (m_dashInputReceiver && m_isDashing == false)
             {
-                
-                m_playerFlash.playerFlash(m_renderer, 1f, Color.red);
-                m_rB.AddForce(m_movementDirection * (m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
-                
+                m_dashInputReceiver = false;
+                m_currentMaximumVelocity = m_characterData.dashMaximumVelocity;
+                m_rB.AddForce(m_movementDirection * (m_currentMaximumVelocity), ForceMode2D.Impulse);
                 StartCoroutine(DashCoroutine());
-                
             }
         }
 
@@ -317,23 +315,26 @@ namespace SpaceBaboon
             }
         }
 
+        private void BeforeDashCoroutine()
+        {
+            m_isDashing = true;
+            m_playerFlash.FlashStart(m_renderer, new Color(1, 1, 1, 0.5f));
+            m_timestampedDash = 0.0f;
+            m_rB.GameObject().layer = LayerMask.NameToLayer("ImmunityDash");
+            m_dahsTrail.SetActive(true);
+            
+        }
         private void AfterDashCoroutine()
         {
             m_activeDashCD = m_activeDashCoolDown;
-            //m_renderer.material.color = Color.Lerp(m_renderer.material.color, m_spriteRendererColor, 0.2f);
+            m_playerFlash.FlashEnd(m_renderer);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
             m_rB.GameObject().layer = LayerMask.NameToLayer("Player");
-            //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),false);
+            //m_currentMaximumVelocity = Mathf.Lerp(m_maxDashVelocity, m_characterData.dashMaximumVelocity,m_activeDashDuration);       
         }
 
-        private void BeforeDashCoroutine()
-        {
-            m_isDashing = true;
-            m_timestampedDash = 0.0f;
-            //m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
-        }
 
         private void PlayerDamageTakenScreenShake()
         {
@@ -366,12 +367,11 @@ namespace SpaceBaboon
             BeforeDashCoroutine();
             while (m_timestampedDash < m_activeDashDuration)
             {
+               
                 m_timestampedDash += Time.deltaTime;
                 float dashCurvePosition = m_timestampedDash / m_activeDashDuration;
                 m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
-                m_rB.GameObject().layer = LayerMask.NameToLayer("ImmunityDash");
-                //Physics2D.IgnoreLayerCollision(LayerMask.GetMask("Player"),LayerMask.GetMask("Enemy"),true);
-                m_dahsTrail.SetActive(true);
+  
                 yield return null;
             }
             AfterDashCoroutine();
