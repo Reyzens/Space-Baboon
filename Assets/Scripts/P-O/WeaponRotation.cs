@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -9,12 +10,14 @@ namespace SpaceBaboon
         [SerializeField] private float m_defaultRotationSpeed;
         [SerializeField] private float m_rotationRange;
         [SerializeField] private float m_acceptableRangeOffset;
+        [SerializeField] private float m_minDistanceBetweenObjects;
 
         //General variables
         private Dictionary<GameObject, GameObject> m_rotatingObjects = new Dictionary<GameObject, GameObject>();
         private float m_currentTimer;
         private float m_currentRotationSpeed;
         private bool m_isOnTimer = false;
+        private bool m_isReajusting = false;
 
         //Resources variables
         private bool m_isResource = false;
@@ -70,18 +73,22 @@ namespace SpaceBaboon
         }
         private void RotateAroundTarget()
         {
-            //if (CanRotate())
-            //{
-            //transform.RotateAround(m_rotationTarget.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
-            //}
-            //if (Vector2.Distance(transform.position, m_rotationTarget.position) > m_MaxDistanceFromRotationTarget)
-            //{
-            //    MoveTowardTarget();
-            //}
-            foreach (KeyValuePair<GameObject, GameObject> item in m_rotatingObjects)
+            CheckForReajusting();
+            for (int i = 0; i < m_rotatingObjects.Keys.Count; i++)
             {
-                item.Key.transform.RotateAround(transform.position, Vector3.forward, m_currentRotationSpeed * Time.deltaTime);
+                if (m_isReajusting)
+                {
+                    m_rotatingObjects.Keys.ElementAt(i).transform.RotateAround(transform.position, Vector3.forward, i * m_currentRotationSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    m_rotatingObjects.Keys.ElementAt(i).transform.RotateAround(transform.position, Vector3.forward, m_currentRotationSpeed * Time.deltaTime);
+                }
             }
+            //foreach (KeyValuePair<GameObject, GameObject> item in m_rotatingObjects)
+            //{
+            //    item.Key.transform.RotateAround(transform.position, Vector3.forward, m_currentRotationSpeed * Time.deltaTime);
+            //}
         }
         private void TimerUpdate()
         {
@@ -147,6 +154,24 @@ namespace SpaceBaboon
             }
             targetPosition = (Vector2)transform.position + direction * m_rotationRange;
             item.Key.transform.position = Vector3.MoveTowards(item.Key.transform.position, targetPosition, m_defaultRotationSpeed * Time.deltaTime);
+        }
+        private void CheckForReajusting()
+        {
+            m_isReajusting = false;
+            List<Vector2> previousPositions = new List<Vector2>();
+            foreach (KeyValuePair<GameObject, GameObject> item in m_rotatingObjects)
+            {
+                foreach (Vector2 position in previousPositions)
+                {
+                    if (Vector2.Distance((Vector2)item.Key.transform.position, position) < m_minDistanceBetweenObjects)
+                    {
+                        m_isReajusting = true;
+                        Debug.Log("Reajusting rotation");
+                        return;
+                    }
+                }
+                previousPositions.Add(item.Key.transform.position);
+            }
         }
         public void Unregister(GameObject objectToRemove)
         {
