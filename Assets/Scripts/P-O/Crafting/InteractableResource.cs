@@ -40,11 +40,11 @@ namespace SpaceBaboon.Crafting
             Metal, Crystal, Technologie, Count
         }
 
-        //private Methods
-        static Dictionary<EResourceType, ResourceData> GetResourcesData()
+        public static Dictionary<EResourceType, ResourceData> GetResourcesData()
         {
             return Resources;
         }
+        //private Methods
         private void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
@@ -96,7 +96,7 @@ namespace SpaceBaboon.Crafting
                 FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
                 if (fxManager != null)
                 {
-                    fxManager.PlayAudio(FXSystem.EFXType.Mining);
+                    fxManager.PlayAudio(FXSystem.ESFXType.Mining);
                 }
             }
         }
@@ -105,7 +105,7 @@ namespace SpaceBaboon.Crafting
             FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
             if (fxManager != null)
             {
-                fxManager.PlayAudio(FXSystem.EFXType.MiningCompleted);
+                fxManager.PlayAudio(FXSystem.ESFXType.MiningCompleted);
             }
 
 
@@ -174,6 +174,10 @@ namespace SpaceBaboon.Crafting
         public void SetShardPoolRef(GenericObjectPool shardPool)
         {
             m_shardPoolRef = shardPool;
+        }
+        public EResourceType GetResourceType()
+        {
+            return m_resourceData.m_resourceType;
         }
         #endregion
     }
