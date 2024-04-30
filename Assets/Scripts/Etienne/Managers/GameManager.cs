@@ -25,7 +25,7 @@ namespace SpaceBaboon
             {
                 if (instance != null) { return instance; }
 
-                Debug.LogError("FXManager instance is null");
+                Debug.LogError("GameManager instance is null");
                 return null;
             }
         }
@@ -54,8 +54,6 @@ namespace SpaceBaboon
             {
                 GameTimer += Time.deltaTime;
             }
-
-            Debug.Log("Current Player Damage Taken =  " + GameStats.GetPlayerDamageTaken());
         }
 
         public void SetPlayer(Player player)
