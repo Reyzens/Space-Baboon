@@ -7,19 +7,19 @@ namespace SpaceBaboon
     {
         //Serialized fields
         [SerializeField] private float m_defaultRotationSpeed;
+        [SerializeField] private float m_rotationRange;
+        [SerializeField] private float m_acceptableRangeOffset;
 
         //General variables
         private Dictionary<GameObject, GameObject> m_rotatingObjects = new Dictionary<GameObject, GameObject>();
-        public float m_currentTimer;
-        public float m_currentRotationSpeed;
-        public float m_rotationRange;
-        public float m_acceptableRangeOffset;
-        public bool m_isOnTimer = false;
+        private float m_currentTimer;
+        private float m_currentRotationSpeed;
+        private bool m_isOnTimer = false;
 
         //Resources variables
-        public bool m_isResource = false;
-        public float m_collectTimer;
-        public float m_accelerationRatio;
+        private bool m_isResource = false;
+        private float m_collectTimer;
+        private float m_accelerationRatio;
 
         private void Awake()
         {
