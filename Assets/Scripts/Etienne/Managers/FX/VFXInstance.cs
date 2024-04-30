@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace SpaceBaboon
 {
-    public class VFXInstance : MonoBehaviour, IPoolable
+    public class VFXInstance : MonoBehaviour, IPoolableGeneric
     {
-        private ObjectPool m_parentPool;
+        private GenericObjectPool m_parentPool;
 
         private bool m_isActive;
         public bool IsActive { get { return m_isActive; } }
@@ -41,7 +41,7 @@ namespace SpaceBaboon
             transform.rotation = quat;
         }
 
-        public void Activate(Vector2 pos, ObjectPool pool)
+        public void Activate(Vector2 pos, GenericObjectPool pool)
         {
             m_isActive = true;
             m_parentPool = pool;
