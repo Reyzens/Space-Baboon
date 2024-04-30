@@ -28,7 +28,6 @@ namespace SpaceBaboon.EnemySystem
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
         protected bool m_contactAttackReady = true;
-        private float m_spriteFlashTimer = 0.5f;
         //private float m_bonusDamage = 0.0f;
         //private float m_bonusAcceleration;
         //private float m_bonusMaxVelocity;

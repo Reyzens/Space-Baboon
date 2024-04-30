@@ -124,7 +124,7 @@ namespace SpaceBaboon.EnemySystem
 
         public void CraftingStationAttack(Vector2 pos)
         {
-            InstantiateContactAttackParticuleSystem(pos);
+            SpawnContactAttackVFX(pos);
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
             if(TargetedCraftingStation.GetIsDisabled())
             {
@@ -135,7 +135,7 @@ namespace SpaceBaboon.EnemySystem
 
         public void TemporaryCraftingStationAttack(Vector2 pos)
         {
-            InstantiateContactAttackParticuleSystem(pos);
+            SpawnContactAttackVFX(pos);
         }
        
     }
