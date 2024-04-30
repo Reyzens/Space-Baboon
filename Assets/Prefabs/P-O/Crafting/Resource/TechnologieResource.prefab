@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5096878005913474466}
   - component: {fileID: 9003894809611342428}
   - component: {fileID: 8215312297395075237}
+  - component: {fileID: 488348430792516631}
   m_Layer: 0
   m_Name: TechnologieResource
   m_TagString: Resource
@@ -201,6 +202,27 @@ CircleCollider2D:
   m_Offset: {x: 0.06395829, y: 0.0111784935}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!114 &488348430792516631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134457193293305550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c0ca3ed318c7340ba37f001638702c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_defaultRotationSpeed: 50
+  m_currentTimer: 0
+  m_currentRotationSpeed: 0
+  m_rotationRange: 8
+  m_acceptableRangeOffset: 0.5
+  m_isOnTimer: 0
+  m_isResource: 0
+  m_collectTimer: 0
+  m_accelerationRatio: 0
 --- !u!1001 &5180903323754282897
 PrefabInstance:
   m_ObjectHideFlags: 0

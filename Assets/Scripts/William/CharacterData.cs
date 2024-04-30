@@ -12,5 +12,6 @@ namespace SpaceBaboon
         public GameObject prefab;
         public float defaultAcceleration;
         public float defaultMaxVelocity;
+        public float dashMaximumVelocity;
     }
 }

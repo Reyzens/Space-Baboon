@@ -17,7 +17,7 @@ namespace SpaceBaboon.WeaponSystem
         protected float m_attackSpeedModifier = 1.0f;
         protected int m_currentLevel = 1;
         private bool m_weaponToggle = true;
-        private Transform m_rotationTarget;
+        //private Transform m_rotationTarget;
 
         //Collect Variables
         protected bool m_isCollecting = false;
@@ -53,7 +53,10 @@ namespace SpaceBaboon.WeaponSystem
             list.Add(m_weaponData.projectilePrefab);
 
             m_pool.CreatePool(list, "Weapon Projectiles");
-            m_rotationTarget = transform.parent;
+        }
+        protected virtual void Start()
+        {
+            RegisterToRotationTarget(transform.parent.gameObject.GetComponent<WeaponRotation>());
         }
         protected virtual void Update()
         {
@@ -65,7 +68,6 @@ namespace SpaceBaboon.WeaponSystem
             {
                 CollectUpdate();
             }
-            RotateAroundPlayer();
         }
         public bool CheckIfCollecting()
         {
@@ -88,36 +90,26 @@ namespace SpaceBaboon.WeaponSystem
             {
                 m_isCollecting = false;
                 transform.parent = m_owner;
-                m_rotationTarget = m_owner;
+                //m_rotationTarget = m_owner;
             }
         }
-        private void RotateAroundPlayer()
-        {
-            if (CanRotate())
-            {
-                transform.RotateAround(m_rotationTarget.position, Vector3.forward, m_rotationAroundPlayerSpeed * Time.deltaTime);
-            }
-            if (Vector2.Distance(transform.position, m_rotationTarget.position) > m_MaxDistanceFromRotationTarget)
-            {
-                MoveTowardTarget();
-            }
-        }
-        private void MoveTowardTarget()
-        {
-            float distanceTowardTarget = Vector2.Distance(transform.position, m_rotationTarget.position);
-            float scalingSpeed = Mathf.Lerp(0, m_rotationAroundPlayerSpeed, distanceTowardTarget / m_MaxDistanceFromRotationTarget);
 
-            transform.position = Vector3.MoveTowards(transform.position, m_rotationTarget.position, scalingSpeed * Time.deltaTime);
-        }
-        private bool CanRotate()
-        {
-            if (m_rotationTarget != null && Vector2.Distance(transform.position, m_rotationTarget.position) < m_MaxDistanceFromRotationTarget)
-            {
-                return true;
-            }
+        //private void MoveTowardTarget()
+        //{
+        //    float distanceTowardTarget = Vector2.Distance(transform.position, m_rotationTarget.position);
+        //    float scalingSpeed = Mathf.Lerp(0, m_rotationAroundPlayerSpeed, distanceTowardTarget / m_MaxDistanceFromRotationTarget);
 
-            return false;
-        }
+        //    transform.position = Vector3.MoveTowards(transform.position, m_rotationTarget.position, scalingSpeed * Time.deltaTime);
+        //}
+        //private bool CanRotate()
+        //{
+        //    if (m_rotationTarget != null && Vector2.Distance(transform.position, m_rotationTarget.position) < m_MaxDistanceFromRotationTarget)
+        //    {
+        //        return true;
+        //    }
+
+        //    return false;
+        //}
         protected override void Attack()
         {
             Transform direction = GetTarget();
@@ -140,6 +132,10 @@ namespace SpaceBaboon.WeaponSystem
         {
             return null;
         }
+        private void RegisterToRotationTarget(WeaponRotation rotationToRegister)
+        {
+            rotationToRegister.RegisterToRotationAxis(gameObject, transform.parent.gameObject);
+        }
         public float SetIsCollecting(bool value, Crafting.InteractableResource resourceToCollect)
         {
             m_isCollecting = value;
@@ -149,8 +145,7 @@ namespace SpaceBaboon.WeaponSystem
             if (resourceToCollect != null)
             {
                 m_currentCollectTimer = resourceToCollect.GetCollectTimer();
-                m_rotationTarget = resourceToCollect.transform;
-                transform.parent = resourceToCollect.transform;
+                RegisterToRotationTarget(resourceToCollect.gameObject.GetComponent<WeaponRotation>());
             }
             else
             {

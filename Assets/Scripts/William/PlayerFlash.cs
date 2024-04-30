@@ -6,20 +6,17 @@ namespace SpaceBaboon
 {
     public class PlayerFlash : MonoBehaviour
     {
-        public void playerFlash(SpriteRenderer sprite, float duration, Color flashColor)
+        Color originColor;
+        public void FlashStart(SpriteRenderer sprite, Color flashColor)
         {
-            StartCoroutine(DoPlayerFlash(sprite, duration, flashColor));
+            originColor = sprite.color;
+            sprite.color = flashColor;
         }
 
-        private IEnumerator DoPlayerFlash(SpriteRenderer sprite, float duration, Color flashColor)
+        public void FlashEnd(SpriteRenderer sprite)
         {
-            Color originColor = sprite.color;
-            sprite.color = flashColor;
-
-            yield return new WaitForSeconds(duration);
-
+            //sprite.color = Color.Lerp(originColor, sprite.color, 0.2f);
             sprite.color = originColor;
-
         }
     }
 }
