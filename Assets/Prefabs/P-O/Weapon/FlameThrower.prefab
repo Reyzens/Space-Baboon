@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4597069849186856216}
   - component: {fileID: 5311949026823479907}
   - component: {fileID: 4106815023539932166}
+  - component: {fileID: 765964075054095050}
   m_Layer: 0
   m_Name: FlameThrower
   m_TagString: Untagged
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 162027993, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.87355375, a: 1}
+  m_Sprite: {fileID: 2141490768, guid: 01d11b5c818e804408f6136c1258bad3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,6 +102,29 @@ MonoBehaviour:
   m_pool:
     m_container: {fileID: 0}
     m_poolStartingSize: 5
-  m_attackSpeedScaling: 0.25
   m_debugMode: 0
   m_rotationAroundPlayerSpeed: 50
+  m_MaxDistanceFromRotationTarget: 0
+  m_owner: {fileID: 0}
+  m_detectionOffSet: 5
+--- !u!95 &765964075054095050
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9023977439697920776}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

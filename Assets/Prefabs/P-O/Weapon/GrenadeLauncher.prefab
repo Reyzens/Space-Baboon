@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 802097290951641300}
   - component: {fileID: 1268656246560152080}
   - component: {fileID: 3250909844759871497}
+  - component: {fileID: 7873258170185710736}
   m_Layer: 0
   m_Name: GrenadeLauncher
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04, y: 0.04, z: 0.19999999}
+  m_LocalScale: {x: 0.19, y: 0.19, z: 0.9499999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1719397731, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
-  m_Color: {r: 0, g: 0.97032166, b: 1, a: 1}
+  m_Sprite: {fileID: -1381356033, guid: 01d11b5c818e804408f6136c1258bad3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,3 +106,24 @@ MonoBehaviour:
   m_rotationAroundPlayerSpeed: 50
   m_MaxDistanceFromRotationTarget: 0
   m_owner: {fileID: 0}
+--- !u!95 &7873258170185710736
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6158744752462687429}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ffd4e26bb3b921479c33866cfbc16a4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
