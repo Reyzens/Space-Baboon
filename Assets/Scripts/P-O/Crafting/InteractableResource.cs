@@ -51,6 +51,10 @@ namespace SpaceBaboon.Crafting
             //Debug.Log(m_renderer);
             m_circleCollider = GetComponent<CircleCollider2D>();
             m_capsuleCollider = GetComponent<CapsuleCollider2D>();
+            if (!Resources.ContainsKey(m_resourceData.m_resourceType))
+            {
+                Resources.Add(m_resourceData.m_resourceType, m_resourceData);
+            }
         }
         private void Start()
         {

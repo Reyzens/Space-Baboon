@@ -16,6 +16,7 @@ namespace SpaceBaboon
         [SerializeField] private int m_poolSize;
         [SerializeField] private float m_mapBorderOffSet;
         private List<Crafting.CraftingStation> m_craftingStationsInScene = new List<Crafting.CraftingStation>();
+        private Dictionary<Crafting.InteractableResource.EResourceType, float> m_resourcesWeightDictionary = new Dictionary<Crafting.InteractableResource.EResourceType, float>();
 
         //Tilemap refacto
         [SerializeField] private Tilemap m_tilemapRef;
@@ -45,16 +46,11 @@ namespace SpaceBaboon
         {
             m_spawningTimer = m_spawningDelay;
 
-            foreach (KeyValuePair<GameObject, ObjectPool> resource in m_resourceDictionary)
-            {
-                resource.Value.SetPoolSize(m_poolSize);
-                resource.Value.CreatePool(resource.Key);
-            }
             GenerateGrid();
-            m_shardPool.SetPoolStartingSize(m_poolSize);
-            m_shardPool.CreatePool(m_resourceShardList, "Resource shard"); 
+            PoolSetUp();
             m_craftingStationsInScene = Crafting.CraftingStation.GetCraftingStations();
             SetupCraftingStationsIcon();
+            DictionarySetUp();
         }
 
         private void Update()
@@ -70,7 +66,46 @@ namespace SpaceBaboon
                 CalculateSpawnPosition();
             }
         }
+        private void PoolSetUp()
+        {
+            foreach (KeyValuePair<GameObject, ObjectPool> resource in m_resourceDictionary)
+            {
+                resource.Value.SetPoolSize(m_poolSize);
+                resource.Value.CreatePool(resource.Key);
+            }
 
+            m_shardPool.SetPoolStartingSize(m_poolSize);
+            m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
+        }
+        private void DictionarySetUp()
+        {
+            float totalValues = 0;
+            float reciprocalOfValue;
+            float normalizedReciprocal;
+            Dictionary<Crafting.InteractableResource.EResourceType, float> tempWeights = new Dictionary<Crafting.InteractableResource.EResourceType, float>();
+
+            //Get all the reciprocal of the values
+            foreach (KeyValuePair<Crafting.InteractableResource.EResourceType, ResourceData> resource in Crafting.InteractableResource.GetResourcesData())
+            {
+                if (resource.Value.m_resourceAmount > 0)
+                {
+                    reciprocalOfValue = 1.0f / resource.Value.m_resourceAmount;
+                    tempWeights.Add(resource.Key, reciprocalOfValue);
+                    totalValues += reciprocalOfValue;
+                }
+                else
+                {
+                    tempWeights.Add(resource.Key, 0);
+                }
+            }
+
+            //Get the weight threshold and put it as weight
+            foreach (KeyValuePair<Crafting.InteractableResource.EResourceType, float> resource in tempWeights)
+            {
+                normalizedReciprocal = (resource.Value / totalValues);
+                m_resourcesWeightDictionary.Add(resource.Key, normalizedReciprocal);
+            }
+        }
         #region ResourceSpawning
         private void GenerateGrid()
         {
@@ -125,30 +160,31 @@ namespace SpaceBaboon
 
         private void SpawnResource(Vector2 spawnPosition)
         {
-            //Choose resource to spawn
-            bool canSpawn = true;
-            int poolAmountTested = 0;
-            int whileiteration = 0;
-            while (canSpawn && poolAmountTested < m_poolSize * m_resourcesPrefab.Count)
+            //Get the maximum weight value
+            float totalReciprocalNorm = 0.0f;
+            foreach (float weight in m_resourcesWeightDictionary.Values)
             {
-                int resourceIndex = Random.Range(0, m_resourcesPrefab.Count);
-                if (m_resourceDictionary[m_resourcesPrefab[resourceIndex]].GetPoolQueueSize() != 0)
+                totalReciprocalNorm += weight;
+            }
+
+            //Generate a weight between 0 and maximum weight value
+            float randomWeight = Random.Range(0, totalReciprocalNorm);
+            float currentWeightValue = 0.0f;
+
+            foreach (KeyValuePair<Crafting.InteractableResource.EResourceType, float> resource in m_resourcesWeightDictionary)
+            {
+                currentWeightValue += resource.Value;
+                if (randomWeight < currentWeightValue)
                 {
-                    var spawnedResource = m_resourceDictionary[m_resourcesPrefab[resourceIndex]].Spawn(spawnPosition);
-                    spawnedResource.GetComponent<Crafting.InteractableResource>().SetShardPoolRef(m_shardPool);
-                    canSpawn = false;
-                }
-                else
-                {
-                    poolAmountTested += m_poolSize;
-                    canSpawn = true;
-                }
-                whileiteration++;
-                if (whileiteration > 50)
-                {
-                    Debug.Log("Reach max iteration of SpawnResource");
-                    canSpawn = true;
-                    poolAmountTested = m_poolSize * m_resourcesPrefab.Count + 1;
+                    foreach (GameObject resourcePrefab in m_resourcesPrefab)
+                    {
+                        if (resourcePrefab.GetComponent<Crafting.InteractableResource>().GetResourceType() == resource.Key)
+                        {
+                            GameObject spawnedResource = m_resourceDictionary[resourcePrefab].Spawn(spawnPosition);
+                            spawnedResource.GetComponent<Crafting.InteractableResource>().SetShardPoolRef(m_shardPool);
+                            return;
+                        }
+                    }
                 }
             }
         }
@@ -164,7 +200,7 @@ namespace SpaceBaboon
 
             List<Crafting.CraftingStation> craftingStationsToSetUp = new List<Crafting.CraftingStation>();
 
-            foreach(Crafting.CraftingStation station in m_craftingStationsInScene)
+            foreach (Crafting.CraftingStation station in m_craftingStationsInScene)
             {
                 craftingStationsToSetUp.Add(station);
             }
