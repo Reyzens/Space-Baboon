@@ -54,12 +54,10 @@ namespace SpaceBaboon
         {
             if (m_spriteFlashTimer > 0)
             {
-                Debug.Log("timer");
                 m_spriteFlashTimer -= Time.deltaTime;
 
                 if (m_spriteFlashTimer <= 0)
                 {
-                    Debug.Log("resetting color");
                     m_renderer.material.color = m_defaultRendererColor;
                     m_spriteFlashTimer = 0;
                 }
