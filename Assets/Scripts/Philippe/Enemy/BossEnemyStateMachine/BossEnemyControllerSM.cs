@@ -75,7 +75,7 @@ namespace SpaceBaboon.EnemySystem
 
         private float GetDistanceToTargetedCraftingStation()
         {
-            return Vector3.Distance(transform.position, CraftingStations[TargetedCraftingStationIndex].transform.position);
+            return Vector3.Distance(transform.position, TargetedCraftingStation.transform.position);
         }
 
         public new void Move(Vector2 value)
@@ -107,6 +107,9 @@ namespace SpaceBaboon.EnemySystem
             //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
            
             CraftingStations = CraftingStation.GetCraftingStations();
+
+            //foreach()
+
 
             TargetedCraftingStationIndex = GetRandomAliveCraftingStationIndex();
             TargetedCraftingStation = CraftingStations[TargetedCraftingStationIndex];

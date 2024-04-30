@@ -124,7 +124,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
 
-            InstantiateContactAttackParticuleSystem(contactPos);
+            SpawnContactAttackVFX(contactPos);
 
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
@@ -132,7 +132,7 @@ namespace SpaceBaboon.EnemySystem
 
         // TODO instantiation to be removed when particle system object pool integrated to project
         // TODO make sure particle system is at foreground
-        protected void InstantiateContactAttackParticuleSystem(Vector2 contactPos)
+        protected void SpawnContactAttackVFX(Vector2 contactPos)
         {
             Vector3 contactPosVec = new Vector3(contactPos.x, contactPos.y, 2);
 
@@ -140,11 +140,13 @@ namespace SpaceBaboon.EnemySystem
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            GameObject contactAttackInstance = Instantiate(m_contactAttackParticleSystem, contactPosVec, rotation);
+            FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemySlashAttack, contactPosVec, rotation);
 
-            AudioSource contactAttackAS = contactAttackInstance.GetComponent<AudioSource>();
-            AudioClip contactAttackAC = contactAttackAS.clip;
-            contactAttackAS?.PlayOneShot(contactAttackAC);
+            //GameObject contactAttackInstance = Instantiate(m_contactAttackParticleSystem, contactPosVec, rotation);
+            //
+            //AudioSource contactAttackAS = contactAttackInstance.GetComponent<AudioSource>();
+            //AudioClip contactAttackAC = contactAttackAS.clip;
+            //contactAttackAS?.PlayOneShot(contactAttackAC);
         }
 
         // TODO this can be generalized to the parent most likely
