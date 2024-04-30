@@ -17,6 +17,7 @@ namespace SpaceBaboon.FXSystem
         EnemyMelee,
         EnemyShoot,
         EnemyExplode,
+        EnemySlashAttack,
         Mining,
         MiningCompleted,
         CoinCollected,
@@ -27,7 +28,8 @@ namespace SpaceBaboon.FXSystem
 
     public enum EVFXType
     {
-        SlashAttack,
+        EnemySlashAttack,
+        PlayerSlashAttack,
         Count
     }
 
@@ -53,7 +55,7 @@ namespace SpaceBaboon.FXSystem
 
         //VFX
         [SerializeField] private List<VFXEvent> m_vfxEvents = new List<VFXEvent>();
-        private Dictionary<EVFXType, GameObject> m_vfxDictionary = new Dictionary<EVFXType, GameObject>();
+        private Dictionary<EVFXType, VFXEvent> m_vfxDictionary = new Dictionary<EVFXType, VFXEvent>();
         private GenericObjectPool m_vfxPool = new GenericObjectPool();
 
 
@@ -92,7 +94,7 @@ namespace SpaceBaboon.FXSystem
             List<GameObject> prefabList = new List<GameObject>();
             foreach (var item in m_vfxEvents)
             {
-                m_vfxDictionary.Add(item.type, item.gameObject);
+                m_vfxDictionary.Add(item.type, item);
                 prefabList.Add(item.gameObject);
             }
 
@@ -131,7 +133,17 @@ namespace SpaceBaboon.FXSystem
 
         #region SlashAttack
 
+        public void PlayVFX(EVFXType type, Vector3 pos, Quaternion rot)
+        {
+            GameObject obj = m_vfxPool.Spawn(m_vfxDictionary[type].gameObject, pos);
+            VFXInstance script = obj.GetComponent<VFXInstance>();
+            script.SetRotation(rot);
 
+            if (m_vfxDictionary[type].hasAudio)
+            {
+                PlayAudio(ESFXType.EnemySlashAttack);
+            }
+        }
 
         #endregion
     }
@@ -148,5 +160,7 @@ namespace SpaceBaboon.FXSystem
     {
         public EVFXType type;
         public GameObject gameObject;
+        public bool hasAudio;
+        public ESFXType audioType;
     }
 }
