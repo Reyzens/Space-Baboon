@@ -125,6 +125,7 @@ namespace SpaceBaboon.EnemySystem
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
             if(TargetedCraftingStation.GetIsDisabled())
             {
+                Debug.Log("Have been disabled"); // À changer d'endroit
                 TargetedStationDisabled = true;
             }
         }
