@@ -22,12 +22,13 @@ namespace SpaceBaboon.EnemySystem
 
         private GameObject m_playerObject;
         protected Player m_player;
-        private Color m_spriteRendererColor;
-        private float m_enemyFlashingTimer;
+        //private Color m_spriteRendererColor;
+        //private float m_enemyFlashingTimer;
 
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
         protected bool m_contactAttackReady = true;
+        private float m_spriteFlashTimer = 0.5f;
         //private float m_bonusDamage = 0.0f;
         //private float m_bonusAcceleration;
         //private float m_bonusMaxVelocity;
@@ -42,7 +43,7 @@ namespace SpaceBaboon.EnemySystem
             base.Awake();
 
             m_circleCollider = GetComponent<CircleCollider2D>();
-            m_spriteRendererColor = m_renderer.material.color;
+            //m_spriteRendererColor = m_renderer.material.color;
 
             m_navMeshAgent = GetComponent<NavMeshAgent>();
             m_navMeshAgent.updateRotation = false;
@@ -58,25 +59,27 @@ namespace SpaceBaboon.EnemySystem
             m_activeHealth = m_enemyUniqueData.defaultHealth;
         }
 
-        protected virtual void Update()
+        protected override void Update()
         {
             if (!m_isActive)
                 return;
+
+            base.Update();
 
             CalculateDistanceToPlayer();
 
             if (!m_contactAttackReady)
                 ReadyContactAttack();
 
-            if (m_enemyFlashingTimer > 0.0f)
-            {
-                m_enemyFlashingTimer -= Time.deltaTime;
-
-            }
-            if (m_enemyFlashingTimer < 0.0f)
-            {
-                m_renderer.material.color = m_spriteRendererColor;
-            }
+            //if (m_enemyFlashingTimer > 0.0f)  //Refactored to Character
+            //{
+            //    m_enemyFlashingTimer -= Time.deltaTime;
+            //
+            //}
+            //if (m_enemyFlashingTimer < 0.0f)
+            //{
+            //    m_renderer.material.color = m_spriteRendererColor;
+            //}
         }
 
         protected virtual void FixedUpdate()
@@ -148,7 +151,8 @@ namespace SpaceBaboon.EnemySystem
         public override void OnDamageTaken(float damage)
         {
             m_activeHealth -= damage;
-            SpriteFlashing();
+            //SpriteFlashing();
+            SpriteFlashRed(m_spriteFlashTimer);
             DamagePopUp.Create(this.transform.position, damage);
             //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
@@ -158,12 +162,12 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        // TODO this can be generalized to the parent
-        private void SpriteFlashing()
-        {
-            m_enemyFlashingTimer = 0.2f;
-            m_renderer.material.color = Color.red;
-        }
+        //// TODO this can be generalized to the parent :: Done
+        //private void SpriteFlashing()
+        //{
+        //    m_enemyFlashingTimer = 0.2f;
+        //    m_renderer.material.color = Color.red;
+        //}
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();

@@ -19,6 +19,11 @@ namespace SpaceBaboon
         {
             //Debug.Log("invincible bool = " + m_isInvincible);
             //Debug.Log("speed value = " + m_speed);
+
+            //if (Input.GetKeyDown(KeyCode.H))
+            //{
+            //    FXSystem.FXManager.Instance.ShakeCamera(20f, 2f, 2f);
+            //}
         
         }
 

@@ -27,14 +27,6 @@ namespace SpaceBaboon.FXSystem
 
     public class FXManager : MonoBehaviour
     {
-
-        [SerializeField] private List<FXEvent> m_fxEvents = new List<FXEvent>();
-
-        private Dictionary<EFXType, AudioClip> m_dictionary = new Dictionary<EFXType, AudioClip>();
-
-        [SerializeField] private GameObject m_audioSourcePrefab;
-        private ObjectPool m_audioPool = new ObjectPool();
-
         private static FXManager instance;
         public static FXManager Instance
         {
@@ -46,6 +38,16 @@ namespace SpaceBaboon.FXSystem
                 return null;
             }
         }
+
+
+        [SerializeField] private List<FXEvent> m_fxEvents = new List<FXEvent>();
+
+        private Dictionary<EFXType, AudioClip> m_dictionary = new Dictionary<EFXType, AudioClip>();
+
+        [SerializeField] private GameObject m_audioSourcePrefab;
+        private ObjectPool m_audioPool = new ObjectPool();
+
+        private CameraShake m_cameraShakeController;
 
         private void Awake()
         {
@@ -85,6 +87,18 @@ namespace SpaceBaboon.FXSystem
             //Debug.Log("dictionary value: " + m_dictionary[type].name);
         }
 
+        #region CameraShake
+        public void RegisterCameraShakeController(CameraShake controller)
+        {
+            m_cameraShakeController = controller;
+        }
+
+        public void ShakeCamera(float intensity, float frequency, float duration = 0.5f)
+        {
+            m_cameraShakeController.ShakeCamera(intensity, frequency, duration);
+        }
+
+        #endregion
     }
 
     [System.Serializable]

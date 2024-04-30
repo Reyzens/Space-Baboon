@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace SpaceBaboon
@@ -8,6 +9,7 @@ namespace SpaceBaboon
         [SerializeField] protected CharacterData m_characterData;
         protected GameObject m_characterPrefab;
         protected SpriteRenderer m_renderer;        
+        protected Color m_defaultRendererColor;        
         protected Rigidbody2D m_rB;
         
         //BaseVariables
@@ -18,6 +20,9 @@ namespace SpaceBaboon
         //BonusVariables
         protected float m_bonusHealth;
         protected float m_bonusVelocity;
+
+        //Timer
+        private float m_spriteFlashTimer;
 
         //Cheats related
         //private bool m_isInvincible = false; // TODO make it more genral also
@@ -35,7 +40,30 @@ namespace SpaceBaboon
         protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
+            m_defaultRendererColor = m_renderer.material.color;
             m_rB = GetComponent<Rigidbody2D>();
+
+        }
+
+        protected virtual void Update()
+        {
+            HandleSpriteFlashTimer();
+        }
+
+        protected void HandleSpriteFlashTimer()
+        {
+            if (m_spriteFlashTimer > 0)
+            {
+                Debug.Log("timer");
+                m_spriteFlashTimer -= Time.deltaTime;
+
+                if (m_spriteFlashTimer <= 0)
+                {
+                    Debug.Log("resetting color");
+                    m_renderer.material.color = m_defaultRendererColor;
+                    m_spriteFlashTimer = 0;
+                }
+            }
         }
 
         //Methods        
@@ -62,6 +90,12 @@ namespace SpaceBaboon
             }
         }   
         
+        protected void SpriteFlashRed(float duration)
+        {
+            m_renderer.material.color = Color.red;
+            m_spriteFlashTimer = duration;
+        }
+
         public virtual void OnDamageTaken(float values) {}
 
         public override ScriptableObject GetData() { return m_characterData; }
