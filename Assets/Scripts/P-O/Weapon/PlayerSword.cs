@@ -14,6 +14,10 @@ namespace SpaceBaboon.WeaponSystem
             m_previousPosition = transform.position;
             m_playerDirection = transform.parent.GetComponent<Player>();
         }
+        protected override void Start()
+        {
+            //Don't use base start
+        }
         protected override void Attack()
         {
             Transform targetTransform = GetTarget();
