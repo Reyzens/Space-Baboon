@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4626064250469981135}
   - component: {fileID: 1620488025406527433}
   - component: {fileID: 4257277738590854236}
+  - component: {fileID: 8574708395650093109}
   m_Layer: 0
   m_Name: LaserBeam
   m_TagString: Untagged
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1558169917, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -231909075, guid: 01d11b5c818e804408f6136c1258bad3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -105,3 +106,24 @@ MonoBehaviour:
   m_rotationAroundPlayerSpeed: 50
   m_MaxDistanceFromRotationTarget: 0
   m_owner: {fileID: 0}
+--- !u!95 &8574708395650093109
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135902263268594448}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

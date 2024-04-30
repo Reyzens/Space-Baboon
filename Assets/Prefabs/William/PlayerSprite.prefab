@@ -413,6 +413,7 @@ GameObject:
   - component: {fileID: 6664975956819514426}
   - component: {fileID: 763723706492497818}
   - component: {fileID: 3456885747682980764}
+  - component: {fileID: 3205972134885171237}
   m_Layer: 3
   m_Name: PlayerSprite
   m_TagString: Player
@@ -483,7 +484,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 89b1781ec1dbe4db4b85bad6c048b52d, type: 3}
+  m_Sprite: {fileID: -1518495511, guid: 89a3be150dbd14f43830689b00421b82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -526,9 +527,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: 0}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.09475446
+  m_Radius: 0.09
 --- !u!50 &8407589311898464629
 Rigidbody2D:
   serializedVersion: 4
@@ -541,7 +542,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 2
+  m_Mass: 1
   m_LinearDrag: 20
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -598,25 +599,13 @@ MonoBehaviour:
     m_ActionId: 1c76bf9b-2d4a-4563-8250-e12af8265582
     m_ActionName: PlayerMovement/PlayerDirection[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4296487818868317848}
-        m_TargetAssemblyTypeName: SpaceBaboon.InputHandler, Assembly-CSharp
-        m_MethodName: OnPlayerDash
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b9c77b2a-7edb-46fb-a683-f58503159798
-    m_ActionName: PlayerMovement/PlayerDash[/Keyboard/space]
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 710a26fd-ba19-47af-8a47-caa162017612
     m_ActionName: PlayerInteraction/CollectResource[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d0b4cdd8-31b9-4996-bd8b-6dd908de5190
+    m_ActionName: PlayerMovement/PlayerDash[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -670,7 +659,7 @@ Animator:
   m_GameObject: {fileID: 4408285224000720167}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f2324c0f502404b91a1d742056f3c1e3, type: 2}
+  m_Controller: {fileID: 9100000, guid: b698e13235d94a24db8b8eaa2238ea10, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -697,6 +686,18 @@ MonoBehaviour:
   <CanReceiveHit>k__BackingField: 1
   <AgentType>k__BackingField: 0
   <AffectedAgents>k__BackingField: 
+--- !u!114 &3205972134885171237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408285224000720167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce79411b7116a2c4084194e29eb80036, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4820570273262426972
 GameObject:
   m_ObjectHideFlags: 0
