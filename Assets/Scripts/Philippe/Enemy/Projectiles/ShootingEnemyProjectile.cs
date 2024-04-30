@@ -17,13 +17,9 @@ namespace SpaceBaboon.WeaponSystem
             foreach (CircleCollider2D collider in colliders)
             {
                 if (collider.isTrigger)
-                {
                     m_triggerCollider = collider;
-                }
                 else
-                {
                     m_collider = collider;
-                }
             }
         }
 
