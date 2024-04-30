@@ -11,16 +11,19 @@ namespace SpaceBaboon.EnemySystem
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }
-        [SerializeField] public List<CraftingStation> CraftingStations { get; private set; }
+        public List<CraftingStation> CraftingStations { get; private set; }
         public CraftingStation TargetedCraftingStation { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
         public EnemyWeapon ShotGun { get; private set; }
-        public int TargetedCraftingStationIndex { get; private set; }          
+        public int TargetedCraftingStationIndex { get; private set; }
+        public bool TargetedStationDisabled { get; set; } = false;
         public bool PlayerInAggroRange { get; private set; }
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
-        public float SpecialAttackTimer { get; set; }        
+        public float SpecialAttackTimer { get; set; }
+
+        
 
         protected override void CreatePossibleStates()
         {
@@ -60,7 +63,7 @@ namespace SpaceBaboon.EnemySystem
             base.FixedUpdate();            
         }
 
-        private int GetRandomCraftingStationIndex()
+        private int GetRandomAliveCraftingStationIndex()
         {
             return Random.Range(0, CraftingStations.Count);
         }
@@ -105,7 +108,7 @@ namespace SpaceBaboon.EnemySystem
            
             CraftingStations = CraftingStation.GetCraftingStations();
 
-            TargetedCraftingStationIndex = GetRandomCraftingStationIndex();
+            TargetedCraftingStationIndex = GetRandomAliveCraftingStationIndex();
             TargetedCraftingStation = CraftingStations[TargetedCraftingStationIndex];
         }
 
@@ -116,16 +119,20 @@ namespace SpaceBaboon.EnemySystem
             InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;
         }
 
+        public void CraftingStationAttack(Vector2 pos)
+        {
+            InstantiateContactAttackParticuleSystem(pos);
+            TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
+            if(TargetedCraftingStation.GetIsDisabled())
+            {
+                TargetedStationDisabled = true;
+            }
+        }
+
         public void TemporaryCraftingStationAttack(Vector2 pos)
         {
             InstantiateContactAttackParticuleSystem(pos);
         }
-
-        #region Overriden Methods
-        protected override void SlightPushFromObstructingObject(Collision2D collision)
-        {
-            // Overriding this method
-        }
-        #endregion
+       
     }
 }

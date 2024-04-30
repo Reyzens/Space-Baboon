@@ -6,7 +6,7 @@ namespace SpaceBaboon.EnemySystem
     {
         public override void OnEnter()
         {
-            //Debug.Log("BossEnemy entering state: MovingToStation\n");
+            Debug.Log("BossEnemy entering state: MovingToStation\n");
         }
 
         public override void OnExit()

@@ -88,44 +88,24 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void OnCollisionStay2D(Collision2D collision)
-        {
-            SlightPushFromObstructingObject(collision);
+        {            
         }
 
         protected void StopMovement()
         {
-            m_navMeshAgent.acceleration = -m_characterData.defaultAcceleration;
-            //m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
+            m_navMeshAgent.acceleration = -m_characterData.defaultAcceleration;            
         }
 
         private void CalculateDistanceToPlayer()
         {
             m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
-        }
-
-        protected virtual void SlightPushFromObstructingObject(Collision2D collision)
-        {
-            //Vector3 direction = collision.transform.position - transform.position;
-            //m_rB.AddForce(-direction * m_enemyUniqueData.obstructionPushForce, ForceMode2D.Force);
-        }
+        }        
 
         protected override void Move(Vector2 value)
         {
-            //MoveTowardsPlayer();
             m_navMeshAgent.SetDestination(value);
             CheckForSpriteDirectionSwap(m_navMeshAgent.velocity);
-        }
-
-        protected virtual void MoveTowardsPlayer()
-        {
-            Vector3 playerPosition = m_playerObject.transform.position;
-
-            m_movementDirection = (playerPosition - transform.position).normalized;
-            m_rB.AddForce(m_movementDirection * m_enemyUniqueData.defaultAcceleration /* + or * bonus */, ForceMode2D.Force);
-
-            if (m_movementDirection.magnitude > 0)
-                RegulateVelocity();
-        }
+        }        
 
         private void ReadyContactAttack()
         {
@@ -164,6 +144,7 @@ namespace SpaceBaboon.EnemySystem
             contactAttackAS?.PlayOneShot(contactAttackAC);
         }
 
+        // TODO this can be generalized to the parent most likely
         public override void OnDamageTaken(float damage)
         {
             m_activeHealth -= damage;
@@ -177,6 +158,7 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
+        // TODO this can be generalized to the parent
         private void SpriteFlashing()
         {
             m_enemyFlashingTimer = 0.2f;

@@ -19,6 +19,7 @@ namespace SpaceBaboon.Crafting
         private Transform m_position;
         private float m_currentHealth;
         private int m_currentStationLevel;
+        private bool m_isDisabled = false;
 
         //Serialized for test purpose
         [SerializeField] private List<Crafting.InteractableResource.EResourceType> m_resourceNeeded = new List<Crafting.InteractableResource.EResourceType>();
@@ -42,10 +43,22 @@ namespace SpaceBaboon.Crafting
         void Start()
         {
             Initialization();
+            //Debug.Log("Crafting station health is " + m_maxHealth );
         }
         // Update is called once per frame
         void Update()
         {
+            if (m_isDisabled)
+            {
+                Debug.Log("Station disabled");
+                return;
+            }                
+
+            if (m_currentHealth <= 0)
+            {
+                m_isDisabled = true;
+            }
+
             if (m_isUpgrading)
             {
                 m_currentUpgradeCD -= Time.deltaTime;
@@ -63,7 +76,9 @@ namespace SpaceBaboon.Crafting
         #region StationManagement
         private void Initialization()
         {
+            m_isDisabled = false;
             m_currentStationLevel = 1;
+            m_currentHealth = m_maxHealth;
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)
             {
@@ -91,6 +106,12 @@ namespace SpaceBaboon.Crafting
         {
             return m_resourceDropPoints;
         }
+        public void ReceiveDamage(float damage)
+        {
+            m_currentHealth -= damage;
+            Debug.Log("Crafting Station current hit points " + m_currentHealth);
+        }
+        public bool GetIsDisabled() { return m_isDisabled; }
         #region UpgradeManagement
         private void CheckIfUpgradable()
         {
