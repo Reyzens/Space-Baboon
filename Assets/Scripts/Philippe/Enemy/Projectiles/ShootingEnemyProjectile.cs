@@ -5,7 +5,23 @@ namespace SpaceBaboon.WeaponSystem
     public class ShootingEnemyProjectile : Projectile
     {
         private GameObject m_playerObject;
-        protected Player m_player;
+        protected Player m_player;        
+        private CircleCollider2D m_triggerCollider;
+
+        protected override void Awake()
+        {
+            m_renderer = GetComponent<SpriteRenderer>();            
+            m_rb = GetComponent<Rigidbody2D>();
+
+            CircleCollider2D[] colliders = GetComponents<CircleCollider2D>();
+            foreach (CircleCollider2D collider in colliders)
+            {
+                if (collider.isTrigger)
+                    m_triggerCollider = collider;
+                else
+                    m_collider = collider;
+            }
+        }
 
         protected void Start()
         {
@@ -41,6 +57,15 @@ namespace SpaceBaboon.WeaponSystem
         {           
             if (m_parentPool != null)
                 m_parentPool.UnSpawn(gameObject);
+        }
+
+        protected override void SetComponents(bool value)
+        {
+            //Debug.Log("SetComponents parent appeler");
+            m_isActive = value;
+            m_renderer.enabled = value;
+            m_collider.enabled = value;
+            m_triggerCollider.enabled = value;
         }
     }
 }

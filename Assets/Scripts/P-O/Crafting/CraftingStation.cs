@@ -50,14 +50,9 @@ namespace SpaceBaboon.Crafting
         {
             if (m_isDisabled)
             {
-                Debug.Log("Station disabled");
+                //Debug.Log("Station disabled");
                 return;
-            }                
-
-            if (m_currentHealth <= 0)
-            {
-                m_isDisabled = true;
-            }
+            }                            
 
             if (m_isUpgrading)
             {
@@ -109,6 +104,11 @@ namespace SpaceBaboon.Crafting
         public void ReceiveDamage(float damage)
         {
             m_currentHealth -= damage;
+            if(m_currentHealth <= 0)
+            {
+                m_isDisabled = true;
+            }
+
             Debug.Log("Crafting Station current hit points " + m_currentHealth);
         }
         public bool GetIsDisabled() { return m_isDisabled; }
