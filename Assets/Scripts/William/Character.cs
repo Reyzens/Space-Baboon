@@ -22,7 +22,7 @@ namespace SpaceBaboon
         protected float m_bonusVelocity;
 
         //Timer
-        private float m_spriteFlashTimer;
+        protected float m_spriteFlashTimer;
 
         //Cheats related
         //private bool m_isInvincible = false; // TODO make it more genral also

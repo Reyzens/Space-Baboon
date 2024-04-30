@@ -82,7 +82,7 @@ namespace SpaceBaboon
             FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
             if (fxManager != null)
             {
-                fxManager.PlayAudio(FXSystem.EFXType.GrenadeExplode);
+                fxManager.PlayAudio(FXSystem.ESFXType.GrenadeExplode);
             }
 
         }

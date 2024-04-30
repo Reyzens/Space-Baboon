@@ -394,7 +394,7 @@ namespace SpaceBaboon
             FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
             if (fxManager != null)
             {
-                fxManager.PlayAudio(FXSystem.EFXType.CoinCollected);
+                fxManager.PlayAudio(FXSystem.ESFXType.CoinCollected);
             }
 
 
@@ -436,7 +436,7 @@ namespace SpaceBaboon
                 FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
                 if (fxManager != null)
                 {
-                    fxManager.PlayAudio(FXSystem.EFXType.DroppingCoins);
+                    fxManager.PlayAudio(FXSystem.ESFXType.DroppingCoins);
                 }
 
 

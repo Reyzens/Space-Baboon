@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon.FXSystem
 {
-    public enum EFXType
+    public enum ESFXType
     {
         PlayerHit,
         PlayerDash,
@@ -22,7 +23,12 @@ namespace SpaceBaboon.FXSystem
         DroppingCoins,
         WeaponUpgrading,
         Count
+    }
 
+    public enum EVFXType
+    {
+        SlashAttack,
+        Count
     }
 
     public class FXManager : MonoBehaviour
@@ -39,13 +45,17 @@ namespace SpaceBaboon.FXSystem
             }
         }
 
-
-        [SerializeField] private List<FXEvent> m_fxEvents = new List<FXEvent>();
-
-        private Dictionary<EFXType, AudioClip> m_dictionary = new Dictionary<EFXType, AudioClip>();
-
+        //SFX
+        [SerializeField] private List<SFXEvent> m_sfxEvents = new List<SFXEvent>();
+        private Dictionary<ESFXType, AudioClip> m_sfxDictionary = new Dictionary<ESFXType, AudioClip>();
         [SerializeField] private GameObject m_audioSourcePrefab;
-        private ObjectPool m_audioPool = new ObjectPool();
+        private ObjectPool m_sfxPool = new ObjectPool();
+
+        //VFX
+        [SerializeField] private List<VFXEvent> m_vfxEvents = new List<VFXEvent>();
+        private Dictionary<EVFXType, GameObject> m_vfxDictionary = new Dictionary<EVFXType, GameObject>();
+        private GenericObjectPool m_vfxPool = new GenericObjectPool();
+
 
         private CameraShake m_cameraShakeController;
 
@@ -61,29 +71,49 @@ namespace SpaceBaboon.FXSystem
 
         private void Start()
         {
-            m_audioPool.SetPoolSize(10);
-            m_audioPool.CreatePool(m_audioSourcePrefab);
+            SetupSFXPool();
+            SetupVFXPool();
+        }
 
-            foreach (var item in m_fxEvents)
+        private void SetupSFXPool()
+        {
+            m_sfxPool.SetPoolSize(10);
+            m_sfxPool.CreatePool(m_audioSourcePrefab);
+
+            foreach (var item in m_sfxEvents)
             {
-                m_dictionary.Add(item.type, item.clip);
+                m_sfxDictionary.Add(item.type, item.clip);
             }
         }
 
-        public void PlayAudio(EFXType type)
+        private void SetupVFXPool()
+        {
+
+            List<GameObject> prefabList = new List<GameObject>();
+            foreach (var item in m_vfxEvents)
+            {
+                m_vfxDictionary.Add(item.type, item.gameObject);
+                prefabList.Add(item.gameObject);
+            }
+
+            m_vfxPool.SetPoolStartingSize(5);
+            m_vfxPool.CreatePool(prefabList, "VFX");
+        }
+
+        public void PlayAudio(ESFXType type)
         {
             //Debug.Log("PlayAudio called :  " + type);
-            GameObject obj = m_audioPool.Spawn(transform.position);
+            GameObject obj = m_sfxPool.Spawn(transform.position);
 
             AudioSource audioSource = obj.GetComponent<AudioInstance>().AudioSource;
             //Debug.Log("audioSource " + audioSource);
 
-            if (type == EFXType.GrenadeExplode || type == EFXType.WeaponUpgrading)
+            if (type == ESFXType.GrenadeExplode || type == ESFXType.WeaponUpgrading)
             {
-                audioSource.PlayOneShot(m_dictionary[type], 0.2f);
+                audioSource.PlayOneShot(m_sfxDictionary[type], 0.2f);
                 return;
             }
-            audioSource.PlayOneShot(m_dictionary[type]);
+            audioSource.PlayOneShot(m_sfxDictionary[type]);
             //Debug.Log("dictionary value: " + m_dictionary[type].name);
         }
 
@@ -97,14 +127,26 @@ namespace SpaceBaboon.FXSystem
         {
             m_cameraShakeController.ShakeCamera(intensity, frequency, duration);
         }
+        #endregion
+
+        #region SlashAttack
+
+
 
         #endregion
     }
 
     [System.Serializable]
-    public struct FXEvent
+    public struct SFXEvent
     {
-        public EFXType type;
+        public ESFXType type;
         public AudioClip clip;
+    }
+
+    [System.Serializable]
+    public struct VFXEvent
+    {
+        public EVFXType type;
+        public GameObject gameObject;
     }
 }

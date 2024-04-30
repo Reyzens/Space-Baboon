@@ -130,7 +130,7 @@ namespace SpaceBaboon.Crafting
                 FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
                 if (fxManager != null)
                 {
-                    fxManager.PlayAudio(FXSystem.EFXType.WeaponUpgrading);
+                    fxManager.PlayAudio(FXSystem.ESFXType.WeaponUpgrading);
                 }
             }
         }

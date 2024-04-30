@@ -21,7 +21,7 @@ namespace SpaceBaboon.WeaponSystem
         public float attackSpeed;
         public float baseDamage;
         public EPlayerWeaponType weaponName;
-        public FXSystem.EFXType shootAudioCue;
+        public FXSystem.ESFXType shootAudioCue;
         public Sprite icon;
         public GameObject projectilePrefab;
 
