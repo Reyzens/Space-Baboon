@@ -42,7 +42,7 @@ namespace SpaceBaboon
         void Start()
         {
             //m_Input.PlayerMovement.SetCallbacks(this);
-            m_Input.PlayerMovement.PlayerDash.started += OnPlayerDash;
+            m_Input.PlayerInteraction.PlayerDash.started += OnPlayerDash;
             m_Input.PlayerMovement.PlayerDirection.performed += OnPlayerDirection;
             m_Input.PlayerMovement.PlayerDirection.canceled += OnPlayerDirection;
             m_Input.PlayerInteraction.CollectResource.started += OnCollectResource;
@@ -65,7 +65,10 @@ namespace SpaceBaboon
 
         public void OnPlayerDash(InputAction.CallbackContext context)
         {
-            m_DashStartEvent?.Invoke();
+            if(context.started) 
+            {
+                m_DashStartEvent?.Invoke();
+            }
         }
 
         public void OnCollectResource(InputAction.CallbackContext context)

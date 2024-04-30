@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 namespace SpaceBaboon
@@ -17,6 +18,7 @@ namespace SpaceBaboon
         private bool m_dashInputReceiver;
         private bool m_screenShake;
         private bool m_collectibleInRange;
+        private bool m_playerCanDash;
 
         private float m_currentDashCDCounter;
         private float m_activeDashCD;
@@ -45,6 +47,7 @@ namespace SpaceBaboon
         private AnimationCurve m_dashCurve;
         private Color m_spriteRendererColor;
         private Animator m_animator;
+        private PlayerFlash m_playerFlash;
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
         //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
@@ -148,6 +151,8 @@ namespace SpaceBaboon
             m_dashCurveStrength = 0.0f;
             m_timestampedDash = 0.0f;
             m_animator = GetComponent<Animator>();
+            m_playerFlash = GetComponent<PlayerFlash>();
+            m_playerCanDash = true;
         }
 
         private void RegisterToGameManager()
@@ -188,14 +193,16 @@ namespace SpaceBaboon
         }
         private void DashStart()
         {
-            Debug.Log("Dash was called");
+            Debug.LogError("Dash was called");
             if (m_activeDashCD <= 0.0f && m_movementDirection != Vector2.zero)
             {
+                Debug.LogError("DASH");
                 m_dashInputReceiver = true;
             }
         }
         private void OnCollectResource()
         {
+            Debug.LogError("Press E");
             Debug.Log("OnCollectResource was called");
             if (m_collectibleInRange)
             {
@@ -290,8 +297,11 @@ namespace SpaceBaboon
             if (m_dashInputReceiver)
             {
                 
-                StartCoroutine(DashCoroutine());
+                m_playerFlash.playerFlash(m_renderer, 1f, Color.red);
                 m_rB.AddForce(m_movementDirection * (m_dashCurveStrength * m_playerData.defaultDashAcceleration), ForceMode2D.Impulse);
+                
+                StartCoroutine(DashCoroutine());
+                
             }
         }
 
@@ -310,7 +320,7 @@ namespace SpaceBaboon
         private void AfterDashCoroutine()
         {
             m_activeDashCD = m_activeDashCoolDown;
-            m_renderer.material.color = Color.Lerp(m_renderer.material.color, m_spriteRendererColor, 0.2f);
+            //m_renderer.material.color = Color.Lerp(m_renderer.material.color, m_spriteRendererColor, 0.2f);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
@@ -322,7 +332,7 @@ namespace SpaceBaboon
         {
             m_isDashing = true;
             m_timestampedDash = 0.0f;
-            m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
+            //m_renderer.material.color = new Color(1f, 1f, 1f, 0.2f);
         }
 
         private void PlayerDamageTakenScreenShake()
