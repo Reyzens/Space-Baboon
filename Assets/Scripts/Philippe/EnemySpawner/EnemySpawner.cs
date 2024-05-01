@@ -49,7 +49,8 @@ namespace SpaceBaboon.EnemySystem
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
 
-        [SerializeField] private Tilemap m_tilemapRef;        
+        [SerializeField] private Tilemap m_tilemapRef;
+        [SerializeField] public Tilemap m_obstacleTilemapRef;
         private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();        
 
 

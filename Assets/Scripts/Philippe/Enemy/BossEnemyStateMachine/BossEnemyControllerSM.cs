@@ -10,7 +10,7 @@ namespace SpaceBaboon.EnemySystem
     {
         Ice,
         Fire,
-        Earth,
+        Rock,
         Count
     }
 

@@ -78,3 +78,4 @@ MonoBehaviour:
   m_enemiesAmountToSpawnOneShot: 0
   m_spawnGroup: 0
   m_tilemapRef: {fileID: 0}
+  m_obstacleTilemapRef: {fileID: 0}
