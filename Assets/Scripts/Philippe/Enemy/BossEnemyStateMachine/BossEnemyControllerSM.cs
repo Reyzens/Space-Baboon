@@ -107,25 +107,10 @@ namespace SpaceBaboon.EnemySystem
             SineGun = GetComponentInChildren<EnemyWeapon>();
             // TODO Use a GetComponentInChildren when/if implemented
             //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
-           
-            //CraftingStations = CraftingStation.GetCraftingStations();
-
-            //foreach (CraftingStation station in CraftingStation.GetCraftingStations())
-            //{
-            //    if (!station.GetIsDisabled()) 
-            //    {
-            //        WorkingCraftingStations.Add(station);
-            //    }
-            //}
 
             FindWorkingCraftingStations();
             int nextTargetedCraftingStationIndex = GetRandomWorkingCraftingStationIndex();
             TargetedCraftingStation = WorkingCraftingStations[nextTargetedCraftingStationIndex];
-
-            //Debug.Log("Nb of alive crafting stations" + WorkingCraftingStations.Count);
-
-            //TargetedCraftingStationIndex = GetRandomAliveCraftingStationIndex();
-            //TargetedCraftingStation = CraftingStations[TargetedCraftingStationIndex];
         }
 
         private void UpdateDistances()
@@ -138,20 +123,20 @@ namespace SpaceBaboon.EnemySystem
         public void AttackTargetedCraftingStation()
         {
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
-            //SpawnContactAttackVFX(TargetedCraftingStation.transform.position, TargetedCraftingStation.transform);
-            //SpawnContactAttackVFX(pos, TargetedCraftingStation.transform);
-            //TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
-            //if(TargetedCraftingStation.GetIsDisabled())
-            //{
-            //    Debug.Log("Have been disabled"); // À changer d'endroit
-            //    TargetedStationDisabled = true;
-            //}
+            
+            Vector2 direction = transform.position - TargetedCraftingStation.transform.position;
+            Vector2 directionNorm = direction.normalized;
+            Vector2 contactPos = (directionNorm * 5) + new Vector2(TargetedCraftingStation.transform.position.x, TargetedCraftingStation.transform.position.y);  
+            
+            SpawnContactAttackVFX(contactPos, TargetedCraftingStation.transform);
+            
+            if(TargetedCraftingStation.GetIsDisabled())
+            {
+                Debug.Log("Have been disabled"); // À changer d'endroit
+                TargetedStationDisabled = true;
+            }
         }
 
-        //public void TemporaryCraftingStationAttack(Vector2 pos)
-        //{
-        //    SpawnContactAttackVFX(pos);
-        //}
 
         private void FindWorkingCraftingStations()
         {
@@ -162,9 +147,7 @@ namespace SpaceBaboon.EnemySystem
                 {
                     WorkingCraftingStations.Add(station);
                 }
-            }
-
-            //Debug.Log("Working crafting stations count " + WorkingCraftingStations.Count);
+            }            
         }
        
     }

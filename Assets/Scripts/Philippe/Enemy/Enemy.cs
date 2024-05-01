@@ -66,17 +66,7 @@ namespace SpaceBaboon.EnemySystem
             CalculateDistanceToPlayer();
 
             if (!m_contactAttackReady)
-                ReadyContactAttack();
-
-            //if (m_enemyFlashingTimer > 0.0f)  //Refactored to Character
-            //{
-            //    m_enemyFlashingTimer -= Time.deltaTime;
-            //
-            //}
-            //if (m_enemyFlashingTimer < 0.0f)
-            //{
-            //    m_renderer.material.color = m_spriteRendererColor;
-            //}
+                ReadyContactAttack();                        
         }
 
         protected virtual void FixedUpdate()
@@ -117,34 +107,26 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        public void ContactAttack(Vector2 contactPos/*, Transform target*/)
+        public void ContactAttack(Vector2 contactPos)
         {
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
 
-            // Removed while debbugging boss crafting station attack and VFXmamager interactions
-            SpawnContactAttackVFX(contactPos/*, target*/);
+            SpawnContactAttackVFX(contactPos, m_player.transform);
 
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
         }
-
-        // TODO instantiation to be removed when particle system object pool integrated to project
+        
         // TODO make sure particle system is at foreground
-        protected void SpawnContactAttackVFX(Vector2 contactPos/*, Transform target*/)
+        protected void SpawnContactAttackVFX(Vector2 contactPos, Transform target)
         {
             Vector3 contactPosVec = new Vector3(contactPos.x, contactPos.y, 2);
 
-            Vector2 direction = m_player.transform.position - contactPosVec;
+            Vector2 direction = target.position - contactPosVec;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
             FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemySlashAttack, contactPosVec, rotation);
-
-            //GameObject contactAttackInstance = Instantiate(m_contactAttackParticleSystem, contactPosVec, rotation);
-            //
-            //AudioSource contactAttackAS = contactAttackInstance.GetComponent<AudioSource>();
-            //AudioClip contactAttackAC = contactAttackAS.clip;
-            //contactAttackAS?.PlayOneShot(contactAttackAC);
         }
 
         // TODO this can be generalized to the parent most likely
