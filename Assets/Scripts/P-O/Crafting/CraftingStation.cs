@@ -31,6 +31,7 @@ namespace SpaceBaboon.Crafting
         //Static variables
         //static Upgrade currentUpgrade;
         static List<CraftingStation> m_craftingStationsList = new List<CraftingStation>();
+        static List<EWeaponUpgrades> m_lastsUpgrades = new List<EWeaponUpgrades>();
         static EWeaponUpgrades m_currentUpgrade = EWeaponUpgrades.Count;
 
         public static EWeaponUpgrades CurrentUpgrade { get { return m_currentUpgrade; } }
@@ -38,7 +39,7 @@ namespace SpaceBaboon.Crafting
         // Start is called before the first frame update
         private void Awake()
         {
-            m_craftingStationsList.Add(this);            
+            m_craftingStationsList.Add(this);
         }
         void Start()
         {
@@ -52,7 +53,7 @@ namespace SpaceBaboon.Crafting
             {
                 //Debug.Log("Station disabled");
                 return;
-            }                            
+            }
 
             if (m_isUpgrading)
             {
@@ -65,7 +66,7 @@ namespace SpaceBaboon.Crafting
             }
         }
         public static List<CraftingStation> GetCraftingStations()
-        {            
+        {
             return m_craftingStationsList;
         }
         #region StationManagement
@@ -79,11 +80,6 @@ namespace SpaceBaboon.Crafting
             {
                 ResetUpgrade();
             }
-        }
-        static void ResetUpgrade()
-        {
-            m_currentUpgrade = (EWeaponUpgrades)Random.Range(0, (int)EWeaponUpgrades.Count);
-            //Debug.Log("Chosen upgrade is " + m_currentUpgrade);
         }
         private void ResetDropStation()
         {
@@ -104,7 +100,7 @@ namespace SpaceBaboon.Crafting
         public void ReceiveDamage(float damage)
         {
             m_currentHealth -= damage;
-            if(m_currentHealth <= 0)
+            if (m_currentHealth <= 0)
             {
                 m_isDisabled = true;
             }
@@ -115,16 +111,11 @@ namespace SpaceBaboon.Crafting
         #region UpgradeManagement
         private void CheckIfUpgradable()
         {
-            //Sort both list before comparing their values
             if (m_resourceNeeded.Count == 0)
             {
                 if (m_debugMode) { Debug.Log("CrafingStation " + gameObject.name + " is upgrading weapon"); }
 
-                m_linkedWeapon.Upgrade(m_currentUpgrade);
-                m_currentResources.Clear();
-                m_isUpgrading = true;
-                m_currentUpgradeCD = m_maxUpgradeCooldown;
-                m_currentStationLevel++;
+                LocalStationUpgrading();
                 ResetUpgrade();
 
                 FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
@@ -133,6 +124,58 @@ namespace SpaceBaboon.Crafting
                     fxManager.PlayAudio(FXSystem.ESFXType.WeaponUpgrading);
                 }
             }
+        }
+        private void LocalStationUpgrading()
+        {
+            m_linkedWeapon.Upgrade(m_currentUpgrade);
+            m_currentResources.Clear();
+            m_isUpgrading = true;
+            m_currentUpgradeCD = m_maxUpgradeCooldown;
+            m_currentStationLevel++;
+            m_lastsUpgrades.Add(m_currentUpgrade);
+        }
+        private void LastUpgradesCheck()
+        {
+            bool isChoosingUpgrade = true;
+            EWeaponUpgrades newUpgrade = ResetUpgrade();
+
+            while (isChoosingUpgrade)
+            {
+                if (CheckLastTwoUpgrades(newUpgrade))
+                {
+                    newUpgrade = ResetUpgrade();
+                }
+                else
+                {
+                    isChoosingUpgrade = false;
+                }
+            }
+        }
+        private bool CheckLastTwoUpgrades(EWeaponUpgrades newUpgrade)
+        {
+            if (m_lastsUpgrades.Count < 2)
+            {
+                return false;
+            }
+
+            bool isUpgradeValid = (m_lastsUpgrades.Count >= 2 &&
+                                   m_lastsUpgrades[0] != newUpgrade &&
+                                   m_lastsUpgrades[1] != newUpgrade);
+
+            //Check if the list countain more than two upgrades
+            if (m_lastsUpgrades.Count >= 2)
+            {
+                m_lastsUpgrades.RemoveAt(0);
+            }
+            m_lastsUpgrades.Add(newUpgrade);
+
+            return isUpgradeValid;
+        }
+        static EWeaponUpgrades ResetUpgrade()
+        {
+            //Debug.Log("Chosen upgrade is " + m_currentUpgrade);
+            m_currentUpgrade = (EWeaponUpgrades)Random.Range(0, (int)EWeaponUpgrades.Count);
+            return m_currentUpgrade;
         }
         #endregion
         #region ResourceManagement
