@@ -51,9 +51,7 @@ namespace SpaceBaboon.EnemySystem
 
         protected virtual void Start()
         {
-            m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
-            m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+            m_player = GameManager.Instance.Player;
             m_enemyUniqueData = m_characterData as EnemyData;
             m_activeHealth = m_enemyUniqueData.defaultHealth;
         }
@@ -119,11 +117,12 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        public void ContactAttack(Vector2 contactPos)
+        public void ContactAttack(Vector2 contactPos/*, Transform target*/)
         {
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
 
-            SpawnContactAttackVFX(contactPos);
+            // Removed while debbugging boss crafting station attack and VFXmamager interactions
+            //SpawnContactAttackVFX(contactPos, target);
 
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
@@ -131,11 +130,11 @@ namespace SpaceBaboon.EnemySystem
 
         // TODO instantiation to be removed when particle system object pool integrated to project
         // TODO make sure particle system is at foreground
-        protected void SpawnContactAttackVFX(Vector2 contactPos)
+        protected void SpawnContactAttackVFX(Vector2 contactPos, Transform target)
         {
             Vector3 contactPosVec = new Vector3(contactPos.x, contactPos.y, 2);
 
-            Vector2 direction = m_playerObject.transform.position - contactPosVec;
+            Vector2 direction = target.transform.position - contactPosVec;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 

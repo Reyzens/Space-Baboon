@@ -56,6 +56,7 @@ namespace SpaceBaboon.CollisionSystem
                         if (enemy.CanAttack())
                         {
                             enemy.ContactAttack(contactPoint);
+                            //enemy.ContactAttack(contactPoint, this.transform);
                         }
 
                         break;

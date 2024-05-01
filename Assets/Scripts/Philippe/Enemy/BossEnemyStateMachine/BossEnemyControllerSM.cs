@@ -3,6 +3,7 @@ using SpaceBaboon.Crafting;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -12,6 +13,7 @@ namespace SpaceBaboon.EnemySystem
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }
         public List<CraftingStation> CraftingStations { get; private set; }
+        public List<CraftingStation> WorkingCraftingStations { get; private set; } = new List<CraftingStation>();
         public CraftingStation TargetedCraftingStation { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
         public EnemyWeapon ShotGun { get; private set; }
@@ -63,9 +65,9 @@ namespace SpaceBaboon.EnemySystem
             base.FixedUpdate();            
         }
 
-        private int GetRandomAliveCraftingStationIndex()
+        private int GetRandomWorkingCraftingStationIndex()
         {
-            return Random.Range(0, CraftingStations.Count);
+            return Random.Range(0, WorkingCraftingStations.Count);
         }
 
         private float GetPlayerDistanceToTargetedCraftingStation()
@@ -106,13 +108,24 @@ namespace SpaceBaboon.EnemySystem
             // TODO Use a GetComponentInChildren when/if implemented
             //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();
            
-            CraftingStations = CraftingStation.GetCraftingStations();
+            //CraftingStations = CraftingStation.GetCraftingStations();
 
-            //foreach()
+            //foreach (CraftingStation station in CraftingStation.GetCraftingStations())
+            //{
+            //    if (!station.GetIsDisabled()) 
+            //    {
+            //        WorkingCraftingStations.Add(station);
+            //    }
+            //}
 
+            FindWorkingCraftingStations();
+            int nextTargetedCraftingStationIndex = GetRandomWorkingCraftingStationIndex();
+            TargetedCraftingStation = WorkingCraftingStations[nextTargetedCraftingStationIndex];
 
-            TargetedCraftingStationIndex = GetRandomAliveCraftingStationIndex();
-            TargetedCraftingStation = CraftingStations[TargetedCraftingStationIndex];
+            //Debug.Log("Nb of alive crafting stations" + WorkingCraftingStations.Count);
+
+            //TargetedCraftingStationIndex = GetRandomAliveCraftingStationIndex();
+            //TargetedCraftingStation = CraftingStations[TargetedCraftingStationIndex];
         }
 
         private void UpdateDistances()
@@ -122,20 +135,36 @@ namespace SpaceBaboon.EnemySystem
             InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;
         }
 
-        public void CraftingStationAttack(Vector2 pos)
+        public void AttackTargetedCraftingStation()
         {
-            SpawnContactAttackVFX(pos);
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
-            if(TargetedCraftingStation.GetIsDisabled())
-            {
-                Debug.Log("Have been disabled"); // À changer d'endroit
-                TargetedStationDisabled = true;
-            }
+            SpawnContactAttackVFX(TargetedCraftingStation.transform.position, TargetedCraftingStation.transform);
+            //SpawnContactAttackVFX(pos, TargetedCraftingStation.transform);
+            //TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
+            //if(TargetedCraftingStation.GetIsDisabled())
+            //{
+            //    Debug.Log("Have been disabled"); // À changer d'endroit
+            //    TargetedStationDisabled = true;
+            //}
         }
 
-        public void TemporaryCraftingStationAttack(Vector2 pos)
+        //public void TemporaryCraftingStationAttack(Vector2 pos)
+        //{
+        //    SpawnContactAttackVFX(pos);
+        //}
+
+        private void FindWorkingCraftingStations()
         {
-            SpawnContactAttackVFX(pos);
+            WorkingCraftingStations.Clear();
+            foreach (CraftingStation station in CraftingStation.GetCraftingStations())
+            {
+                if (!station.GetIsDisabled())
+                {
+                    WorkingCraftingStations.Add(station);
+                }
+            }
+
+            //Debug.Log("Working crafting stations count " + WorkingCraftingStations.Count);
         }
        
     }
