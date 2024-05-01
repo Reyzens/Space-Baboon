@@ -119,20 +119,6 @@ namespace SpaceBaboon.FXSystem
             //Debug.Log("dictionary value: " + m_dictionary[type].name);
         }
 
-        #region CameraShake
-        public void RegisterCameraShakeController(CameraShake controller)
-        {
-            m_cameraShakeController = controller;
-        }
-
-        public void ShakeCamera(float intensity, float frequency, float duration = 0.5f)
-        {
-            m_cameraShakeController.ShakeCamera(intensity, frequency, duration);
-        }
-        #endregion
-
-        #region SlashAttack
-
         public void PlayVFX(EVFXType type, Vector3 pos, Quaternion rot)
         {
             GameObject obj = m_vfxPool.Spawn(m_vfxDictionary[type].gameObject, pos);
@@ -145,7 +131,18 @@ namespace SpaceBaboon.FXSystem
             }
         }
 
+        #region CameraShake
+        public void RegisterCameraShakeController(CameraShake controller)
+        {
+            m_cameraShakeController = controller;
+        }
+
+        public void ShakeCamera(float intensity, float frequency, float duration = 0.5f)
+        {
+            m_cameraShakeController.ShakeCamera(intensity, frequency, duration);
+        }
         #endregion
+
     }
 
     [System.Serializable]
