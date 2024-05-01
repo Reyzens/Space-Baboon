@@ -1,3 +1,4 @@
+using SpaceBaboon.EnemySystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,7 @@ namespace SpaceBaboon
 
         public Transform m_dmgPopUpPrefab;
         public Player Player { get; set; }
+        public EnemySpawner EnemySpawner { get; set; }
 
         private EndGameScreen m_endGameScreen;
 
@@ -59,6 +61,11 @@ namespace SpaceBaboon
         public void SetPlayer(Player player)
         {
             Player = player;
+        }
+
+        public void SetEnemySpawner(EnemySpawner enemySpawner)
+        {
+            EnemySpawner = enemySpawner;
         }
 
         public void StartGame()

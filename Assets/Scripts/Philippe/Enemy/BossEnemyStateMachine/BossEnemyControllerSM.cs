@@ -6,11 +6,21 @@ using UnityEngine.AI;
 
 namespace SpaceBaboon.EnemySystem
 {
+    public enum EBossTypes
+    {
+        Ice,
+        Fire,
+        Earth,
+        Count
+    }
+
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
     {
+        [SerializeField] GameObject m_specialIceAttackPrefab;
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
-        public Player Player { get; private set; }        
+        public Player Player { get; private set; }     
+        public EnemySpawner enemySpawner { get; private set; }
         public List<CraftingStation> WorkingCraftingStations { get; private set; } = new List<CraftingStation>();
         public CraftingStation TargetedCraftingStation { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
@@ -90,23 +100,8 @@ namespace SpaceBaboon.EnemySystem
         public new void Move(Vector2 value)
         {
             Agent.SetDestination(value);
-        }
-
-        private int GetRandomWorkingCraftingStationIndex()
-        {
-            return Random.Range(0, WorkingCraftingStations.Count);
-        }
-
-        private float GetPlayerDistanceToTargetedCraftingStation()
-        {
-            return Vector3.Distance(m_player.transform.position, TargetedCraftingStation.transform.position);
-        }
-
-        private float GetDistanceToTargetedCraftingStation()
-        {
-            return Vector3.Distance(transform.position, TargetedCraftingStation.transform.position);
-        }
-
+        }        
+        
         private void UpdateDistances()
         {
             PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
@@ -151,6 +146,10 @@ namespace SpaceBaboon.EnemySystem
             FindWorkingCraftingStations();
             int nextTargetedCraftingStationIndex = GetRandomWorkingCraftingStationIndex();
             TargetedCraftingStation = WorkingCraftingStations[nextTargetedCraftingStationIndex];
-        }       
+        }
+
+        private int GetRandomWorkingCraftingStationIndex() { return Random.Range(0, WorkingCraftingStations.Count); }
+        private float GetPlayerDistanceToTargetedCraftingStation() { return Vector3.Distance(m_player.transform.position, TargetedCraftingStation.transform.position); }
+        private float GetDistanceToTargetedCraftingStation() { return Vector3.Distance(transform.position, TargetedCraftingStation.transform.position); }
     }
 }

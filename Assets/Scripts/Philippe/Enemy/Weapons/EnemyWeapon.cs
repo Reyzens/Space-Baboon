@@ -8,16 +8,13 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] protected GameObject m_projectilePrefab;
         [SerializeField] protected WeaponData m_weaponData;
 
-        private GameObject m_enemySpawner;
-        protected EnemySpawner m_enemySpawnerScript;
+        protected EnemySpawner m_enemySpawner;
 
         protected Transform m_target;
 
         private void Start()
         {
-            // TODO to change when we have gameManager
-            m_enemySpawner = GameObject.Find("EnemySpawner");
-            m_enemySpawnerScript = m_enemySpawner.GetComponent<EnemySpawner>();
+            m_enemySpawner = GameManager.Instance.EnemySpawner;
         }
 
         public void GetTarget(Transform target)
@@ -30,7 +27,7 @@ namespace SpaceBaboon.WeaponSystem
         {           
             Vector2 spawnPos = new Vector2(transform.position.x, transform.position.y);
 
-            var projectile = m_enemySpawnerScript.m_enemyProjectilesPool.Spawn(m_projectilePrefab, spawnPos);
+            var projectile = m_enemySpawner.m_enemyProjectilesPool.Spawn(m_projectilePrefab, spawnPos);
 
             projectile.GetComponent<Projectile>()?.Shoot(m_target, 0, 0, m_weaponData.baseDamage);
         }

@@ -9,19 +9,16 @@ namespace SpaceBaboon.EnemySystem
     {
         public event Action m_eventEnemyDeath = delegate { };
 
-        private EnemyData m_enemyUniqueData;
-
-        [SerializeField] private GameObject m_contactAttackParticleSystem; //TODO centralize to FX manager
+        private EnemyData m_enemyUniqueData;        
 
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
         protected CircleCollider2D m_circleCollider;
-
-        //private EnemySpawner m_enemySpawner;
-
-        private GameObject m_playerObject;
+        
         protected Player m_player;
+        protected EnemySpawner m_enemySpawner;   
+        
         //private Color m_spriteRendererColor;
         //private float m_enemyFlashingTimer;
 
@@ -52,6 +49,7 @@ namespace SpaceBaboon.EnemySystem
         protected virtual void Start()
         {
             m_player = GameManager.Instance.Player;
+            m_enemySpawner = GameManager.Instance.EnemySpawner;
             m_enemyUniqueData = m_characterData as EnemyData;
             m_activeHealth = m_enemyUniqueData.defaultHealth;
         }

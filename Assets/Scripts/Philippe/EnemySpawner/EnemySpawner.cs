@@ -49,15 +49,14 @@ namespace SpaceBaboon.EnemySystem
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
 
-        [SerializeField] private Tilemap m_tilemapRef;
-        //[SerializeField] private Tilemap m_obstacleTileMapRef; // TODO to remove
-        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
-        //private float m_minDistanceFromAMapCollider = 50.0f;
+        [SerializeField] private Tilemap m_tilemapRef;        
+        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();        
 
 
         private void Awake()
         {
             CreateEnemySpawnerPools();
+            RegisterToGameManager();
         }
 
         private void Start()
@@ -77,6 +76,14 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_spawnGroup)
                 SpawnGroup(m_enemiesAmountToSpawnOneShot);
+        }
+
+        private void RegisterToGameManager()
+        {
+            //Debug.Log("Register");
+            //Debug.Log(GameManager.Instance);
+            //Debug.Log("Registering to enemy Spawner");
+            GameManager.Instance.SetEnemySpawner(this);
         }
 
         private void GenerateGrid()
