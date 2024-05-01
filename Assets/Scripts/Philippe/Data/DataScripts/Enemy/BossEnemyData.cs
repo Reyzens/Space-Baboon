@@ -13,6 +13,7 @@ namespace SpaceBaboon.EnemySystem
         public float craftingStationAttackRange;
         public float craftingStationAttackDelay;
         public float craftingStationAttackDamage;
+        public float craftingStationAttackFXDistanceThreshold;
         public float specialAttackDelay;
         public float specialAttackChargeDelay;        
         public float basicAttackDelay;

@@ -19,6 +19,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   defaultAcceleration: 0
   defaultMaxVelocity: 0
+  dashMaximumVelocity: 0
   enemyType: 3
   defaultContactAttackDamage: 5
   defaultContactAttackDelay: 3
@@ -27,7 +28,7 @@ MonoBehaviour:
   sprites: []
   possibleAggroRange: 100
   playerAggroRange: 50
-  craftingStationAttackRange: 15
+  craftingStationAttackRange: 20
   craftingStationAttackDelay: 3
   craftingStationAttackDamage: 10
   specialAttackDelay: 3
