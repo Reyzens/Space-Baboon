@@ -1,3 +1,4 @@
+using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
@@ -27,7 +28,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_chargeSpecialAttackTimer < 0)
             {
-                ExecuteSpecialAttack();
+                LaunchSpecialAttack();
                 m_specialAttackDone = true;
             }
         }
@@ -57,9 +58,20 @@ namespace SpaceBaboon.EnemySystem
             return false;
         }
 
-        private void ExecuteSpecialAttack()
+        private void LaunchSpecialAttack()
         {
-            Debug.Log("!!!Special attack launched!!!");
+            //Debug.Log("!!!Special attack launched!!!");
+                        
+            Vector2 spawnPos = new Vector2(m_stateMachine.transform.position.x, m_stateMachine.transform.position.y);
+
+            //Debug.Log("spawn pos is " + spawnPos);
+            //Debug.Log("special ice attack prefab is " + m_stateMachine.SpecialIceAttackPrefab);
+
+            //Debug.Log("Enemy projectiles pool" + m_stateMachine.EnemySpawner.m_enemyProjectilesPool);
+
+            var projectile = m_stateMachine.EnemySpawner.m_enemyProjectilesPool.Spawn(m_stateMachine.SpecialIceAttackPrefab, spawnPos);
+
+            projectile.GetComponent<Projectile>()?.Shoot(m_stateMachine.Player.transform, 0, 0, 0);
         }
     }
 }

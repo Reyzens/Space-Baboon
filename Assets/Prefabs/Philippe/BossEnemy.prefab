@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: a2f5a00d6232c6d469dc09509ff1fe64, type: 2}
-  m_contactAttackParticleSystem: {fileID: 6891219805674916465, guid: 4f196797a860ad94f8f5ba1fd8ba580b, type: 3}
+  <SpecialIceAttackPrefab>k__BackingField: {fileID: 4009167507871816164, guid: 4e76a9ed70747d4448016550d17e2702, type: 3}
 --- !u!1 &4239082960601155183
 GameObject:
   m_ObjectHideFlags: 0

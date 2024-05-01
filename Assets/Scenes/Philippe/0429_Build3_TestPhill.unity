@@ -616,10 +616,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_isSpawning
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_tilemapRef
       value: 
       objectReference: {fileID: 1613107086568179334}
@@ -628,20 +624,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_pooledEnemies.Array.data[1].canSpawn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_pooledEnemies.Array.data[2].canSpawn
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[3].canSpawn
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_enemyProjectilesPool.m_poolStartingSize
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x

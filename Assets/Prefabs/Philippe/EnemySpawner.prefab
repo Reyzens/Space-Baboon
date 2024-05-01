@@ -66,11 +66,12 @@ MonoBehaviour:
     canSpawn: 0
   m_enemyProjectilesPool:
     m_container: {fileID: 0}
-    m_poolStartingSize: 100
+    m_poolStartingSize: 10
   m_pooledEnemyProjectiles:
   - {fileID: 3232392315396720683, guid: cb86828f9f9e9984a94cfc0b20993ffa, type: 3}
   - {fileID: 8703325170743144796, guid: 8109816a57a5c5c418efd2f44c0c4aa3, type: 3}
   - {fileID: 2311894824468756343, guid: 46034ed3d36e73345b3fc661c0ac80c1, type: 3}
+  - {fileID: 4009167507871816164, guid: 4e76a9ed70747d4448016550d17e2702, type: 3}
   m_spawnRadiusFromScreenCorner: -50
   m_spawningDelay: 1
   m_isSpawning: 0

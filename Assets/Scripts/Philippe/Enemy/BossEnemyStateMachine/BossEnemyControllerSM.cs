@@ -15,12 +15,12 @@ namespace SpaceBaboon.EnemySystem
     }
 
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
-    {
-        [SerializeField] GameObject m_specialIceAttackPrefab;
+    {        
+        [field: SerializeField] public GameObject SpecialIceAttackPrefab { get; private set; }
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }     
-        public EnemySpawner enemySpawner { get; private set; }
+        public EnemySpawner EnemySpawner { get; private set; }
         public List<CraftingStation> WorkingCraftingStations { get; private set; } = new List<CraftingStation>();
         public CraftingStation TargetedCraftingStation { get; private set; }
         public EnemyWeapon SineGun { get; private set; }
@@ -89,7 +89,9 @@ namespace SpaceBaboon.EnemySystem
             Agent = m_navMeshAgent;
 
             Player = m_player;
-            
+
+            EnemySpawner = m_enemySpawner;
+
             SineGun = GetComponentInChildren<EnemyWeapon>();
             // TODO Use a GetComponentInChildren when/if implemented
             //ShotGun = GameObject.Find("ShotGun").GetComponent<EnemyWeapon>();

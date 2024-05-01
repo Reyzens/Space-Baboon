@@ -17,8 +17,8 @@ MonoBehaviour:
   defaultHealth: 200
   sprite: {fileID: 0}
   prefab: {fileID: 0}
-  defaultAcceleration: 0
-  defaultMaxVelocity: 0
+  defaultAcceleration: 20
+  defaultMaxVelocity: 15
   dashMaximumVelocity: 0
   enemyType: 3
   defaultContactAttackDamage: 5
@@ -33,6 +33,6 @@ MonoBehaviour:
   craftingStationAttackDamage: 10
   craftingStationAttackFXDistanceThreshold: 5
   specialAttackDelay: 3
-  specialAttackChargeDelay: 10
+  specialAttackChargeDelay: 5
   basicAttackDelay: 2
   basicAttacksBeforeSpecial: 3
