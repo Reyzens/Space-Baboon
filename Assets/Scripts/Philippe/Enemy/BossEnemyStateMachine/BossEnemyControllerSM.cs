@@ -138,7 +138,7 @@ namespace SpaceBaboon.EnemySystem
         public void AttackTargetedCraftingStation()
         {
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
-            SpawnContactAttackVFX(TargetedCraftingStation.transform.position, TargetedCraftingStation.transform);
+            //SpawnContactAttackVFX(TargetedCraftingStation.transform.position, TargetedCraftingStation.transform);
             //SpawnContactAttackVFX(pos, TargetedCraftingStation.transform);
             //TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
             //if(TargetedCraftingStation.GetIsDisabled())

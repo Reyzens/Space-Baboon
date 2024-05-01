@@ -122,7 +122,7 @@ namespace SpaceBaboon.EnemySystem
             m_player.OnDamageTaken(m_enemyUniqueData.defaultContactAttackDamage);
 
             // Removed while debbugging boss crafting station attack and VFXmamager interactions
-            //SpawnContactAttackVFX(contactPos, target);
+            SpawnContactAttackVFX(contactPos/*, target*/);
 
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
@@ -130,11 +130,11 @@ namespace SpaceBaboon.EnemySystem
 
         // TODO instantiation to be removed when particle system object pool integrated to project
         // TODO make sure particle system is at foreground
-        protected void SpawnContactAttackVFX(Vector2 contactPos, Transform target)
+        protected void SpawnContactAttackVFX(Vector2 contactPos/*, Transform target*/)
         {
             Vector3 contactPosVec = new Vector3(contactPos.x, contactPos.y, 2);
 
-            Vector2 direction = target.transform.position - contactPosVec;
+            Vector2 direction = m_player.transform.position - contactPosVec;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
