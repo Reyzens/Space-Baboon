@@ -4,7 +4,6 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ShootingEnemyProjectile : Projectile
     {
-        private GameObject m_playerObject;
         protected Player m_player;        
         private CircleCollider2D m_triggerCollider;
 
@@ -25,8 +24,7 @@ namespace SpaceBaboon.WeaponSystem
 
         protected void Start()
         {
-            m_playerObject = GameObject.FindGameObjectWithTag("Player"); // TODO to change, most likely a reference that would be stored in an upcoming gameManager           
-            m_player = m_playerObject.GetComponent<Player>();
+            m_player = GameManager.Instance.Player;
         }
 
         protected override void Update()

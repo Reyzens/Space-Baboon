@@ -3,7 +3,6 @@ using SpaceBaboon.Crafting;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -136,7 +135,6 @@ namespace SpaceBaboon.EnemySystem
                 TargetedStationDisabled = true;
             }
         }
-
 
         private void FindWorkingCraftingStations()
         {
