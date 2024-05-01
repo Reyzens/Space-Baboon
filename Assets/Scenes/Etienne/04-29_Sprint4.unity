@@ -1340,6 +1340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FXManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7578992600734500367, guid: adaa25513818d0b49a7e29ff6c1d2334, type: 3}
+      propertyPath: m_vfxEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

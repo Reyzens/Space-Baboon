@@ -86,6 +86,6 @@ MonoBehaviour:
     hasAudio: 1
     audioType: 11
   - type: 1
-    gameObject: {fileID: 6891219805674916465, guid: b007331fd591f8d40a61dd912bf76dea, type: 3}
+    gameObject: {fileID: 6891219805674916465, guid: 1d53b19ba3faefe43ac45e05916cad6e, type: 3}
     hasAudio: 0
     audioType: 17
