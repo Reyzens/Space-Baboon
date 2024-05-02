@@ -44,6 +44,7 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent = GetComponent<NavMeshAgent>();
             m_navMeshAgent.updateRotation = false;
             m_navMeshAgent.updateUpAxis = false;
+
         }
 
         protected virtual void Start()
@@ -52,6 +53,8 @@ namespace SpaceBaboon.EnemySystem
             m_enemySpawner = GameManager.Instance.EnemySpawner;
             m_enemyUniqueData = m_characterData as EnemyData;
             m_activeHealth = m_enemyUniqueData.defaultHealth;
+            m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
+            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
         }
 
         protected override void Update()

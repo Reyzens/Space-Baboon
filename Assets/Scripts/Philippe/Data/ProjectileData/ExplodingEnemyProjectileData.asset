@@ -18,4 +18,57 @@ MonoBehaviour:
   speed: 0
   damage: 40
   maxLifetime: 0.5
+  defaultAcceleration: 0
+  defaultMaxVelocity: 0
   maxExplosionSize: 5
+  explosionSizeScalingCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 21.996069
+      outSlope: 21.996069
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.04539524
+    - serializedVersion: 3
+      time: 0.010658875
+      value: 0.110679135
+      inSlope: 7.9497824
+      outSlope: 7.9497824
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.11571441
+      value: 0.6862017
+      inSlope: 1.7700051
+      outSlope: 1.7700051
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.583255
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3425346
+      value: 0.8883299
+      inSlope: 0.5591892
+      outSlope: 0.5591892
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.1369499
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

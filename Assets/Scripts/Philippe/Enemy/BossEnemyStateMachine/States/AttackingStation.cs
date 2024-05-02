@@ -4,16 +4,14 @@ namespace SpaceBaboon.EnemySystem
 {
     public class AttackingStation : BossEnemyState
     {
-        private float m_craftingStationAttackTimer;
-        //private bool m_targetedCraftingStationDisabled;
+        private float m_craftingStationAttackTimer;        
 
         public override void OnEnter()
         {
             Debug.Log("BossEnemy entering state: AttackingStation\n");
 
             m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
-            m_stateMachine.Agent.isStopped = true;
-            //m_targetedCraftingStationDisabled = false;
+            m_stateMachine.Agent.isStopped = true;            
         }
 
         public override void OnExit()
@@ -31,13 +29,11 @@ namespace SpaceBaboon.EnemySystem
                 Debug.Log("Crafting station attacked");
                 m_stateMachine.AttackTargetedCraftingStation();                
                 m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
-
             }
         }
 
         public override void OnFixedUpdate()
-        {
-            
+        {            
         }
 
         public override bool CanEnter(IState currentState)

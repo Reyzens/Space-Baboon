@@ -8,11 +8,6 @@ namespace SpaceBaboon.EnemySystem
         [Header("EnemyUniqueStats")]   
         public EEnemyTypes enemyType;
         public int defaultContactAttackDamage;
-        public float defaultContactAttackDelay;          
-        public float size; //TODO maybe remove
-        public float obstructionPushForce;
-
-        //[Header("ShootingEnemyUniqueStats")]
-        //public float maxTargetAcquiringRange;
+        public float defaultContactAttackDelay;            
     }
 }

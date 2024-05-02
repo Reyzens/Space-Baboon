@@ -214,6 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f65ebfba80edaa946abff5618399df4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_projectileData: {fileID: 11400000, guid: 629b9b20e112a5f4ba708a5961f90910, type: 2}
+  m_projectileData: {fileID: 11400000, guid: 145690236e81a5144ab2884bf8995206, type: 2}
   m_sineWaveFrequency: 5
   m_sineWaveAmplitude: 1

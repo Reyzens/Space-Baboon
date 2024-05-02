@@ -81,9 +81,6 @@ namespace SpaceBaboon.EnemySystem
 
         private void RegisterToGameManager()
         {
-            //Debug.Log("Register");
-            //Debug.Log(GameManager.Instance);
-            //Debug.Log("Registering to enemy Spawner");
             GameManager.Instance.SetEnemySpawner(this);
         }
 

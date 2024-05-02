@@ -6,6 +6,9 @@ namespace SpaceBaboon.EnemySystem
     public class ExplodingEnemyData : EnemyData
     {
         [Header("ExplodingEnemyUniqueStats")]
+        public Sprite chargingExplosionSprite;
+        public Color imminentExplosionColor;
+        public AnimationCurve colorChangeCurve;
         public float minDistanceForTriggeringBomb;
         public float delayBeforeExplosion;
     }

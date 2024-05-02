@@ -6,7 +6,6 @@
 m_rB.AddForce(-m_rB.velocity.normalized * m_characterData.defaultAcceleration, ForceMode2D.Force);
  
 
-
  protected virtual void SlightPushFromObstructingObject(Collision2D collision)
  {
      //Vector3 direction = collision.transform.position - transform.position;

@@ -5,7 +5,10 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class BossSpecialProjectile : Projectile
     {
+        private BossSpecialProjectileData m_uniqueData;
+
         [SerializeField] private AnimationCurve m_scalingCurve;
+
         private EnemySpawner m_enemySpawner;
         private Vector2 m_targetSavedPos = Vector2.zero;
         private float m_distanceToPosThreshold = 1.0f;
@@ -21,6 +24,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             m_enemySpawner = GameManager.Instance.EnemySpawner;
             m_originalScale = transform.localScale;
+            m_uniqueData = m_projectileData as BossSpecialProjectileData;
         }
 
         protected override void Update()

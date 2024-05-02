@@ -1,39 +1,25 @@
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon.EnemySystem
 {
     public class ExplodingEnemy : Enemy, IExplodable
     {
         [SerializeField] private GameObject m_projectilePrefab;
-        [SerializeField] private Sprite m_chargingExplosionSprite;
-        [SerializeField] private AnimationCurve m_colorChangeCurve;
-        [SerializeField] private Color m_imminentExplosionColor;
-        private Sprite m_baseSprite; // TODO maybe in scriptable object
-        private float m_chargingExplosionTimer = 0.0f;
-        private Color m_baseColor;        
-
+        
+        private ExplodingEnemyData m_uniqueData;
+        
         private Animator m_animator;
 
-        private ExplodingEnemyData m_uniqueData;            
-
+        private Sprite m_baseSprite;
+        private Color m_baseColor;
+        private float m_chargingExplosionTimer = 0.0f;
         private bool m_isChargingExplosion = false;
         
         protected override void Start()
         {
             base.Start();
-
-            m_uniqueData = m_characterData as ExplodingEnemyData;
-
-            // Maybe randomize distance to trigger bomb from data      
-
-            m_baseSprite = m_renderer.sprite;
-            m_baseColor = m_renderer.color;
-
-            m_animator = GetComponent<Animator>();
-
-            m_chargingExplosionTimer = m_uniqueData.delayBeforeExplosion;                                 
-        }
+            VariablesSetUp();
+        }        
 
         protected override void Update()
         {
@@ -62,17 +48,16 @@ namespace SpaceBaboon.EnemySystem
             if (m_isChargingExplosion)
                 return;
 
-            Move(m_player.transform.position);
-            //base.Move(m_player.transform.position);
+            Move(m_player.transform.position);            
         }
 
         private void UpdateColorBasedOnAnimCurve()
         {
-            float colorScale = m_colorChangeCurve.Evaluate(1 - (m_chargingExplosionTimer / m_uniqueData.delayBeforeExplosion));
+            float colorScale = m_uniqueData.colorChangeCurve.Evaluate(1 - (m_chargingExplosionTimer / m_uniqueData.delayBeforeExplosion));
 
-            float r = Mathf.Lerp(m_baseColor.r, m_imminentExplosionColor.r, colorScale);
-            float g = Mathf.Lerp(m_baseColor.g, m_imminentExplosionColor.g, colorScale);
-            float b = Mathf.Lerp(m_baseColor.b, m_imminentExplosionColor.b, colorScale);
+            float r = Mathf.Lerp(m_baseColor.r, m_uniqueData.imminentExplosionColor.r, colorScale);
+            float g = Mathf.Lerp(m_baseColor.g, m_uniqueData.imminentExplosionColor.g, colorScale);
+            float b = Mathf.Lerp(m_baseColor.b, m_uniqueData.imminentExplosionColor.b, colorScale);
 
             Color newColor = m_renderer.color;
             newColor.r = r;
@@ -81,12 +66,23 @@ namespace SpaceBaboon.EnemySystem
             m_renderer.color = newColor;
         }
 
+        private void VariablesSetUp()
+        {
+            m_uniqueData = m_characterData as ExplodingEnemyData;
+
+            // Maybe randomize distance to trigger bomb from data      
+            m_animator = GetComponent<Animator>();
+            m_baseSprite = m_renderer.sprite;
+            m_baseColor = m_renderer.color;
+            m_chargingExplosionTimer = m_uniqueData.delayBeforeExplosion;
+        }
+
         public void IExplodableSetUp()
         {
             m_isChargingExplosion = true;
             m_animator.enabled = false;
             m_rB.constraints = RigidbodyConstraints2D.FreezeAll;
-            m_renderer.sprite = m_chargingExplosionSprite;            
+            m_renderer.sprite = m_uniqueData.chargingExplosionSprite;            
         }
 
         public void IExplodableUpdate()

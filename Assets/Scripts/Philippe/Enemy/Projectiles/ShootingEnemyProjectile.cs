@@ -22,7 +22,7 @@ namespace SpaceBaboon.WeaponSystem
             }
         }
 
-        protected void Start()
+        protected virtual void Start()
         {
             m_player = GameManager.Instance.Player;
         }

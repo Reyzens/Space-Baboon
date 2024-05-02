@@ -8,19 +8,13 @@ namespace SpaceBaboon.EnemySystem
         private ShootingEnemyData m_uniqueData;
         private EnemyWeapon m_weapon;
                 
-        private float m_targetAcquisitionTimer = 0.0f;
-        private bool m_targetInRange = false;
+        private float m_targetAcquisitionTimer = 0.0f;        
 
         protected override void Start()
-        {            
+        {
             base.Start();
-
-            m_uniqueData = m_characterData as ShootingEnemyData;
-
-            m_weapon = GetComponentInChildren<EnemyWeapon>();           
-
-            m_targetAcquisitionTimer = m_uniqueData.targetAcquisitionDelay;            
-        }
+            VariablesSetUp();
+        }        
 
         protected override void Update()
         {
@@ -67,12 +61,18 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_rB.velocity.magnitude < 0.1f)
             {
-                m_navMeshAgent.isStopped = true;
-                //m_rB.velocity = Vector2.zero;
+                m_navMeshAgent.isStopped = true;                
                 return;
             }                
 
             StopMovement();
-        }          
+        }
+
+        private void VariablesSetUp()
+        {
+            m_uniqueData = m_characterData as ShootingEnemyData;
+            m_weapon = GetComponentInChildren<EnemyWeapon>();
+            m_targetAcquisitionTimer = m_uniqueData.targetAcquisitionDelay;
+        }
     }
 }

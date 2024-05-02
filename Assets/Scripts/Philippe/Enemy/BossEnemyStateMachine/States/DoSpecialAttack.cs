@@ -34,8 +34,7 @@ namespace SpaceBaboon.EnemySystem
         }
 
         public override void OnFixedUpdate()
-        {
-           
+        {           
         }
 
         public override bool CanEnter(IState currentState)
@@ -63,11 +62,6 @@ namespace SpaceBaboon.EnemySystem
             //Debug.Log("!!!Special attack launched!!!");
                         
             Vector2 spawnPos = new Vector2(m_stateMachine.transform.position.x, m_stateMachine.transform.position.y);
-
-            //Debug.Log("spawn pos is " + spawnPos);
-            //Debug.Log("special ice attack prefab is " + m_stateMachine.SpecialIceAttackPrefab);
-
-            //Debug.Log("Enemy projectiles pool" + m_stateMachine.EnemySpawner.m_enemyProjectilesPool);
 
             var projectile = m_stateMachine.EnemySpawner.m_enemyProjectilesPool.Spawn(m_stateMachine.SpecialIceAttackPrefab, spawnPos);
 

@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 759d2d86404e3c240b07ee41790f2bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_projectileData: {fileID: 11400000, guid: 6185dfd1e04429d49bbb057ed6a3bd88, type: 2}
+  m_projectileData: {fileID: 11400000, guid: c9d15751a6fcf6047a28b5993daa675b, type: 2}
   m_scalingCurve:
     serializedVersion: 2
     m_Curve:
