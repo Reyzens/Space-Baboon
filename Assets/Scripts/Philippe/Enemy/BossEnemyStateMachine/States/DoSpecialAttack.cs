@@ -10,7 +10,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnEnter()
         {
-            Debug.Log("BossEnemy entering state: DoSpecialAttack\n");
+            //Debug.Log("BossEnemy entering state: DoSpecialAttack\n");
             m_stateMachine.Agent.isStopped = true;
             m_specialAttackDone = false;
             m_chargeSpecialAttackTimer = m_stateMachine.UniqueData.specialAttackChargeDelay;
@@ -19,7 +19,7 @@ namespace SpaceBaboon.EnemySystem
         public override void OnExit()
         {
             m_stateMachine.Agent.isStopped = false;
-            Debug.Log("BossEnemy exiting state: DoSpecialAttack\n");
+            //Debug.Log("BossEnemy exiting state: DoSpecialAttack\n");
         }
 
         public override void OnUpdate()
