@@ -19,12 +19,15 @@ namespace SpaceBaboon.WeaponSystem
 
         private float m_scalingTimer = 0.0f;
 
+        private Player m_player;
+
 
         protected void Start()
         {
             m_enemySpawner = GameManager.Instance.EnemySpawner;
             m_originalScale = transform.localScale;
             m_uniqueData = m_projectileData as BossSpecialProjectileData;
+            m_player = GameManager.Instance.Player;
         }
 
         protected override void Update()
@@ -56,13 +59,14 @@ namespace SpaceBaboon.WeaponSystem
 
             Move();
         }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
             {
                 Debug.Log("Do something to player");
                 //Do something to player
-                
+                m_player.IceZoneEffectsStart(0.5f, 0.5f);
             }
         }
 
@@ -72,8 +76,10 @@ namespace SpaceBaboon.WeaponSystem
             {
                 Debug.Log("Do something to player");
                 //Do something to player
+                m_player.IceZoneEffectsEnd();
             }
         }
+
         private void OnTriggerStay2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -91,7 +97,7 @@ namespace SpaceBaboon.WeaponSystem
 
             float distanceToPos = Vector2.Distance(transform.position, m_targetSavedPos);
 
-            Debug.Log("distance to pos " + distanceToPos);
+            //Debug.Log("distance to pos " + distanceToPos);
 
             if (distanceToPos > m_distanceToPosThreshold)
             {
