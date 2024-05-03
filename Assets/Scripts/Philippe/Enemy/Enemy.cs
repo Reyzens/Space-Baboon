@@ -5,25 +5,27 @@ using UnityEngine.AI;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class Enemy : Character, IPoolableGeneric, IStatsEditable
+    public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable
     {
         public event Action m_eventEnemyDeath = delegate { };
 
-        private EnemyData m_enemyUniqueData;        
+        private EnemyData m_enemyUniqueData;
 
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
         protected CircleCollider2D m_circleCollider;
-        
+
         protected Player m_player;
-        protected EnemySpawner m_enemySpawner;   
-        
+        protected EnemySpawner m_enemySpawner;
+
         //private Color m_spriteRendererColor;
         //private float m_enemyFlashingTimer;
 
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
+        protected float m_slowTimer;
+        protected bool m_isSlowed;
         protected bool m_contactAttackReady = true;
         //private float m_bonusDamage = 0.0f;
         //private float m_bonusAcceleration;
@@ -33,6 +35,8 @@ namespace SpaceBaboon.EnemySystem
         protected Vector2 m_noVectorValue = Vector2.zero;
 
         protected NavMeshAgent m_navMeshAgent;
+        protected float m_navMeshAgentInitialSpeed;
+        protected float m_currentNavAgentSpeed;
 
         protected override void Awake()
         {
@@ -44,7 +48,8 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent = GetComponent<NavMeshAgent>();
             m_navMeshAgent.updateRotation = false;
             m_navMeshAgent.updateUpAxis = false;
-
+            m_navMeshAgentInitialSpeed = m_navMeshAgent.speed;
+            m_currentNavAgentSpeed = m_navMeshAgent.speed;
         }
 
         protected virtual void Start()
@@ -67,7 +72,8 @@ namespace SpaceBaboon.EnemySystem
             CalculateDistanceToPlayer();
 
             if (!m_contactAttackReady)
-                ReadyContactAttack();                        
+                ReadyContactAttack();
+            StatusUpdate();
         }
 
         protected virtual void FixedUpdate()
@@ -79,24 +85,36 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private void OnCollisionStay2D(Collision2D collision)
-        {            
+        {
         }
 
         protected void StopMovement()
         {
-            m_navMeshAgent.acceleration = -m_characterData.defaultAcceleration;            
+            m_navMeshAgent.acceleration = -m_characterData.defaultAcceleration;
         }
 
         private void CalculateDistanceToPlayer()
         {
             m_distanceToPlayer = Vector3.Distance(transform.position, m_player.transform.position);
-        }        
+        }
+
+        private void StatusUpdate()
+        {
+            if (m_isSlowed)
+            {
+                m_slowTimer -= Time.deltaTime;
+                if (m_slowTimer < 0)
+                {
+                    EndSlow();
+                }
+            }
+        }
 
         protected override void Move(Vector2 value)
         {
             m_navMeshAgent.SetDestination(value);
             CheckForSpriteDirectionSwap(m_navMeshAgent.velocity);
-        }        
+        }
 
         private void ReadyContactAttack()
         {
@@ -117,7 +135,7 @@ namespace SpaceBaboon.EnemySystem
             m_contactAttackTimer = m_enemyUniqueData.defaultContactAttackDelay /* + or * bonus */;
             m_contactAttackReady = false;
         }
-        
+
         // TODO make sure particle system is at foreground
         protected void SpawnContactAttackVFX(Vector2 contactPos, Transform target)
         {
@@ -174,6 +192,22 @@ namespace SpaceBaboon.EnemySystem
         public virtual bool CanAttack()
         {
             return m_contactAttackReady;
+        }
+
+
+        public void StartSlow(float slowAmount, float slowTime)
+        {
+            m_currentNavAgentSpeed = m_navMeshAgentInitialSpeed * slowAmount;
+            m_navMeshAgent.speed = m_currentNavAgentSpeed;
+            m_slowTimer = slowTime;
+            m_isSlowed = true;
+            Debug.Log("After slow speed is " + AccelerationValue);
+        }
+        public void EndSlow()
+        {
+            m_isSlowed = false;
+            m_currentNavAgentSpeed = m_navMeshAgentInitialSpeed;
+            m_navMeshAgent.speed = m_currentNavAgentSpeed;
         }
         #endregion
 
