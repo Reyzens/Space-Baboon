@@ -18,15 +18,12 @@ namespace SpaceBaboon
         private bool m_dashInputReceiver;
         private bool m_screenShake;
         private bool m_collectibleInRange;
-        //private bool m_playerCanDash;
 
-        //private float m_currentDashCDCounter;
         private float m_activeDashCD;
         private float m_activeDashCoolDown;
         float m_dashCurveStrength;
         private float m_activeDashDuration;
         private float m_timestampedDash;
-        //private float m_maxDashVelocity;
         private float m_currentMaximumVelocity;
 
         //Weapons variables
@@ -52,14 +49,8 @@ namespace SpaceBaboon
         private PlayerFlash m_playerFlash;
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
-        //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
-        //private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
 
         //BonusVariables
-        //private float m_bonusDashCD;
-        //private float m_bonusDashSpeed;
-        //private float m_bonusDashDistance;
-        //private int m_bonusDashStack;
 
         //Collider
         protected BoxCollider2D m_collider;
@@ -125,9 +116,7 @@ namespace SpaceBaboon
             SubscribeToInputEvent();
 
             m_collectibleInventory = new Dictionary<Crafting.InteractableResource.EResourceType, int>();
-            //m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
-            //m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
-
+           
             m_collider = GetComponent<BoxCollider2D>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             m_spriteRendererColor = m_renderer.color;
@@ -138,11 +127,6 @@ namespace SpaceBaboon
             m_activeDashDuration = m_playerData.defaultDashDuration;
             m_dashCurve = m_playerData.defaultDashCurve;
 
-            //m_bonusHealth = 0.0f;
-            //m_bonusDashCD = 0.0f;
-            //m_bonusDashSpeed = 0.0f;
-            //m_bonusDashDistance = 0.0f;
-            //m_bonusDashStack = 0;
 
             m_alive = true;
             enabled = true;
@@ -154,8 +138,6 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
             m_animator = GetComponent<Animator>();
             m_playerFlash = GetComponent<PlayerFlash>();
-            //m_playerCanDash = true;
-            //m_maxDashVelocity = m_characterData.dashMaximumVelocity;
             m_currentMaximumVelocity = m_characterData.defaultMaxVelocity;
         }
 
@@ -301,6 +283,7 @@ namespace SpaceBaboon
                 m_rB.AddForce(m_movementDirection * (m_currentMaximumVelocity), ForceMode2D.Impulse);
                 StartCoroutine(DashCoroutine());
             }
+            
         }
 
         private void PlayerSpriteDirectionSwap()

@@ -16,8 +16,8 @@ namespace SpaceBaboon
         protected Vector2 m_movementDirection;
         protected float m_activeHealth;
         protected float m_activeVelocity;
-        protected float m_accelerationMulti;
-        protected float m_angularVelocityMulti;
+        protected float m_accelerationMulti = 1;
+        protected float m_angularVelocityMulti = 1;
         
         //BonusVariables
         protected float m_bonusHealth;
