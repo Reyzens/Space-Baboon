@@ -1,4 +1,5 @@
 using SpaceBaboon.EnemySystem;
+using SpaceBaboon.TutorialSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,8 @@ namespace SpaceBaboon
         public EnemySpawner EnemySpawner { get; set; }
 
         private EndGameScreen m_endGameScreen;
+
+        private TutorialPopUpWindow m_tutorialWindow;
 
         public float WindowSizeScale { get; set; } = 1.0f;
 
@@ -31,6 +34,8 @@ namespace SpaceBaboon
                 return null;
             }
         }
+
+        #region Unity
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -58,6 +63,46 @@ namespace SpaceBaboon
             }
         }
 
+        #endregion
+
+        public void StartGame()
+        {
+            SceneManager.LoadScene("SB_Build3");
+            StartTimer();
+            //m_isPaused = false;
+            PauseGame(false);
+        }
+
+        private void StartTimer()
+        {
+            GameTimer = 0.0f;
+            m_isCountingTime = true;
+        }
+
+        public void PauseGame(bool value)
+        {
+            m_isPaused = value;
+        }
+
+
+        public void EndGame()
+        {
+            m_endGameScreen.ActivateScreen();
+            //m_isPaused = true;
+            PauseGame(true);
+            m_isCountingTime = false;
+        }
+
+        public void DisplayTutorialWindow(ETutorialType type, Vector3 position)
+        {
+            //PauseGame(true);
+            m_tutorialWindow.Display(type, position);
+        }
+
+
+
+        #region Setters
+
         public void SetPlayer(Player player)
         {
             Player = player;
@@ -68,43 +113,16 @@ namespace SpaceBaboon
             EnemySpawner = enemySpawner;
         }
 
-        public void StartGame()
-        {
-            SceneManager.LoadScene("SB_Build3");
-            StartTimer();
-            m_isPaused = false;
-        }
-
-        private void StartTimer()
-        {
-            GameTimer = 0.0f;
-            m_isCountingTime = true;
-        }
-
-        public void EndGame()
-        {
-            m_endGameScreen.ActivateScreen();
-            m_isPaused = true;
-            m_isCountingTime = false;
-        }
-
         public void SetEndGameScreenScript(EndGameScreen script)
         {
             m_endGameScreen = script;
         }
 
-        //#region Getters
-        //public Player GetPlayerRef()
-        //{
-        //    return player;
-        //}
-        //#endregion
-        //#region Setters
-        //public void SetPlayer(Player playerRef)
-        //{
-        //    player = playerRef;
-        //    Debug.Log(player);
-        //}
-        //#endregion
+        public void SetTutorialWindow(TutorialPopUpWindow window)
+        {
+            m_tutorialWindow = window;
+        }
+
+        #endregion
     }
 }

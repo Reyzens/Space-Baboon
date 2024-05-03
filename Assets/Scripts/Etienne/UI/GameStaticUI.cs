@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace SpaceBaboon
+namespace SpaceBaboon.UISystem
 {
     public class GameStaticUI : MonoBehaviour
     {
         private Player m_player;
-        
         private UIDocument m_uiDoc;
+
+        private bool m_displayBool = false;
 
         private Label m_crystalAmount;
         private Label m_technologyAmount;
@@ -17,6 +19,8 @@ namespace SpaceBaboon
         private Label m_gameTimer;
 
         private Button m_pauseButton;
+        private VisualElement m_pauseMenu;
+        private PauseMenu m_pauseMenuScript = new PauseMenu();
 
 
         private void Awake()
@@ -31,6 +35,11 @@ namespace SpaceBaboon
 
             m_currentUpgrade = visualElement.Q<Label>("UpgradeName");
             m_gameTimer = visualElement.Q<Label>("TimerAmount");
+
+            m_pauseButton = visualElement.Q<Button>("PauseButton");
+            m_pauseMenu = visualElement.Q<VisualElement>("PauseMenu");
+            m_pauseMenuScript.Create(visualElement);
+
         }
 
         private void Start()
@@ -51,6 +60,33 @@ namespace SpaceBaboon
             m_currentUpgrade.text = Crafting.CraftingStation.CurrentUpgrade.ToString();
             int time = (int)GameManager.Instance.GameTimer;
             m_gameTimer.text = time.ToString();
+        }
+
+        private void OnEnable()
+        {
+            m_pauseButton.clicked += OnPauseButtonClicked;
+        }
+
+        private void OnDisable()
+        {
+            m_pauseButton.clicked -= OnPauseButtonClicked;
+            m_pauseMenuScript.Disable();
+        }
+
+        private void OnPauseButtonClicked()
+        {
+            m_displayBool = !m_displayBool;
+
+            if (m_displayBool)
+            {
+                m_pauseMenu.style.display = DisplayStyle.Flex;
+            }
+            else
+            {
+                m_pauseMenu.style.display = DisplayStyle.None;
+            }
+
+            GameManager.Instance.PauseGame(m_displayBool);
         }
     }
 }
