@@ -25,7 +25,7 @@ namespace SpaceBaboon.EnemySystem
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
 
-        private int m_currentBossIndex;
+        public int CurrentBossIndex { get; private set; }
 
         protected override void CreatePossibleStates()
         {
@@ -111,12 +111,15 @@ namespace SpaceBaboon.EnemySystem
         {
             //TODO maybe change FX to an explosion or something
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
-            
-            Vector2 directionNorm = (transform.position - TargetedCraftingStation.transform.position).normalized;            
+            SpawnFX();
+            CheckIfTargetedCraftinStationIsDisabled();
+        }
+
+        private void SpawnFX()
+        {
+            Vector2 directionNorm = (transform.position - TargetedCraftingStation.transform.position).normalized;
             Vector2 contactPos = (directionNorm * UniqueData.craftingStationAttackFXDistanceThreshold) + new Vector2(TargetedCraftingStation.transform.position.x, TargetedCraftingStation.transform.position.y);
             SpawnContactAttackVFX(contactPos, TargetedCraftingStation.transform);
-
-            CheckIfTargetedCraftinStationIsDisabled();
         }
 
         private void CheckIfTargetedCraftinStationIsDisabled()
@@ -152,14 +155,20 @@ namespace SpaceBaboon.EnemySystem
 
         private void SetToRandomBossType()
         {
-            m_currentBossIndex = Random.Range(0, (int)EBossTypes.Count);            
+            CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);            
 
-            m_renderer.sprite = UniqueData.bosses[m_currentBossIndex].sprite;            
-            m_renderer.color = UniqueData.bosses[m_currentBossIndex].color;
+            m_renderer.sprite = UniqueData.bosses[CurrentBossIndex].sprite;            
+            m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
 
-            SpriteRenderer specialAttackProjectileRenderer = SpecialAttackProjectilePrefab.GetComponent<SpriteRenderer>();
-            specialAttackProjectileRenderer.sprite = UniqueData.bosses[m_currentBossIndex].specialProjectile.sprite;
-            specialAttackProjectileRenderer.color = UniqueData.bosses[m_currentBossIndex].specialProjectile.color;
+
+
+
+
+
+
+            //SpriteRenderer specialAttackProjectileRenderer = SpecialAttackProjectilePrefab.GetComponent<SpriteRenderer>();
+            //specialAttackProjectileRenderer.sprite = UniqueData.bosses[m_currentBossIndex].specialProjectile.sprite;
+            //specialAttackProjectileRenderer.color = UniqueData.bosses[m_currentBossIndex].specialProjectile.color;
 
         }
 

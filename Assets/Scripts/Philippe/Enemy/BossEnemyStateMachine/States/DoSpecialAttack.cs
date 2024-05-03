@@ -63,7 +63,7 @@ namespace SpaceBaboon.EnemySystem
                         
             Vector2 spawnPos = new Vector2(m_stateMachine.transform.position.x, m_stateMachine.transform.position.y);
 
-            var projectile = m_stateMachine.EnemySpawner.m_enemyProjectilesPool.Spawn(m_stateMachine.SpecialAttackProjectilePrefab, spawnPos);
+            var projectile = m_stateMachine.EnemySpawner.m_enemyProjectilesPool.Spawn(m_stateMachine.UniqueData.bosses[m_stateMachine.CurrentBossIndex].specialProjectilePrefab, spawnPos);
 
             projectile.GetComponent<Projectile>()?.Shoot(m_stateMachine.Player.transform, 0, 0, 0);
         }

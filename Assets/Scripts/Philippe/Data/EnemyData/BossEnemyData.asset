@@ -27,21 +27,15 @@ MonoBehaviour:
   - bossType: 0
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
     color: {r: 0, g: 0.9550953, b: 1, a: 1}
-    specialProjectile:
-      sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-      color: {r: 0, g: 0.95686275, b: 1, a: 1}
+    specialProjectilePrefab: {fileID: 7720092425605013616, guid: dd25fd16dbf5318478d286ef18647e55, type: 3}
   - bossType: 1
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
     color: {r: 1, g: 0.5291774, b: 0, a: 1}
-    specialProjectile:
-      sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-      color: {r: 1, g: 0.5294118, b: 0, a: 1}
+    specialProjectilePrefab: {fileID: 4752045255920560558, guid: c0bbf66d382d5c34e9fc8105f8d7ace5, type: 3}
   - bossType: 2
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
     color: {r: 0.6509434, g: 0.51213443, b: 0.38381097, a: 1}
-    specialProjectile:
-      sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-      color: {r: 0.6509804, g: 0.5137255, b: 0.38431373, a: 1}
+    specialProjectilePrefab: {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   possibleAggroRange: 100
   playerAggroRange: 50
   craftingStationAttackRange: 20

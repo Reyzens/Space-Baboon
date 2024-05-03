@@ -8,7 +8,7 @@ namespace SpaceBaboon.WeaponSystem
         private BossSpecialProjectileData m_uniqueData; // TODO put variables in scriptableObject
 
         private EnemySpawner m_enemySpawner;
-        private Player m_player;
+        protected Player m_player;
 
         private Vector2 m_targetSavedPos = Vector2.zero;
         private Vector3 m_originalScale;
@@ -52,34 +52,6 @@ namespace SpaceBaboon.WeaponSystem
             }
 
             Move();
-        }
-
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                Debug.Log("Do something to player");
-                //Do something to player
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                Debug.Log("Do something to player");
-                //Do something to player
-            }
-        }
-
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                Debug.Log("Do something to player");
-                //Do something to player
-                m_player.IceZoneEffectsStart(0.5f, 0.5f);
-            }
         }
 
         protected override void Move()
