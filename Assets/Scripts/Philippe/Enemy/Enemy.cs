@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable
+    public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable, IBaitable
     {
         public event Action m_eventEnemyDeath = delegate { };
 
@@ -24,6 +24,9 @@ namespace SpaceBaboon.EnemySystem
 
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
+        protected Transform m_currentDestination;
+        protected float m_pullTimer;
+        protected bool m_isPulled = false;
         protected float m_slowTimer;
         protected bool m_isSlowed;
         protected bool m_contactAttackReady = true;
@@ -60,6 +63,7 @@ namespace SpaceBaboon.EnemySystem
             m_activeHealth = m_enemyUniqueData.defaultHealth;
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
             m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
+            m_currentDestination = m_player.transform;
         }
 
         protected override void Update()
@@ -81,7 +85,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            Move(m_player.transform.position);
+            Move(m_currentDestination.position);
         }
 
         private void OnCollisionStay2D(Collision2D collision)
@@ -106,6 +110,15 @@ namespace SpaceBaboon.EnemySystem
                 if (m_slowTimer < 0)
                 {
                     EndSlow();
+                }
+            }
+            if (m_isPulled)
+            {
+                m_pullTimer -= Time.deltaTime;
+                if (m_pullTimer < 0)
+                {
+                    m_currentDestination = m_player.transform;
+                    m_isPulled = false;
                 }
             }
         }
@@ -201,13 +214,18 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent.speed = m_currentNavAgentSpeed;
             m_slowTimer = slowTime;
             m_isSlowed = true;
-            Debug.Log("After slow speed is " + AccelerationValue);
         }
         public void EndSlow()
         {
             m_isSlowed = false;
             m_currentNavAgentSpeed = m_navMeshAgentInitialSpeed;
             m_navMeshAgent.speed = m_currentNavAgentSpeed;
+        }
+        public void StartBait(Transform baitPosition, float baitTime)
+        {
+            m_currentDestination = baitPosition;
+            m_isPulled = true;
+            m_pullTimer = baitTime;
         }
         #endregion
 
