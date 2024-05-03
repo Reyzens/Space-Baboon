@@ -118,7 +118,7 @@ namespace SpaceBaboon.WeaponSystem
                 if (characterHit.GetComponent<ISlowable>() != null)
                 {
                     characterHit.GetComponent<ISlowable>().StartSlow(m_slowAmount, m_slowTime);
-                    Debug.Log(characterHit + " was slowed");
+                    //Debug.Log(characterHit + " was slowed");
                 }
             }
             return base.OnHit(characterHit);
