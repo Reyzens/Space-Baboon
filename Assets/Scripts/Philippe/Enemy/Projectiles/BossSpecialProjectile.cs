@@ -56,7 +56,7 @@ namespace SpaceBaboon.WeaponSystem
 
             Move();
         }
-
+        
         private void OnTriggerStay2D(Collider2D other)
         {
             if (other.CompareTag("Player"))

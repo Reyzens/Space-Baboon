@@ -16,6 +16,8 @@ namespace SpaceBaboon
         protected Vector2 m_movementDirection;
         protected float m_activeHealth;
         protected float m_activeVelocity;
+        protected float m_Acceleration;
+        protected float m_angularVelocity;
         
         //BonusVariables
         protected float m_bonusHealth;
@@ -30,11 +32,11 @@ namespace SpaceBaboon
 
         protected float AccelerationValue
         {
-            get { return m_characterData.defaultAcceleration * m_speedMultiplierCheat; }
+            get { return m_Acceleration * m_speedMultiplierCheat; }
         }
         protected float MaxVelocity
         {
-            get { return m_characterData.defaultMaxVelocity * m_speedMultiplierCheat; }
+            get { return m_angularVelocity * m_speedMultiplierCheat; }
         }
 
         protected virtual void Awake()
@@ -42,6 +44,8 @@ namespace SpaceBaboon
             m_renderer = GetComponent<SpriteRenderer>();
             m_defaultRendererColor = m_renderer.material.color;
             m_rB = GetComponent<Rigidbody2D>();
+            m_Acceleration = m_characterData.defaultAcceleration;
+            m_angularVelocity = m_characterData.defaultMaxVelocity;
 
         }
 
