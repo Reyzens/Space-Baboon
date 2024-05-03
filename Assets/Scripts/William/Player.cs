@@ -71,7 +71,7 @@ namespace SpaceBaboon
         //Unity Methods
 
         #region Unity
-        private void Awake()
+        protected override void Awake()
         {
             PlayerVariablesInitialization();
             FreezePlayerRotation();
@@ -86,7 +86,7 @@ namespace SpaceBaboon
             FreezePlayerRotation();
         }
 
-        private void Update()
+        protected override void Update()
         {
             OnPlayerDeath();
             InventoryManagement();
