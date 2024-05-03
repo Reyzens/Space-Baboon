@@ -3,20 +3,13 @@ using SpaceBaboon.Crafting;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using SpaceBaboon.PoolingSystem;
 
 namespace SpaceBaboon.EnemySystem
 {
-    public enum EBossTypes
-    {
-        Ice,
-        Fire,
-        Rock,
-        Count
-    }
-
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
     {        
-        [field: SerializeField] public GameObject SpecialIceAttackPrefab { get; private set; }
+        [field: SerializeField] public GameObject SpecialAttackProjectilePrefab { get; private set; }        
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }     
@@ -31,7 +24,8 @@ namespace SpaceBaboon.EnemySystem
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
-               
+
+        private int m_currentBossIndex;
 
         protected override void CreatePossibleStates()
         {
@@ -44,7 +38,8 @@ namespace SpaceBaboon.EnemySystem
 
         protected override void Awake()
         {
-            base.Awake();            
+            base.Awake();
+            UniqueData = m_characterData as BossEnemyData;
         }
 
         protected override void Start()
@@ -57,7 +52,12 @@ namespace SpaceBaboon.EnemySystem
         protected override void Update()
         {
             if (!m_isActive)
-                return;
+                return;   
+
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+                OnDamageTaken(1000);
+            }
 
             base.Update();
             UpdateDistances();
@@ -84,12 +84,9 @@ namespace SpaceBaboon.EnemySystem
 
         private void VariableSetUp()
         {
-            UniqueData = m_characterData as BossEnemyData;
-
+            //UniqueData = m_characterData as BossEnemyData;
             Agent = m_navMeshAgent;
-
             Player = m_player;
-
             EnemySpawner = m_enemySpawner;
 
             SineGun = GetComponentInChildren<EnemyWeapon>();
@@ -153,5 +150,30 @@ namespace SpaceBaboon.EnemySystem
         private int GetRandomWorkingCraftingStationIndex() { return Random.Range(0, WorkingCraftingStations.Count); }
         private float GetPlayerDistanceToTargetedCraftingStation() { return Vector3.Distance(m_player.transform.position, TargetedCraftingStation.transform.position); }
         private float GetDistanceToTargetedCraftingStation() { return Vector3.Distance(transform.position, TargetedCraftingStation.transform.position); }
+
+        private void SetToRandomBossType()
+        {
+            m_currentBossIndex = Random.Range(0, (int)EBossTypes.Count);            
+
+            m_renderer.sprite = UniqueData.bosses[m_currentBossIndex].sprite;            
+            m_renderer.color = UniqueData.bosses[m_currentBossIndex].color;
+
+            SpriteRenderer specialAttackProjectileRenderer = SpecialAttackProjectilePrefab.GetComponent<SpriteRenderer>();
+            specialAttackProjectileRenderer.sprite = UniqueData.bosses[m_currentBossIndex].specialProjectile.sprite;
+            specialAttackProjectileRenderer.color = UniqueData.bosses[m_currentBossIndex].specialProjectile.color;
+
+        }
+
+        public override void Activate(Vector2 pos, GenericObjectPool pool)
+        {
+            
+            ResetValues(pos);
+            SetComponents(true);
+            m_parentPool = pool;
+            SetToRandomBossType();
+        }
+
+
+
     }
 }

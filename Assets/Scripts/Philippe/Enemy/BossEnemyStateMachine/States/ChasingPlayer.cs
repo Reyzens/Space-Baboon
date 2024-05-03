@@ -13,7 +13,7 @@ namespace SpaceBaboon.EnemySystem
             Debug.Log("BossEnemy entering state: ChasingPlayer\n");
 
             m_stateMachine.SpecialAttackReady = false;
-            m_stateMachine.SpecialAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
+            m_stateMachine.SpecialAttackTimer = m_stateMachine.UniqueData.basicAttackDelay; //TODO maybe change this delay to something else
             m_basicAttackTimer = m_stateMachine.UniqueData.basicAttackDelay;
             m_basicAttacksDone = 0;
         }

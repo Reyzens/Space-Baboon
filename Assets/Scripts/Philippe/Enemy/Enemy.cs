@@ -135,14 +135,16 @@ namespace SpaceBaboon.EnemySystem
         {
             m_activeHealth -= damage;
             //SpriteFlashing();
-            SpriteFlashRed(m_spriteFlashTimer);
+            
             DamagePopUp.Create(this.transform.position, damage);
             //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {
                 m_eventEnemyDeath?.Invoke();
                 m_parentPool.UnSpawn(gameObject);
+                return;
             }
+            SpriteFlashRed(m_spriteFlashTimer);
         }
 
         //// TODO this can be generalized to the parent :: Done
@@ -177,7 +179,7 @@ namespace SpaceBaboon.EnemySystem
             get { return m_isActive; }
         }
 
-        public void Activate(Vector2 pos, GenericObjectPool pool)
+        public virtual void Activate(Vector2 pos, GenericObjectPool pool)
         {
             ResetValues(pos);
             SetComponents(true);
@@ -189,7 +191,7 @@ namespace SpaceBaboon.EnemySystem
             SetComponents(false);
         }
 
-        private void ResetValues(Vector2 pos)
+        protected void ResetValues(Vector2 pos)
         {
             transform.position = pos;
         }

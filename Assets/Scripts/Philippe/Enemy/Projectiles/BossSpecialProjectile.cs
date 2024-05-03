@@ -5,7 +5,7 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class BossSpecialProjectile : Projectile
     {
-        private BossSpecialProjectileData m_uniqueData;
+        private BossSpecialProjectileData m_uniqueData; // TODO put variables in scriptableObject
 
         [SerializeField] private AnimationCurve m_scalingCurve;
 

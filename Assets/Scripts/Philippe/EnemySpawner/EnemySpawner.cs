@@ -31,6 +31,8 @@ namespace SpaceBaboon.EnemySystem
 
     public class EnemySpawner : MonoBehaviour
     {
+        //TODO add a scriptable object for data
+
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();        

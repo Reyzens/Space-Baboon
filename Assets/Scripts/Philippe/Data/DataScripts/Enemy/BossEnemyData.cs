@@ -3,11 +3,36 @@ using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
 {
+    [System.Serializable]
+    public enum EBossTypes
+    {
+        Ice,
+        Fire,
+        Rock,
+        Count
+    }
+
+    [System.Serializable]
+    public struct SBoss
+    {
+        public EBossTypes bossType;
+        public Sprite sprite;
+        public Color color;        
+        public SBossSpecialProjectile specialProjectile;
+    }
+
+    [System.Serializable]
+    public struct SBossSpecialProjectile
+    {        
+        public Sprite sprite;
+        public Color color;
+    }
+
     [CreateAssetMenu(fileName = "NewBossEnemyData", menuName = "SpaceBaboon/ScriptableObjects/BossEnemyData")]
     public class BossEnemyData : EnemyData
     {
-        [Header("EnemyUniqueStats")]        
-        public List<Sprite> sprites;
+        [Header("EnemyUniqueStats")] 
+        public List<SBoss> bosses;        
         public float possibleAggroRange;
         public float playerAggroRange;
         public float craftingStationAttackRange;
