@@ -84,7 +84,6 @@ namespace SpaceBaboon.EnemySystem
 
         private void VariableSetUp()
         {
-            //UniqueData = m_characterData as BossEnemyData;
             Agent = m_navMeshAgent;
             Player = m_player;
             EnemySpawner = m_enemySpawner;

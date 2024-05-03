@@ -10,7 +10,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnEnter()
         {
-            Debug.Log("BossEnemy entering state: ChasingPlayer\n");
+            //Debug.Log("BossEnemy entering state: ChasingPlayer\n");
 
             m_stateMachine.SpecialAttackReady = false;
             m_stateMachine.SpecialAttackTimer = m_stateMachine.UniqueData.basicAttackDelay; //TODO maybe change this delay to something else
@@ -20,7 +20,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnExit()
         {
-            Debug.Log("BossEnemy exiting state: ChasingPlayer\n");
+            //Debug.Log("BossEnemy exiting state: ChasingPlayer\n");
         }
 
         public override void OnUpdate()
