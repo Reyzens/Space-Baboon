@@ -65,7 +65,7 @@ namespace SpaceBaboon
 
         public void OnPlayerDash(InputAction.CallbackContext context)
         {
-            if(context.started) 
+            if (context.started)
             {
                 m_DashStartEvent?.Invoke();
             }
@@ -73,7 +73,6 @@ namespace SpaceBaboon
 
         public void OnCollectResource(InputAction.CallbackContext context)
         {
-            Debug.Log("On collect ressource was called twice with started true");
             m_CollectResourceEvent?.Invoke();
         }
 
