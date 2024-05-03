@@ -8,7 +8,7 @@ using UnityEngine;
 namespace SpaceBaboon
 {
 
-    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable, ISlowable
+    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable, ISlowable, IGlidable
     {
         //BaseVraiables
         private bool m_alive;
@@ -24,6 +24,8 @@ namespace SpaceBaboon
         private float m_timestampedDash;
         private float m_currentMaximumVelocity;
         private float m_slowTimer;
+        private float m_glideTimer;
+        private bool m_isGliding = false;
         private bool m_isSlowed = false;
 
         //Weapons variables
@@ -102,6 +104,15 @@ namespace SpaceBaboon
                 {
                     m_isSlowed = false;
                     EndSlow();
+                }
+            }
+            if (m_isGliding)
+            {
+                m_glideTimer -= Time.deltaTime;
+                if (m_glideTimer < 0)
+                {
+                    m_isGliding = false;
+                    StopGlide();
                 }
             }
         }
@@ -268,6 +279,15 @@ namespace SpaceBaboon
         {
             m_accelerationMulti = 1;
         }
+        public void StartGlide(float glideAmount, float glideTime)
+        {
+            m_glideTimer = glideTime;
+            m_angularVelocityMulti = glideAmount;
+        }
+        public void StopGlide()
+        {
+            m_angularVelocityMulti = 1;
+        }
         private void OnPlayerDeath()
         {
             if (m_activeHealth <= 0 || m_alive == false)
@@ -367,14 +387,14 @@ namespace SpaceBaboon
 
         public void IceZoneEffectsStart(float accelMultiValue, float slowTime)
         {
-            m_angularVelocityMulti = accelMultiValue;
+            StartGlide(accelMultiValue, slowTime);
             StartSlow(accelMultiValue, slowTime);
         }
 
         public void IceZoneEffectsEnd()
         {
             EndSlow();
-            m_angularVelocityMulti = 1;
+            StopGlide();
         }
 
         #endregion PlayerMethods
