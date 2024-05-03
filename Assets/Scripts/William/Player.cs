@@ -361,8 +361,8 @@ namespace SpaceBaboon
 
         public void IceZoneEffectsStart(float accelMultiValue,float veloMultiValue)
         {
-            m_accelerationMulti %= accelMultiValue;
-            m_angularVelocityMulti %= veloMultiValue;
+            m_accelerationMulti = accelMultiValue;
+            m_angularVelocityMulti = veloMultiValue;
         }
 
         public void IceZoneEffectsEnd()
