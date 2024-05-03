@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_linkedWeapon: {fileID: 0}
-  m_maxHealth: 0
+  m_maxHealth: 10
   m_resourceDropPoints:
   - {fileID: 7903200905534895423}
   - {fileID: 3348967461286618548}
