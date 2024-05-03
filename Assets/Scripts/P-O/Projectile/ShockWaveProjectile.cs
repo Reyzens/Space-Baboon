@@ -11,6 +11,8 @@ namespace SpaceBaboon.WeaponSystem
         [SerializeField] protected int m_segments = 100;
         [SerializeField] protected float m_innerRadius = 5f;
         [SerializeField] protected float m_thickness = 0.5f;
+        [SerializeField] protected float m_slowAmount = 0.5f;
+        [SerializeField] protected float m_slowTime = 3f;
         private LineRenderer m_damageZoneDisplay;
 
         //IExplodable data
@@ -109,7 +111,18 @@ namespace SpaceBaboon.WeaponSystem
                 m_collider.radius = m_currentExplosionSize + m_thickness;
             }
         }
-
+        public override float OnHit(Character characterHit)
+        {
+            if (characterHit != null)
+            {
+                if (characterHit.GetComponent<ISlowable>() != null)
+                {
+                    characterHit.GetComponent<ISlowable>().StartSlow(m_slowAmount, m_slowTime);
+                    Debug.Log(characterHit + " was slowed");
+                }
+            }
+            return base.OnHit(characterHit);
+        }
         public void StartExplosion()
         {
             m_currentExplosionTime = m_ExplodableData.m_maxExplosionTime;

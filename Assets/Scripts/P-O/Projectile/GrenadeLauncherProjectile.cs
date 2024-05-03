@@ -140,5 +140,12 @@ namespace SpaceBaboon
             //m_collider.enabled = false;
             m_initialScaleOfProjectile = transform.localScale;
         }
+        public override float OnHit(Character characterHit)
+        {
+            if (characterHit != null)
+            {
+            }
+            return base.OnHit(characterHit);
+        }
     }
 }
