@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 763723706492497818}
   - component: {fileID: 3456885747682980764}
   - component: {fileID: 3205972134885171237}
+  - component: {fileID: 1738519451934986150}
   m_Layer: 3
   m_Name: PlayerSprite
   m_TagString: Player
@@ -698,6 +699,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce79411b7116a2c4084194e29eb80036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1738519451934986150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408285224000720167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c0ca3ed318c7340ba37f001638702c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_defaultRotationSpeed: 50
+  m_rotationRange: 8
+  m_acceptableRangeOffset: 0.5
+  m_minDistanceBetweenObjects: 7
 --- !u!1 &4820570273262426972
 GameObject:
   m_ObjectHideFlags: 0
