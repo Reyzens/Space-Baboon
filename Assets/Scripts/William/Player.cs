@@ -359,16 +359,16 @@ namespace SpaceBaboon
                 m_activeHealth -= damage;
         }
 
-        public void IceZoneEffectsStart(float dividerEffect)
+        public void IceZoneEffectsStart(float accelMultiValue,float veloMultiValue)
         {
-            m_Acceleration %= dividerEffect;
-            m_angularVelocity %= dividerEffect;
+            m_accelerationMulti %= accelMultiValue;
+            m_angularVelocityMulti %= veloMultiValue;
         }
 
         public void IceZoneEffectsEnd()
         {
-            m_Acceleration = m_characterData.defaultAcceleration;
-            m_angularVelocity = m_characterData.defaultMaxVelocity;
+            m_accelerationMulti = 1;
+            m_angularVelocityMulti = 1;
         }
 
         #endregion PlayerMethods
