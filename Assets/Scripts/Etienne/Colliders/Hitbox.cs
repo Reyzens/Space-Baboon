@@ -100,7 +100,7 @@ namespace SpaceBaboon.CollisionSystem
                             return;
                         }
 
-                        enemy.OnDamageTaken(projectile.OnHit());
+                        enemy.OnDamageTaken(projectile.OnHit(enemy));
                         break;
 
                     case EAgentType.Enemy:
@@ -111,7 +111,7 @@ namespace SpaceBaboon.CollisionSystem
                             return;
                         }
 
-                        player.OnDamageTaken(projectile.OnHit());
+                        player.OnDamageTaken(projectile.OnHit(player));
                         break;
                     case EAgentType.Count:
                         break;
