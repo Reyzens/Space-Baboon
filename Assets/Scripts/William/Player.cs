@@ -4,13 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 
 namespace SpaceBaboon
 {
 
-    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable
+    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable, ISlowable
     {
         //BaseVraiables
         private bool m_alive;
@@ -25,6 +23,8 @@ namespace SpaceBaboon
         private float m_activeDashDuration;
         private float m_timestampedDash;
         private float m_currentMaximumVelocity;
+        private float m_slowTimer;
+        private bool m_isSlowed = false;
 
         //Weapons variables
         [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
@@ -90,6 +90,20 @@ namespace SpaceBaboon
         {
             OnPlayerDeath();
             InventoryManagement();
+            StatusUpdate();
+        }
+
+        private void StatusUpdate()
+        {
+            if (m_isSlowed)
+            {
+                m_slowTimer -= Time.deltaTime;
+                if (m_slowTimer < 0)
+                {
+                    m_isSlowed = false;
+                    EndSlow();
+                }
+            }
         }
 
         private void FixedUpdate()
@@ -116,7 +130,7 @@ namespace SpaceBaboon
             SubscribeToInputEvent();
 
             m_collectibleInventory = new Dictionary<Crafting.InteractableResource.EResourceType, int>();
-           
+
             m_collider = GetComponent<BoxCollider2D>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
             m_spriteRendererColor = m_renderer.color;
@@ -245,6 +259,15 @@ namespace SpaceBaboon
             m_rB.freezeRotation = enabled;
         }
 
+        public void StartSlow(float slowAmount, float slowTimer)
+        {
+            m_slowTimer = slowTimer;
+            m_accelerationMulti = slowAmount;
+        }
+        public void EndSlow()
+        {
+            m_accelerationMulti = 1;
+        }
         private void OnPlayerDeath()
         {
             if (m_activeHealth <= 0 || m_alive == false)
@@ -283,7 +306,7 @@ namespace SpaceBaboon
                 m_rB.AddForce(m_movementDirection * (m_currentMaximumVelocity), ForceMode2D.Impulse);
                 StartCoroutine(DashCoroutine());
             }
-            
+
         }
 
         private void PlayerSpriteDirectionSwap()
@@ -305,7 +328,7 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
             m_rB.GameObject().layer = LayerMask.NameToLayer("ImmunityDash");
             m_dahsTrail.SetActive(true);
-            
+
         }
         private void AfterDashCoroutine()
         {
@@ -342,15 +365,15 @@ namespace SpaceBaboon
                 m_activeHealth -= damage;
         }
 
-        public void IceZoneEffectsStart(float accelMultiValue,float veloMultiValue)
+        public void IceZoneEffectsStart(float accelMultiValue, float slowTime)
         {
-            m_accelerationMulti = accelMultiValue;
-            m_angularVelocityMulti = veloMultiValue;
+            m_angularVelocityMulti = accelMultiValue;
+            StartSlow(accelMultiValue, slowTime);
         }
 
         public void IceZoneEffectsEnd()
         {
-            m_accelerationMulti = 1;
+            EndSlow();
             m_angularVelocityMulti = 1;
         }
 
@@ -362,11 +385,11 @@ namespace SpaceBaboon
             BeforeDashCoroutine();
             while (m_timestampedDash < m_activeDashDuration)
             {
-               
+
                 m_timestampedDash += Time.deltaTime;
                 float dashCurvePosition = m_timestampedDash / m_activeDashDuration;
                 m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
-  
+
                 yield return null;
             }
             AfterDashCoroutine();

@@ -6,7 +6,7 @@ namespace SpaceBaboon.WeaponSystem
     public class BossSpecialProjectile : Projectile
     {
         private BossSpecialProjectileData m_uniqueData; // TODO put variables in scriptableObject
-        
+
         private EnemySpawner m_enemySpawner;
         private Player m_player;
 
@@ -14,8 +14,8 @@ namespace SpaceBaboon.WeaponSystem
         private Vector3 m_originalScale;
         private float m_distanceToPosThreshold = 1.0f;
         private float m_scalingTimer = 0.0f;
-        private bool m_isAtTargetPos = false; 
-        
+        private bool m_isAtTargetPos = false;
+
         protected void Start()
         {
             m_enemySpawner = GameManager.Instance.EnemySpawner;
@@ -31,7 +31,7 @@ namespace SpaceBaboon.WeaponSystem
             if (!m_isActive)
                 return;
 
-            if(m_isActive && !m_isAtTargetPos)
+            if (m_isActive && !m_isAtTargetPos)
             {
                 m_collider.enabled = false;
             }
@@ -60,7 +60,6 @@ namespace SpaceBaboon.WeaponSystem
             {
                 Debug.Log("Do something to player");
                 //Do something to player
-                m_player.IceZoneEffectsStart(0.5f, 0.5f);
             }
         }
 
@@ -70,7 +69,6 @@ namespace SpaceBaboon.WeaponSystem
             {
                 Debug.Log("Do something to player");
                 //Do something to player
-                m_player.IceZoneEffectsEnd();
             }
         }
 
@@ -80,6 +78,7 @@ namespace SpaceBaboon.WeaponSystem
             {
                 Debug.Log("Do something to player");
                 //Do something to player
+                m_player.IceZoneEffectsStart(0.5f, 0.5f);
             }
         }
 
@@ -105,12 +104,12 @@ namespace SpaceBaboon.WeaponSystem
                 m_rb.bodyType = RigidbodyType2D.Kinematic;
                 m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 m_rb.velocity = Vector2.zero;
-            }          
-        }        
+            }
+        }
 
         public override void Shoot(Transform direction, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
-            m_targetSavedPos = FindValidTargetPosition(direction);            
+            m_targetSavedPos = FindValidTargetPosition(direction);
             Vector2 currentPosition = transform.position;
             m_direction = (m_targetSavedPos - currentPosition).normalized;
             m_damage = damage;
@@ -118,7 +117,7 @@ namespace SpaceBaboon.WeaponSystem
 
         private Vector2Int FindValidTargetPosition(Transform targetPosition)
         {
-            Vector3Int currentTargetTilePos = m_enemySpawner.m_obstacleTilemapRef.WorldToCell(targetPosition.position);            
+            Vector3Int currentTargetTilePos = m_enemySpawner.m_obstacleTilemapRef.WorldToCell(targetPosition.position);
             float closestDistance = Mathf.Infinity;
             Vector3Int closestObstaclePos = Vector3Int.zero;
 
@@ -141,7 +140,7 @@ namespace SpaceBaboon.WeaponSystem
                 return new Vector2Int((int)targetPosition.position.x, (int)targetPosition.position.y);
             }
 
-            Vector3 closestObstacleVec3 = closestObstaclePos; 
+            Vector3 closestObstacleVec3 = closestObstaclePos;
             Vector3 directionToObstacle = (closestObstacleVec3 - currentTargetTilePos).normalized;
             Vector3 adjustedPosition = targetPosition.position + directionToObstacle * -m_uniqueData.radiusSizeMultiplier;
 
