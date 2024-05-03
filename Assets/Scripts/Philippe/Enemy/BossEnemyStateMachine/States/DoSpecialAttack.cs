@@ -10,7 +10,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnEnter()
         {
-            Debug.Log("BossEnemy entering state: DoSpecialAttack\n");
+            //Debug.Log("BossEnemy entering state: DoSpecialAttack\n");
             m_stateMachine.Agent.isStopped = true;
             m_specialAttackDone = false;
             m_chargeSpecialAttackTimer = m_stateMachine.UniqueData.specialAttackChargeDelay;
@@ -19,7 +19,7 @@ namespace SpaceBaboon.EnemySystem
         public override void OnExit()
         {
             m_stateMachine.Agent.isStopped = false;
-            Debug.Log("BossEnemy exiting state: DoSpecialAttack\n");
+            //Debug.Log("BossEnemy exiting state: DoSpecialAttack\n");
         }
 
         public override void OnUpdate()
@@ -63,7 +63,7 @@ namespace SpaceBaboon.EnemySystem
                         
             Vector2 spawnPos = new Vector2(m_stateMachine.transform.position.x, m_stateMachine.transform.position.y);
 
-            var projectile = m_stateMachine.EnemySpawner.m_enemyProjectilesPool.Spawn(m_stateMachine.SpecialAttackProjectilePrefab, spawnPos);
+            var projectile = m_stateMachine.EnemySpawner.m_enemyProjectilesPool.Spawn(m_stateMachine.UniqueData.bosses[m_stateMachine.CurrentBossIndex].specialProjectilePrefab, spawnPos);
 
             projectile.GetComponent<Projectile>()?.Shoot(m_stateMachine.Player.transform, 0, 0, 0);
         }

@@ -15,10 +15,10 @@ namespace SpaceBaboon
             transform.Translate(m_direction * m_projectileData.speed * Time.deltaTime, Space.World);
         }
 
-        public override float OnHit()
+        public override float OnHit(Character characterHit)
         {
             m_parentPool.UnSpawn(gameObject);
-            return base.OnHit();
+            return base.OnHit(characterHit);
         }
 
         public override void Shoot(Transform target, float maxRange, float attackZone, float damage, Transform playerPosition)

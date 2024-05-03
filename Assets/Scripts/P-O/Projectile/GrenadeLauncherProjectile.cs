@@ -10,6 +10,7 @@ namespace SpaceBaboon
         [SerializeField] private AnimationCurve m_grenadeCurve;
         [SerializeField] private float m_curveMaxHeight;
         [SerializeField] private float m_curveDuration;
+        [SerializeField] private float m_baitTimer;
         private Vector2 m_lastTargetPosition;
         private Vector2 m_initialShootingPosition;
         private float m_initialDistanceToTarget;
@@ -139,6 +140,18 @@ namespace SpaceBaboon
         {
             //m_collider.enabled = false;
             m_initialScaleOfProjectile = transform.localScale;
+        }
+        public override float OnHit(Character characterHit)
+        {
+            if (characterHit != null)
+            {
+                if (characterHit.GetComponent<IBaitable>() != null)
+                {
+                    characterHit.GetComponent<IBaitable>().StartBait(transform, m_baitTimer);
+                    Debug.Log(characterHit + " was pulled");
+                }
+            }
+            return base.OnHit(characterHit);
         }
     }
 }

@@ -7,24 +7,21 @@ namespace SpaceBaboon.WeaponSystem
     {
         private BossSpecialProjectileData m_uniqueData; // TODO put variables in scriptableObject
 
-        [SerializeField] private AnimationCurve m_scalingCurve;
-
         private EnemySpawner m_enemySpawner;
+        protected Player m_player;
+
         private Vector2 m_targetSavedPos = Vector2.zero;
-        private float m_distanceToPosThreshold = 1.0f;
-        private bool m_isAtTargetPos = false;
-        private int m_maxRadiusSizeExpansion = 10;
         private Vector3 m_originalScale;
-        public float m_scalingDuration = 2.0f;
-
+        private float m_distanceToPosThreshold = 1.0f;
         private float m_scalingTimer = 0.0f;
-
+        private bool m_isAtTargetPos = false;
 
         protected void Start()
         {
             m_enemySpawner = GameManager.Instance.EnemySpawner;
             m_originalScale = transform.localScale;
             m_uniqueData = m_projectileData as BossSpecialProjectileData;
+            m_player = GameManager.Instance.Player;
         }
 
         protected override void Update()
@@ -34,17 +31,17 @@ namespace SpaceBaboon.WeaponSystem
             if (!m_isActive)
                 return;
 
-            if(m_isActive && !m_isAtTargetPos)
+            if (m_isActive && !m_isAtTargetPos)
             {
                 m_collider.enabled = false;
             }
 
             if (m_isAtTargetPos)
             {
-                float scaleProgress = Mathf.Clamp01(m_scalingTimer / m_scalingDuration);
-                float curveValue = m_scalingCurve.Evaluate(scaleProgress);
+                float scaleProgress = Mathf.Clamp01(m_scalingTimer / m_uniqueData.sizeScalingDuration);
+                float curveValue = m_uniqueData.sizeScalingCurve.Evaluate(scaleProgress);
 
-                float targetScaleFactor = curveValue * m_maxRadiusSizeExpansion;
+                float targetScaleFactor = curveValue * m_uniqueData.radiusSizeMultiplier;
                 Vector3 targetScale = m_originalScale * targetScaleFactor;
 
                 transform.localScale = targetScale;
@@ -57,15 +54,6 @@ namespace SpaceBaboon.WeaponSystem
             Move();
         }
 
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                Debug.Log("Do something to player");
-                //Do something to player
-            }
-        }
-
         protected override void Move()
         {
             m_direction.x = m_targetSavedPos.x - transform.position.x;
@@ -74,7 +62,7 @@ namespace SpaceBaboon.WeaponSystem
 
             float distanceToPos = Vector2.Distance(transform.position, m_targetSavedPos);
 
-            Debug.Log("distance to pos " + distanceToPos);
+            //Debug.Log("distance to pos " + distanceToPos);
 
             if (distanceToPos > m_distanceToPosThreshold)
             {
@@ -88,12 +76,12 @@ namespace SpaceBaboon.WeaponSystem
                 m_rb.bodyType = RigidbodyType2D.Kinematic;
                 m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 m_rb.velocity = Vector2.zero;
-            }          
-        }        
+            }
+        }
 
         public override void Shoot(Transform direction, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
-            m_targetSavedPos = FindValidTargetPosition(direction);            
+            m_targetSavedPos = FindValidTargetPosition(direction);
             Vector2 currentPosition = transform.position;
             m_direction = (m_targetSavedPos - currentPosition).normalized;
             m_damage = damage;
@@ -101,7 +89,7 @@ namespace SpaceBaboon.WeaponSystem
 
         private Vector2Int FindValidTargetPosition(Transform targetPosition)
         {
-            Vector3Int currentTargetTilePos = m_enemySpawner.m_obstacleTilemapRef.WorldToCell(targetPosition.position);            
+            Vector3Int currentTargetTilePos = m_enemySpawner.m_obstacleTilemapRef.WorldToCell(targetPosition.position);
             float closestDistance = Mathf.Infinity;
             Vector3Int closestObstaclePos = Vector3Int.zero;
 
@@ -111,7 +99,7 @@ namespace SpaceBaboon.WeaponSystem
                 {
                     float distanceBetweenTargetAndObstacle = Vector3Int.Distance(obstacleTilePos, currentTargetTilePos);
 
-                    if (distanceBetweenTargetAndObstacle <= m_maxRadiusSizeExpansion && distanceBetweenTargetAndObstacle < closestDistance)
+                    if (distanceBetweenTargetAndObstacle <= m_uniqueData.radiusSizeMultiplier && distanceBetweenTargetAndObstacle < closestDistance)
                     {
                         closestDistance = distanceBetweenTargetAndObstacle;
                         closestObstaclePos = obstacleTilePos;
@@ -124,9 +112,9 @@ namespace SpaceBaboon.WeaponSystem
                 return new Vector2Int((int)targetPosition.position.x, (int)targetPosition.position.y);
             }
 
-            Vector3 closestObstacleVec3 = closestObstaclePos; 
+            Vector3 closestObstacleVec3 = closestObstaclePos;
             Vector3 directionToObstacle = (closestObstacleVec3 - currentTargetTilePos).normalized;
-            Vector3 adjustedPosition = targetPosition.position + directionToObstacle * -m_maxRadiusSizeExpansion;
+            Vector3 adjustedPosition = targetPosition.position + directionToObstacle * -m_uniqueData.radiusSizeMultiplier;
 
             return new Vector2Int((int)adjustedPosition.x, (int)adjustedPosition.y);
         }

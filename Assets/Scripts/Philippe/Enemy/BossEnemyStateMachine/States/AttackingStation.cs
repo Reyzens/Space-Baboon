@@ -8,7 +8,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnEnter()
         {
-            Debug.Log("BossEnemy entering state: AttackingStation\n");
+            //Debug.Log("BossEnemy entering state: AttackingStation\n");
 
             m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
             m_stateMachine.Agent.isStopped = true;            
@@ -17,7 +17,7 @@ namespace SpaceBaboon.EnemySystem
         public override void OnExit()
         {
             m_stateMachine.Agent.isStopped = false;            
-            Debug.Log("BossEnemy exiting state: AttackingStation\n");
+            //Debug.Log("BossEnemy exiting state: AttackingStation\n");
         }
 
         public override void OnUpdate()

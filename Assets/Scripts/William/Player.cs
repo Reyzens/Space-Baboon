@@ -4,13 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.SceneManagement;
 
 namespace SpaceBaboon
 {
 
-    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable
+    public class Player : Character, SpaceBaboon.IDamageable, IStatsEditable, ISlowable, IGlidable
     {
         //BaseVraiables
         private bool m_alive;
@@ -18,16 +16,17 @@ namespace SpaceBaboon
         private bool m_dashInputReceiver;
         private bool m_screenShake;
         private bool m_collectibleInRange;
-        private bool m_playerCanDash;
 
-        private float m_currentDashCDCounter;
         private float m_activeDashCD;
         private float m_activeDashCoolDown;
-        private float m_dashCurveStrength;
+        float m_dashCurveStrength;
         private float m_activeDashDuration;
         private float m_timestampedDash;
-        private float m_maxDashVelocity;
         private float m_currentMaximumVelocity;
+        private float m_slowTimer;
+        private float m_glideTimer;
+        private bool m_isGliding = false;
+        private bool m_isSlowed = false;
 
         //Weapons variables
         [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
@@ -52,14 +51,8 @@ namespace SpaceBaboon
         private PlayerFlash m_playerFlash;
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
-        //private List<WeaponSystem.PlayerWeapon> m_equipedWeapon;
-        //private List<WeaponSystem.PlayerWeapon> m_blockedWeapon;
 
         //BonusVariables
-        private float m_bonusDashCD;
-        private float m_bonusDashSpeed;
-        private float m_bonusDashDistance;
-        private int m_bonusDashStack;
 
         //Collider
         protected BoxCollider2D m_collider;
@@ -80,7 +73,7 @@ namespace SpaceBaboon
         //Unity Methods
 
         #region Unity
-        private void Awake()
+        protected override void Awake()
         {
             PlayerVariablesInitialization();
             FreezePlayerRotation();
@@ -95,10 +88,33 @@ namespace SpaceBaboon
             FreezePlayerRotation();
         }
 
-        private void Update()
+        protected override void Update()
         {
             OnPlayerDeath();
             InventoryManagement();
+            StatusUpdate();
+        }
+
+        private void StatusUpdate()
+        {
+            if (m_isSlowed)
+            {
+                m_slowTimer -= Time.deltaTime;
+                if (m_slowTimer < 0)
+                {
+                    m_isSlowed = false;
+                    EndSlow();
+                }
+            }
+            if (m_isGliding)
+            {
+                m_glideTimer -= Time.deltaTime;
+                if (m_glideTimer < 0)
+                {
+                    m_isGliding = false;
+                    StopGlide();
+                }
+            }
         }
 
         private void FixedUpdate()
@@ -125,8 +141,6 @@ namespace SpaceBaboon
             SubscribeToInputEvent();
 
             m_collectibleInventory = new Dictionary<Crafting.InteractableResource.EResourceType, int>();
-            //m_equipedWeapon = new List<WeaponSystem.PlayerWeapon>();
-            //m_blockedWeapon = new List<WeaponSystem.PlayerWeapon>();
 
             m_collider = GetComponent<BoxCollider2D>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
@@ -138,11 +152,6 @@ namespace SpaceBaboon
             m_activeDashDuration = m_playerData.defaultDashDuration;
             m_dashCurve = m_playerData.defaultDashCurve;
 
-            m_bonusHealth = 0.0f;
-            m_bonusDashCD = 0.0f;
-            m_bonusDashSpeed = 0.0f;
-            m_bonusDashDistance = 0.0f;
-            m_bonusDashStack = 0;
 
             m_alive = true;
             enabled = true;
@@ -154,8 +163,6 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
             m_animator = GetComponent<Animator>();
             m_playerFlash = GetComponent<PlayerFlash>();
-            m_playerCanDash = true;
-            m_maxDashVelocity = m_characterData.dashMaximumVelocity;
             m_currentMaximumVelocity = m_characterData.defaultMaxVelocity;
         }
 
@@ -263,6 +270,24 @@ namespace SpaceBaboon
             m_rB.freezeRotation = enabled;
         }
 
+        public void StartSlow(float slowAmount, float slowTimer)
+        {
+            m_slowTimer = slowTimer;
+            m_accelerationMulti = slowAmount;
+        }
+        public void EndSlow()
+        {
+            m_accelerationMulti = 1;
+        }
+        public void StartGlide(float glideAmount, float glideTime)
+        {
+            m_glideTimer = glideTime;
+            m_angularVelocityMulti = glideAmount;
+        }
+        public void StopGlide()
+        {
+            m_angularVelocityMulti = 1;
+        }
         private void OnPlayerDeath()
         {
             if (m_activeHealth <= 0 || m_alive == false)
@@ -301,6 +326,7 @@ namespace SpaceBaboon
                 m_rB.AddForce(m_movementDirection * (m_currentMaximumVelocity), ForceMode2D.Impulse);
                 StartCoroutine(DashCoroutine());
             }
+
         }
 
         private void PlayerSpriteDirectionSwap()
@@ -322,7 +348,7 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
             m_rB.GameObject().layer = LayerMask.NameToLayer("ImmunityDash");
             m_dahsTrail.SetActive(true);
-            
+
         }
         private void AfterDashCoroutine()
         {
@@ -359,6 +385,18 @@ namespace SpaceBaboon
                 m_activeHealth -= damage;
         }
 
+        public void IceZoneEffectsStart(float accelMultiValue, float slowTime)
+        {
+            StartGlide(accelMultiValue, slowTime);
+            StartSlow(accelMultiValue, slowTime);
+        }
+
+        public void IceZoneEffectsEnd()
+        {
+            EndSlow();
+            StopGlide();
+        }
+
         #endregion PlayerMethods
 
         #region PlayerCoroutine
@@ -367,11 +405,11 @@ namespace SpaceBaboon
             BeforeDashCoroutine();
             while (m_timestampedDash < m_activeDashDuration)
             {
-               
+
                 m_timestampedDash += Time.deltaTime;
                 float dashCurvePosition = m_timestampedDash / m_activeDashDuration;
                 m_dashCurveStrength = m_dashCurve.Evaluate(dashCurvePosition);
-  
+
                 yield return null;
             }
             AfterDashCoroutine();
@@ -480,8 +518,6 @@ namespace SpaceBaboon
                     availableWeapons.Add(possibleWeapon.Key);
                 }
             }
-
-            Debug.Log(availableWeapons.Count);
 
             //Pick a weapon at random
             if (availableWeapons.Count > 0)

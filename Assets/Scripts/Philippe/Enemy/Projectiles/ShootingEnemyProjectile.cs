@@ -4,12 +4,12 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ShootingEnemyProjectile : Projectile
     {
-        protected Player m_player;        
+        protected Player m_player;
         private CircleCollider2D m_triggerCollider;
 
         protected override void Awake()
         {
-            m_renderer = GetComponent<SpriteRenderer>();            
+            m_renderer = GetComponent<SpriteRenderer>();
             m_rb = GetComponent<Rigidbody2D>();
 
             CircleCollider2D[] colliders = GetComponents<CircleCollider2D>();
@@ -45,14 +45,14 @@ namespace SpaceBaboon.WeaponSystem
             m_damage = damage;
         }
 
-        public override float OnHit()
+        public override float OnHit(Character characterHit)
         {
             m_parentPool.UnSpawn(gameObject);
-            return base.OnHit();
+            return base.OnHit(characterHit);
         }
 
         protected override void OnCollisionEnter2D(Collision2D collision)
-        {           
+        {
             if (m_parentPool != null)
                 m_parentPool.UnSpawn(gameObject);
         }

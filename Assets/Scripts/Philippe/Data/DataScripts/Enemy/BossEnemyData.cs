@@ -18,15 +18,16 @@ namespace SpaceBaboon.EnemySystem
         public EBossTypes bossType;
         public Sprite sprite;
         public Color color;        
-        public SBossSpecialProjectile specialProjectile;
+        //public SBossSpecialProjectile specialProjectile;
+        public GameObject specialProjectilePrefab;
     }
 
-    [System.Serializable]
-    public struct SBossSpecialProjectile
-    {        
-        public Sprite sprite;
-        public Color color;
-    }
+    //[System.Serializable]
+    //public struct SBossSpecialProjectile
+    //{        
+    //    public Sprite sprite;
+    //    public Color color;
+    //}
 
     [CreateAssetMenu(fileName = "NewBossEnemyData", menuName = "SpaceBaboon/ScriptableObjects/BossEnemyData")]
     public class BossEnemyData : EnemyData

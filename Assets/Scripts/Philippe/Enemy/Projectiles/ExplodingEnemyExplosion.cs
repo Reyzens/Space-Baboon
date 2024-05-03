@@ -8,10 +8,10 @@ namespace SpaceBaboon.WeaponSystem
         private Vector3 m_initialScale;
 
         private Animator m_animator; //May be needed for explosion animation
-                
+
         protected void Start()
         {
-            VariablesSetUp();            
+            VariablesSetUp();
         }
 
         protected override void Update()
@@ -20,14 +20,14 @@ namespace SpaceBaboon.WeaponSystem
 
             if (!m_isActive)
                 return;
-            
-            UpdateScaleBasedOnAnimCurve();            
+
+            UpdateScaleBasedOnAnimCurve();
         }
 
         private void UpdateScaleBasedOnAnimCurve()
-        {            
+        {
             float curveValue = m_uniqueData.explosionSizeScalingCurve.Evaluate(m_lifetime);
-            
+
             float newScale = Mathf.Lerp(m_initialScale.x, m_uniqueData.maxExplosionSize, curveValue);
             transform.localScale = new Vector3(newScale, newScale, 0);
         }
@@ -45,10 +45,10 @@ namespace SpaceBaboon.WeaponSystem
             m_damage = m_uniqueData.damage;
         }
 
-        public override float OnHit()
+        public override float OnHit(Character characterHit)
         {
             //Debug.Log("OnHit called by :  " + gameObject.name + "with " + m_uniqueData.damage + " damage");
             return m_uniqueData.damage;
-        }               
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace SpaceBaboon.WeaponSystem
         protected float m_attackingCooldown = 0.0f;
         protected float m_attackSpeedModifier = 1.0f;
         protected int m_currentLevel = 1;
-        private bool m_weaponToggle = true;
+        //private bool m_weaponToggle = true;
         //private Transform m_rotationTarget;
 
         //Collect Variables
