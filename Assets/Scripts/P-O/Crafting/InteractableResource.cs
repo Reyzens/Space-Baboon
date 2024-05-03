@@ -8,7 +8,6 @@ namespace SpaceBaboon.Crafting
     {
         //Serializable
         [SerializeField] private ResourceData m_resourceData;
-        [SerializeField] private bool m_DebugMode;
         [SerializeField] private GameObject m_outline;
 
         //Private variables
@@ -106,14 +105,14 @@ namespace SpaceBaboon.Crafting
         }
         private void FinishCollecting()
         {
+            m_renderer.color = m_rendereInitialColor;
+
             FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
             if (fxManager != null)
             {
                 fxManager.PlayAudio(FXSystem.ESFXType.MiningCompleted);
             }
 
-
-            if (m_DebugMode) { Debug.Log("FinishedCollecting :" + this); m_currentCooldown = 0.0f; }
             Vector2 direction;
             float angleBetweenShards = 360 / m_resourceData.m_resourceAmount;
             float spawnAngle;
@@ -166,7 +165,6 @@ namespace SpaceBaboon.Crafting
             transform.position = pos;
             m_isBeingCollected = false;
             m_currentCooldown = 0;
-            m_renderer.color = m_rendereInitialColor;
         }
         private void SetComponents(bool value)
         {

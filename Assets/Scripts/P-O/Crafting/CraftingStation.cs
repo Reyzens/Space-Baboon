@@ -105,7 +105,7 @@ namespace SpaceBaboon.Crafting
                 m_isDisabled = true;
             }
 
-            Debug.Log("Crafting Station current hit points " + m_currentHealth);
+            //Debug.Log("Crafting Station current hit points " + m_currentHealth);
         }
         public bool GetIsDisabled() { return m_isDisabled; }
         #region UpgradeManagement
