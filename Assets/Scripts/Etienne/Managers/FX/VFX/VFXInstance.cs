@@ -36,11 +36,6 @@ namespace SpaceBaboon
             }
         }
 
-        public void SetRotation(Quaternion quat)
-        {
-            transform.rotation = quat;
-        }
-
         public void Activate(Vector2 pos, GenericObjectPool pool)
         {
             m_isActive = true;
@@ -57,6 +52,5 @@ namespace SpaceBaboon
 
             gameObject.SetActive(false);
         }
-
     }
 }

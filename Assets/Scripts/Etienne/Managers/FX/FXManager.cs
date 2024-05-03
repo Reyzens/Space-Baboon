@@ -30,6 +30,7 @@ namespace SpaceBaboon.FXSystem
     {
         EnemySlashAttack,
         PlayerSlashAttack,
+        EnemyDamagePopUp,
         Count
     }
 
@@ -119,16 +120,16 @@ namespace SpaceBaboon.FXSystem
             //Debug.Log("dictionary value: " + m_dictionary[type].name);
         }
 
-        public void PlayVFX(EVFXType type, Vector3 pos, Quaternion rot)
+        public GameObject PlayVFX(EVFXType type, Vector3 pos)
         {
             GameObject obj = m_vfxPool.Spawn(m_vfxDictionary[type].gameObject, pos);
-            VFXInstance script = obj.GetComponent<VFXInstance>();
-            script.SetRotation(rot);
 
             if (m_vfxDictionary[type].hasAudio)
             {
-                PlayAudio(ESFXType.EnemySlashAttack);
+                PlayAudio(m_vfxDictionary[type].audioType);
             }
+
+            return obj;
         }
 
         #region CameraShake

@@ -127,7 +127,8 @@ namespace SpaceBaboon.EnemySystem
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemySlashAttack, contactPosVec, rotation);
+            GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemySlashAttack, contactPosVec);
+            vfx.transform.rotation = rotation;
         }
 
         // TODO this can be generalized to the parent most likely
@@ -135,8 +136,15 @@ namespace SpaceBaboon.EnemySystem
         {
             m_activeHealth -= damage;
             //SpriteFlashing();
-            
-            DamagePopUp.Create(this.transform.position, damage);
+
+            //DamagePopUp.Create(this.transform.position, damage);
+            GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemyDamagePopUp, transform.position);
+            var script = vfx.GetComponent<FXSystem.AnimateDamagePopUp>();
+            if (script != null)
+            {
+                script.Activate(damage);
+            }
+
             //Debug.Log(gameObject.name + " enemy hit -- now has " + m_activeHealth + " health");
             if (m_activeHealth <= 0)
             {

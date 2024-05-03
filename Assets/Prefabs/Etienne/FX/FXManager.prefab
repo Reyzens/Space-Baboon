@@ -89,3 +89,7 @@ MonoBehaviour:
     gameObject: {fileID: 6891219805674916465, guid: 1d53b19ba3faefe43ac45e05916cad6e, type: 3}
     hasAudio: 0
     audioType: 17
+  - type: 2
+    gameObject: {fileID: 4578713651648939799, guid: 4e9975c9b02eae54eb5e1ce583225767, type: 3}
+    hasAudio: 0
+    audioType: 17

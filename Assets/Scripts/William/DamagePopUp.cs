@@ -39,6 +39,7 @@ namespace SpaceBaboon
         {
             m_popUpDmgTextVerticalSpeed = 20.0f;
             transform.position += new Vector3(0,m_popUpDmgTextVerticalSpeed) * Time.deltaTime;
+            //Debug.Log("Timer is at : " + m_popUpDmgTextFadingTimer); 
             m_popUpDmgTextFadingTimer -= Time.deltaTime;
             if(m_popUpDmgTextFadingTimer < 0)
             {
