@@ -33,7 +33,6 @@ namespace SpaceBaboon.Crafting
 
         public bool IsActive { get { return m_isActive; } }
 
-        //Enums
         public enum EResourceType
         {
             Metal, Crystal, Technologie, Count

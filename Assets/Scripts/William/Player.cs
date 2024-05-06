@@ -435,7 +435,6 @@ namespace SpaceBaboon
                 fxManager.PlayAudio(FXSystem.ESFXType.CoinCollected);
             }
 
-
             if (!m_collectibleInventory.ContainsKey(resourceType))
             {
                 m_collectibleInventory.Add(resourceType, amount);
@@ -443,6 +442,12 @@ namespace SpaceBaboon
             else
             {
                 m_collectibleInventory[resourceType] += amount;
+            }
+
+            UISystem.UIManager uiManager = UISystem.UIManager.Instance;
+            if (uiManager != null)
+            {
+                uiManager.UpdateResource(resourceType, m_collectibleInventory[resourceType]);
             }
 
             if (m_DebugMode)
@@ -477,6 +482,11 @@ namespace SpaceBaboon
                     fxManager.PlayAudio(FXSystem.ESFXType.DroppingCoins);
                 }
 
+                UISystem.UIManager uiManager = UISystem.UIManager.Instance;
+                if (uiManager != null)
+                {
+                    uiManager.UpdateResource(resourceType, m_collectibleInventory[resourceType]);
+                }
 
                 if (m_DebugMode) { Debug.Log(resourceType + " amount is : " + m_collectibleInventory[resourceType]); }
                 return true;
@@ -554,7 +564,7 @@ namespace SpaceBaboon
         private bool CheckIfWeaponIsAvailableForCollect(bool collectingState, PlayerWeapon weaponTypeToCheck)
         {
             //Melee weapon is the only type that shouldn't ever collect
-            return (collectingState && weaponTypeToCheck.GetWeaponData().weaponName != WeaponData.EPlayerWeaponType.Melee);
+            return (collectingState && weaponTypeToCheck.GetWeaponData().weaponName != EPlayerWeaponType.Melee);
         }
         #endregion
 
@@ -618,7 +628,7 @@ namespace SpaceBaboon
             Debug.Log("Max Velocity Mult : " + m_speedMultiplierCheat);
         }
 
-        public void SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType type, bool value)
+        public void SetWeaponStatus(WeaponSystem.EPlayerWeaponType type, bool value)
         {
             foreach (KeyValuePair<PlayerWeapon, SWeaponInventoryInfo> weapon in m_weaponInventory)
             {

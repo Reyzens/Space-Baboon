@@ -4,6 +4,16 @@ using UnityEngine;
 
 namespace SpaceBaboon.WeaponSystem
 {
+    public enum EPlayerWeaponType
+    {
+        Melee,
+        FlameThrower,
+        GrenadeLauncher,
+        Shockwave,
+        LaserBeam,
+        Count
+    }
+
     public class PlayerWeapon : Weapon, IStatsEditable
     {
         [SerializeField] protected WeaponData m_weaponData;
@@ -201,6 +211,13 @@ namespace SpaceBaboon.WeaponSystem
                     Debug.Log("Upgraded damage to " + m_damageLevel);
                     break;
             }
+
+            UISystem.UIManager uiManager = UISystem.UIManager.Instance;
+            if (uiManager != null)
+            {
+                uiManager.UpdateWeapon(m_weaponData.weaponName, m_currentLevel);
+            }
+
         }
         private bool SpeedLimitReached()
         {

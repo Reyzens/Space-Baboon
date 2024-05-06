@@ -175,6 +175,13 @@ namespace SpaceBaboon.Crafting
         {
             //Debug.Log("Chosen upgrade is " + m_currentUpgrade);
             m_currentUpgrade = (EWeaponUpgrades)Random.Range(0, (int)EWeaponUpgrades.Count);
+
+            UISystem.UIManager uiManager = UISystem.UIManager.Instance;
+            if (uiManager != null)
+            {
+                uiManager.UpdateCurrentUpgrade(m_currentUpgrade);
+            }
+
             return m_currentUpgrade;
         }
         #endregion

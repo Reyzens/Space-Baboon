@@ -105,27 +105,27 @@ namespace SpaceBaboon
         //----------------------------------
         private void OnMeleeToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.Melee, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.Melee, !evt.newValue);
         }
 
         private void OnFlameThrowerToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.FlameThrower, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.FlameThrower, !evt.newValue);
         }
 
         private void OnGrenadeLauncherToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.GrenadeLauncher, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.GrenadeLauncher, !evt.newValue);
         }
 
         private void OnShockwaveToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.Shockwave, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.Shockwave, !evt.newValue);
         }
 
         private void OnLaserBeamToggled(ChangeEvent<bool> evt)
         {
-            m_player.SetWeaponStatus(WeaponSystem.WeaponData.EPlayerWeaponType.LaserBeam, !evt.newValue);
+            m_player.SetWeaponStatus(WeaponSystem.EPlayerWeaponType.LaserBeam, !evt.newValue);
         }
 
     }

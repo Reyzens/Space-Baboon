@@ -31,3 +31,11 @@
     color: rgb(255, 255, 255);
     -unity-text-align: middle-left;
 }
+
+.skillImage {
+    background-color: rgb(119, 119, 119);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}

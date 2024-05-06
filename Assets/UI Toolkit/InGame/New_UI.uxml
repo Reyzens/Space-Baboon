@@ -63,22 +63,22 @@
         </ui:VisualElement>
         <ui:VisualElement name="InfoWeaponLevels" style="flex-grow: 1; align-self: center; width: 90%;">
             <ui:VisualElement name="Damage" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
-                <ui:VisualElement name="SkillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=b17fccce19be20f44b4b8a131400ad31&amp;type=3#arrow-right@2x&apos;);" />
+                <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponDamage&apos;);" />
                 <ui:Label tabindex="-1" text="Damage" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
                 <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Speed" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
-                <ui:VisualElement name="SkillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityDefaultRuntimeTheme.tss?fileID=-2236324273849735119&amp;guid=dce1dbfd680137446b1f2e4fa1c72f91&amp;type=3#arrow-left@2x&apos;);" />
+                <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponSpeed&apos;);" />
                 <ui:Label tabindex="-1" text="Attack Speed" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
                 <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Range" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
-                <ui:VisualElement name="SkillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-4528830608231651361&amp;guid=b17fccce19be20f44b4b8a131400ad31&amp;type=3#arrow-up@2x&apos;);" />
+                <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponRange&apos;);" />
                 <ui:Label tabindex="-1" text="Range" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
                 <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Zone" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
-                <ui:VisualElement name="SkillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: url(&apos;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1304905567622442630&amp;guid=b17fccce19be20f44b4b8a131400ad31&amp;type=3#arrow-down@2x&apos;);" />
+                <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponZone&apos;);" />
                 <ui:Label tabindex="-1" text="Zone Size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
                 <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
