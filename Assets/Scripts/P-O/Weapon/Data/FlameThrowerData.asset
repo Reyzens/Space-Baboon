@@ -15,8 +15,8 @@ MonoBehaviour:
   maxLevel: 100
   maxRange: 1
   attackZone: 1
-  attackSpeed: 8
-  baseDamage: 0
+  attackSpeed: 4
+  baseDamage: 10
   weaponName: 1
   shootAudioCue: 7
   icon: {fileID: 0}
