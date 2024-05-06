@@ -46,6 +46,10 @@ namespace SpaceBaboon
             instance = this;
             DontDestroyOnLoad(this);
         }
+        private void Start()
+        {
+            StartTimer();
+        }
 
         private void Update()
         {

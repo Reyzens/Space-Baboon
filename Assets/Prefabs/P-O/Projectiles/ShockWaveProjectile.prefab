@@ -219,6 +219,8 @@ MonoBehaviour:
   m_segments: 100
   m_innerRadius: 5
   m_thickness: 0.5
+  m_slowAmount: 0.1
+  m_slowTime: 3
   m_ExplodableData: {fileID: 11400000, guid: 313f63e1825a8034f9984e5bccd54eab, type: 2}
 --- !u!212 &7018469808317747442
 SpriteRenderer:

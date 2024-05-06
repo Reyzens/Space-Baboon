@@ -2,7 +2,6 @@ using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -29,18 +28,18 @@ namespace SpaceBaboon.EnemySystem
         }
     }
 
-    public class EnemySpawner : MonoBehaviour
+    public class EnemySpawner : MonoBehaviour, IGameDifficultyScaling
     {
         //TODO add a scriptable object for data
 
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
-        [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();        
+        [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
 
-        [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();        
+        [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
 
-        [field: Header("SPAWNER LOGIC")]        
+        [field: Header("SPAWNER LOGIC")]
         [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f; // TODO check this out, not sure why the radius is so huge that I need to add negative distance 
         [SerializeField] private float m_spawningDelay = 0.0f;
         [SerializeField] private bool m_isSpawning = true;
@@ -50,10 +49,14 @@ namespace SpaceBaboon.EnemySystem
 
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
+        private float m_lastSpawnTimeUpgrade = 0.0f;
+        private float m_initialSpawnTimer;
+        [SerializeField] private float m_SpawnTimeUpgradeTimer;
+        [SerializeField] private float m_spawnTimeUpgradeRatio;
 
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
-        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();        
+        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
 
 
         private void Awake()
@@ -67,6 +70,7 @@ namespace SpaceBaboon.EnemySystem
             m_cam = Camera.main;
             m_spawningTimer = m_spawningDelay;
             GenerateGrid();
+            m_initialSpawnTimer = m_spawningDelay;
         }
 
         private void Update()
@@ -79,6 +83,8 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_spawnGroup)
                 SpawnGroup(m_enemiesAmountToSpawnOneShot);
+
+            CheckGameTimer();
         }
 
         private void RegisterToGameManager()
@@ -91,7 +97,7 @@ namespace SpaceBaboon.EnemySystem
             foreach (var positions in m_tilemapRef.cellBounds.allPositionsWithin)
             {
                 if (m_tilemapRef.HasTile(positions))
-                {                    
+                {
                     m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(positions));
                 }
             }
@@ -113,7 +119,7 @@ namespace SpaceBaboon.EnemySystem
                 m_spawningTimer = m_spawningDelay;
                 SpawnOneEnemy();
             }
-        }        
+        }
 
         private void SpawnGroup(int numberOfEnemies)
         {
@@ -125,10 +131,10 @@ namespace SpaceBaboon.EnemySystem
         }
 
         private Vector3 FindValidEnemyRandomPos()
-        {             
+        {
             float spawnRadius = CalculateValidSpawnRadius();
             return RandomValidPosOnCircleAroundPlayer(spawnRadius);
-        }   
+        }
 
         private GameObject GetRandomEnemyType()
         {
@@ -192,7 +198,7 @@ namespace SpaceBaboon.EnemySystem
                 int randomIndex = Random.Range(0, positionsNearRadius.Count);
                 validTilePos = m_tilemapRef.CellToWorld(positionsNearRadius[randomIndex]) + new Vector3(0.5f, 0.5f, 0f);
             }
-            else 
+            else
             {
                 Debug.Log("No valid pos found on circle");
             }
@@ -249,7 +255,7 @@ namespace SpaceBaboon.EnemySystem
         public void ToggleSpawnByEnemyType(EEnemyTypes type, bool value)
         {
             //little gymnastics because List<Structs> can't be directly modified
-            
+
             EnemyToPool currentEnemy = m_pooledEnemies[(int)type];
             currentEnemy.canSpawn = value;
             m_pooledEnemies[(int)type] = currentEnemy;
@@ -260,12 +266,26 @@ namespace SpaceBaboon.EnemySystem
         {
             Debug.Log(m_pooledEnemies[(int)type].enemyPrefab.name + "   " + amount);
 
-            
+
             for (int i = 0; i < amount; i++)
             {
                 Vector2 spawnWorldPos = FindValidEnemyRandomPos();
                 m_enemyPool.Spawn(m_pooledEnemies[(int)type].enemyPrefab, spawnWorldPos);
             }
+        }
+
+        public void CheckGameTimer()
+        {
+            if (GameManager.Instance.GameTimer - m_lastSpawnTimeUpgrade > m_SpawnTimeUpgradeTimer)
+            {
+                Debug.Log("It has been 5 seconds");
+                m_lastSpawnTimeUpgrade = GameManager.Instance.GameTimer;
+                m_spawningDelay -= m_spawnTimeUpgradeRatio * m_spawningDelay;
+            }
+        }
+        public void UpdateStats()
+        {
+            throw new System.NotImplementedException();
         }
         #endregion
     }

@@ -165,9 +165,8 @@ namespace SpaceBaboon.EnemySystem
         // TODO this can be generalized to the parent most likely
         public override void OnDamageTaken(float damage)
         {
-            m_activeHealth -= damage;
-            //SpriteFlashing();
-
+            m_activeHealth -= damage;            
+            SpriteFlashRed();
             //DamagePopUp.Create(this.transform.position, damage);
             GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemyDamagePopUp, transform.position);
             var script = vfx.GetComponent<FXSystem.AnimateDamagePopUp>();
@@ -183,7 +182,7 @@ namespace SpaceBaboon.EnemySystem
                 m_parentPool.UnSpawn(gameObject);
                 return;
             }
-            SpriteFlashRed(m_spriteFlashTimer);
+            
         }
 
         //// TODO this can be generalized to the parent :: Done

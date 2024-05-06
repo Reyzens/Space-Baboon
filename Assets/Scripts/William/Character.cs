@@ -25,6 +25,7 @@ namespace SpaceBaboon
 
         //Timer
         protected float m_spriteFlashTimer = 0.5f;
+        private const float FLASH_TIMER_RESET_VALUE = 0.5f;
 
         //Cheats related
         //private bool m_isInvincible = false; // TODO make it more genral also
@@ -55,6 +56,7 @@ namespace SpaceBaboon
         {
             if (m_spriteFlashTimer > 0)
             {
+                //Debug.Log("In Handle " + m_spriteFlashTimer);
                 m_spriteFlashTimer -= Time.deltaTime;
 
                 if (m_spriteFlashTimer <= 0)
@@ -89,10 +91,10 @@ namespace SpaceBaboon
             }
         }   
         
-        protected void SpriteFlashRed(float duration)
+        protected void SpriteFlashRed()
         {
             m_renderer.material.color = Color.red;
-            m_spriteFlashTimer = duration;
+            m_spriteFlashTimer = FLASH_TIMER_RESET_VALUE;
         }
 
         public virtual void OnDamageTaken(float values) {}
