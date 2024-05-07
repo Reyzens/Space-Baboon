@@ -25,7 +25,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnUpdate()
         {
-            if (m_basicAttacksDone == m_stateMachine.UniqueData.basicAttacksBeforeSpecial)
+            if (m_basicAttacksDone == m_stateMachine.UniqueData.basicAttacksNeededBeforeSpecial)
             {
                 if (!m_stateMachine.SpecialAttackReady)
                 {

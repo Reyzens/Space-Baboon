@@ -23,7 +23,6 @@ namespace SpaceBaboon.EnemySystem
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
-
         public int CurrentBossIndex { get; private set; }
 
         protected override void CreatePossibleStates()
@@ -158,25 +157,14 @@ namespace SpaceBaboon.EnemySystem
 
             m_renderer.sprite = UniqueData.bosses[CurrentBossIndex].sprite;            
             m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
-
-
-
-            //SpriteRenderer specialAttackProjectileRenderer = SpecialAttackProjectilePrefab.GetComponent<SpriteRenderer>();
-            //specialAttackProjectileRenderer.sprite = UniqueData.bosses[m_currentBossIndex].specialProjectile.sprite;
-            //specialAttackProjectileRenderer.color = UniqueData.bosses[m_currentBossIndex].specialProjectile.color;
-
         }
 
         public override void Activate(Vector2 pos, GenericObjectPool pool)
-        {
-            
+        {            
             ResetValues(pos);
             SetComponents(true);
             m_parentPool = pool;
             SetToRandomBossType();
         }
-
-
-
     }
 }

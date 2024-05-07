@@ -17,22 +17,14 @@ namespace SpaceBaboon.EnemySystem
     {
         public EBossTypes bossType;
         public Sprite sprite;
-        public Color color;        
-        //public SBossSpecialProjectile specialProjectile;
+        public Color color;                
         public GameObject specialProjectilePrefab;
     }
-
-    //[System.Serializable]
-    //public struct SBossSpecialProjectile
-    //{        
-    //    public Sprite sprite;
-    //    public Color color;
-    //}
 
     [CreateAssetMenu(fileName = "NewBossEnemyData", menuName = "SpaceBaboon/ScriptableObjects/BossEnemyData")]
     public class BossEnemyData : EnemyData
     {
-        [Header("EnemyUniqueStats")] 
+        [Header("BossEnemyGeneralUniqueStats")] 
         public List<SBoss> bosses;        
         public float possibleAggroRange;
         public float playerAggroRange;
@@ -43,6 +35,6 @@ namespace SpaceBaboon.EnemySystem
         public float specialAttackDelay;
         public float specialAttackChargeDelay;        
         public float basicAttackDelay;
-        public int basicAttacksBeforeSpecial;
+        public int basicAttacksNeededBeforeSpecial;
     }
 }
