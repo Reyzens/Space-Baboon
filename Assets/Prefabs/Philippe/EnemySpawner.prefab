@@ -75,11 +75,14 @@ MonoBehaviour:
   - {fileID: 7720092425605013616, guid: dd25fd16dbf5318478d286ef18647e55, type: 3}
   - {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   m_spawnRadiusFromScreenCorner: -50
-  m_spawningDelay: 1
+  m_spawningDelay: 5
   m_isSpawning: 1
   m_enemiesAmountToSpawnOneShot: 0
   m_spawnGroup: 0
   m_SpawnTimeUpgradeTimer: 60
-  m_spawnTimeUpgradeRatio: 0.1
+  m_spawnTimeUpgradeRatio: 0.05
+  m_amountSpawnedUpgradeTimer: 30
+  m_spawnEventTimer: 45
+  m_spawnEventAmountMultiplier: 5
   m_tilemapRef: {fileID: 0}
   m_obstacleTilemapRef: {fileID: 0}
