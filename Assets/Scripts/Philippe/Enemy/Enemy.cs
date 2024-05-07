@@ -2,15 +2,17 @@ using SpaceBaboon.PoolingSystem;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+//using UnityEngine.Tilemaps;
 
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable, IBaitable
-    {
-        
+    {        
         public event Action m_eventEnemyDeath = delegate { };
 
         private EnemyData m_enemyUniqueData;
+
+        [SerializeField] private float m_healthDropChance = 0.05f;
 
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
@@ -42,6 +44,9 @@ namespace SpaceBaboon.EnemySystem
         protected float m_navMeshAgentInitialSpeed;
         protected float m_currentNavAgentSpeed;
 
+        //private Tilemap m_tilemapRef;
+        //private Tilemap m_obstacleTilemapRef;
+
         protected override void Awake()
         {
             base.Awake();
@@ -65,6 +70,7 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
             m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
             m_currentDestination = m_player.transform;
+            //m_tilemapRef = m_enemySpawner.m_enemyTile
         }
 
         protected override void Update()
@@ -79,6 +85,8 @@ namespace SpaceBaboon.EnemySystem
             if (!m_contactAttackReady)
                 ReadyContactAttack();
             StatusUpdate();
+
+            //MoveEnemyCloser();
         }
 
         protected virtual void FixedUpdate()
@@ -188,14 +196,40 @@ namespace SpaceBaboon.EnemySystem
             
         }
 
-      
+        private void MoveEnemyCloser()
+        {
+            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss 
+                && m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser) 
+            {
+            
 
-        //// TODO this can be generalized to the parent :: Done
-        //private void SpriteFlashing()
-        //{
-        //    m_enemyFlashingTimer = 0.2f;
-        //    m_renderer.material.color = Color.red;
-        //}
+            
+            
+            
+            }
+
+
+
+
+        }
+
+        private void HealthSpawner()
+        {
+            Unity.Mathematics.Random random = new Unity.Mathematics.Random();
+            double randomNumber = random.NextDouble();
+            if (randomNumber < m_healthDropChance)
+            {
+                // Object should spawn
+                Console.WriteLine("Object spawned!");
+            }
+            else
+            {
+                // Object should not spawn
+                Console.WriteLine("No object spawned.");
+            }
+
+        }
+
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
