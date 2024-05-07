@@ -76,7 +76,7 @@ namespace SpaceBaboon
             if (m_craftingPuzzleEnable == true)
             {
                 m_currentkill += 1;
-                float percentage = (float)m_currentkill / m_killneeded;
+                float percentage = (float)m_currentkill / m_killneeded * 1.8f;
                 m_blueCircleFiller.transform.localScale = new Vector3(percentage, percentage, percentage);
 
             }
@@ -88,6 +88,7 @@ namespace SpaceBaboon
             {
                 m_blueCircle.gameObject.SetActive(false);
                 m_circleMask.gameObject.SetActive(false);
+                m_blueCircleFiller.gameObject.SetActive(false);
                 foreach (var dropPoint in m_dropPointList)
                 {
                     dropPoint.gameObject.SetActive(true);
