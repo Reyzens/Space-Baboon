@@ -7,12 +7,12 @@ using UnityEngine.AI;
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable, IBaitable
-    {        
+    {
         public event Action m_eventEnemyDeath = delegate { };
 
         private EnemyData m_enemyUniqueData;
 
-        [SerializeField] private float m_healthDropChance = 0.05f;
+        [SerializeField] private float m_healthDropChance = 5f;
 
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
@@ -84,7 +84,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (!m_contactAttackReady)
                 ReadyContactAttack();
-            
+
             StatusUpdate();
 
             if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
@@ -178,7 +178,7 @@ namespace SpaceBaboon.EnemySystem
         // TODO this can be generalized to the parent most likely
         public override void OnDamageTaken(float damage)
         {
-            m_activeHealth -= damage;            
+            m_activeHealth -= damage;
             SpriteFlashRed();
             //DamagePopUp.Create(this.transform.position, damage);
             GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemyDamagePopUp, transform.position);
@@ -192,12 +192,12 @@ namespace SpaceBaboon.EnemySystem
             if (m_activeHealth <= 0)
             {
                 m_eventEnemyDeath?.Invoke();
-                
-                m_parentPool.UnSpawn(gameObject);
+                HealthSpawner();
 
+                m_parentPool.UnSpawn(gameObject);
                 return;
             }
-            
+
         }
 
         private void MoveEnemyCloser()
@@ -211,13 +211,12 @@ namespace SpaceBaboon.EnemySystem
 
         private void HealthSpawner()
         {
-            Unity.Mathematics.Random random = new Unity.Mathematics.Random();
-            double randomNumber = random.NextDouble();
+            float randomNumber = UnityEngine.Random.Range(0f, 100f);
             if (randomNumber < m_healthDropChance)
             {
                 // Object should spawn
                 Console.WriteLine("Object spawned!");
-                GameManager.Instance.m_ressourceManager.SpawnHealingHeart(transform);
+                GameManager.Instance.m_ressourceManager.SpawnHealingHeart(transform.position);
             }
             else
             {

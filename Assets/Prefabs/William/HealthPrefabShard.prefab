@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6310279386178889593}
   - component: {fileID: 3743448136509868286}
   - component: {fileID: 6410999310996572129}
+  - component: {fileID: 4161086301640580065}
   m_Layer: 0
   m_Name: HealthPrefabShard
   m_TagString: Untagged
@@ -120,3 +121,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.040955257}
   serializedVersion: 2
   m_Radius: 0.081347086
+--- !u!114 &4161086301640580065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068567013267597208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d6e0f723573e34b85aa1392dd4bd11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_resourceData: {fileID: 11400000, guid: e11c7e833ec50874bbb2a7a610668856, type: 2}
+  m_timeBeforeAutoCollect: 3
+  m_autoCollectTravelSpeed: 5
+  m_maxVelocity: 40
+  m_MaxStuckSafetyTimer: 15

@@ -84,6 +84,7 @@ namespace SpaceBaboon
                 {
                     m_rotatingObjects.Keys.ElementAt(i).transform.RotateAround(transform.position, Vector3.forward, m_currentRotationSpeed * Time.deltaTime);
                 }
+                m_rotatingObjects.Keys.ElementAt(i).transform.eulerAngles = new Vector3(m_rotatingObjects.Keys.ElementAt(i).transform.eulerAngles.x, m_rotatingObjects.Keys.ElementAt(i).transform.eulerAngles.y, 0f);
             }
             //foreach (KeyValuePair<GameObject, GameObject> item in m_rotatingObjects)
             //{
