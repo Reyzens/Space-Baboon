@@ -8,8 +8,7 @@ using SpaceBaboon.PoolingSystem;
 namespace SpaceBaboon.EnemySystem
 {
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
-    {        
-        [field: SerializeField] public GameObject SpecialAttackProjectilePrefab { get; private set; }        
+    {                        
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
         public Player Player { get; private set; }     
@@ -54,7 +53,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;   
 
-            if(Input.GetKeyDown(KeyCode.B))
+            if(Input.GetKeyDown(KeyCode.B)) //TODO to remove, for testing purposes
             {
                 OnDamageTaken(1000);
             }
@@ -159,10 +158,6 @@ namespace SpaceBaboon.EnemySystem
 
             m_renderer.sprite = UniqueData.bosses[CurrentBossIndex].sprite;            
             m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
-
-
-
-
 
 
 

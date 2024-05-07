@@ -35,7 +35,7 @@ namespace SpaceBaboon.Crafting
 
         public enum EResourceType
         {
-            Metal, Crystal, Technologie, Count
+            Metal, Crystal, Technologie, Heart, Count
         }
 
         public static Dictionary<EResourceType, ResourceData> GetResourcesData()
