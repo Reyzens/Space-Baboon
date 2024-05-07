@@ -84,11 +84,12 @@ namespace SpaceBaboon.EnemySystem
 
             if (!m_contactAttackReady)
                 ReadyContactAttack();
+            
             StatusUpdate();
 
             if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
             {
-                MoveEnemyCloser();
+                //MoveEnemyCloser();
             }
         }
 
