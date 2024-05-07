@@ -505,22 +505,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -771582896, guid: 83bf93558b0ec514a95bd6edcd67f7ac, type: 3}
-    - target: {fileID: 6268794346156097533, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Radius
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 6268794346156097533, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6268794346156097533, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6268794346156097533, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.02
-      objectReference: {fileID: 0}
     - target: {fileID: 6447914277967854178, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_SortingOrder
       value: 5
@@ -633,15 +617,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].canSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[1].canSpawn
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
-      propertyPath: m_pooledEnemies.Array.data[3].canSpawn
+      propertyPath: m_pooledEnemies.Array.data[2].canSpawn
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
+      propertyPath: m_pooledEnemies.Array.data[3].canSpawn
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x

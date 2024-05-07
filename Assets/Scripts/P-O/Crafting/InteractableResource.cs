@@ -7,26 +7,26 @@ namespace SpaceBaboon.Crafting
     public class InteractableResource : MonoBehaviour, IPoolable
     {
         //Serializable
-        [SerializeField] private ResourceData m_resourceData;
-        [SerializeField] private GameObject m_outline;
+        [SerializeField] protected ResourceData m_resourceData;
+        [SerializeField] protected GameObject m_outline;
 
         //Private variables
-        private bool m_isBeingCollected = false;
-        private float m_currentCooldown = 0;
-        private Player m_collectingPlayer;
-        private GenericObjectPool m_shardPoolRef;
-        private float shardsSpawnStrenght = 20f;
-        private GameObject m_collectingWeapon;
-        private bool m_isInCollectRange = false;
-        private float m_collectRange;
-        private Color m_rendereInitialColor;
+        protected bool m_isBeingCollected = false;
+        protected float m_currentCooldown = 0;
+        protected Player m_collectingPlayer;
+        protected GenericObjectPool m_shardPoolRef;
+        protected float shardsSpawnStrenght = 20f;
+        protected GameObject m_collectingWeapon;
+        protected bool m_isInCollectRange = false;
+        protected float m_collectRange;
+        protected Color m_rendereInitialColor;
 
         //Ipoolable variables
-        private bool m_isActive = false;
-        private ObjectPool m_parentPool;
-        private SpriteRenderer m_renderer;
-        private CircleCollider2D m_circleCollider;
-        private CapsuleCollider2D m_capsuleCollider;
+        protected bool m_isActive = false;
+        protected ObjectPool m_parentPool;
+        protected SpriteRenderer m_renderer;
+        protected CircleCollider2D m_circleCollider;
+        protected CapsuleCollider2D m_capsuleCollider;
 
         //Static variables
         static Dictionary<EResourceType, ResourceData> Resources = new Dictionary<EResourceType, ResourceData>();
@@ -54,7 +54,7 @@ namespace SpaceBaboon.Crafting
                 Resources.Add(m_resourceData.m_resourceType, m_resourceData);
             }
         }
-        private void Start()
+        protected virtual void Start()
         {
             m_outline.SetActive(false);
             m_collectRange = GameManager.Instance.Player.GetPlayerCollectRange();
@@ -85,7 +85,7 @@ namespace SpaceBaboon.Crafting
         }
 
         #region CollectingLogic
-        public void Collect(Player collectingPlayer)
+        public virtual void Collect(Player collectingPlayer)
         {
             if (!m_isBeingCollected)
             {

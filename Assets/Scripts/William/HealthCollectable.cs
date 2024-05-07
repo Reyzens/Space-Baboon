@@ -1,22 +1,18 @@
 using SpaceBaboon.Crafting;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace SpaceBaboon
 {
     public class HealthCollectable : InteractableResource
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override void Start()
         {
-        
+            m_collectRange = GameManager.Instance.Player.GetPlayerCollectRange();
+            m_circleCollider.radius = m_collectRange;
+            m_rendereInitialColor = m_renderer.color;
         }
-
-        // Update is called once per frame
-        void Update()
+        public override void Collect(Player collectingPlayer)
         {
-        
+
         }
     }
 }
