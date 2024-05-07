@@ -221,6 +221,7 @@ namespace SpaceBaboon.EnemySystem
             {
                 // Object should spawn
                 Console.WriteLine("Object spawned!");
+                GameManager.Instance.m_ressourceManager.SpawnHealingHeart(transform);
             }
             else
             {
