@@ -7,11 +7,12 @@ using UnityEngine.AI;
 namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable, IBaitable
-    {
-        
+    {        
         public event Action m_eventEnemyDeath = delegate { };
 
         private EnemyData m_enemyUniqueData;
+
+        [SerializeField] private float m_healthDropChance = 0.05f;
 
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
@@ -201,6 +202,7 @@ namespace SpaceBaboon.EnemySystem
                 && m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser) 
             {
             
+
             
             
             
@@ -211,7 +213,22 @@ namespace SpaceBaboon.EnemySystem
 
         }
 
+        private void HealthSpawner()
+        {
+            Unity.Mathematics.Random random = new Unity.Mathematics.Random();
+            double randomNumber = random.NextDouble();
+            if (randomNumber < m_healthDropChance)
+            {
+                // Object should spawn
+                Console.WriteLine("Object spawned!");
+            }
+            else
+            {
+                // Object should not spawn
+                Console.WriteLine("No object spawned.");
+            }
 
+        }
 
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
