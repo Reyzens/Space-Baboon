@@ -142,7 +142,7 @@ namespace SpaceBaboon.EnemySystem
             m_spawnGroup = false;
         }
 
-        private Vector3 FindValidEnemyRandomPos()
+        public Vector3 FindValidEnemyRandomPos()
         {
             float spawnRadius = CalculateValidSpawnRadius();
             return RandomValidPosOnCircleAroundPlayer(spawnRadius);
