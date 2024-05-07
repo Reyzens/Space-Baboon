@@ -23,6 +23,10 @@ namespace SpaceBaboon
         private GameObject m_zoneCircle;
         [SerializeField]
         private GameObject m_blueCircle;
+        [SerializeField]
+        private GameObject m_circleMask;
+        [SerializeField]
+        private GameObject m_blueCircleFiller;
 
 
 
@@ -72,6 +76,9 @@ namespace SpaceBaboon
             if (m_craftingPuzzleEnable == true)
             {
                 m_currentkill += 1;
+                float percentage = (float)m_currentkill / m_killneeded;
+                m_blueCircleFiller.transform.localScale = new Vector3(percentage, percentage, percentage);
+
             }
         }
 
@@ -80,7 +87,7 @@ namespace SpaceBaboon
             if(m_craftingPuzzleEnable == false)
             {
                 m_blueCircle.gameObject.SetActive(false);
-                //m_zoneCircle.gameObject.SetActive(false);
+                m_circleMask.gameObject.SetActive(false);
                 foreach (var dropPoint in m_dropPointList)
                 {
                     dropPoint.gameObject.SetActive(true);
