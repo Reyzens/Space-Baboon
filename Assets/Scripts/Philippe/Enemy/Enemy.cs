@@ -80,7 +80,7 @@ namespace SpaceBaboon.EnemySystem
             if (!m_contactAttackReady)
                 ReadyContactAttack();
             StatusUpdate();
-            
+
             //MoveEnemyCloser();
         }
 
@@ -169,7 +169,7 @@ namespace SpaceBaboon.EnemySystem
         // TODO this can be generalized to the parent most likely
         public override void OnDamageTaken(float damage)
         {
-            m_activeHealth -= damage;            
+            m_activeHealth -= damage;
             SpriteFlashRed();
             //DamagePopUp.Create(this.transform.position, damage);
             GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemyDamagePopUp, transform.position);
@@ -186,12 +186,12 @@ namespace SpaceBaboon.EnemySystem
                 m_parentPool.UnSpawn(gameObject);
                 return;
             }
-            
+
         }
 
         private void MoveEnemyCloser()
         {
-            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss) 
+            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
             {
 
 
@@ -201,7 +201,7 @@ namespace SpaceBaboon.EnemySystem
                 //Debug.Log("We in");
             }
         }
-        
+
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
@@ -280,12 +280,12 @@ namespace SpaceBaboon.EnemySystem
 
         public void Deactivate()
         {
-            SetComponents(false);            
+            SetComponents(false);
         }
 
         protected void ResetValues(Vector2 pos)
         {
-            transform.position = pos;            
+            transform.position = pos;
         }
 
         protected virtual void SetComponents(bool value)

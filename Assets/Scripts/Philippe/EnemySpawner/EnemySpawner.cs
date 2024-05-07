@@ -54,8 +54,11 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private float m_SpawnTimeUpgradeTimer;
         [SerializeField] private float m_spawnTimeUpgradeRatio;
         private int m_amountOfEnemySpawned = 1;
-        private float m_lastAmountSpawnUpgrade;
+        private float m_lastAmountSpawnUpgrade = 0.0f;
         [SerializeField] private float m_amountSpawnedUpgradeTimer;
+        private float m_lastSpawnEvent = 0.0f;
+        [SerializeField] private float m_spawnEventTimer;
+        [SerializeField] private int m_spawnEventAmountMultiplier;
 
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
@@ -295,6 +298,18 @@ namespace SpaceBaboon.EnemySystem
                 m_lastAmountSpawnUpgrade = GameManager.Instance.GameTimer;
                 m_amountOfEnemySpawned++;
             }
+            if (GameManager.Instance.GameTimer - m_lastSpawnEvent > m_spawnEventTimer)
+            {
+                //Debug.Log("Amount of enemy spawned is " + m_amountOfEnemySpawned);
+                m_lastSpawnEvent = GameManager.Instance.GameTimer;
+                SpawnEvent();
+            }
+        }
+        private void SpawnEvent()
+        {
+            //-1 to avoid to spawn boss
+            EEnemyTypes enemyType = (EEnemyTypes)Random.Range(0, (int)EEnemyTypes.Count - 1);
+            CheatSpawnGroup(enemyType, (m_spawnEventAmountMultiplier * m_amountOfEnemySpawned));
         }
         public void UpdateStats()
         {
