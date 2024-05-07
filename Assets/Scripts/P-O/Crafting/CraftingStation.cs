@@ -240,7 +240,7 @@ namespace SpaceBaboon.Crafting
             for (int i = 0; i < m_resourceDropPoints.Count; i++)
             {
                 //Use modulo to have the correct resource index no matter the iteration order
-                int resourceIndex = (initialResourceIndex + i) % (int)InteractableResource.EResourceType.Count;
+                int resourceIndex = (initialResourceIndex + i) % ((int)InteractableResource.EResourceType.Count - 1);
 
                 //Randomly select an amount to give to the drop point
                 currentResourceAllocation = Random.Range(0, amountOfResourceNeeded);
