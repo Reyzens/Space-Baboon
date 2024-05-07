@@ -205,29 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: a2f5a00d6232c6d469dc09509ff1fe64, type: 2}
-  <SpecialAttackProjectilePrefab>k__BackingField: {fileID: 4009167507871816164, guid: 4e76a9ed70747d4448016550d17e2702, type: 3}
-  <Bosses>k__BackingField:
-  - bossType: 0
-    sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-    color: {r: 0, g: 1, b: 0.9687028, a: 0}
-    specialProjectile:
-      bossType: 0
-      sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-      color: {r: 0, g: 1, b: 0.96862745, a: 0}
-  - bossType: 1
-    sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-    color: {r: 1, g: 0.5280086, b: 0, a: 0}
-    specialProjectile:
-      bossType: 1
-      sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-      color: {r: 1, g: 0.5294118, b: 0, a: 0}
-  - bossType: 2
-    sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-    color: {r: 0.6509434, g: 0.50092405, b: 0.3224012, a: 0}
-    specialProjectile:
-      bossType: 2
-      sprite: {fileID: -2413806693520163455, guid: 5e5211f5a2ef240419a8534b3a90aad3, type: 3}
-      color: {r: 0.6509804, g: 0.5019608, b: 0.32156864, a: 0}
 --- !u!1 &4239082960601155183
 GameObject:
   m_ObjectHideFlags: 0

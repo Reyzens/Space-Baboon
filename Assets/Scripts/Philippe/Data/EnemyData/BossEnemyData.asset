@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   characterName: Boss
-  defaultHealth: 200
+  defaultHealth: 500
   sprite: {fileID: 0}
   prefab: {fileID: 0}
   defaultAcceleration: 20

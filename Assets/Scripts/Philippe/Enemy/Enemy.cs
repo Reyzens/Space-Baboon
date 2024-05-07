@@ -11,6 +11,8 @@ namespace SpaceBaboon.EnemySystem
 
         private EnemyData m_enemyUniqueData;
 
+        [SerializeField] private float m_healthDropChance = 0.05f;
+
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
@@ -78,6 +80,8 @@ namespace SpaceBaboon.EnemySystem
             if (!m_contactAttackReady)
                 ReadyContactAttack();
             StatusUpdate();
+            
+            //MoveEnemyCloser();
         }
 
         protected virtual void FixedUpdate()
@@ -185,12 +189,19 @@ namespace SpaceBaboon.EnemySystem
             
         }
 
-        //// TODO this can be generalized to the parent :: Done
-        //private void SpriteFlashing()
-        //{
-        //    m_enemyFlashingTimer = 0.2f;
-        //    m_renderer.material.color = Color.red;
-        //}
+        private void MoveEnemyCloser()
+        {
+            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss) 
+            {
+
+
+
+
+
+                //Debug.Log("We in");
+            }
+        }
+        
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
@@ -198,6 +209,28 @@ namespace SpaceBaboon.EnemySystem
         public void UnregisterPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath = null;
+        }
+
+        private void HealthSpawner()
+        {
+            Unity.Mathematics.Random random = new Unity.Mathematics.Random();
+            double randomNumber = random.NextDouble();
+            if (randomNumber < m_healthDropChance)
+            {
+                // Object should spawn
+                Console.WriteLine("Object spawned!");
+            }
+            else
+            {
+                // Object should not spawn
+                Console.WriteLine("No object spawned.");
+            }
+
+        }
+
+        public EEnemyTypes GetEnemyType()
+        {
+            return (EEnemyTypes)(m_enemyUniqueData?.enemyType);
         }
 
         #region HitBox
@@ -247,12 +280,12 @@ namespace SpaceBaboon.EnemySystem
 
         public void Deactivate()
         {
-            SetComponents(false);
+            SetComponents(false);            
         }
 
         protected void ResetValues(Vector2 pos)
         {
-            transform.position = pos;
+            transform.position = pos;            
         }
 
         protected virtual void SetComponents(bool value)
