@@ -8,6 +8,7 @@ namespace SpaceBaboon.EnemySystem
         [Header("EnemyUniqueStats")]   
         public EEnemyTypes enemyType;
         public int defaultContactAttackDamage;
-        public float defaultContactAttackDelay;            
+        public float defaultContactAttackDelay;
+        public float distanceBeforeTeleportingCloser;
     }
 }

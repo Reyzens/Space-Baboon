@@ -2,6 +2,7 @@ using SpaceBaboon.PoolingSystem;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+//using UnityEngine.Tilemaps;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -42,6 +43,9 @@ namespace SpaceBaboon.EnemySystem
         protected float m_navMeshAgentInitialSpeed;
         protected float m_currentNavAgentSpeed;
 
+        //private Tilemap m_tilemapRef;
+        //private Tilemap m_obstacleTilemapRef;
+
         protected override void Awake()
         {
             base.Awake();
@@ -65,6 +69,7 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
             m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
             m_currentDestination = m_player.transform;
+            //m_tilemapRef = m_enemySpawner.m_enemyTile
         }
 
         protected override void Update()
@@ -79,6 +84,8 @@ namespace SpaceBaboon.EnemySystem
             if (!m_contactAttackReady)
                 ReadyContactAttack();
             StatusUpdate();
+
+            //MoveEnemyCloser();
         }
 
         protected virtual void FixedUpdate()
@@ -188,14 +195,24 @@ namespace SpaceBaboon.EnemySystem
             
         }
 
-      
+        private void MoveEnemyCloser()
+        {
+            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss 
+                && m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser) 
+            {
+            
+            
+            
+            
+            }
 
-        //// TODO this can be generalized to the parent :: Done
-        //private void SpriteFlashing()
-        //{
-        //    m_enemyFlashingTimer = 0.2f;
-        //    m_renderer.material.color = Color.red;
-        //}
+
+
+
+        }
+
+
+
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
