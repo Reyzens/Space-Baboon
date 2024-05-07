@@ -140,6 +140,18 @@ PrefabInstance:
       value: Main Camera (1)
       objectReference: {fileID: 0}
     - target: {fileID: 5445623368768414330, guid: d6fe71c696771d14686b4dfd4c81560d, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445623368768414330, guid: d6fe71c696771d14686b4dfd4c81560d, type: 3}
+      propertyPath: far clip plane
+      value: 1000.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445623368768414330, guid: d6fe71c696771d14686b4dfd4c81560d, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5445623368768414330, guid: d6fe71c696771d14686b4dfd4c81560d, type: 3}
       propertyPath: orthographic size
       value: 40
       objectReference: {fileID: 0}
@@ -455,10 +467,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2695686693279084500, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
+    - target: {fileID: 4224924088870543678, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
       value: PlayerSprite
       objectReference: {fileID: 0}
+    - target: {fileID: 6116818984849239150, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
+    - target: {fileID: 6447914277967854178, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0e72bf40f4f77cd478305dc4b0554e69, type: 2}
     - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_LocalScale.x
       value: 5
@@ -483,6 +511,14 @@ PrefabInstance:
       propertyPath: m_playerCam
       value: 
       objectReference: {fileID: 1559854409}
+    - target: {fileID: 7996840314796064036, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
+    - target: {fileID: 8314163009115154887, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

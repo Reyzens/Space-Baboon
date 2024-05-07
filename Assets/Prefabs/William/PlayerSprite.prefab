@@ -464,7 +464,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2ff3f3cc0d9471b4c8c50848eb90e2a6, type: 2}
+  - {fileID: 2100000, guid: 0e72bf40f4f77cd478305dc4b0554e69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1253,7 +1253,7 @@ PrefabInstance:
     - target: {fileID: 5311949026823479907, guid: f157941b5a94feb49b63d34dea48f4f5, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     - target: {fileID: 9023977439697920776, guid: f157941b5a94feb49b63d34dea48f4f5, type: 3}
       propertyPath: m_Name
       value: FlameThrower
@@ -1350,7 +1350,7 @@ PrefabInstance:
     - target: {fileID: 9201775999833546678, guid: 02147b4e5d6d1b343bc01cb8d4278548, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1387,7 +1387,7 @@ PrefabInstance:
     - target: {fileID: 1620488025406527433, guid: d50465d15e9430843bec8273098db17f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     - target: {fileID: 4257277738590854236, guid: d50465d15e9430843bec8273098db17f, type: 3}
       propertyPath: m_owner
       value: 
@@ -1532,7 +1532,7 @@ PrefabInstance:
     - target: {fileID: 1268656246560152080, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     - target: {fileID: 3250909844759871497, guid: 5d6f3f78473e4ac4f9d721503a6a183f, type: 3}
       propertyPath: m_owner
       value: 
@@ -1585,7 +1585,7 @@ PrefabInstance:
     - target: {fileID: 3441436776018062550, guid: a31d008be74caec4881acf034eb34361, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
+      objectReference: {fileID: 2100000, guid: 921724ec1d364a841865f5828ea380f7, type: 2}
     - target: {fileID: 4468578298048157157, guid: a31d008be74caec4881acf034eb34361, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
