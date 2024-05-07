@@ -8,6 +8,7 @@ namespace SpaceBaboon
     public class ResourceSpawner : MonoBehaviour
     {
         [SerializeField] private List<GameObject> m_resourcesPrefab;
+        [SerializeField] private List<GameObject> m_healingCollectable;
         //[SerializeField] private List<ObjectPool> m_resourcePool;
         //[SerializeField] private GameObject m_map;
         //[SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f;
@@ -25,6 +26,7 @@ namespace SpaceBaboon
         private Dictionary<GameObject, ObjectPool> m_resourceDictionary = new Dictionary<GameObject, ObjectPool>();
         private List<GameObject> m_resourceShardList = new List<GameObject>();
         private GenericObjectPool m_shardPool = new GenericObjectPool();
+        private GenericObjectPool m_healingCollectablePool = new GenericObjectPool();
         //private SMapData m_mapData;
 
 
@@ -76,6 +78,10 @@ namespace SpaceBaboon
 
             m_shardPool.SetPoolStartingSize(m_poolSize);
             m_shardPool.CreatePool(m_resourceShardList, "Resource shard");
+
+
+            m_healingCollectablePool.SetPoolStartingSize(m_poolSize);
+            m_healingCollectablePool.CreatePool(m_healingCollectable, "Healing shard");
         }
         private void DictionarySetUp()
         {
@@ -106,6 +112,12 @@ namespace SpaceBaboon
                 m_resourcesWeightDictionary.Add(resource.Key, normalizedReciprocal);
             }
         }
+
+        public void SpawnHealingHeart(Transform enemy)
+        {
+            m_healingCollectablePool.Spawn(m_healingCollectable[0],enemy.transform.position);
+        }
+
         #region ResourceSpawning
         private void GenerateGrid()
         {
