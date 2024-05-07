@@ -205,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: a2f5a00d6232c6d469dc09509ff1fe64, type: 2}
+  m_healthDropChance: 0.05
 --- !u!1 &4239082960601155183
 GameObject:
   m_ObjectHideFlags: 0
