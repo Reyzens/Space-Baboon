@@ -48,7 +48,6 @@ MonoBehaviour:
   - {fileID: 670117469720891624, guid: ca76a0ac5f06cf149a3027c4217ff344, type: 3}
   - {fileID: 7374271548386975700, guid: 47e07581783d21042a0b2af3eda73804, type: 3}
   - {fileID: 2134457193293305550, guid: 725d93115273c3340a2a70d9192274bc, type: 3}
-  - {fileID: 9068567013267597208, guid: 71233944bc6ea8c48a4a3a16fbf871fb, type: 3}
   m_spawningDelay: 1
   m_spawningTimer: 0
   m_poolSize: 50
