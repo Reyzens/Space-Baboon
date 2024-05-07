@@ -86,7 +86,10 @@ namespace SpaceBaboon.EnemySystem
                 ReadyContactAttack();
             StatusUpdate();
 
-            //MoveEnemyCloser();
+            if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
+            {
+                MoveEnemyCloser();
+            }
         }
 
         protected virtual void FixedUpdate()
@@ -198,19 +201,11 @@ namespace SpaceBaboon.EnemySystem
 
         private void MoveEnemyCloser()
         {
-            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss 
-                && m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser) 
+            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
             {
-            
-
-            
-            
-            
+                Vector3 teleportPos = m_enemySpawner.FindValidEnemyRandomPos();
+                transform.position = teleportPos;
             }
-
-
-
-
         }
 
         private void HealthSpawner()

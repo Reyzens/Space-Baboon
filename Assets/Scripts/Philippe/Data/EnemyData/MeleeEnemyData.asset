@@ -18,9 +18,9 @@ MonoBehaviour:
   sprite: {fileID: 0}
   prefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
   defaultAcceleration: 30
-  defaultMaxVelocity: 10
+  defaultMaxVelocity: 3
+  dashMaximumVelocity: 0
   enemyType: 0
   defaultContactAttackDamage: 10
   defaultContactAttackDelay: 3
-  size: 0
-  obstructionPushForce: 25
+  distanceBeforeTeleportingCloser: 100
