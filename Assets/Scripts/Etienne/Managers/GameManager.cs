@@ -17,7 +17,7 @@ namespace SpaceBaboon
 
         private TutorialPopUpWindow m_tutorialWindow;
 
-        private ResourceSpawner m_ressourceManager;
+        public ResourceSpawner m_ressourceManager;
 
         public float WindowSizeScale { get; set; } = 1.0f;
 
