@@ -7,6 +7,7 @@ namespace SpaceBaboon.EnemySystem
 {
     public class Enemy : Character, IPoolableGeneric, IStatsEditable, ISlowable, IBaitable
     {
+        
         public event Action m_eventEnemyDeath = delegate { };
 
         private EnemyData m_enemyUniqueData;
@@ -179,11 +180,15 @@ namespace SpaceBaboon.EnemySystem
             if (m_activeHealth <= 0)
             {
                 m_eventEnemyDeath?.Invoke();
+                
                 m_parentPool.UnSpawn(gameObject);
+
                 return;
             }
             
         }
+
+      
 
         //// TODO this can be generalized to the parent :: Done
         //private void SpriteFlashing()
