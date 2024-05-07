@@ -38,7 +38,7 @@ namespace SpaceBaboon.UISystem
 
             m_pauseButton = visualElement.Q<Button>("PauseButton");
             m_pauseMenu = visualElement.Q<VisualElement>("PauseMenu");
-            m_pauseMenuScript.Create(visualElement);
+            //m_pauseMenuScript.Create(visualElement);
 
         }
 

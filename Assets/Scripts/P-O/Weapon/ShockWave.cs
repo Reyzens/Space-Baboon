@@ -6,7 +6,7 @@ namespace SpaceBaboon.WeaponSystem
     {
         protected override Transform GetTarget()
         {
-            return transform.parent;
+            return transform;
         }
     }
 }
