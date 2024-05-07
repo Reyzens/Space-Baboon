@@ -53,6 +53,7 @@ namespace SpaceBaboon
             m_craftingStationsInScene = Crafting.CraftingStation.GetCraftingStations();
             SetupCraftingStationsIcon();
             DictionarySetUp();
+            GameManager.Instance.SetResourceManager(this);
         }
 
         private void Update()
