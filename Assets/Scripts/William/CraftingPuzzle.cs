@@ -27,6 +27,18 @@ namespace SpaceBaboon
         private GameObject m_circleMask;
         [SerializeField]
         private GameObject m_blueCircleFiller;
+        [SerializeField]
+        private Sprite m_enableStationSprite;
+        [SerializeField]
+        private Sprite m_disableStationSprite;
+        [SerializeField]
+        private GameObject m_stationSpriteRef;
+        private SpriteRenderer m_stationRenderer;
+
+        private float m_transparentCirclePercentage;
+        Vector3 m_transparentCircleNewPosition;
+        private bool m_transparentCircleMorphing;
+        
 
 
 
@@ -35,11 +47,16 @@ namespace SpaceBaboon
         {
             m_craftingPuzzleEnable = true;
             m_craftingStationScript = GetComponent<CraftingStation>();
+            m_stationRenderer = m_stationSpriteRef.GetComponent<SpriteRenderer>();
             m_dropPointList = m_craftingStationScript.GetDropPopint();
             m_currentkill = 0;
             m_zoneCircle = GameObject.Find("Circle");
             SetDropPoints();
-           
+            m_transparentCirclePercentage = 0.0f;
+            m_transparentCircleNewPosition = new Vector3();
+            m_transparentCircleMorphing = false;
+            
+            
         }
 
         // Start is called before the first frame update
@@ -53,6 +70,10 @@ namespace SpaceBaboon
         {
             PuzzleDisabler();
             ReactivateCraftingStation();
+            //CircleLerping();
+            m_blueCircleFiller.transform.localScale = Vector3.Lerp(m_blueCircleFiller.transform.localScale, m_transparentCircleNewPosition, Time.deltaTime * 1.0f);
+            //m_blueCircleFiller.transform.localScale = m_transparentCircleNewPosition;
+
         }
 
         private void SetDropPoints()
@@ -68,6 +89,7 @@ namespace SpaceBaboon
             if (m_currentkill >= m_killneeded)
             {
                 m_craftingPuzzleEnable = false;
+                m_stationRenderer.sprite = m_enableStationSprite;
             }
         }
 
@@ -76,9 +98,19 @@ namespace SpaceBaboon
             if (m_craftingPuzzleEnable == true)
             {
                 m_currentkill += 1;
-                float percentage = (float)m_currentkill / m_killneeded * 1.8f;
-                m_blueCircleFiller.transform.localScale = new Vector3(percentage, percentage, percentage);
+                m_transparentCirclePercentage = (float)m_currentkill / m_killneeded * 1.8f;
+                m_transparentCircleNewPosition = new Vector3(m_transparentCirclePercentage, m_transparentCirclePercentage, m_transparentCirclePercentage);
+                m_transparentCircleMorphing = true;
+            }
+        }
 
+        public void CircleLerping()
+        {
+            if (m_transparentCircleMorphing == true)
+            {
+                m_blueCircleFiller.transform.localScale = m_transparentCircleNewPosition;
+                //Vector3.Lerp(m_blueCircleFiller.transform.localScale, m_transparentCircleNewPosition, Time.deltaTime * 2.0f);
+                m_transparentCircleMorphing = false;
             }
         }
 

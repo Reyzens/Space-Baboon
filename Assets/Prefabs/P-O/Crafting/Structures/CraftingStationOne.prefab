@@ -185,6 +185,9 @@ MonoBehaviour:
   m_blueCircle: {fileID: 2667221057814623772}
   m_circleMask: {fileID: 6717498158866971253}
   m_blueCircleFiller: {fileID: 1194562068439334276}
+  m_enableStationSprite: {fileID: 21300000, guid: 6c84576b98da3eb4fae1db2a72a8ef7c, type: 3}
+  m_disableStationSprite: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
+  m_stationSpriteRef: {fileID: 2328655762559953906}
 --- !u!1 &7434197111157336024
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +502,10 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.03529412
       objectReference: {fileID: 0}
+    - target: {fileID: 1450095956957029523, guid: 6b5ed5a8eb8f4e24681b0b98b5258367, type: 3}
+      propertyPath: m_SortingOrder
+      value: -40
+      objectReference: {fileID: 0}
     - target: {fileID: 2249842210402293378, guid: 6b5ed5a8eb8f4e24681b0b98b5258367, type: 3}
       propertyPath: m_Name
       value: PuzzleDetectionArea
@@ -696,6 +703,10 @@ PrefabInstance:
       value: Station2
       objectReference: {fileID: 0}
     - target: {fileID: 8656209104864665820, guid: 52c2242cec905cd499fbb292fd3c33ce, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
+    - target: {fileID: 8656209104864665820, guid: 52c2242cec905cd499fbb292fd3c33ce, type: 3}
       propertyPath: m_SortingOrder
       value: -22
       objectReference: {fileID: 0}
@@ -704,6 +715,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52c2242cec905cd499fbb292fd3c33ce, type: 3}
+--- !u!1 &2328655762559953906 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2105224622070421294, guid: 52c2242cec905cd499fbb292fd3c33ce, type: 3}
+  m_PrefabInstance: {fileID: 4424310235068677340}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3038959642580404096 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1678368243290766172, guid: 52c2242cec905cd499fbb292fd3c33ce, type: 3}

@@ -430,6 +430,11 @@ Sprite:
   m_PhysicsShape: []
   m_Bones: []
   m_SpriteID: 
+--- !u!1 &827766870 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2328655762559953906, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+  m_PrefabInstance: {fileID: 1885282934}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &852788653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1030,10 +1035,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3654356238674717080, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+      propertyPath: m_SortingOrder
+      value: -40
+      objectReference: {fileID: 0}
     - target: {fileID: 5186741816614294327, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_Name
       value: CraftingStationOne
       objectReference: {fileID: 0}
+    - target: {fileID: 5411749544586093529, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+      propertyPath: m_stationSpriteRef
+      value: 
+      objectReference: {fileID: 827766870}
+    - target: {fileID: 5411749544586093529, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+      propertyPath: m_enableStationSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c84576b98da3eb4fae1db2a72a8ef7c, type: 3}
+    - target: {fileID: 5411749544586093529, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+      propertyPath: m_disableStationSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
     - target: {fileID: 6249721823570918695, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 57.6
@@ -1074,17 +1095,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7456650097284489107, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+    - target: {fileID: 7772731288084363383, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.18
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7456650097284489107, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+    - target: {fileID: 7772731288084363383, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.18
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7456650097284489107, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
+    - target: {fileID: 7772731288084363383, guid: a0d4ebbd79c63ac409b68558920012b9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.18
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
