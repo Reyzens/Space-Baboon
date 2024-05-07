@@ -85,12 +85,14 @@ namespace SpaceBaboon.EnemySystem
                 SpawnOneEnemy();
 
             if (m_isSpawning)
+            {
                 SpawnWithTimer();
+                CheckGameTimer();
+            }
 
             if (m_spawnGroup)
                 SpawnGroup(m_enemiesAmountToSpawnOneShot);
 
-            CheckGameTimer();
         }
 
         private void RegisterToGameManager()
