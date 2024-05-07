@@ -416,18 +416,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 81698932589112113, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 81698932589112113, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 81698932589112113, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 81698932589112113, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -467,38 +455,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2695686693279084500, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
-    - target: {fileID: 4224924088870543678, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
     - target: {fileID: 4408285224000720167, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_Name
       value: PlayerSprite
       objectReference: {fileID: 0}
-    - target: {fileID: 6116818984849239150, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
-    - target: {fileID: 6447914277967854178, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 2ff3f3cc0d9471b4c8c50848eb90e2a6, type: 2}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616432378117438511, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6664975956819514426, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_playerCam
       value: 
       objectReference: {fileID: 1559854409}
-    - target: {fileID: 7996840314796064036, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
-    - target: {fileID: 8314163009115154887, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 4a6e56bf8bfbe734a83b0966c088be67, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -537,7 +521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[0].canSpawn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[1].canSpawn
@@ -545,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2982256101968009546, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_pooledEnemies.Array.data[3].canSpawn
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5922132008873241954, guid: 28a56c9695b64a54081f6739e181ffbf, type: 3}
       propertyPath: m_LocalPosition.x
