@@ -179,7 +179,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             if (m_debugMode)
             {
-                Debug.Log("Weapon upgraded");
+                Debug.Log("Weapon upgraded to level " + m_currentLevel);
             }
             ApplyUpgrade(upgrade);
             m_currentLevel++;
