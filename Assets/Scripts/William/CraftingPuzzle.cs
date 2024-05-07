@@ -5,6 +5,7 @@ using SpaceBaboon.EnemySystem;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering.Universal;
 
 namespace SpaceBaboon
 {
@@ -34,6 +35,8 @@ namespace SpaceBaboon
         [SerializeField]
         private GameObject m_stationSpriteRef;
         private SpriteRenderer m_stationRenderer;
+        [SerializeField]
+        private Light2D m_light2D;
 
         private float m_transparentCirclePercentage;
         Vector3 m_transparentCircleNewPosition;
@@ -90,6 +93,7 @@ namespace SpaceBaboon
             {
                 m_craftingPuzzleEnable = false;
                 m_stationRenderer.sprite = m_enableStationSprite;
+                m_light2D.color = Color.green;
             }
         }
 
