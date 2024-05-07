@@ -587,6 +587,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3683f6906e54f4fb6a79e53e8a5c5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_topBoxScript:
+    rid: 860310851103490049
+  references:
+    version: 2
+    RefIds:
+    - rid: 860310851103490049
+      type: {class: UITopBox, ns: SpaceBaboon.UISystem, asm: Assembly-CSharp}
+      data:
+        m_damageSprite: {fileID: 21300000, guid: dfc2c66d775735f408cf7902e25c7887, type: 3}
+        m_rangeSprite: {fileID: 21300000, guid: b5a9298e579815c41b23709a87848581, type: 3}
+        m_speedSprite: {fileID: 21300000, guid: 13281836f49486b42be0ed820873d06e, type: 3}
+        m_zoneSprite: {fileID: 21300000, guid: d65ad80724bc4b04c918912780a7260e, type: 3}
 --- !u!1001 &852788653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1880,7 +1892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3491749154905766244, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3862230477894048768, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
       propertyPath: m_player
