@@ -79,7 +79,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 12, y: 12, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 0.33333334}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1855877691404375206}
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 1d4edf305911fba46ace83e4666dcc29, type: 2}
-  m_contactAttackParticleSystem: {fileID: 6891219805674916465, guid: 4f196797a860ad94f8f5ba1fd8ba580b, type: 3}
+  m_healthDropChance: 0.05
 --- !u!95 &4503694478007303297
 Animator:
   serializedVersion: 5
