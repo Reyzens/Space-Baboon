@@ -156,9 +156,8 @@ namespace SpaceBaboon.EnemySystem
         private void SetToRandomBossType()
         {
             CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);            
-
-            //m_renderer.sprite = UniqueData.bosses[CurrentBossIndex].sprite;            
-            //m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
+          
+            m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
             m_animator.runtimeAnimatorController = UniqueData.bosses[CurrentBossIndex].animControllerObject.GetComponent<Animator>().runtimeAnimatorController;
         }
 

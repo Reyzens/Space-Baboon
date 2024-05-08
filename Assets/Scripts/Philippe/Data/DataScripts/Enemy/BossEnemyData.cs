@@ -19,7 +19,7 @@ namespace SpaceBaboon.EnemySystem
         public GameObject animControllerObject;
         //public Animator animator;
         //public AnimatorOverrideController controller;
-        public Sprite sprite;
+        //public Sprite sprite;
         public Color color;                
         public GameObject specialProjectilePrefab;
     }
