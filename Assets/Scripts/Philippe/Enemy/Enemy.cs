@@ -44,9 +44,6 @@ namespace SpaceBaboon.EnemySystem
         protected float m_navMeshAgentInitialSpeed;
         protected float m_currentNavAgentSpeed;
 
-        //private Tilemap m_tilemapRef;
-        //private Tilemap m_obstacleTilemapRef;
-
         protected override void Awake()
         {
             base.Awake();
@@ -69,8 +66,7 @@ namespace SpaceBaboon.EnemySystem
             m_activeHealth = m_enemyUniqueData.defaultHealth;
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
             m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
-            m_currentDestination = m_player.transform;
-            //m_tilemapRef = m_enemySpawner.m_enemyTile
+            m_currentDestination = m_player.transform;            
         }
 
         protected override void Update()

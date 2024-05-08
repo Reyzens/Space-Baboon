@@ -11,6 +11,7 @@ namespace SpaceBaboon
         protected SpriteRenderer m_renderer;        
         protected Color m_defaultRendererColor;        
         protected Rigidbody2D m_rB;
+        protected Animator m_animator;
         
         //BaseVariables
         protected Vector2 m_movementDirection;
@@ -45,6 +46,7 @@ namespace SpaceBaboon
             m_renderer = GetComponent<SpriteRenderer>();
             m_defaultRendererColor = m_renderer.material.color;
             m_rB = GetComponent<Rigidbody2D>();
+            m_animator = GetComponent<Animator>();
         }
 
         protected virtual void Update()

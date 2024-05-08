@@ -11,6 +11,7 @@ namespace SpaceBaboon.EnemySystem
     {                        
         public BossEnemyData UniqueData { get; private set; }
         public NavMeshAgent Agent { get; set; }
+        public Animator Animator { get; set; }
         public Player Player { get; private set; }     
         public EnemySpawner EnemySpawner { get; private set; }
         public List<CraftingStation> WorkingCraftingStations { get; private set; } = new List<CraftingStation>();
@@ -38,6 +39,7 @@ namespace SpaceBaboon.EnemySystem
         {
             base.Awake();
             UniqueData = m_characterData as BossEnemyData;
+            
         }
 
         protected override void Start()
