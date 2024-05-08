@@ -68,5 +68,10 @@ namespace SpaceBaboon.EnemySystem
                 }
             }
         }
+
+        public override void OnDamageTaken(float damage)
+        {
+            base.OnDamageTaken(damage);
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using SpaceBaboon.PoolingSystem;
+using UnityEngine.Rendering;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -25,6 +26,9 @@ namespace SpaceBaboon.EnemySystem
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
         public int CurrentBossIndex { get; private set; }
+                
+        private float m_dyingAnimDelay = 5.0f;
+        private float m_dyingAnimTimer = 0.0f;
 
         protected override void CreatePossibleStates()
         {
@@ -58,9 +62,15 @@ namespace SpaceBaboon.EnemySystem
                 OnDamageTaken(1000);
             }
 
+            if(m_dyingAnimTimer > 0)
+            {
+                DoBossDyingAnimAndUnspawn();
+                return;
+            }
+
             base.Update();
             UpdateDistances();
-        }
+        }        
 
         protected override void FixedUpdate()
         {
@@ -144,8 +154,12 @@ namespace SpaceBaboon.EnemySystem
 
         private void TargetRandomWorkingCraftingStation()
         {
+            //Debug.Log("Enetred Target Random WorkingCraft Station");
             FindWorkingCraftingStations();
+
+            //Debug.Log("WorkingCraftingStationsCount is " + WorkingCraftingStations.Count);
             int nextTargetedCraftingStationIndex = GetRandomWorkingCraftingStationIndex();
+            //Debug.Log("Next targeted Crafting Station index is " + nextTargetedCraftingStationIndex);
             TargetedCraftingStation = WorkingCraftingStations[nextTargetedCraftingStationIndex];
         }
 
@@ -155,10 +169,41 @@ namespace SpaceBaboon.EnemySystem
 
         private void SetToRandomBossType()
         {
-            CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);            
-          
+            CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);
+
+            //Testing
+            //CurrentBossIndex = 0;
+            
+            // TODO check this out, needs to be called twice to get real random number, if not always target the same station
+            TargetRandomWorkingCraftingStation();
+            TargetRandomWorkingCraftingStation();
+            
             m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
             m_animator.runtimeAnimatorController = UniqueData.bosses[CurrentBossIndex].animControllerObject.GetComponent<Animator>().runtimeAnimatorController;
+        }
+
+        public override void OnDamageTaken(float damage)
+        {
+            base.OnDamageTaken(damage);
+
+            if (m_activeHealth <= 0) 
+            {
+                Animator.SetTrigger("Die");
+                Agent.isStopped = true;
+                m_dyingAnimTimer = m_dyingAnimDelay;                                    
+            }
+        }
+
+        private void DoBossDyingAnimAndUnspawn()
+        {
+            m_dyingAnimTimer -= Time.deltaTime;
+
+            if (m_dyingAnimTimer <= 0)
+            {
+                m_dyingAnimTimer = 0.0f;
+                m_parentPool.UnSpawn(gameObject);
+                Animator.SetTrigger("ReturnToDefault");
+            }
         }
 
         public override void Activate(Vector2 pos, GenericObjectPool pool)

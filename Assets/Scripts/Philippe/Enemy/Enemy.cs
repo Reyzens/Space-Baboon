@@ -190,10 +190,12 @@ namespace SpaceBaboon.EnemySystem
                 m_eventEnemyDeath?.Invoke();
                 HealthSpawner();
 
-                m_parentPool.UnSpawn(gameObject);
-                return;
+                if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
+                {
+                    m_parentPool.UnSpawn(gameObject);
+                    return;
+                }                
             }
-
         }
 
         private void MoveEnemyCloser()
@@ -205,7 +207,7 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        private void HealthSpawner()
+        protected void HealthSpawner()
         {
             float randomNumber = UnityEngine.Random.Range(0f, 100f);
             if (randomNumber < m_healthDropChance)
