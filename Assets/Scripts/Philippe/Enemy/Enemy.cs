@@ -71,10 +71,10 @@ namespace SpaceBaboon.EnemySystem
 
         protected override void Update()
         {
+            base.Update();
+
             if (!m_isActive)
                 return;
-
-            base.Update();
 
             CalculateDistanceToPlayer();
 
