@@ -38,8 +38,7 @@ namespace SpaceBaboon.EnemySystem
         protected override void Awake()
         {
             base.Awake();
-            UniqueData = m_characterData as BossEnemyData;
-            
+            UniqueData = m_characterData as BossEnemyData;            
         }
 
         protected override void Start()
@@ -87,6 +86,7 @@ namespace SpaceBaboon.EnemySystem
             Agent = m_navMeshAgent;
             Player = m_player;
             EnemySpawner = m_enemySpawner;
+            Animator = m_animator;
 
             SineGun = GetComponentInChildren<EnemyWeapon>();
             // TODO Use a GetComponentInChildren when/if implemented
@@ -157,8 +157,9 @@ namespace SpaceBaboon.EnemySystem
         {
             CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);            
 
-            m_renderer.sprite = UniqueData.bosses[CurrentBossIndex].sprite;            
-            m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
+            m_renderer.sprite = UniqueData.bosses[0].sprite;            
+            m_renderer.color = UniqueData.bosses[0].color;
+            m_animator.runtimeAnimatorController = UniqueData.bosses[0].animControllerObject.GetComponent<Animator>().runtimeAnimatorController;
         }
 
         public override void Activate(Vector2 pos, GenericObjectPool pool)

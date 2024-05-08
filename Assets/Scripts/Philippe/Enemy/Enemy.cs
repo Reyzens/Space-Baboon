@@ -50,7 +50,7 @@ namespace SpaceBaboon.EnemySystem
 
             m_circleCollider = GetComponent<CircleCollider2D>();
             //m_spriteRendererColor = m_renderer.material.color;
-
+            m_animator = GetComponent<Animator>();
             m_navMeshAgent = GetComponent<NavMeshAgent>();
             m_navMeshAgent.updateRotation = false;
             m_navMeshAgent.updateUpAxis = false;

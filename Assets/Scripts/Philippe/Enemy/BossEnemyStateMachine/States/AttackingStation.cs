@@ -11,12 +11,14 @@ namespace SpaceBaboon.EnemySystem
             //Debug.Log("BossEnemy entering state: AttackingStation\n");
 
             m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
-            m_stateMachine.Agent.isStopped = true;            
+            m_stateMachine.Agent.isStopped = true;
+            m_stateMachine.Animator.SetBool("AttackingStation", true);
         }
 
         public override void OnExit()
         {
-            m_stateMachine.Agent.isStopped = false;            
+            m_stateMachine.Agent.isStopped = false;
+            m_stateMachine.Animator.SetBool("AttackingStation", false);
             //Debug.Log("BossEnemy exiting state: AttackingStation\n");
         }
 

@@ -46,8 +46,7 @@ namespace SpaceBaboon
 
         //private Vector2 m_movementDirection;
         private AnimationCurve m_dashCurve;
-        private Color m_spriteRendererColor;
-        //private Animator m_animator;
+        private Color m_spriteRendererColor;        
         private PlayerFlash m_playerFlash;
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
@@ -160,8 +159,7 @@ namespace SpaceBaboon
             m_dahsTrail.SetActive(false);
             m_screenShake = false;
             m_dashCurveStrength = 0.0f;
-            m_timestampedDash = 0.0f;
-            //m_animator = GetComponent<Animator>(); //
+            m_timestampedDash = 0.0f;            
             m_playerFlash = GetComponent<PlayerFlash>();
             m_currentMaximumVelocity = m_characterData.defaultMaxVelocity;
         }

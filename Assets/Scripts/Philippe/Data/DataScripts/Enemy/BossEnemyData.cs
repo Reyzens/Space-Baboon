@@ -16,6 +16,9 @@ namespace SpaceBaboon.EnemySystem
     public struct SBoss
     {
         public EBossTypes bossType;
+        public GameObject animControllerObject;
+        //public Animator animator;
+        //public AnimatorOverrideController controller;
         public Sprite sprite;
         public Color color;                
         public GameObject specialProjectilePrefab;
