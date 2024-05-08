@@ -31,14 +31,14 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     specialProjectilePrefab: {fileID: 7720092425605013616, guid: dd25fd16dbf5318478d286ef18647e55, type: 3}
   - bossType: 1
-    animControllerObject: {fileID: 0}
+    animControllerObject: {fileID: 3896041885167981650, guid: 1ef5a06288ca9194486ad31e70aea408, type: 3}
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-    color: {r: 1, g: 0.5291774, b: 0, a: 1}
+    color: {r: 1, g: 1, b: 1, a: 1}
     specialProjectilePrefab: {fileID: 4752045255920560558, guid: c0bbf66d382d5c34e9fc8105f8d7ace5, type: 3}
   - bossType: 2
-    animControllerObject: {fileID: 0}
+    animControllerObject: {fileID: 8482427591914728906, guid: 75f16fbc2bd3fed4c83c66eef79f1694, type: 3}
     sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-    color: {r: 0.6509434, g: 0.51213443, b: 0.38381097, a: 1}
+    color: {r: 1, g: 1, b: 1, a: 1}
     specialProjectilePrefab: {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   possibleAggroRange: 100
   playerAggroRange: 50
