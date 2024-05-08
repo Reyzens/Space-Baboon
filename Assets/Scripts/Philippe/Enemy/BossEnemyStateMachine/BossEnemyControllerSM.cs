@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using SpaceBaboon.PoolingSystem;
 using UnityEngine.Rendering;
+using SpaceBaboon.CollisionSystem;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -26,7 +27,8 @@ namespace SpaceBaboon.EnemySystem
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
         public int CurrentBossIndex { get; private set; }
-                
+
+        private Hitbox m_hitbox;
         private float m_dyingAnimDelay = 5.0f;
         private float m_dyingAnimTimer = 0.0f;
 
@@ -93,6 +95,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void VariableSetUp()
         {
+            m_hitbox = GetComponent<Hitbox>();
             Agent = m_navMeshAgent;
             Player = m_player;
             EnemySpawner = m_enemySpawner;
@@ -188,6 +191,8 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_activeHealth <= 0) 
             {
+                m_hitbox.CanHit = false;
+                m_hitbox.CanReceiveHit = false;
                 Animator.SetTrigger("Die");
                 Agent.isStopped = true;
                 m_dyingAnimTimer = m_dyingAnimDelay;                                    
@@ -201,6 +206,8 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_dyingAnimTimer <= 0)
             {
+                m_hitbox.CanHit = true;
+                m_hitbox.CanReceiveHit = true;
                 m_dyingAnimTimer = 0.0f;
                 m_parentPool.UnSpawn(gameObject);
                 Animator.SetTrigger("ReturnToDefault");
