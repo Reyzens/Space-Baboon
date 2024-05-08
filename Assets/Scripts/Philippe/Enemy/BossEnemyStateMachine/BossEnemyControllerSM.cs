@@ -172,7 +172,7 @@ namespace SpaceBaboon.EnemySystem
             CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);
 
             //Testing
-            CurrentBossIndex = 0;
+            //CurrentBossIndex = 0;
             
             // TODO check this out, needs to be called twice to get real random number, if not always target the same station
             TargetRandomWorkingCraftingStation();

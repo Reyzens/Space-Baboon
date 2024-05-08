@@ -85,7 +85,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
             {
-                //MoveEnemyCloser();
+                //MoveTransformCloserToPlayer()
             }
         }
 
@@ -198,7 +198,7 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        private void MoveEnemyCloser()
+        private void MoveTransformCloserToPlayer()
         {
             if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
             {

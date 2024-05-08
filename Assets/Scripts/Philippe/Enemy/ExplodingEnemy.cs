@@ -6,9 +6,7 @@ namespace SpaceBaboon.EnemySystem
     {
         [SerializeField] private GameObject m_projectilePrefab;
         
-        private ExplodingEnemyData m_uniqueData;
-        
-        private Animator m_animator;
+        private ExplodingEnemyData m_uniqueData;        
 
         private Sprite m_baseSprite;
         private Color m_baseColor;
@@ -70,8 +68,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_uniqueData = m_characterData as ExplodingEnemyData;
 
-            // Maybe randomize distance to trigger bomb from data      
-            m_animator = GetComponent<Animator>();
+            // Maybe randomize distance to trigger bomb from data             
             m_baseSprite = m_renderer.sprite;
             m_baseColor = m_renderer.color;
             m_chargingExplosionTimer = m_uniqueData.delayBeforeExplosion;

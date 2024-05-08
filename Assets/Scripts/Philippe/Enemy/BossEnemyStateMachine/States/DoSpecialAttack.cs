@@ -7,13 +7,19 @@ namespace SpaceBaboon.EnemySystem
     {
         private float m_chargeSpecialAttackTimer;
         private bool m_specialAttackDone;
+        
+        private float m_timeBeforeSpecialAttackLaunchedToStartAnim = 0.5f;
+        private bool m_specialAttackAnimStarted = false;
 
         public override void OnEnter()
         {
             //Debug.Log("BossEnemy entering state: DoSpecialAttack\n");
             m_stateMachine.Agent.isStopped = true;
             m_specialAttackDone = false;
+            m_specialAttackAnimStarted = false;
             m_chargeSpecialAttackTimer = m_stateMachine.UniqueData.specialAttackChargeDelay;
+            m_stateMachine.Animator.SetTrigger("StartChargingSpecialAttack");
+
         }
 
         public override void OnExit()
@@ -26,8 +32,15 @@ namespace SpaceBaboon.EnemySystem
         {
             m_chargeSpecialAttackTimer -= Time.deltaTime;
 
-            if (m_chargeSpecialAttackTimer < 0)
+            if (m_chargeSpecialAttackTimer < m_timeBeforeSpecialAttackLaunchedToStartAnim
+                && !m_specialAttackAnimStarted)
             {
+                m_stateMachine.Animator.SetTrigger("DoSpecialAttack");
+                m_specialAttackAnimStarted = true;
+            }
+
+            if (m_chargeSpecialAttackTimer < 0)
+            {                
                 LaunchSpecialAttack();
                 m_specialAttackDone = true;
             }
