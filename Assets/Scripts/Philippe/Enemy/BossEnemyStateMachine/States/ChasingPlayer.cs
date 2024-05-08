@@ -43,7 +43,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_basicAttackTimer < 0)
             {
-                ExecuteBasicAttack();
+                ExecuteBasicAttackSine();
                 m_basicAttackTimer = m_stateMachine.UniqueData.basicAttackDelay;
                 m_basicAttacksDone++;
             }
@@ -82,8 +82,9 @@ namespace SpaceBaboon.EnemySystem
             return false;
         }
 
-        private void ExecuteBasicAttack()
-        {                      
+        private void ExecuteBasicAttackSine()
+        {
+            m_stateMachine.Animator.SetTrigger("DoBasicAttackSine");
             m_stateMachine.SineGun.GetTarget(m_stateMachine.Player.transform);
         }
     }
