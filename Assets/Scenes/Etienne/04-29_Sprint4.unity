@@ -589,6 +589,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_topBoxScript:
     rid: 860310851103490049
+  m_weaponBoxScript:
+    rid: 860310899156582400
   references:
     version: 2
     RefIds:
@@ -599,6 +601,14 @@ MonoBehaviour:
         m_rangeSprite: {fileID: 21300000, guid: b5a9298e579815c41b23709a87848581, type: 3}
         m_speedSprite: {fileID: 21300000, guid: 13281836f49486b42be0ed820873d06e, type: 3}
         m_zoneSprite: {fileID: 21300000, guid: d65ad80724bc4b04c918912780a7260e, type: 3}
+    - rid: 860310899156582400
+      type: {class: UIWeaponBox, ns: SpaceBaboon.UISystem, asm: Assembly-CSharp}
+      data:
+        m_swordSprite: {fileID: 21300000, guid: 85a11c76ff8d19846a00f75a2085b628, type: 3}
+        m_flameThrowerSprite: {fileID: 21300000, guid: 7084079741e5b264188b663432941e60, type: 3}
+        m_grenadeLauncherSprite: {fileID: 21300000, guid: b0e4353cb85aeb2488032efc668bfcb5, type: 3}
+        m_shockwaveSprite: {fileID: 21300000, guid: 6fc944698831a5646b1f6e4f2331e599, type: 3}
+        m_laserBeamSprite: {fileID: 21300000, guid: 51dd4ac7b2a92634e879eaa657ad6e93, type: 3}
 --- !u!1001 &852788653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1898,6 +1908,10 @@ PrefabInstance:
       propertyPath: m_player
       value: 
       objectReference: {fileID: 852788654}
+    - target: {fileID: 6084628431286194079, guid: c9193ed617b887540afeb9dafd61a2a8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

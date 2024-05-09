@@ -1,3 +1,4 @@
+using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,7 +20,7 @@ namespace SpaceBaboon.UISystem
 
 
         [SerializeReference] private UITopBox m_topBoxScript = new UITopBox();
-        private UIWeaponBox m_weaponBoxScript = new UIWeaponBox();
+        [SerializeReference] private UIWeaponBox m_weaponBoxScript = new UIWeaponBox();
         private UIInfoBox m_infoBoxScript = new UIInfoBox();
 
         private UIDocument m_uiDoc;
@@ -47,7 +48,7 @@ namespace SpaceBaboon.UISystem
             m_topBoxScript.Create(this, m_topBox);
 
             m_weaponBox = visualElement.Q<VisualElement>("SideBox");
-            m_weaponBoxScript.Create(this, m_weaponBox);
+            m_weaponBoxScript.Create(this, m_weaponBox, m_infoBoxScript);
 
             m_infoBox = visualElement.Q<VisualElement>("InfoBox");
             m_infoBoxScript.Create(this, m_infoBox);
@@ -77,9 +78,10 @@ namespace SpaceBaboon.UISystem
             m_topBoxScript.UpdateCurrentUpgrade(upgradeType);
         }
 
-        public void UpdateWeapon(WeaponSystem.EPlayerWeaponType weaponType, int totalLevel)
+        public void UpdateWeapon(WeaponSystem.EPlayerWeaponType weaponType, int totalLevel, int dLevel, int sLevel, int rLevel, int zLevel)
         {
-            m_weaponBoxScript.UpdateWeapon(weaponType, totalLevel);
+            m_weaponBoxScript.UpdateWeapon(weaponType, totalLevel, dLevel, sLevel, rLevel, zLevel);
         }
+
     }
 }

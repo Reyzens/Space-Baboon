@@ -56,31 +56,31 @@
             <ui:Label tabindex="-1" text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="WeaponLevel" style="align-self: flex-start; top: auto; bottom: 120%; color: rgb(255, 255, 255); -unity-font-style: bold; background-color: rgba(0, 0, 0, 0.39); margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; width: 30%; height: 40%; -unity-text-align: middle-center; font-size: 25%; border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="InfoBox" class="box" style="flex-grow: 0; flex-shrink: 0; width: 15%; height: 30%; bottom: 40%; left: 74.5%;">
+    <ui:VisualElement name="InfoBox" class="box" style="flex-grow: 0; flex-shrink: 0; width: 15%; height: 30%; bottom: 40%; left: 74.5%; display: none;">
         <ui:VisualElement name="WeaponInfo" style="flex-grow: 0; flex-shrink: 0; width: 90%; align-self: center; height: 40%; flex-direction: row;">
-            <ui:VisualElement name="InfoWeaponImage" style="flex-grow: 0; width: 50%; flex-shrink: 0; height: 100%; background-image: resource(&apos;William/DANKIE/Ultimate2DWeaponPacks/Ultimate2DModernWeapons/Volume1 - Warfare Weapons/Sprites/Pixel/Pixel-FlameThrower&apos;);" />
+            <ui:VisualElement name="InfoWeaponImage" style="flex-grow: 0; width: 50%; flex-shrink: 0; height: 100%; background-image: resource(&apos;William/DANKIE/Ultimate2DWeaponPacks/Ultimate2DModernWeapons/Volume1 - Warfare Weapons/Sprites/Pixel/Pixel-FlameThrower&apos;); -unity-background-scale-mode: scale-to-fit;" />
             <ui:Label tabindex="-1" text="WEAPON&#10;NAME" parse-escape-sequences="true" display-tooltip-when-elided="true" name="InfoWeaponName" style="width: 50%; height: 100%; font-size: 25%; color: rgb(255, 255, 255); -unity-text-align: middle-center;" />
         </ui:VisualElement>
         <ui:VisualElement name="InfoWeaponLevels" style="flex-grow: 1; align-self: center; width: 90%;">
             <ui:VisualElement name="Damage" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
                 <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponDamage&apos;);" />
                 <ui:Label tabindex="-1" text="Damage" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
-                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
+                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="DamageSkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Speed" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
                 <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponSpeed&apos;);" />
                 <ui:Label tabindex="-1" text="Attack Speed" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
-                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
+                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SpeedSkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Range" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
                 <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponRange&apos;);" />
                 <ui:Label tabindex="-1" text="Range" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
-                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
+                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="RangeSkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
             <ui:VisualElement name="Zone" style="flex-grow: 1; flex-shrink: 0; width: 100%; flex-direction: row;">
                 <ui:VisualElement name="SkillImage" class="skillImage" style="flex-grow: 0; width: 20%; height: 100%; background-image: resource(&apos;Etienne/WeaponSkills/WeaponZone&apos;);" />
                 <ui:Label tabindex="-1" text="Zone Size" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillText" class="skillText" style="width: 60%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
-                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
+                <ui:Label tabindex="-1" text="5" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ZoneSkillLevel" class="skillText" style="width: 20%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -215,7 +215,7 @@ namespace SpaceBaboon.WeaponSystem
             UISystem.UIManager uiManager = UISystem.UIManager.Instance;
             if (uiManager != null)
             {
-                uiManager.UpdateWeapon(m_weaponData.weaponName, m_currentLevel);
+                uiManager.UpdateWeapon(m_weaponData.weaponName, m_currentLevel, (int)m_damageLevel, (int)m_speedLevel, (int)m_rangeLevel, (int)m_zoneLevel);
             }
 
         }
