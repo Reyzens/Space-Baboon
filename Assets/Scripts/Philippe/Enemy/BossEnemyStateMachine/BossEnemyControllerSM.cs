@@ -51,7 +51,7 @@ namespace SpaceBaboon.EnemySystem
         {
             base.Start();
             StartStates();
-            VariableSetUp();
+            VariablesSetUp();
         }
 
         protected override void Update()
@@ -93,7 +93,7 @@ namespace SpaceBaboon.EnemySystem
             m_currentState.OnEnter();
         }
 
-        private void VariableSetUp()
+        private void VariablesSetUp()
         {
             m_hitbox = GetComponent<Hitbox>();
             Agent = m_navMeshAgent;
@@ -168,7 +168,7 @@ namespace SpaceBaboon.EnemySystem
 
         private int GetRandomWorkingCraftingStationIndex() { return Random.Range(0, WorkingCraftingStations.Count); }
         private float GetPlayerDistanceToTargetedCraftingStation() { return Vector3.Distance(m_player.transform.position, TargetedCraftingStation.transform.position); }
-        private float GetDistanceToTargetedCraftingStation() { return Vector3.Distance(transform.position, TargetedCraftingStation.transform.position); }
+        public float GetDistanceToTargetedCraftingStation() { return Vector3.Distance(transform.position, TargetedCraftingStation.transform.position); }
 
         private void SetToRandomBossType()
         {
@@ -202,10 +202,10 @@ namespace SpaceBaboon.EnemySystem
         private void DoBossDyingAnimAndUnspawn()
         {
             m_dyingAnimTimer -= Time.deltaTime;
-            HandleSpriteFlashTimer();
+            HandleSpriteFlashTimer();            
 
             if (m_dyingAnimTimer <= 0)
-            {
+            {              
                 m_hitbox.CanHit = true;
                 m_hitbox.CanReceiveHit = true;
                 m_dyingAnimTimer = 0.0f;
@@ -219,7 +219,7 @@ namespace SpaceBaboon.EnemySystem
             ResetValues(pos);
             SetComponents(true);
             m_parentPool = pool;
-            SetToRandomBossType();
+            SetToRandomBossType();            
         }
     }
 }

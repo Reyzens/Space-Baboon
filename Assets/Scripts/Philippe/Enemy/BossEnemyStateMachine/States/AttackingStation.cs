@@ -8,7 +8,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnEnter()
         {
-            //Debug.Log("BossEnemy entering state: AttackingStation\n");
+            Debug.Log("BossEnemy entering state: AttackingStation\n");
 
             m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
             m_stateMachine.Agent.isStopped = true;
@@ -19,7 +19,7 @@ namespace SpaceBaboon.EnemySystem
         {
             m_stateMachine.Agent.isStopped = false;
             m_stateMachine.Animator.SetBool("AttackingStation", false);
-            //Debug.Log("BossEnemy exiting state: AttackingStation\n");
+            Debug.Log("BossEnemy exiting state: AttackingStation\n");
         }
 
         public override void OnUpdate()
@@ -61,6 +61,12 @@ namespace SpaceBaboon.EnemySystem
             if (m_stateMachine.TargetedStationDisabled)
             {
                 m_stateMachine.TargetedStationDisabled = false;
+                return true;
+            }
+
+            if (m_stateMachine.GetDistanceToTargetedCraftingStation() > m_stateMachine.UniqueData.craftingStationAttackRange )
+            {
+                //m_stateMachine.IsDead = false;
                 return true;
             }
 

@@ -2,7 +2,6 @@ using SpaceBaboon.PoolingSystem;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-//using UnityEngine.Tilemaps;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -47,27 +46,13 @@ namespace SpaceBaboon.EnemySystem
         protected override void Awake()
         {
             base.Awake();
-
-            m_circleCollider = GetComponent<CircleCollider2D>();
-            //m_spriteRendererColor = m_renderer.material.color;
-            m_animator = GetComponent<Animator>();
-            m_navMeshAgent = GetComponent<NavMeshAgent>();
-            m_navMeshAgent.updateRotation = false;
-            m_navMeshAgent.updateUpAxis = false;
-            m_navMeshAgentInitialSpeed = m_navMeshAgent.speed;
-            m_currentNavAgentSpeed = m_navMeshAgent.speed;
-        }
+            VariablesSetUpAwake();
+        }        
 
         protected virtual void Start()
         {
-            m_player = GameManager.Instance.Player;
-            m_enemySpawner = GameManager.Instance.EnemySpawner;
-            m_enemyUniqueData = m_characterData as EnemyData;
-            m_activeHealth = m_enemyUniqueData.defaultHealth;
-            m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
-            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
-            m_currentDestination = m_player.transform;            
-        }
+            VariablesSetUpStart();
+        }        
 
         protected override void Update()
         {
@@ -233,6 +218,28 @@ namespace SpaceBaboon.EnemySystem
             m_eventEnemyDeath = null;
         }
 
+        private void VariablesSetUpAwake()
+        {
+            m_circleCollider = GetComponent<CircleCollider2D>();
+            m_animator = GetComponent<Animator>();
+            m_navMeshAgent = GetComponent<NavMeshAgent>();
+            m_navMeshAgent.updateRotation = false;
+            m_navMeshAgent.updateUpAxis = false;
+            m_navMeshAgentInitialSpeed = m_navMeshAgent.speed;
+            m_currentNavAgentSpeed = m_navMeshAgent.speed;
+        }
+
+        private void VariablesSetUpStart()
+        {
+            m_player = GameManager.Instance.Player;
+            m_enemySpawner = GameManager.Instance.EnemySpawner;
+            m_enemyUniqueData = m_characterData as EnemyData;
+            m_activeHealth = m_enemyUniqueData.defaultHealth;
+            m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
+            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
+            m_currentDestination = m_player.transform;
+        }
+
         #region HitBox
         public virtual bool CanAttack()
         {
@@ -293,7 +300,7 @@ namespace SpaceBaboon.EnemySystem
             m_isActive = value;
             m_renderer.enabled = value;
             m_circleCollider.enabled = value;
-            m_navMeshAgent.isStopped = !value;
+            m_navMeshAgent.isStopped = !value;            
         }
         #endregion
     }
