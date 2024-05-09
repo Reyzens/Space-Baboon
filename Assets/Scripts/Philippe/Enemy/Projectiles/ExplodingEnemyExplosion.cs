@@ -7,6 +7,7 @@ namespace SpaceBaboon.WeaponSystem
         private ExplodingEnemyProjectileData m_uniqueData;
         private Vector3 m_initialScale;
 
+        private bool m_animationPlayed = false;
         private Animator m_animator; //May be needed for explosion animation
 
         protected void Start()
@@ -19,7 +20,17 @@ namespace SpaceBaboon.WeaponSystem
             base.Update();
 
             if (!m_isActive)
+            {
+                m_animationPlayed = false;
                 return;
+            }
+                //return;
+
+            if (m_isActive && !m_animationPlayed)
+            {
+                m_animator.SetTrigger("StartExplosion");
+                m_animationPlayed = true;
+            }
 
             UpdateScaleBasedOnAnimCurve();
         }

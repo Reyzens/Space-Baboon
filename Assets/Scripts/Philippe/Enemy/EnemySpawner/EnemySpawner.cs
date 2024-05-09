@@ -244,7 +244,7 @@ namespace SpaceBaboon.EnemySystem
                 enemyPrefabs.Add(enemy.enemyPrefab);
 
             m_enemyPool.CreatePool(enemyPrefabs, "Enemies");
-            m_enemyProjectilesPool.CreatePool(m_pooledEnemyProjectiles, "Shooting Enemy Weapon Projectile");
+            m_enemyProjectilesPool.CreatePool(m_pooledEnemyProjectiles, "Enemy Projectiles");
         }
 
         #region Cheats
