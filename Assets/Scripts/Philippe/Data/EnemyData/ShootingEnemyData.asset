@@ -19,10 +19,10 @@ MonoBehaviour:
   prefab: {fileID: 0}
   defaultAcceleration: 30
   defaultMaxVelocity: 15
+  dashMaximumVelocity: 0
   enemyType: 1
   defaultContactAttackDamage: 5
   defaultContactAttackDelay: 5
-  size: 0
-  obstructionPushForce: 25
+  distanceBeforeTeleportingCloser: 100
   maxTargetAcquisitionRange: 30
   targetAcquisitionDelay: 2
