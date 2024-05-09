@@ -19,10 +19,7 @@ namespace SpaceBaboon.EnemySystem
         protected CircleCollider2D m_circleCollider;
 
         protected Player m_player;
-        protected EnemySpawner m_enemySpawner;
-
-        //private Color m_spriteRendererColor;
-        //private float m_enemyFlashingTimer;
+        protected EnemySpawner m_enemySpawner;        
 
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
@@ -155,8 +152,7 @@ namespace SpaceBaboon.EnemySystem
             GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemySlashAttack, contactPosVec);
             vfx.transform.rotation = rotation;
         }
-
-        // TODO this can be generalized to the parent most likely
+        
         public override void OnDamageTaken(float damage)
         {
             m_activeHealth -= damage;

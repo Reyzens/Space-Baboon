@@ -327,18 +327,6 @@ namespace SpaceBaboon
 
         }
 
-        private void PlayerSpriteDirectionSwap()
-        {
-            if (m_movementDirection.x > 0)
-            {
-                m_renderer.flipX = false;
-            }
-            if (m_movementDirection.x < 0)
-            {
-                m_renderer.flipX = true;
-            }
-        }
-
         private void BeforeDashCoroutine()
         {
             m_isDashing = true;
