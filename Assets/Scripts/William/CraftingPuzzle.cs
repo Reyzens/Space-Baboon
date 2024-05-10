@@ -79,6 +79,15 @@ namespace SpaceBaboon
             //ReactivateCraftingStation();
             //DisableCraftinStation();
 
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                SetCraftingStationPuzzleVariable(true);
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                SetCraftingStationPuzzleVariable(false);
+            }
+
             SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
 
             //CircleLerping();
@@ -159,6 +168,18 @@ namespace SpaceBaboon
             m_blueCircle.gameObject.SetActive(value);
             m_circleMask.gameObject.SetActive(value);
             m_blueCircleFiller.gameObject.SetActive(value);
+            
+            if (value == true) 
+            {
+                m_stationRenderer.sprite = m_disableStationSprite;
+                m_light2D.color = Color.red;
+            }
+            if (value == false)
+            {
+                m_stationRenderer.sprite = m_enableStationSprite;                
+                m_light2D.color = Color.green;
+            }       
+
             foreach (var dropPoint in m_dropPointList)
             {
                 
