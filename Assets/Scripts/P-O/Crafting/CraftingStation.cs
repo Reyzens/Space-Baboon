@@ -17,7 +17,7 @@ namespace SpaceBaboon.Crafting
 
         //Private variables
         private Transform m_position;
-        private float m_currentHealth;
+        public float m_currentHealth;
         private int m_currentStationLevel;
         private bool m_isDisabled = false;
 
@@ -71,10 +71,10 @@ namespace SpaceBaboon.Crafting
         }
         #region StationManagement
         private void Initialization()
-        {
-            m_isDisabled = false;
+        {            
             m_currentStationLevel = 1;
-            m_currentHealth = m_maxHealth;
+            m_isDisabled = false; // TODO Gotta be at true when starting game
+            m_currentHealth = 0;
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)
             {

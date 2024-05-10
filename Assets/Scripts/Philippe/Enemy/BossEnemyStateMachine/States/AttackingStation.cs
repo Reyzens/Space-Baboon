@@ -29,7 +29,8 @@ namespace SpaceBaboon.EnemySystem
             if (m_craftingStationAttackTimer < 0)
             {
                 Debug.Log("Crafting station attacked");
-                m_stateMachine.AttackTargetedCraftingStation();                
+                m_stateMachine.AttackTargetedCraftingStation();
+                Debug.Log("Targeted crafting station health " + m_stateMachine.TargetedCraftingStation.m_currentHealth);
                 m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
             }
         }
@@ -65,8 +66,7 @@ namespace SpaceBaboon.EnemySystem
             }
 
             if (m_stateMachine.GetDistanceToTargetedCraftingStation() > m_stateMachine.UniqueData.craftingStationAttackRange )
-            {
-                //m_stateMachine.IsDead = false;
+            {                
                 return true;
             }
 
