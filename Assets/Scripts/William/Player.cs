@@ -19,7 +19,7 @@ namespace SpaceBaboon
 
         private float m_activeDashCD;
         private float m_activeDashCoolDown;
-        float m_dashCurveStrength;
+        private float m_dashCurveStrength;
         private float m_activeDashDuration;
         private float m_timestampedDash;
         private float m_currentMaximumVelocity;
@@ -46,8 +46,11 @@ namespace SpaceBaboon
 
         //private Vector2 m_movementDirection;
         private AnimationCurve m_dashCurve;
-        private Color m_spriteRendererColor;        
+        private Color m_spriteRendererOriginColor;
+        private Color m_spriteRendererOriginOutlineColor;
+        private Color m_spriteRendererCurrentColor;
         private PlayerFlash m_playerFlash;
+        
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
 
@@ -128,6 +131,7 @@ namespace SpaceBaboon
         {
             UnsubscribeToInputEvent();
         }
+        
         #endregion
 
         //Methods
@@ -143,7 +147,9 @@ namespace SpaceBaboon
 
             m_collider = GetComponent<BoxCollider2D>();
             m_playerCam = GameObject.Find("PlayerCam").GetComponent<CinemachineVirtualCamera>();
-            m_spriteRendererColor = m_renderer.color;
+            m_spriteRendererOriginColor = m_renderer.color;
+            m_spriteRendererCurrentColor = m_spriteRendererOriginColor;
+            m_spriteRendererOriginOutlineColor = m_renderer.material.GetColor("_Color");
 
 
             m_activeHealth = m_playerData.defaultHealth + m_bonusHealth;
@@ -334,17 +340,15 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
             m_rB.GameObject().layer = LayerMask.NameToLayer("ImmunityDash");
             m_dahsTrail.SetActive(true);
-
         }
         private void AfterDashCoroutine()
         {
             m_activeDashCD = m_activeDashCoolDown;
-            m_playerFlash.FlashEnd(m_renderer);
+            m_playerFlash.FlashEnd(m_renderer, m_spriteRendererOriginColor);
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
-            m_rB.GameObject().layer = LayerMask.NameToLayer("Player");
-            //m_currentMaximumVelocity = Mathf.Lerp(m_maxDashVelocity, m_characterData.dashMaximumVelocity,m_activeDashDuration);       
+            m_rB.GameObject().layer = LayerMask.NameToLayer("Player");       
         }
 
 
@@ -366,7 +370,7 @@ namespace SpaceBaboon
             m_screenShake = true;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = m_screenShakeAmplitude;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = m_screenShakeFrequency;
-            m_renderer.material.color = Color.red;
+            m_renderer.material.SetColor("_Color", Color.red);
             if (m_alive && !m_isInvincible)
                 m_activeHealth -= damage;
         }
@@ -398,15 +402,17 @@ namespace SpaceBaboon
 
                 yield return null;
             }
+            yield return new WaitForSeconds(0.2f);
             AfterDashCoroutine();
         }
 
         private IEnumerator PlayerDamageTakenScreenShakeCoroutine()
         {
+            yield return new WaitForSeconds(0.2f);
             m_screenShake = false;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
             m_playerCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_FrequencyGain = 0f;
-            m_renderer.material.color = m_spriteRendererColor;
+            m_renderer.material.SetColor("_Color", m_spriteRendererOriginOutlineColor);
             yield return new WaitForSeconds(0.5f);
         }
 
