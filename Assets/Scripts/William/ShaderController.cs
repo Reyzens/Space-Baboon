@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 namespace SpaceBaboon
 {
+    [ExecuteAlways]
     public class ShaderController : MonoBehaviour
     {
         private Material m_playerSpriteRendererMaterial;
@@ -22,7 +23,7 @@ namespace SpaceBaboon
         // Update is called once per frame
         void Update()
         {
-            
+            SetOutlineColor(m_color);
         }
 
         private void SetOutlineColor(Color newcolor)
