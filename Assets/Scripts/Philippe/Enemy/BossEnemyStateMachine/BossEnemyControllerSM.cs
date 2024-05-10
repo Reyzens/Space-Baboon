@@ -152,7 +152,11 @@ namespace SpaceBaboon.EnemySystem
             {
                 if (!station.GetIsDisabled())
                     WorkingCraftingStations.Add(station);
-            }            
+            }
+            if (WorkingCraftingStations.Count == 0)
+            {
+                Debug.Log("No working crafting station found");
+            }
         }
 
         private void TargetRandomWorkingCraftingStation()
@@ -175,7 +179,7 @@ namespace SpaceBaboon.EnemySystem
             CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);
 
             //Testing
-            //CurrentBossIndex = 0;
+            CurrentBossIndex = 1;
             
             // TODO check this out, needs to be called twice to get real random number, if not always target the same station
             TargetRandomWorkingCraftingStation();
