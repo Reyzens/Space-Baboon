@@ -50,7 +50,7 @@ namespace SpaceBaboon
         private Color m_spriteRendererOriginOutlineColor;
         private Color m_spriteRendererCurrentColor;
         private PlayerFlash m_playerFlash;
-        
+
 
         private Dictionary<Crafting.InteractableResource.EResourceType, int> m_collectibleInventory;
 
@@ -131,7 +131,7 @@ namespace SpaceBaboon
         {
             UnsubscribeToInputEvent();
         }
-        
+
         #endregion
 
         //Methods
@@ -165,7 +165,7 @@ namespace SpaceBaboon
             m_dahsTrail.SetActive(false);
             m_screenShake = false;
             m_dashCurveStrength = 0.0f;
-            m_timestampedDash = 0.0f;            
+            m_timestampedDash = 0.0f;
             m_playerFlash = GetComponent<PlayerFlash>();
             m_currentMaximumVelocity = m_characterData.defaultMaxVelocity;
         }
@@ -348,7 +348,7 @@ namespace SpaceBaboon
             m_dahsTrail.SetActive(false);
             m_isDashing = false;
             m_dashInputReceiver = false;
-            m_rB.GameObject().layer = LayerMask.NameToLayer("Player");       
+            m_rB.GameObject().layer = LayerMask.NameToLayer("Player");
         }
 
 
@@ -385,6 +385,21 @@ namespace SpaceBaboon
         {
             EndSlow();
             StopGlide();
+        }
+
+        public void HealPlayer(int healingValue)
+        {
+            if (m_alive)
+            {
+                if ((m_activeHealth + healingValue) >= m_playerData.defaultHealth)
+                {
+                    m_activeHealth = m_playerData.defaultHealth;
+                }
+                else
+                {
+                    m_activeHealth += healingValue;
+                }
+            }
         }
 
         #endregion PlayerMethods
