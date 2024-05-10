@@ -17,7 +17,7 @@ namespace SpaceBaboon
         [SerializeField]
         public int m_killneeded;
         [SerializeField]
-        private int m_currentkill;
+        private int m_currentKill;
         [SerializeField] 
         private List<ResourceDropPoint> m_dropPointList;
         [SerializeField]
@@ -56,7 +56,7 @@ namespace SpaceBaboon
             m_ressourceDropPointScript = GetComponentInChildren<ResourceDropPoint>();
             m_stationRenderer = m_stationSpriteRef.GetComponent<SpriteRenderer>();
             m_dropPointList = m_craftingStationScript.GetDropPopint();
-            m_currentkill = 0;
+            m_currentKill = 0;
             m_zoneCircle = GameObject.Find("Circle");
             //SetDropPoints();
             m_transparentCirclePercentage = 0.0f;
@@ -79,14 +79,14 @@ namespace SpaceBaboon
             //ReactivateCraftingStation();
             //DisableCraftinStation();
 
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                SetCraftingStationPuzzleVariable(true);
-            }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                SetCraftingStationPuzzleVariable(false);
-            }
+            //if (Input.GetKeyDown(KeyCode.Y))
+            //{
+            //    SetCraftingStationPuzzleEnabled(true);
+            //}
+            //if (Input.GetKeyDown(KeyCode.U))
+            //{
+            //    SetCraftingStationPuzzleEnabled(false);
+            //}
 
             SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
 
@@ -106,7 +106,7 @@ namespace SpaceBaboon
 
         private void PuzzleDisabler()
         {
-            if (m_currentkill >= m_killneeded)
+            if (m_currentKill >= m_killneeded)
             {
                 m_craftingPuzzleEnabled = false;
                 m_stationRenderer.sprite = m_enableStationSprite;
@@ -118,8 +118,8 @@ namespace SpaceBaboon
         {
             if (m_craftingPuzzleEnabled == true)
             {
-                m_currentkill += 1;
-                m_transparentCirclePercentage = (float)m_currentkill / m_killneeded * m_blueCircle.transform.localScale.x;
+                m_currentKill += 1;
+                m_transparentCirclePercentage = (float)m_currentKill / m_killneeded * m_blueCircle.transform.localScale.x;
                 m_transparentCircleNewPosition = new Vector3(m_transparentCirclePercentage, m_transparentCirclePercentage, m_transparentCirclePercentage);
                 m_transparentCircleMorphing = true;
             }
@@ -178,6 +178,7 @@ namespace SpaceBaboon
             {
                 m_stationRenderer.sprite = m_enableStationSprite;                
                 m_light2D.color = Color.green;
+                m_craftingStationScript.m_currentHealth = m_craftingStationScript.m_maxHealth;
             }       
 
             foreach (var dropPoint in m_dropPointList)
@@ -187,9 +188,14 @@ namespace SpaceBaboon
             }
         }
 
-        public void SetCraftingStationPuzzleVariable(bool value)
+        public void SetCraftingStationPuzzleEnabled(bool value)
         {
             m_craftingPuzzleEnabled = value;
+
+            if(value)
+            {
+                m_currentKill = 0;
+            }
 
             //if (enable)
             //{

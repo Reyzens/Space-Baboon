@@ -8,7 +8,7 @@ namespace SpaceBaboon.Crafting
     {
         //Serializable variables
         [SerializeField] private PlayerWeapon m_linkedWeapon;
-        [SerializeField] private float m_maxHealth;
+        [SerializeField] public float m_maxHealth;
         [SerializeField] private List<ResourceDropPoint> m_resourceDropPoints = new List<ResourceDropPoint>();
         [SerializeField] private float m_levelScaling;
         [SerializeField] private bool m_debugMode;
@@ -50,6 +50,20 @@ namespace SpaceBaboon.Crafting
         // Update is called once per frame
         void Update()
         {
+            // TODO FOR TESTING TO DELETE
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                m_isDisabled = false;
+                m_currentHealth = m_maxHealth;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                m_isDisabled = true;
+                m_currentHealth = 0.0f;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
+            }
+
             if (m_isDisabled)
             {
                 //Debug.Log("Station disabled");
@@ -106,6 +120,7 @@ namespace SpaceBaboon.Crafting
             if (m_currentHealth <= 0)
             {
                 m_isDisabled = true;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
             }
 
             //Debug.Log("Crafting Station current hit points " + m_currentHealth);

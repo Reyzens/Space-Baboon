@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_RenderingLayerMask
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 4257152038819742592, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6150973497172595356, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.8
@@ -104,8 +108,26 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_circleRef
+      value: 
+      objectReference: {fileID: 4504073538652329525}
+    - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_circlePercentRef
+      value: 
+      objectReference: {fileID: 5316429502408222376}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+--- !u!1 &4504073538652329525 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8089138747805283484, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+  m_PrefabInstance: {fileID: 5675604050978267817}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5316429502408222376 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 505541868652659713, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+  m_PrefabInstance: {fileID: 5675604050978267817}
+  m_PrefabAsset: {fileID: 0}
