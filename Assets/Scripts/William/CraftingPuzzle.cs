@@ -73,6 +73,7 @@ namespace SpaceBaboon
         {
             PuzzleDisabler();
             ReactivateCraftingStation();
+            DisableCraftinStation();
             //CircleLerping();
             m_blueCircleFiller.transform.localScale = Vector3.Lerp(m_blueCircleFiller.transform.localScale, m_transparentCircleNewPosition, Time.deltaTime * 1.0f);
             //m_blueCircleFiller.transform.localScale = m_transparentCircleNewPosition;
@@ -102,7 +103,7 @@ namespace SpaceBaboon
             if (m_craftingPuzzleEnable == true)
             {
                 m_currentkill += 1;
-                m_transparentCirclePercentage = (float)m_currentkill / m_killneeded * 1.8f;
+                m_transparentCirclePercentage = (float)m_currentkill / m_killneeded * m_blueCircle.transform.localScale.x;
                 m_transparentCircleNewPosition = new Vector3(m_transparentCirclePercentage, m_transparentCirclePercentage, m_transparentCirclePercentage);
                 m_transparentCircleMorphing = true;
             }
@@ -131,6 +132,33 @@ namespace SpaceBaboon
                 }
             }
         }
+
+        private void DisableCraftinStation()
+        {
+            if (m_craftingPuzzleEnable == true)
+            {
+                m_blueCircle.gameObject.SetActive(true);
+                m_circleMask.gameObject.SetActive(true);
+                m_blueCircleFiller.gameObject.SetActive(true);
+                foreach (var dropPoint in m_dropPointList)
+                {
+                    dropPoint.gameObject.SetActive(false);
+                }
+            }
+        }
+
+        public void SetCraftionStationPuzzle(bool enable)
+        {
+            if (enable)
+            {
+                m_craftingPuzzleEnable = true;
+            }
+            if (enable == false)
+            {
+                m_craftingPuzzleEnable = false;
+            }
+        }
+
         private void OnEnemyDeathSubsribe(GameObject collider)
         {          
             collider.GetComponent<Enemy>().registerPuzzle(this);
