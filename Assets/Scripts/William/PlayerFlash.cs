@@ -13,10 +13,10 @@ namespace SpaceBaboon
             sprite.color = flashColor;
         }
 
-        public void FlashEnd(SpriteRenderer sprite)
+        public void FlashEnd(SpriteRenderer sprite, Color originalColor)
         {
             //sprite.color = Color.Lerp(originColor, sprite.color, 0.2f);
-            sprite.color = originColor;
+            sprite.color = originalColor;
         }
     }
 }

@@ -182,11 +182,11 @@ namespace SpaceBaboon.WeaponSystem
                 Debug.Log("Weapon upgraded to level " + m_currentLevel);
             }
             ApplyUpgrade(upgrade);
-            m_currentLevel++;
         }
 
         private void ApplyUpgrade(Crafting.CraftingStation.EWeaponUpgrades upgrade)
         {
+            m_currentLevel++;
             switch (upgrade)
             {
                 case Crafting.CraftingStation.EWeaponUpgrades.AttackZone:

@@ -55,3 +55,9 @@ TagManager:
   - name: TopSortLayer
     uniqueID: 3995442123
     locked: 0
+  - name: DropStationLayer
+    uniqueID: 197324187
+    locked: 0
+  - name: CraftinStationLayer
+    uniqueID: 1269126031
+    locked: 0
