@@ -6,13 +6,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
     public class CraftingPuzzle : MonoBehaviour
     {
         [SerializeField]
-        private bool m_craftingPuzzleEnable;
+        private bool m_craftingPuzzleEnabled;
         [SerializeField]
         private int m_killneeded;
         [SerializeField]
@@ -48,7 +49,7 @@ namespace SpaceBaboon
 
         private void Initialisation()
         {
-            m_craftingPuzzleEnable = true;
+            m_craftingPuzzleEnabled = true;
             m_craftingStationScript = GetComponent<CraftingStation>();
             m_stationRenderer = m_stationSpriteRef.GetComponent<SpriteRenderer>();
             m_dropPointList = m_craftingStationScript.GetDropPopint();
@@ -72,7 +73,20 @@ namespace SpaceBaboon
         void Update()
         {
             PuzzleDisabler();
-            ReactivateCraftingStation();
+            //ReactivateCraftingStation();
+            //DisableCraftinStation();
+
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                SetCraftingStationPuzzleVariable(true);
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                SetCraftingStationPuzzleVariable(false);
+            }
+
+            SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
+
             //CircleLerping();
             m_blueCircleFiller.transform.localScale = Vector3.Lerp(m_blueCircleFiller.transform.localScale, m_transparentCircleNewPosition, Time.deltaTime * 1.0f);
             //m_blueCircleFiller.transform.localScale = m_transparentCircleNewPosition;
@@ -91,7 +105,7 @@ namespace SpaceBaboon
         {
             if (m_currentkill >= m_killneeded)
             {
-                m_craftingPuzzleEnable = false;
+                m_craftingPuzzleEnabled = false;
                 m_stationRenderer.sprite = m_enableStationSprite;
                 m_light2D.color = Color.green;
             }
@@ -99,10 +113,10 @@ namespace SpaceBaboon
 
         public void PuzzleCounter()
         {
-            if (m_craftingPuzzleEnable == true)
+            if (m_craftingPuzzleEnabled == true)
             {
                 m_currentkill += 1;
-                m_transparentCirclePercentage = (float)m_currentkill / m_killneeded * 1.8f;
+                m_transparentCirclePercentage = (float)m_currentkill / m_killneeded * m_blueCircle.transform.localScale.x;
                 m_transparentCircleNewPosition = new Vector3(m_transparentCirclePercentage, m_transparentCirclePercentage, m_transparentCirclePercentage);
                 m_transparentCircleMorphing = true;
             }
@@ -118,19 +132,71 @@ namespace SpaceBaboon
             }
         }
 
-        private void ReactivateCraftingStation()
+        //private void ReactivateCraftingStation()
+        //{
+        //    if(m_craftingPuzzleEnabled == false)
+        //    {
+        //        m_blueCircle.gameObject.SetActive(false);
+        //        m_circleMask.gameObject.SetActive(false);
+        //        m_blueCircleFiller.gameObject.SetActive(false);
+        //        foreach (var dropPoint in m_dropPointList)
+        //        {
+        //            dropPoint.gameObject.SetActive(true);
+        //        }
+        //    }
+        //}
+        //
+        //private void DisableCraftinStation()
+        //{
+        //    if (m_craftingPuzzleEnabled == true)
+        //    {
+        //        m_blueCircle.gameObject.SetActive(true);
+        //        m_circleMask.gameObject.SetActive(true);
+        //        m_blueCircleFiller.gameObject.SetActive(true);
+        //        foreach (var dropPoint in m_dropPointList)
+        //        {
+        //            dropPoint.gameObject.SetActive(false);
+        //        }
+        //    }
+        //}
+
+        private void SetCraftingStationPuzzle(bool value)
         {
-            if(m_craftingPuzzleEnable == false)
+            m_blueCircle.gameObject.SetActive(value);
+            m_circleMask.gameObject.SetActive(value);
+            m_blueCircleFiller.gameObject.SetActive(value);
+            
+            if (value == true) 
             {
-                m_blueCircle.gameObject.SetActive(false);
-                m_circleMask.gameObject.SetActive(false);
-                m_blueCircleFiller.gameObject.SetActive(false);
-                foreach (var dropPoint in m_dropPointList)
-                {
-                    dropPoint.gameObject.SetActive(true);
-                }
+                m_stationRenderer.sprite = m_disableStationSprite;
+                m_light2D.color = Color.red;
+            }
+            if (value == false)
+            {
+                m_stationRenderer.sprite = m_enableStationSprite;                
+                m_light2D.color = Color.green;
+            }       
+
+            foreach (var dropPoint in m_dropPointList)
+            {
+                dropPoint.gameObject.SetActive(!value);
             }
         }
+
+        public void SetCraftingStationPuzzleVariable(bool value)
+        {
+            m_craftingPuzzleEnabled = value;
+
+            //if (enable)
+            //{
+            //    m_craftingPuzzleEnabled = true;
+            //}
+            //if (enable == false)
+            //{
+            //    m_craftingPuzzleEnabled = false;
+            //}
+        }
+
         private void OnEnemyDeathSubsribe(GameObject collider)
         {          
             collider.GetComponent<Enemy>().registerPuzzle(this);
@@ -141,14 +207,14 @@ namespace SpaceBaboon
         }
         private void OnEnemyDetected(GameObject collider)
         {
-            if(m_craftingPuzzleEnable) 
+            if(m_craftingPuzzleEnabled) 
             { 
                 OnEnemyDeathSubsribe(collider);
             }    
         }
         private void OnEnemyExit(GameObject collider)
         {
-            if (m_craftingPuzzleEnable)
+            if (m_craftingPuzzleEnabled)
             { 
                 OnEnemyDeathUnsubscribe(collider);
             }       

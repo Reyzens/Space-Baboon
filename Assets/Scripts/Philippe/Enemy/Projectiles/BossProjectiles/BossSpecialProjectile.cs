@@ -5,7 +5,7 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class BossSpecialProjectile : Projectile
     {
-        private BossSpecialProjectileData m_uniqueData; // TODO put variables in scriptableObject
+        protected BossSpecialProjectileData m_uniqueData; // TODO put variables in scriptableObject
 
         private EnemySpawner m_enemySpawner;
         protected Player m_player;

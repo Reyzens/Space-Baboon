@@ -10,6 +10,8 @@ namespace SpaceBaboon.Crafting
         private bool m_DebugMode = false;
         [SerializeField]
         private CraftingStation m_craftingStation;
+        [SerializeField]
+        private GameObject m_circleRef;
 
         //Private variables
         private int m_resourceAmountNeeded;
@@ -20,14 +22,14 @@ namespace SpaceBaboon.Crafting
         // Start is called before the first frame update
         void Awake()
         {
-            m_resourceAmountDisplay = GetComponentInChildren<TextMeshPro>();
+            m_resourceAmountDisplay = m_circleRef.GetComponentInChildren<TextMeshPro>();
             m_dropPointMask = GetComponentInChildren<SpriteMask>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            UpdateMaskSize();
+           //UpdateMaskSize();
         }
 
         private void UpdateMaskSize()
@@ -100,14 +102,14 @@ namespace SpaceBaboon.Crafting
                     newColor = Color.cyan;
                 }
                 m_resourceAmountDisplay.text = m_resourceAmountNeeded.ToString();
-                GetComponent<SpriteRenderer>().color = newColor;
+                m_circleRef.GetComponent<SpriteRenderer>().color = newColor;
                 GetComponent<CircleCollider2D>().enabled = true;
                 m_resourceAmountDisplay.enabled = true;
             }
             else
             {
                 //Invisible
-                GetComponent<SpriteRenderer>().color = Color.clear;
+                m_circleRef.GetComponent<SpriteRenderer>().color = Color.clear;
                 GetComponent<CircleCollider2D>().enabled = false;
                 m_resourceAmountDisplay.enabled = false;
             }
