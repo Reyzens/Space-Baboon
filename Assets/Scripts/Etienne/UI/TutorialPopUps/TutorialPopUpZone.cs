@@ -13,6 +13,8 @@ namespace SpaceBaboon.TutorialSystem
             if (collision.gameObject.GetComponent<Player>() != null)
             {
                 GameManager.Instance.DisplayTutorialWindow(m_tutorialType, transform.position);
+
+                //Destroy GameObject ?
             }
         }
     }

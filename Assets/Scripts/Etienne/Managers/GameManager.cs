@@ -105,8 +105,6 @@ namespace SpaceBaboon
             m_tutorialWindow.Display(type, position);
         }
 
-
-
         #region Setters
 
         public void SetPlayer(Player player)
