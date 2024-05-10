@@ -15,7 +15,7 @@ namespace SpaceBaboon
         [SerializeField]
         private bool m_craftingPuzzleEnabled;
         [SerializeField]
-        private int m_killneeded;
+        public int m_killneeded;
         [SerializeField]
         private int m_currentkill;
         [SerializeField] 
@@ -44,8 +44,8 @@ namespace SpaceBaboon
         private float m_transparentCirclePercentage;
         Vector3 m_transparentCircleNewPosition;
         private bool m_transparentCircleMorphing;
-        
 
+        private float m_ressourcesTypeOne;
 
 
 

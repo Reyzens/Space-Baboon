@@ -12,6 +12,8 @@ namespace SpaceBaboon.Crafting
         private CraftingStation m_craftingStation;
         [SerializeField]
         private GameObject m_circleRef;
+        [SerializeField]
+        private GameObject m_circlePercentRef;
 
         //Private variables
         private int m_resourceAmountNeeded;
@@ -32,25 +34,35 @@ namespace SpaceBaboon.Crafting
         // Update is called once per frame
         void Update()
         {
-           //UpdateMaskSize();
+           UpdateMaskSize();
         }
 
         private void UpdateMaskSize()
         {
-            m_dropPointMask.transform.localScale = new Vector2(NewSize(), NewSize());
+            m_circlePercentRef.transform.localScale = new Vector3(NewSize(), NewSize(), NewSize());
+            m_circlePercentRef.GetComponent<SpriteRenderer>().color = new Color(m_circlePercentRef.GetComponent<SpriteRenderer>().color.r, 
+                m_circlePercentRef.GetComponent<SpriteRenderer>().color.g, 
+                m_circlePercentRef.GetComponent<SpriteRenderer>().color.b, 
+                0.5f);
         }
         private float NewSize()
         {
             float playerResources = GameManager.Instance.Player.GetResources((int)m_resourceTypeNeeded);
-
+            float sizeRatio;
             // Ensure we don't divide by zero
             if (playerResources == 0)
-                return 1;  // Return full size when no resources are available
-
-            float sizeRatio = m_resourceAmountNeeded / playerResources;
+                return 0;  // Return full size when no resources are available
+            if (playerResources == 1)
+            {
+                sizeRatio = playerResources / m_resourceAmountNeeded * m_circleDropPointref.transform.localScale.x;
+            }
+            else
+            {
+                sizeRatio = playerResources + 1.0f / m_resourceAmountNeeded * m_circleDropPointref.transform.localScale.x;
+            }
 
             // Calculate the inverse ratio to make the mask smaller as resources increase
-            float newSize = 1 - Mathf.Clamp(sizeRatio, 0, 1);
+            float newSize = Mathf.Clamp(sizeRatio, 0f, 1f);
 
             return newSize;
         }
@@ -108,6 +120,7 @@ namespace SpaceBaboon.Crafting
                 m_circleDropPointref.color = newColor;
                 GetComponent<CircleCollider2D>().enabled = true;
                 m_resourceAmountDisplay.enabled = true;
+                m_circlePercentRef.GetComponent<SpriteRenderer>().color = newColor;
             }
             else
             {
@@ -115,6 +128,7 @@ namespace SpaceBaboon.Crafting
                 m_circleDropPointref.color = Color.clear;
                 GetComponent<CircleCollider2D>().enabled = false;
                 m_resourceAmountDisplay.enabled = false;
+                m_circlePercentRef.GetComponent<SpriteRenderer>().color = Color.clear;
             }
         }
         public void SetRef()
