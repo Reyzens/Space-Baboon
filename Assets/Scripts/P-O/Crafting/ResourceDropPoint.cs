@@ -18,12 +18,15 @@ namespace SpaceBaboon.Crafting
         private TextMeshPro m_resourceAmountDisplay;
         private Crafting.InteractableResource.EResourceType m_resourceTypeNeeded;
         private SpriteMask m_dropPointMask;
+        private SpriteRenderer m_circleDropPointref;
+        
 
         // Start is called before the first frame update
         void Awake()
         {
-            m_resourceAmountDisplay = m_circleRef.GetComponentInChildren<TextMeshPro>();
+            m_resourceAmountDisplay = GetComponentInChildren<TextMeshPro>();
             m_dropPointMask = GetComponentInChildren<SpriteMask>();
+            m_circleDropPointref = m_circleRef.GetComponent<SpriteRenderer>();
         }
 
         // Update is called once per frame
@@ -102,17 +105,21 @@ namespace SpaceBaboon.Crafting
                     newColor = Color.cyan;
                 }
                 m_resourceAmountDisplay.text = m_resourceAmountNeeded.ToString();
-                m_circleRef.GetComponent<SpriteRenderer>().color = newColor;
+                m_circleDropPointref.color = newColor;
                 GetComponent<CircleCollider2D>().enabled = true;
                 m_resourceAmountDisplay.enabled = true;
             }
             else
             {
                 //Invisible
-                m_circleRef.GetComponent<SpriteRenderer>().color = Color.clear;
+                m_circleDropPointref.color = Color.clear;
                 GetComponent<CircleCollider2D>().enabled = false;
                 m_resourceAmountDisplay.enabled = false;
             }
+        }
+        public void SetRef()
+        {
+            m_circleDropPointref = m_circleRef.GetComponent<SpriteRenderer>();
         }
     }
 }

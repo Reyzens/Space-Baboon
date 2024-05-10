@@ -20,6 +20,7 @@ namespace SpaceBaboon.Crafting
         public float m_currentHealth;
         private int m_currentStationLevel;
         private bool m_isDisabled = false;
+        private CraftingPuzzle m_puzzleScript;
 
         //Serialized for test purpose
         [SerializeField] private List<Crafting.InteractableResource.EResourceType> m_resourceNeeded = new List<Crafting.InteractableResource.EResourceType>();
@@ -80,6 +81,8 @@ namespace SpaceBaboon.Crafting
             {
                 ResetUpgrade();
             }
+            m_puzzleScript = GetComponent<CraftingPuzzle>();
+            m_puzzleScript.Initialisation();
         }
         private void ResetDropStation()
         {

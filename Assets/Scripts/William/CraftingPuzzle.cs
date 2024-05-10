@@ -22,6 +22,8 @@ namespace SpaceBaboon
         private List<ResourceDropPoint> m_dropPointList;
         [SerializeField]
         private CraftingStation m_craftingStationScript;
+        [SerializeField]
+        private ResourceDropPoint m_ressourceDropPointScript;
         private GameObject m_zoneCircle;
         [SerializeField]
         private GameObject m_blueCircle;
@@ -47,15 +49,16 @@ namespace SpaceBaboon
 
 
 
-        private void Initialisation()
+        public void Initialisation()
         {
             m_craftingPuzzleEnabled = true;
             m_craftingStationScript = GetComponent<CraftingStation>();
+            m_ressourceDropPointScript = GetComponentInChildren<ResourceDropPoint>();
             m_stationRenderer = m_stationSpriteRef.GetComponent<SpriteRenderer>();
             m_dropPointList = m_craftingStationScript.GetDropPopint();
             m_currentkill = 0;
             m_zoneCircle = GameObject.Find("Circle");
-            SetDropPoints();
+            //SetDropPoints();
             m_transparentCirclePercentage = 0.0f;
             m_transparentCircleNewPosition = new Vector3();
             m_transparentCircleMorphing = false;
@@ -66,7 +69,7 @@ namespace SpaceBaboon
         // Start is called before the first frame update
         void Start()
         {
-            Initialisation();
+            
         }
 
         // Update is called once per frame
@@ -86,10 +89,10 @@ namespace SpaceBaboon
 
         private void SetDropPoints()
         {
-            foreach (var dropPoint in m_dropPointList)
-            {
-                dropPoint.gameObject.SetActive(false);
-            }
+           foreach (var dropPoint in m_dropPointList)
+           {
+               dropPoint.gameObject.SetActive(false);
+           }
         }
 
         private void PuzzleDisabler()
@@ -158,6 +161,7 @@ namespace SpaceBaboon
             m_blueCircleFiller.gameObject.SetActive(value);
             foreach (var dropPoint in m_dropPointList)
             {
+                
                 dropPoint.gameObject.SetActive(!value);
             }
         }

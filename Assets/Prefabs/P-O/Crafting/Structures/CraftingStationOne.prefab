@@ -243,6 +243,7 @@ MonoBehaviour:
   m_debugMode: 0
   m_maxUpgradeCooldown: 3
   m_weaponIcon: {fileID: 7170592427842147116}
+  m_currentHealth: 0
   m_resourceNeeded: 
   m_currentResources: 
   m_possibleResources: 
@@ -260,11 +261,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dcbc1222a938c448be6b92011c86b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_craftingPuzzleEnable: 0
+  m_craftingPuzzleEnabled: 0
   m_killneeded: 5
   m_currentkill: 0
   m_dropPointList: []
   m_craftingStationScript: {fileID: 0}
+  m_ressourceDropPointScript: {fileID: 0}
   m_blueCircle: {fileID: 2667221057814623772}
   m_circleMask: {fileID: 6717498158866971253}
   m_blueCircleFiller: {fileID: 1194562068439334276}
@@ -449,6 +451,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_circleRef
+      value: 
+      objectReference: {fileID: 7273996330721414215}
+    - target: {fileID: 6964431338951168141, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
       propertyPath: m_craftingStation
       value: 
       objectReference: {fileID: 5121084026466593204}
@@ -460,6 +466,11 @@ PrefabInstance:
 --- !u!224 &4750360843072154183 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6150973497172595356, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+  m_PrefabInstance: {fileID: 1490702243604543707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7273996330721414215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8089138747805283484, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
   m_PrefabInstance: {fileID: 1490702243604543707}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8365058821204568150 stripped
@@ -877,6 +888,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3343195632681333284, guid: 44de2c8ed1d27ea419b7ad4062f8d789, type: 3}
+      propertyPath: m_circleRef
+      value: 
+      objectReference: {fileID: 9027758936097526062}
+    - target: {fileID: 3343195632681333284, guid: 44de2c8ed1d27ea419b7ad4062f8d789, type: 3}
       propertyPath: m_craftingStation
       value: 
       objectReference: {fileID: 5121084026466593204}
@@ -909,6 +924,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d185a8feb4b729f42916e3176c120401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &9027758936097526062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4504073538652329525, guid: 44de2c8ed1d27ea419b7ad4062f8d789, type: 3}
+  m_PrefabInstance: {fileID: 4884336240832825115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5683346255432709433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1008,6 +1028,18 @@ PrefabInstance:
     - target: {fileID: 6150973497172595356, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219077972782098678, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219077972782098678, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_Color.g
+      value: 0.64776784
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219077972782098678, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8679245
       objectReference: {fileID: 0}
     - target: {fileID: 6219077972782098678, guid: f389397aa89bb6b4aa93182aa018f085, type: 3}
       propertyPath: m_RenderingLayerMask
