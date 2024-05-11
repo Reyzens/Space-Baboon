@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 482924058165501279}
   - component: {fileID: 293947934903021209}
   - component: {fileID: 3215072545501550106}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: CrystalResource
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceData: {fileID: 11400000, guid: 0274d64e293efb746815042ef01541b8, type: 2}
-  m_DebugMode: 1
   m_outline: {fileID: 1505662732337688092}
 --- !u!50 &6512866892332310219
 Rigidbody2D:
@@ -215,14 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultRotationSpeed: 50
-  m_currentTimer: 0
-  m_currentRotationSpeed: 0
   m_rotationRange: 8
   m_acceptableRangeOffset: 0.5
-  m_isOnTimer: 0
-  m_isResource: 0
-  m_collectTimer: 0
-  m_accelerationRatio: 0
+  m_minDistanceBetweenObjects: 0
 --- !u!1001 &93385661433736487
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -274,6 +268,10 @@ PrefabInstance:
     - target: {fileID: 1562456070987137851, guid: 5ad6e6d6666bf60418e2b8180b8541d0, type: 3}
       propertyPath: m_Name
       value: CrystalOutline
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562456070987137851, guid: 5ad6e6d6666bf60418e2b8180b8541d0, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

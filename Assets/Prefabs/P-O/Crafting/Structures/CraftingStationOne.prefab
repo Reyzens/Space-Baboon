@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 6532700202681266650}
   - component: {fileID: 5121084026466593204}
   - component: {fileID: 5411749544586093529}
+  - component: {fileID: 3382125532271466434}
   m_Layer: 0
   m_Name: CraftingStationOne
   m_TagString: Untagged
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_craftingPuzzleEnabled: 0
   m_killneeded: 5
-  m_currentkill: 0
+  m_currentKill: 0
   m_dropPointList: []
   m_craftingStationScript: {fileID: 0}
   m_ressourceDropPointScript: {fileID: 0}
@@ -274,6 +275,33 @@ MonoBehaviour:
   m_disableStationSprite: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
   m_stationSpriteRef: {fileID: 2328655762559953906}
   m_light2D: {fileID: 890938568500711651}
+--- !u!50 &3382125532271466434
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5186741816614294327}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &7434197111157336024
 GameObject:
   m_ObjectHideFlags: 0

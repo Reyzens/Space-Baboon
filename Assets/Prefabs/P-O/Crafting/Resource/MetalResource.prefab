@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 233014969400398797}
   - component: {fileID: 5697803462177089808}
   - component: {fileID: -6185089762933630266}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: MetalResource
   m_TagString: Resource
   m_Icon: {fileID: 0}
@@ -103,7 +103,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceData: {fileID: 11400000, guid: 087d7421ee5df1d4ca2809425dcf43eb, type: 2}
-  m_DebugMode: 1
   m_outline: {fileID: 933619631183871025}
 --- !u!50 &130611924005237367
 Rigidbody2D:
@@ -215,14 +214,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultRotationSpeed: 50
-  m_currentTimer: 0
-  m_currentRotationSpeed: 0
   m_rotationRange: 8
   m_acceptableRangeOffset: 0.5
-  m_isOnTimer: 0
-  m_isResource: 0
-  m_collectTimer: 0
-  m_accelerationRatio: 0
+  m_minDistanceBetweenObjects: 0
 --- !u!1001 &1826798570928144138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -274,6 +268,10 @@ PrefabInstance:
     - target: {fileID: 1562456070987137851, guid: 50ecab3c36158f94b83a01bb0f63e095, type: 3}
       propertyPath: m_Name
       value: MetalOutline
+      objectReference: {fileID: 0}
+    - target: {fileID: 1562456070987137851, guid: 50ecab3c36158f94b83a01bb0f63e095, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
