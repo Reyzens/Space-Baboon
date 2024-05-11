@@ -17,12 +17,10 @@ namespace SpaceBaboon.EnemySystem
         public Player Player { get; private set; }     
         public EnemySpawner EnemySpawner { get; private set; }
         public List<CraftingStation> WorkingCraftingStations { get; private set; } = new List<CraftingStation>();
-        public CraftingStation TargetedCraftingStation { get; private set; }
+        public CraftingStation TargetedCraftingStation { get; private set; } = null;
         public EnemyWeapon SineGun { get; private set; }
         //public EnemyWeapon ShotGun { get; private set; }        
-        public bool TargetedStationDisabled { get; set; } = false;
-        //public bool TargetingStation { get; private set; } = false;
-        //public bool TargetingPlayer { get; private set; } = false;
+        public bool TargetedStationDisabled { get; set; } = false;        
         public bool NoStationToTarget { get; private set; } = false;
         public bool PlayerInAggroRange { get; private set; }
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
@@ -30,9 +28,7 @@ namespace SpaceBaboon.EnemySystem
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
         public int CurrentBossIndex { get; private set; }
-
-        
-
+         
         private Hitbox m_hitbox;
         private float m_dyingAnimDelay = 5.0f;
         private float m_dyingAnimTimer = 0.0f;
@@ -64,7 +60,8 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            Debug.Log("No station to target bool " + NoStationToTarget);
+            //Debug.Log("No station to target bool " + NoStationToTarget);
+            //Debug.Log("Targeted crafting station " + TargetedCraftingStation);
 
             if(Input.GetKeyDown(KeyCode.B)) //TODO to remove, for testing purposes
             {
@@ -77,24 +74,10 @@ namespace SpaceBaboon.EnemySystem
                 return;
             }
 
-            base.Update();
-            UpdateDistances();
+            base.Update();            
 
-            if (NoStationToTarget)
-            {
-                //Debug.Log("Checking for station");
-                
-                if(FindWorkingCraftingStations())
-                {
-                    //TargetingPlayer = false;
-                    //TargetingStation = true;
-                    TargetRandomWorkingCraftingStationElsePlayer();
-                }
-            }
-            else
-            {
-                TargetRandomWorkingCraftingStationElsePlayer();
-            }
+            CheckForCraftingStationToAttackElseAttackPlayer();
+            UpdateDistances();
         }        
 
         protected override void FixedUpdate()
@@ -131,8 +114,8 @@ namespace SpaceBaboon.EnemySystem
             PlayerInAggroRange = false;
             PlayerInTargetedCraftingStationRange = false;
             InTargetedCraftingStationAttackRange = false;
-
-            //TargetRandomWorkingCraftingStationElsePlayer();
+            
+            TargetedCraftingStation = null;            
         }
 
         public new void Move(Vector2 value)
@@ -147,13 +130,7 @@ namespace SpaceBaboon.EnemySystem
                 PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
                 PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
                 InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;
-            }
-            else 
-            {
-                PlayerInAggroRange = false;
-                PlayerInTargetedCraftingStationRange = false;
-                InTargetedCraftingStationAttackRange = false;
-            }
+            }            
         }
 
         public void AttackTargetedCraftingStation()
@@ -177,7 +154,30 @@ namespace SpaceBaboon.EnemySystem
             {
                 //Debug.Log("Have been disabled");
                 TargetedStationDisabled = true;
-                TargetRandomWorkingCraftingStationElsePlayer();
+                TargetRandomWorkingCraftingStation();
+            }
+        }
+
+        private void CheckForCraftingStationToAttackElseAttackPlayer()
+        {
+            bool workingCraftingStationPresent = false;
+
+            workingCraftingStationPresent = FindWorkingCraftingStations();
+
+            if (workingCraftingStationPresent) 
+            {
+                NoStationToTarget = false;
+                if (TargetedCraftingStation == null)
+                {
+                    TargetRandomWorkingCraftingStation();
+                } 
+            }
+            else
+            {
+                NoStationToTarget = true;
+                PlayerInAggroRange = false;
+                PlayerInTargetedCraftingStationRange = false;
+                InTargetedCraftingStationAttackRange = false;
             }
         }
 
@@ -200,23 +200,12 @@ namespace SpaceBaboon.EnemySystem
             return true;
         }
 
-        private void TargetRandomWorkingCraftingStationElsePlayer()
+        private void TargetRandomWorkingCraftingStation()
         {
-            if (FindWorkingCraftingStations())
-            {
-                //Debug.Log("WorkingCraftingStationsCount is " + WorkingCraftingStations.Count);
-                int nextTargetedCraftingStationIndex = GetRandomWorkingCraftingStationIndex();
-                //Debug.Log("Next targeted Crafting Station index is " + nextTargetedCraftingStationIndex);
-                TargetedCraftingStation = WorkingCraftingStations[nextTargetedCraftingStationIndex];
-                NoStationToTarget = false;
-                //TargetingStation = true;
-            }
-            else 
-            {                
-                //TargetedCraftingStation = null;
-                NoStationToTarget = true;
-                //TargetingPlayer = true;           
-            }
+            //Debug.Log("WorkingCraftingStationsCount is " + WorkingCraftingStations.Count);
+            int nextTargetedCraftingStationIndex = GetRandomWorkingCraftingStationIndex();
+            //Debug.Log("Next targeted Crafting Station index is " + nextTargetedCraftingStationIndex);
+            TargetedCraftingStation = WorkingCraftingStations[nextTargetedCraftingStationIndex];
         }
 
         private int GetRandomWorkingCraftingStationIndex() { return Random.Range(0, WorkingCraftingStations.Count); }
@@ -228,12 +217,8 @@ namespace SpaceBaboon.EnemySystem
             CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);
 
             //Testing
-            CurrentBossIndex = 1;
-            
-            // TODO check this out, needs to be called twice to get real random number, if not always target the same station
-            TargetRandomWorkingCraftingStationElsePlayer();
-            TargetRandomWorkingCraftingStationElsePlayer();
-            
+            //CurrentBossIndex = 1;
+           
             m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
             m_animator.runtimeAnimatorController = UniqueData.bosses[CurrentBossIndex].animControllerObject.GetComponent<Animator>().runtimeAnimatorController;
         }
