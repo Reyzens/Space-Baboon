@@ -88,7 +88,7 @@ namespace SpaceBaboon.Crafting
         private void Initialization()
         {            
             m_currentStationLevel = 1;
-            m_isDisabled = false; // TODO Gotta be at true when starting game
+            m_isDisabled = true; // TODO Gotta be at true when starting game
             m_currentHealth = 0;
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)

@@ -25,8 +25,13 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanEnter(IState currentState)
         {
-            if(currentState is DoSpecialAttack)
+            if (m_stateMachine.NoStationToTarget)
             {
+                return false;
+            }
+
+            if (currentState is DoSpecialAttack)
+            { 
                 if (!m_stateMachine.PlayerInAggroRange || !m_stateMachine.PlayerInTargetedCraftingStationRange)
                 {
                     return true;
@@ -43,6 +48,10 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanExit()
         {
+            if(m_stateMachine.NoStationToTarget)
+            {
+                return true;
+            }
             if (m_stateMachine.InTargetedCraftingStationAttackRange)
             {
                 return true;

@@ -1,4 +1,3 @@
-using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 
 namespace SpaceBaboon.EnemySystem
@@ -10,7 +9,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnEnter()
         {
-            //Debug.Log("BossEnemy entering state: ChasingPlayer\n");
+            Debug.Log("BossEnemy entering state: ChasingPlayer\n");
 
             m_stateMachine.SpecialAttackReady = false;
             m_stateMachine.SpecialAttackTimer = m_stateMachine.UniqueData.basicAttackDelay; //TODO maybe change this delay to something else
@@ -20,7 +19,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnExit()
         {
-            //Debug.Log("BossEnemy exiting state: ChasingPlayer\n");
+            Debug.Log("BossEnemy exiting state: ChasingPlayer\n");
         }
 
         public override void OnUpdate()
@@ -58,6 +57,11 @@ namespace SpaceBaboon.EnemySystem
         {
             if (currentState is MovingToStation || currentState is AttackingStation || currentState is DoSpecialAttack)
             {
+                if (m_stateMachine.NoStationToTarget)
+                {
+                    return true;
+                }
+
                 if (m_stateMachine.PlayerInAggroRange && m_stateMachine.PlayerInTargetedCraftingStationRange)
                 {
                     return true;
@@ -69,12 +73,17 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanExit()
         {
+            if (!m_stateMachine.NoStationToTarget)
+            {
+                return true;
+            }
+
             if (m_stateMachine.SpecialAttackReady)
             {
                 return true;
             }
 
-            if (!m_stateMachine.PlayerInTargetedCraftingStationRange)
+            if (!m_stateMachine.PlayerInTargetedCraftingStationRange && !m_stateMachine.NoStationToTarget)
             {
                 return true;
             }
