@@ -17,11 +17,11 @@ namespace SpaceBaboon.UISystem
         {
             m_root = visualElement;
 
-            m_tutorialPopUpsToggle = m_root.Q<Toggle>("TutorialPopUpsToggle");
+            //m_tutorialPopUpsToggle = m_root.Q<Toggle>("TutorialPopUpsToggle");
             //Set value
 
-            m_volumeSlider = m_root.Q<Slider>("VolumeSlider");
-            m_volumeSlider.value = AudioListener.volume;
+            //m_volumeSlider = m_root.Q<Slider>("VolumeSlider");
+            //m_volumeSlider.value = AudioListener.volume;
 
             m_endGameButton = m_root.Q<Button>("EndGameButton");
 
@@ -30,16 +30,16 @@ namespace SpaceBaboon.UISystem
 
         private void Enable()
         {
-            m_tutorialPopUpsToggle.RegisterValueChangedCallback(OnPopUpsToggled);
-            m_volumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
+            //m_tutorialPopUpsToggle.RegisterValueChangedCallback(OnPopUpsToggled);
+            //m_volumeSlider.RegisterValueChangedCallback(OnVolumeChanged);
 
             m_endGameButton.clicked += OnEndGameButtonClicked;
         }
 
         public void Disable()
         {
-            m_tutorialPopUpsToggle.UnregisterValueChangedCallback(OnPopUpsToggled);
-            m_volumeSlider.UnregisterValueChangedCallback(OnVolumeChanged);
+            //m_tutorialPopUpsToggle.UnregisterValueChangedCallback(OnPopUpsToggled);
+            //m_volumeSlider.UnregisterValueChangedCallback(OnVolumeChanged);
 
             m_endGameButton.clicked -= OnEndGameButtonClicked;
         }

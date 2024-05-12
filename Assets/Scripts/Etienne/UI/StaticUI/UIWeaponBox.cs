@@ -2,7 +2,7 @@ using SpaceBaboon.WeaponSystem;
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static Cinemachine.DocumentationSortingAttribute;
+//using static Cinemachine.DocumentationSortingAttribute;
 
 namespace SpaceBaboon.UISystem
 {

@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 namespace SpaceBaboon
 {
-    [ExecuteAlways]
+    //[ExecuteAlways]
     public class ShaderController : MonoBehaviour
     {
         private Material m_playerSpriteRendererMaterial;
@@ -16,7 +16,7 @@ namespace SpaceBaboon
 
         void Start()
         {
-            m_playerSpriteRendererMaterial = GetComponent<SpriteRenderer>().material;
+            m_playerSpriteRendererMaterial = GetComponent<SpriteRenderer>().sharedMaterial;
             SetOutlineColor(m_color);
         }
 

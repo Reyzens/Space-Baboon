@@ -45,12 +45,14 @@ namespace SpaceBaboon.UISystem
             m_rangeLevelDisplay.text = data.rangeLevel.ToString();
             m_zoneLevelDisplay.text = data.zoneLevel.ToString();
 
-            m_root.style.display = DisplayStyle.Flex;
+            //m_root.style.display = DisplayStyle.Flex;
+            m_root.style.visibility = Visibility.Visible;
         }
 
         public void HideInfoBox()
         {
-            m_root.style.display = DisplayStyle.None;
+            //m_root.style.display = DisplayStyle.None;
+            m_root.style.visibility = Visibility.Hidden;
         }
 
 

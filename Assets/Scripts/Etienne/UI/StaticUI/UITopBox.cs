@@ -20,7 +20,7 @@ namespace SpaceBaboon.UISystem
         private Label m_metalAmount;
         private Label m_crystalAmount;
         private Label m_technologyAmount;
-        private Label m_healthAmount;
+        //private Label m_healthAmount;
         private Label m_timer;
 
         public void Create(UIManager manager, VisualElement root)
@@ -33,7 +33,7 @@ namespace SpaceBaboon.UISystem
             m_metalAmount = root.Q<Label>("MetalAmount");
             m_crystalAmount = root.Q<Label>("CrystalAmount");
             m_technologyAmount = root.Q<Label>("TechnologyAmount");
-            m_healthAmount = root.Q<Label>("HealthAmount");
+            //m_healthAmount = root.Q<Label>("HealthAmount");
             m_timer = root.Q<Label>("Timer");
 
             Enable();
@@ -67,22 +67,18 @@ namespace SpaceBaboon.UISystem
             switch (upgradeType)
             {
                 case Crafting.CraftingStation.EWeaponUpgrades.AttackSpeed:
-                    Debug.Log(m_speedSprite);
                     m_currentUpgrade.style.backgroundImage = new StyleBackground(m_speedSprite);
                     break;
                 
                 case Crafting.CraftingStation.EWeaponUpgrades.AttackZone:
-                    Debug.Log(m_speedSprite);
                     m_currentUpgrade.style.backgroundImage = new StyleBackground(m_zoneSprite);
                     break;
                 
                 case Crafting.CraftingStation.EWeaponUpgrades.AttackRange:
-                    Debug.Log(m_speedSprite);
                     m_currentUpgrade.style.backgroundImage = new StyleBackground(m_rangeSprite);
                     break;
                 
                 case Crafting.CraftingStation.EWeaponUpgrades.AttackDamage:
-                    Debug.Log(m_speedSprite);
                     m_currentUpgrade.style.backgroundImage = new StyleBackground(m_damageSprite);
                     break;
 

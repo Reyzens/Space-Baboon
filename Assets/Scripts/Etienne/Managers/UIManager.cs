@@ -1,4 +1,4 @@
-using SpaceBaboon.WeaponSystem;
+//using SpaceBaboon.WeaponSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,12 +22,17 @@ namespace SpaceBaboon.UISystem
         [SerializeReference] private UITopBox m_topBoxScript = new UITopBox();
         [SerializeReference] private UIWeaponBox m_weaponBoxScript = new UIWeaponBox();
         private UIInfoBox m_infoBoxScript = new UIInfoBox();
+        private PauseMenu m_pauseMenuScript = new PauseMenu();
 
         private UIDocument m_uiDoc;
 
         private VisualElement m_topBox;
         private VisualElement m_weaponBox;
         private VisualElement m_infoBox;
+        private VisualElement m_pauseMenuBox;
+
+        private Button m_pauseButton;
+        private bool m_displayPauseMenu = false;
 
 
         private void Awake()
@@ -53,10 +58,21 @@ namespace SpaceBaboon.UISystem
             m_infoBox = visualElement.Q<VisualElement>("InfoBox");
             m_infoBoxScript.Create(this, m_infoBox);
 
+            m_pauseMenuBox = visualElement.Q<VisualElement>("PauseMenuBox");
+            m_pauseMenuScript.Create(m_pauseMenuBox);
+            m_pauseButton = visualElement.Q<Button>("PauseButton");
+
+        }
+
+        private void OnEnable()
+        {
+            m_pauseButton.clicked += OnPauseButtonClicked;
         }
 
         private void OnDisable()
         {
+            m_pauseButton.clicked -= OnPauseButtonClicked;
+
             m_topBoxScript.Disable();
             m_weaponBoxScript.Disable();
             m_infoBoxScript.Disable();
@@ -66,6 +82,24 @@ namespace SpaceBaboon.UISystem
         {
             int timer = (int)GameManager.Instance.GameTimer;
             m_topBoxScript.UpdateTimer(timer);
+        }
+
+        private void OnPauseButtonClicked()
+        {
+            m_displayPauseMenu = !m_displayPauseMenu;
+
+            if (m_displayPauseMenu)
+            {
+                m_pauseMenuBox.style.display = DisplayStyle.Flex;
+                m_pauseButton.text = "Unpause";
+            }
+            else
+            {
+                m_pauseMenuBox.style.display = DisplayStyle.None;
+                m_pauseButton.text = "Pause";
+            }
+
+            GameManager.Instance.PauseGame(m_displayPauseMenu);
         }
 
         public void UpdateResource(Crafting.InteractableResource.EResourceType resourceType, int amount)
