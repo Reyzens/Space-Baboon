@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
 using SpaceBaboon.Crafting;
 using SpaceBaboon.EnemySystem;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Rendering.Universal;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
@@ -79,14 +75,6 @@ namespace SpaceBaboon
             //ReactivateCraftingStation();
             //DisableCraftinStation();
 
-            //if (Input.GetKeyDown(KeyCode.Y))
-            //{
-            //    SetCraftingStationPuzzleEnabled(true);
-            //}
-            //if (Input.GetKeyDown(KeyCode.U))
-            //{
-            //    SetCraftingStationPuzzleEnabled(false);
-            //}
 
             SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
 
@@ -135,34 +123,6 @@ namespace SpaceBaboon
             }
         }
 
-        //private void ReactivateCraftingStation()
-        //{
-        //    if(m_craftingPuzzleEnabled == false)
-        //    {
-        //        m_blueCircle.gameObject.SetActive(false);
-        //        m_circleMask.gameObject.SetActive(false);
-        //        m_blueCircleFiller.gameObject.SetActive(false);
-        //        foreach (var dropPoint in m_dropPointList)
-        //        {
-        //            dropPoint.gameObject.SetActive(true);
-        //        }
-        //    }
-        //}
-        //
-        //private void DisableCraftinStation()
-        //{
-        //    if (m_craftingPuzzleEnabled == true)
-        //    {
-        //        m_blueCircle.gameObject.SetActive(true);
-        //        m_circleMask.gameObject.SetActive(true);
-        //        m_blueCircleFiller.gameObject.SetActive(true);
-        //        foreach (var dropPoint in m_dropPointList)
-        //        {
-        //            dropPoint.gameObject.SetActive(false);
-        //        }
-        //    }
-        //}
-
         private void SetCraftingStationPuzzle(bool value)
         {
             m_blueCircle.gameObject.SetActive(value);
@@ -177,8 +137,7 @@ namespace SpaceBaboon
             if (value == false)
             {
                 m_stationRenderer.sprite = m_enableStationSprite;                
-                m_light2D.color = Color.green;
-                m_craftingStationScript.m_currentHealth = m_craftingStationScript.m_maxHealth;
+                m_light2D.color = Color.green;                
             }       
 
             foreach (var dropPoint in m_dropPointList)
@@ -196,15 +155,6 @@ namespace SpaceBaboon
             {
                 m_currentKill = 0;
             }
-
-            //if (enable)
-            //{
-            //    m_craftingPuzzleEnabled = true;
-            //}
-            //if (enable == false)
-            //{
-            //    m_craftingPuzzleEnabled = false;
-            //}
         }
 
         private void OnEnemyDeathSubsribe(GameObject collider)

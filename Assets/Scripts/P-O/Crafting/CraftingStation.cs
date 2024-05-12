@@ -44,15 +44,14 @@ namespace SpaceBaboon.Crafting
         }
         void Start()
         {
-            Initialization();
-            //Debug.Log("Crafting station health is " + m_maxHealth );
+            Initialization();            
         }
         // Update is called once per frame
         void Update()
         {
             // TODO FOR TESTING TO DELETE
             if (Input.GetKeyDown(KeyCode.Y))
-            {
+            {                
                 m_isDisabled = false;
                 m_currentHealth = m_maxHealth;
                 m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
@@ -88,7 +87,7 @@ namespace SpaceBaboon.Crafting
         private void Initialization()
         {            
             m_currentStationLevel = 1;
-            m_isDisabled = true; // TODO Gotta be at true when starting game
+            m_isDisabled = true;
             m_currentHealth = 0;
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)
@@ -122,8 +121,6 @@ namespace SpaceBaboon.Crafting
                 m_isDisabled = true;
                 m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
             }
-
-            //Debug.Log("Crafting Station current hit points " + m_currentHealth);
         }
         public bool GetIsDisabled() { return m_isDisabled; }
         #region UpgradeManagement

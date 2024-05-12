@@ -28,9 +28,8 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_craftingStationAttackTimer < 0)
             {
-                Debug.Log("Crafting station attacked");
-                m_stateMachine.AttackTargetedCraftingStation();
-                Debug.Log("Targeted crafting station health " + m_stateMachine.TargetedCraftingStation.m_currentHealth);
+                //Debug.Log("Crafting station attacked");
+                m_stateMachine.AttackTargetedCraftingStation();                
                 m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
             }
         }
