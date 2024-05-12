@@ -247,6 +247,17 @@ namespace SpaceBaboon.EnemySystem
             m_enemyProjectilesPool.CreatePool(m_pooledEnemyProjectiles, "Enemy Projectiles");
         }
 
+        public int[] GetEnemyKillStats()
+        {
+            int[] stats = new int[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                stats[i] = m_enemyPool.GetUnspawnedTotalByObject(m_pooledEnemies[i].enemyPrefab);
+            }
+            return stats;
+        }
+
         #region Cheats
 
         public void SetIsSpawning(bool value)

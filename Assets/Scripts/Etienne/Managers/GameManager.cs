@@ -1,4 +1,5 @@
 using SpaceBaboon.EnemySystem;
+using SpaceBaboon.PoolingSystem;
 using SpaceBaboon.TutorialSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -93,6 +94,13 @@ namespace SpaceBaboon
 
         public void EndGame()
         {
+            var stats = EnemySpawner.GetEnemyKillStats();
+
+            //Debug.Log("melee kills" + stats[0]);
+            //Debug.Log("shooting kills" + stats[1]);
+            //Debug.Log("kamikaze kills" + stats[2]);
+            //Debug.Log("boss kills" + stats[3]);
+
             m_endGameScreen.ActivateScreen();
             //m_isPaused = true;
             PauseGame(true);

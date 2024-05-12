@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialPopUpZone
       objectReference: {fileID: 0}
+    - target: {fileID: 5001757112703897856, guid: 200d288ef4d76484cb95db3e1ca32310, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7719949614433859667, guid: 200d288ef4d76484cb95db3e1ca32310, type: 3}
       propertyPath: m_tutorialType
       value: 1
