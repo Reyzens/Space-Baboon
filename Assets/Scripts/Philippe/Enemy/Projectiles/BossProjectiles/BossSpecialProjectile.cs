@@ -26,7 +26,7 @@ namespace SpaceBaboon.WeaponSystem
 
         protected override void Update()
         {
-            base.Update();
+            //base.Update();
 
             if (!m_isActive)
                 return;
@@ -35,6 +35,22 @@ namespace SpaceBaboon.WeaponSystem
             {
                 m_collider.enabled = false;
             }
+
+            if (m_lifetime > m_projectileData.maxLifetime)
+            {
+                // TODO clean this update
+                m_isAtTargetPos = false;
+                m_collider.enabled = false;
+                m_targetSavedPos = new Vector2(10000, 10000);
+                transform.localScale = m_originalScale;
+                m_scalingTimer = 0.0f;                
+                m_rb.constraints = RigidbodyConstraints2D.None;                
+                m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                m_parentPool.UnSpawn(gameObject);
+                //Debug.Log("UnSpawning (lifetime)");
+            }
+
+            m_lifetime += Time.deltaTime;
 
             if (m_isAtTargetPos)
             {
@@ -73,7 +89,7 @@ namespace SpaceBaboon.WeaponSystem
             {
                 m_isAtTargetPos = true;
                 m_collider.enabled = true;
-                m_rb.bodyType = RigidbodyType2D.Kinematic;
+                //m_rb.bodyType = RigidbodyType2D.Kinematic;
                 m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 m_rb.velocity = Vector2.zero;
             }
