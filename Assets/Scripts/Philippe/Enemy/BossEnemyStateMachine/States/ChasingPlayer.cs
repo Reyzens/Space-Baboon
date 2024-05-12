@@ -58,17 +58,21 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanEnter(IState currentState)
         {
+            //Debug.Log("can enter chasing player 1");
             if (currentState is MovingToStation || currentState is AttackingStation || currentState is DoSpecialAttack)
             {
-                if (m_stateMachine.NoStationToTarget)
+                //Debug.Log("can enter chasing player 2");
+                if (m_stateMachine.StationAvailableToTarget && m_stateMachine.PlayerInAggroRange && m_stateMachine.PlayerInTargetedCraftingStationRange)
                 {
                     return true;
                 }
+                //Debug.Log("can enter chasing player 3");
 
-                if (m_stateMachine.PlayerInAggroRange && m_stateMachine.PlayerInTargetedCraftingStationRange)
+                if (!m_stateMachine.StationAvailableToTarget)
                 {
                     return true;
                 }
+                //Debug.Log(" can enter chasing player 4");
             }
 
             return false;
@@ -76,20 +80,24 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanExit()
         {
-            if (!m_stateMachine.NoStationToTarget)
+            //Debug.Log("can exit chasing player 1");
+            if (m_stateMachine.StationAvailableToTarget)
             {
                 return true;
             }
+            //Debug.Log("can exit chasing player 2");
 
             if (m_stateMachine.SpecialAttackReady)
             {
                 return true;
             }
+            //Debug.Log("can exit chasing player 3");
 
-            if (!m_stateMachine.PlayerInTargetedCraftingStationRange && !m_stateMachine.NoStationToTarget)
+            if (!m_stateMachine.PlayerInTargetedCraftingStationRange && m_stateMachine.StationAvailableToTarget)
             {
                 return true;
             }
+            //Debug.Log("can exit chasing player 4");
 
             return false;
         }

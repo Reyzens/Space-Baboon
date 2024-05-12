@@ -21,7 +21,7 @@ namespace SpaceBaboon.EnemySystem
         public EnemyWeapon SineGun { get; private set; }
         //public EnemyWeapon ShotGun { get; private set; }        
         public bool TargetedStationDisabled { get; set; } = false;        
-        public bool NoStationToTarget { get; private set; } = false;
+        public bool StationAvailableToTarget { get; private set; } = false;
         public bool PlayerInAggroRange { get; private set; }
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
         public bool InTargetedCraftingStationAttackRange { get; private set; }
@@ -60,9 +60,6 @@ namespace SpaceBaboon.EnemySystem
         {
             if (!m_isActive)
                 return;
-
-            //Debug.Log("No station to target bool " + NoStationToTarget);
-            //Debug.Log("Targeted crafting station " + TargetedCraftingStation);
 
             if(Input.GetKeyDown(KeyCode.B)) //TODO to remove, for testing purposes
             {
@@ -127,7 +124,7 @@ namespace SpaceBaboon.EnemySystem
         
         private void UpdateDistancesBools()
         {
-            if (!NoStationToTarget) 
+            if (StationAvailableToTarget) 
             {
                 PlayerInAggroRange = m_distanceToPlayer < UniqueData.playerAggroRange;
                 PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
@@ -173,7 +170,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (workingCraftingStationPresent) 
             {
-                NoStationToTarget = false;
+                StationAvailableToTarget = true;
                 if (TargetedCraftingStation == null)
                 {
                     TargetRandomWorkingCraftingStation();
@@ -181,7 +178,7 @@ namespace SpaceBaboon.EnemySystem
             }
             else
             {
-                NoStationToTarget = true;
+                StationAvailableToTarget = false;
                 PlayerInAggroRange = false;
                 PlayerInTargetedCraftingStationRange = false;
                 InTargetedCraftingStationAttackRange = false;

@@ -8,7 +8,7 @@ namespace SpaceBaboon.Crafting
     {
         //Serializable variables
         [SerializeField] private PlayerWeapon m_linkedWeapon;
-        [SerializeField] public float m_maxHealth;
+        [SerializeField] public int m_maxHealth;
         [SerializeField] private List<ResourceDropPoint> m_resourceDropPoints = new List<ResourceDropPoint>();
         [SerializeField] private float m_levelScaling;
         [SerializeField] private bool m_debugMode;
@@ -17,7 +17,7 @@ namespace SpaceBaboon.Crafting
 
         //Private variables
         private Transform m_position;
-        public float m_currentHealth;
+        public int m_currentHealth;
         private int m_currentStationLevel;
         private bool m_isDisabled = false;
         private CraftingPuzzle m_puzzleScript;
@@ -59,7 +59,7 @@ namespace SpaceBaboon.Crafting
             if (Input.GetKeyDown(KeyCode.U))
             {
                 m_isDisabled = true;
-                m_currentHealth = 0.0f;
+                m_currentHealth = 0;
                 m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
             }
 
@@ -115,7 +115,7 @@ namespace SpaceBaboon.Crafting
         }
         public void ReceiveDamage(float damage)
         {
-            m_currentHealth -= damage;
+            m_currentHealth -= (int)damage;
             if (m_currentHealth <= 0)
             {
                 m_isDisabled = true;

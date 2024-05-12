@@ -20,7 +20,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override void OnFixedUpdate()
         {
-            if (m_stateMachine.NoStationToTarget)
+            if (!m_stateMachine.StationAvailableToTarget)
                 return;
             
             m_stateMachine.Move(m_stateMachine.TargetedCraftingStation.transform.position);
@@ -28,10 +28,12 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanEnter(IState currentState)
         {
-            if (m_stateMachine.NoStationToTarget)
+            //Debug.Log("can enter moving to station 1");
+            if (!m_stateMachine.StationAvailableToTarget)
             {
                 return false;
             }
+            //Debug.Log("can enter moving to station 2");
 
             if (currentState is DoSpecialAttack)
             { 
@@ -41,7 +43,15 @@ namespace SpaceBaboon.EnemySystem
                 }
             }
 
-            if(m_stateMachine.SpecialAttackReady)
+            //Debug.Log("can enter moving to station 3");
+
+            if (m_stateMachine.SpecialAttackReady)
+            {
+                return false;
+            }
+            //Debug.Log("can enter moving to station 4");
+
+            if(m_stateMachine.PlayerInAggroRange && m_stateMachine.PlayerInTargetedCraftingStationRange)
             {
                 return false;
             }
@@ -51,18 +61,22 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanExit()
         {
-            if(m_stateMachine.NoStationToTarget)
+            //Debug.Log("can exit moving to station 1");
+            if (!m_stateMachine.StationAvailableToTarget)
             {
                 return true;
             }
+            //Debug.Log("can exit moving to station 2");
             if (m_stateMachine.InTargetedCraftingStationAttackRange)
             {
                 return true;
             }
+            //Debug.Log("can exit moving to station 3");
             if (m_stateMachine.PlayerInAggroRange && m_stateMachine.PlayerInTargetedCraftingStationRange)
             {
                 return true;
             }
+            //Debug.Log("can exit moving to station 4");
 
             return false;
         }
