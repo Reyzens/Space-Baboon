@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 8491460389926211441}
   - component: {fileID: 4633207059501054884}
   - component: {fileID: 1200839109967222829}
+  - component: {fileID: 1570866354630419261}
   - component: {fileID: 5096878005913474466}
   - component: {fileID: 9003894809611342428}
   - component: {fileID: 8215312297395075237}
   - component: {fileID: 488348430792516631}
+  - component: {fileID: 8427615461111233320}
   m_Layer: 14
   m_Name: TechnologieResource
   m_TagString: Resource
@@ -58,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 3d57dc2f26ee12346b93b23e1a0cecc1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +105,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceData: {fileID: 11400000, guid: 9c63ed6305058c24fae1072ba31e0966, type: 2}
+  m_colorFlashingScript: {fileID: 1570866354630419261}
   m_outline: {fileID: 5929184189320854698}
+--- !u!114 &1570866354630419261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134457193293305550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a789f8c4582e242a9f3f79362bd064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &5096878005913474466
 Rigidbody2D:
   serializedVersion: 4
@@ -217,6 +232,21 @@ MonoBehaviour:
   m_rotationRange: 8
   m_acceptableRangeOffset: 0.5
   m_minDistanceBetweenObjects: 0
+--- !u!114 &8427615461111233320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134457193293305550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8028ba3b5f759a49aed2e52d0d1dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_color: {r: 1, g: 1, b: 1, a: 0}
+  m_horizontal: 0
+  m_veritcal: 0
 --- !u!1001 &5180903323754282897
 PrefabInstance:
   m_ObjectHideFlags: 0

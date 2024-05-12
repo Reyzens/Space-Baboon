@@ -9,6 +9,7 @@ namespace SpaceBaboon.Crafting
         //Serializable
         [SerializeField] protected ResourceData m_resourceData;
         [SerializeField] protected GameObject m_outline;
+        [SerializeField] private ColorFlashing m_colorFlashingScript;
 
         //Private variables
         protected bool m_isBeingCollected = false;
@@ -20,6 +21,9 @@ namespace SpaceBaboon.Crafting
         protected bool m_isInCollectRange = false;
         protected float m_collectRange;
         protected Color m_rendereInitialColor;
+        protected Color m_spriteRendererOriginColor;
+        protected Color m_spriteRendererCurrentColor;
+        protected Color m_spriteRendererOriginOutlineColor;
 
         //Ipoolable variables
         protected bool m_isActive = false;
@@ -45,10 +49,12 @@ namespace SpaceBaboon.Crafting
         //private Methods
         private void Awake()
         {
+
             m_renderer = GetComponent<SpriteRenderer>();
             //Debug.Log(m_renderer);
             m_circleCollider = GetComponent<CircleCollider2D>();
             m_capsuleCollider = GetComponent<CapsuleCollider2D>();
+            Initialization();
             if (!Resources.ContainsKey(m_resourceData.m_resourceType))
             {
                 Resources.Add(m_resourceData.m_resourceType, m_resourceData);
@@ -76,10 +82,24 @@ namespace SpaceBaboon.Crafting
 
             }
         }
+        private void Initialization()
+        {
+            m_spriteRendererOriginColor = m_renderer.color;
+            m_spriteRendererCurrentColor = m_spriteRendererOriginColor;
+            m_spriteRendererOriginOutlineColor = m_renderer.material.GetColor("_Color");
+        }
         public void CollectableSizing(bool shouldGrow)
         {
             if (!m_isBeingCollected)
             {
+                if (shouldGrow)
+                {
+                    m_renderer.material.SetColor("_Color", Color.green);
+                }
+                else
+                {
+                    m_renderer.material.SetColor("_Color", Color.clear);
+                }
                 m_outline.gameObject.SetActive(shouldGrow);
             }
         }
@@ -92,8 +112,10 @@ namespace SpaceBaboon.Crafting
                 m_currentCooldown = m_resourceData.m_cooldownMax;
                 m_isBeingCollected = true;
                 m_collectingPlayer = collectingPlayer;
-                m_renderer.color = Color.red;
+                //m_renderer.color = Color.red;
+                //m_renderer.material.SetColor("_Color", Color.clear);
                 m_outline.gameObject.SetActive(false);
+                m_colorFlashingScript.Flash(1, 0.2f,0.5f, Color.white, m_currentCooldown);
 
                 FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
                 if (fxManager != null)
@@ -105,6 +127,7 @@ namespace SpaceBaboon.Crafting
         private void FinishCollecting()
         {
             m_renderer.color = m_rendereInitialColor;
+            m_renderer.material.SetColor("_Color", m_spriteRendererOriginOutlineColor);
 
             FXSystem.FXManager fxManager = FXSystem.FXManager.Instance;
             if (fxManager != null)

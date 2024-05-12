@@ -11,10 +11,12 @@ GameObject:
   - component: {fileID: 6284718838270721065}
   - component: {fileID: 2312228004615967716}
   - component: {fileID: 9220323559609152782}
+  - component: {fileID: -8330331680168547999}
   - component: {fileID: 130611924005237367}
   - component: {fileID: 233014969400398797}
   - component: {fileID: 5697803462177089808}
   - component: {fileID: -6185089762933630266}
+  - component: {fileID: 7301049832967888007}
   m_Layer: 14
   m_Name: MetalResource
   m_TagString: Resource
@@ -58,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 3d57dc2f26ee12346b93b23e1a0cecc1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,7 +105,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceData: {fileID: 11400000, guid: 087d7421ee5df1d4ca2809425dcf43eb, type: 2}
+  m_colorFlashingScript: {fileID: -8330331680168547999}
   m_outline: {fileID: 933619631183871025}
+--- !u!114 &-8330331680168547999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670117469720891624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a789f8c4582e242a9f3f79362bd064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &130611924005237367
 Rigidbody2D:
   serializedVersion: 4
@@ -217,6 +232,21 @@ MonoBehaviour:
   m_rotationRange: 8
   m_acceptableRangeOffset: 0.5
   m_minDistanceBetweenObjects: 0
+--- !u!114 &7301049832967888007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670117469720891624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8028ba3b5f759a49aed2e52d0d1dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_color: {r: 1, g: 1, b: 1, a: 0}
+  m_horizontal: 0
+  m_veritcal: 0
 --- !u!1001 &1826798570928144138
 PrefabInstance:
   m_ObjectHideFlags: 0
