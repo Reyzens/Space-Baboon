@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyPool:
     m_container: {fileID: 0}
-    m_poolStartingSize: 1
+    m_poolStartingSize: 10
   m_pooledEnemies:
   - enemyPrefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
     enemyType: 0
@@ -55,11 +55,11 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 6346816228064842483, guid: 2079feb3c5ff88e41810bfbb34a470cf, type: 3}
     enemyType: 1
     spawnProbability: 5
-    canSpawn: 0
+    canSpawn: 1
   - enemyPrefab: {fileID: 712864204504289401, guid: aa87346484d35714b87980a9c02d4cb9, type: 3}
     enemyType: 2
     spawnProbability: 5
-    canSpawn: 0
+    canSpawn: 1
   - enemyPrefab: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
     enemyType: 3
     spawnProbability: 5
@@ -76,7 +76,7 @@ MonoBehaviour:
   - {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   m_spawnRadiusFromScreenCorner: -50
   m_spawningDelay: 5
-  m_isSpawning: 1
+  m_isSpawning: 0
   m_enemiesAmountToSpawnOneShot: 0
   m_spawnGroup: 0
   m_SpawnTimeUpgradeTimer: 60
