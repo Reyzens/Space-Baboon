@@ -149,33 +149,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_popUpTexts:
   - type: 0
-    text: "test\nUnlock Crafting \nStation"
-  - type: 0
-    text: 'dvdvdv
+    text: "Hello space traveller !\r\nI will be assisting you in your journey on
+      planet Nebulox.\r\nTry moving around with the WASD keys. \r\nYou can also use
+      a short boost of speed with the SPACE key.\r\n\r\nHappy exploring !"
+  - type: 1
+    text: "Your mission here is to survive on Nebulox for as long as you can.\r\nWe
+      are evaluating if this planet can be a thriving environment for us baboons.\r\nIf
+      the mothership comes and you are still standing, \r\nyou will have saved our
+      civilization.\r\n\r\nFor Baboopolis !"
+  - type: 2
+    text: 'Here is your weapons inventory.
 
-      v
+      You seem to have only your banana
+      sword available right now.
 
-      dv
+      There must be a way to unlock the others...'
+  - type: 3
+    text: 'The mothership seems to have sent a few of these stations along with your
+      ship.
 
-      dvvdvdvdv'
-  - type: 0
-    text: 'vmsvmdv
+      It looks like they are not exactly functional at the moment...'
+  - type: 4
+    text: 'You''ve made it ! Find the others to unlock your full arsenal.
 
-      v
 
-      dv
 
-      dv
+      Each
+      one of them will ask you to provide a few resources found on Nebulox.
 
-      b
+      Bring
+      them all back to upgrade the corresponding weapon.'
+  - type: 5
+    text: "There are three main crystals on Nebulox : \r\nAurorite (yellow), Solite
+      (pink) and Frostellite (blue).\r\nPress the E key to collect them when in range.\r\n\r\nCollecting
+      will disable one of your weapons while it is extracting the crystal...\r\nSo
+      choose to do so wisely !"
+  - type: 6
+    text: "Congratulations ! You've just done your first weapon upgrade.\r\nDo it
+      as much as possible. \r\nNebulox warriors will keep coming in increasing amounts.\r\n\r\nHover
+      over your weapons with your mouse to know all the statistics on your arsenal."
+  - type: 7
+    text: 'Watch out ! A King Warrior has just discovered your position !
 
-      vvdvdvdsvdv'
-  - type: 0
-    text: 'vdvdvd
+      Our
+      research found that they always target your stations in search of the crystals
+      accumulated inside.
 
-      dvddv
+      Your weapons cannot function without their corresponding
+      station active.
 
-      vd'
+      Defend them at all cost...'
+  - type: 8
+    text: 'One of your station has been disabled by a King Warrior...
+
+      It seems
+      like you''re gonna have to repeat the whole process.
+
+      Don''t make this
+      mistake again !'
 --- !u!1 &3151853152311760096
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,7 +243,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 30}
+  m_AnchoredPosition: {x: 0, y: 35}
   m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2757051388643629149
@@ -481,7 +512,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1162, y: 100}
-  m_SizeDelta: {x: 400, y: 200}
+  m_SizeDelta: {x: 525, y: 300}
   m_Pivot: {x: 0.1, y: 1}
 --- !u!222 &1738796287875921744
 CanvasRenderer:
@@ -555,8 +586,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30, y: -30}
-  m_SizeDelta: {x: 350, y: 50}
+  m_AnchoredPosition: {x: 40, y: -40}
+  m_SizeDelta: {x: 450, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &145915149594123604
 CanvasRenderer:
@@ -586,7 +617,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: No text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

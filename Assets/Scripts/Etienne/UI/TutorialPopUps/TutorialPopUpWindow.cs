@@ -7,9 +7,16 @@ namespace SpaceBaboon.TutorialSystem
 {
     public enum ETutorialType
     {
-        UnlockCraftingStation,
-        SomeEnum,
-        BossSpawn,
+        Introduction1,
+        Introduction2,
+        WeaponPresentation,
+        CraftingStationPresentation,
+        CraftingStationUnlocked,
+        ResourcesPresentation,
+        UpgradingSystemPresentation,
+        BossSpawning,
+        StationDestroyed,
+        Count
     }
 
     public class TutorialPopUpWindow : MonoBehaviour
@@ -23,6 +30,11 @@ namespace SpaceBaboon.TutorialSystem
         private Dictionary<ETutorialType, string> m_popUpsDictionary = new Dictionary<ETutorialType, string>();
 
         private Vector3 m_defaultHidingPos = new Vector3(1200,0,0); //Just a random position outside of screen
+
+        private const int MIN_X_POS = 20;
+        private const int MAX_X_POS = 1280;
+        private const int MIN_Y_POS = 300;
+        private const int MAX_Y_POS = 990;
 
         private void Awake()
         {
@@ -48,16 +60,22 @@ namespace SpaceBaboon.TutorialSystem
         public void Display(ETutorialType type, Vector3 position)
         {
             var screenPosition = m_camera.WorldToScreenPoint(position);
+
+            if (screenPosition.x < MIN_X_POS)
+                screenPosition.x = MIN_X_POS;
+            if (screenPosition.x > MAX_X_POS)
+                screenPosition.x = MAX_X_POS;
+
+            if (screenPosition.y < MIN_Y_POS)
+                screenPosition.y = MIN_Y_POS;
+            if (screenPosition.y > MAX_Y_POS)
+                screenPosition.y = MAX_Y_POS;
+
             m_windowRT.position = screenPosition;
 
-            if (m_text == null)
-            {
-                Debug.Log("null ref");
-            }
+            
+
             m_text.text = m_popUpsDictionary[type];
-
-
-
             m_window.gameObject.SetActive(true);
         }
 
@@ -66,7 +84,7 @@ namespace SpaceBaboon.TutorialSystem
             m_window.gameObject.SetActive(false);
             m_windowRT.position = m_defaultHidingPos;
 
-            //GameManager.Instance.PauseGame(false);
+            GameManager.Instance.PauseGame(false);
         }
     }
 
