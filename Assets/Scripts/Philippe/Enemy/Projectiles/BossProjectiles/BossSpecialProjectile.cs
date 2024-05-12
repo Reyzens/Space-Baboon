@@ -89,7 +89,9 @@ namespace SpaceBaboon.WeaponSystem
 
         private Vector2Int FindValidTargetPosition(Transform targetPosition)
         {
+            Debug.Log("target position " + targetPosition.position);
             Vector3Int currentTargetTilePos = m_enemySpawner.m_obstacleTilemapRef.WorldToCell(targetPosition.position);
+            Debug.Log("current target tile pos " + currentTargetTilePos);
             float closestDistance = Mathf.Infinity;
             Vector3Int closestObstaclePos = Vector3Int.zero;
 

@@ -31,6 +31,7 @@ namespace SpaceBaboon.EnemySystem
         public List<SBoss> bosses;        
         public float possibleAggroRange;
         public float playerAggroRange;
+        public float maxAttackRangeTriggerWhenChasingPlayer;
         public float craftingStationAttackRange;
         public float craftingStationAttackDelay;
         public float craftingStationAttackDamage;

@@ -27,6 +27,7 @@ namespace SpaceBaboon.EnemySystem
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
         public float SpecialAttackTimer { get; set; }
+        public float DistanceToPlayer { get; private set; }
         public int CurrentBossIndex { get; private set; }
          
         private Hitbox m_hitbox;
@@ -78,6 +79,7 @@ namespace SpaceBaboon.EnemySystem
 
             CheckForCraftingStationToAttackElseAttackPlayer();
             UpdateDistances();
+            UpdateDistancesBools();
         }        
 
         protected override void FixedUpdate()
@@ -123,7 +125,7 @@ namespace SpaceBaboon.EnemySystem
             Agent.SetDestination(value);
         }        
         
-        private void UpdateDistances()
+        private void UpdateDistancesBools()
         {
             if (!NoStationToTarget) 
             {
@@ -131,6 +133,11 @@ namespace SpaceBaboon.EnemySystem
                 PlayerInTargetedCraftingStationRange = GetPlayerDistanceToTargetedCraftingStation() < UniqueData.possibleAggroRange;
                 InTargetedCraftingStationAttackRange = GetDistanceToTargetedCraftingStation() < UniqueData.craftingStationAttackRange;
             }            
+        }
+
+        private void UpdateDistances()
+        {
+            DistanceToPlayer = m_distanceToPlayer;
         }
 
         public void AttackTargetedCraftingStation()

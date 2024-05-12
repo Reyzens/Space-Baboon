@@ -39,6 +39,7 @@ MonoBehaviour:
     specialProjectilePrefab: {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   possibleAggroRange: 100
   playerAggroRange: 50
+  maxAttackRangeTriggerWhenChasingPlayer: 110
   craftingStationAttackRange: 20
   craftingStationAttackDelay: 3
   craftingStationAttackDamage: 10
