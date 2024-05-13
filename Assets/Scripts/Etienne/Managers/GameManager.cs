@@ -100,7 +100,7 @@ namespace SpaceBaboon
             //Debug.Log("kamikaze kills" + stats[2]);
             //Debug.Log("boss kills" + stats[3]);
 
-            m_endGameScreen.ActivateScreen();
+            m_endGameScreen.ActivateScreen(stats);
             //m_isPaused = true;
             PauseGame(true);
             m_isCountingTime = false;
