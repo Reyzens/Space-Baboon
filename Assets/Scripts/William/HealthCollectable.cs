@@ -18,6 +18,7 @@ namespace SpaceBaboon
         }
         public override void Collect(Player collectingPlayer)
         {
+            Debug.Log("Healing collected");
             m_parentPool.UnSpawn(gameObject);
         }
 
@@ -25,6 +26,7 @@ namespace SpaceBaboon
         {
             if (collision.gameObject.CompareTag("Player"))
             {
+                Debug.Log("Healing consumed");
                 collision.gameObject.GetComponent<Player>().HealPlayer(m_resourceData.m_resourceAmount);
                 Collect(null);
             }

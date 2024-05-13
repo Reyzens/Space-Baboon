@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3d57dc2f26ee12346b93b23e1a0cecc1, type: 2}
+  - {fileID: 2100000, guid: 7d3671efb941b504bb868ad5d9e60cfa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_resourceData: {fileID: 11400000, guid: 087d7421ee5df1d4ca2809425dcf43eb, type: 2}
-  m_colorFlashingScript: {fileID: -8330331680168547999}
   m_outline: {fileID: 933619631183871025}
+  m_colorFlashingScript: {fileID: -8330331680168547999}
 --- !u!114 &-8330331680168547999
 MonoBehaviour:
   m_ObjectHideFlags: 0

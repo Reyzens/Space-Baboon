@@ -40,6 +40,8 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private List<GameObject> m_pooledElite = new List<GameObject>();
         private GenericObjectPool m_elitePool = new GenericObjectPool();
 
+        [SerializeField] private Transform m_bossSpawningZone;
+
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
 
@@ -68,6 +70,7 @@ namespace SpaceBaboon.EnemySystem
 
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
+        [SerializeField] public Tilemap m_bossTileMap;
         private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
 
 
@@ -348,7 +351,35 @@ namespace SpaceBaboon.EnemySystem
         private void SpawnRandomBoss()
         {
             int spawnIndex = Random.Range(0, m_pooledBoss.Count);
-            m_bossPool.Spawn(m_pooledBoss[spawnIndex], new Vector2(0, 0));
+
+            Vector3 validTilePos = Vector3.zero;
+            Vector3Int currentPlayerTilePos = m_bossTileMap.WorldToCell(m_cam.transform.position);
+            int radiusThreshold = 1;
+
+            List<Vector3Int> positionsNearRadius = new List<Vector3Int>();
+
+            foreach (var tilePos in m_bossTileMap.cellBounds.allPositionsWithin)
+            {
+                if (m_bossTileMap.HasTile(tilePos))
+                {
+                    float distance = Vector3Int.Distance(currentPlayerTilePos, tilePos);
+
+                    positionsNearRadius.Add(tilePos);
+
+                }
+
+            }
+
+            if (positionsNearRadius.Count > 0)
+            {
+                int randomIndex = Random.Range(0, positionsNearRadius.Count);
+                validTilePos = m_bossTileMap.CellToWorld(positionsNearRadius[randomIndex]) + new Vector3(0.5f, 0.5f, 0f);
+            }
+            else
+            {
+                Debug.Log("No valid pos found on circle");
+            }
+            m_bossPool.Spawn(m_pooledBoss[spawnIndex], validTilePos);
         }
         public void UpdateStats()
         {

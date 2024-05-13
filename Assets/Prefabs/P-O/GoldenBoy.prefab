@@ -105,7 +105,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02bc445994e3b2f42913a99c91765d38, type: 2}
+  - {fileID: 2100000, guid: f02ce6e3fd3889e43accb9297855d00c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,13 +212,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 1d4edf305911fba46ace83e4666dcc29, type: 2}
-  m_healthDropChance: 5
-  m_healthMultipler: 1
+  m_healthDropChance: 5.17
+  m_healthMultipler: 20
   m_possibleResources:
   - {fileID: 11400000, guid: 0274d64e293efb746815042ef01541b8, type: 2}
   - {fileID: 11400000, guid: 087d7421ee5df1d4ca2809425dcf43eb, type: 2}
   - {fileID: 11400000, guid: 9c63ed6305058c24fae1072ba31e0966, type: 2}
   m_shardsSpawnStrenght: 7
+  m_resourceAmountMultiplier: 5
 --- !u!95 &4503694478007303297
 Animator:
   serializedVersion: 5
