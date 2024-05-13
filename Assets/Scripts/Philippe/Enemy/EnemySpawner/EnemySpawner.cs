@@ -35,6 +35,8 @@ namespace SpaceBaboon.EnemySystem
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
+        [SerializeField] private List<GameObject> m_pooledBoss = new List<GameObject>();
+        private GenericObjectPool m_bossPool = new GenericObjectPool();
 
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
@@ -59,6 +61,8 @@ namespace SpaceBaboon.EnemySystem
         private float m_lastSpawnEvent = 0.0f;
         [SerializeField] private float m_spawnEventTimer;
         [SerializeField] private int m_spawnEventAmountMultiplier;
+        [SerializeField] private float m_bossSpawnTimer;
+        private float m_lastBossSpawn = 0.0f;
 
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
@@ -245,6 +249,9 @@ namespace SpaceBaboon.EnemySystem
 
             m_enemyPool.CreatePool(enemyPrefabs, "Enemies");
             m_enemyProjectilesPool.CreatePool(m_pooledEnemyProjectiles, "Enemy Projectiles");
+
+            m_bossPool.SetPoolStartingSize(10);
+            m_bossPool.CreatePool(m_pooledBoss, "Boss");
         }
 
         public int[] GetEnemyKillStats()
@@ -317,12 +324,23 @@ namespace SpaceBaboon.EnemySystem
                 m_lastSpawnEvent = GameManager.Instance.GameTimer;
                 SpawnEvent();
             }
+            if (GameManager.Instance.GameTimer - m_lastBossSpawn > m_bossSpawnTimer)
+            {
+                //Debug.Log("Spawn boss");
+                m_lastBossSpawn = GameManager.Instance.GameTimer;
+                SpawnRandomBoss();
+            }
         }
         private void SpawnEvent()
         {
             //-1 to avoid to spawn boss
             EEnemyTypes enemyType = (EEnemyTypes)Random.Range(0, (int)EEnemyTypes.Count - 1);
             CheatSpawnGroup(enemyType, (m_spawnEventAmountMultiplier * m_amountOfEnemySpawned));
+        }
+        private void SpawnRandomBoss()
+        {
+            int spawnIndex = Random.Range(0, m_pooledBoss.Count);
+            m_bossPool.Spawn(m_pooledBoss[spawnIndex], new Vector2(0, 0));
         }
         public void UpdateStats()
         {

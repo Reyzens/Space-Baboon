@@ -123,6 +123,54 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!21 &97869586
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: shaderOutliner (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: -6465566751694194690, guid: 97cb51b8b15f2ad4382f247c5010883c, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 89a3be150dbd14f43830689b00421b82, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Horizontal_Thickness: 0.00192
+    - _Thickness: 0.00156
+    - _Vertical_Thicness: 0.011
+    - _Vertical_Thikness: 0.00496
+    m_Colors:
+    - _Color: {r: 0.54337585, g: 1, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!114 &286834844 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1826869931587835494, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
@@ -489,6 +537,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1738519451934986150, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_rotationRange
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 1765899445939630687, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -553,6 +605,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6447914277967854178, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 97869586}
     - target: {fileID: 6518455994470628431, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -624,10 +680,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2530840754726643175, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2050035438}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
 --- !u!114 &852788654 stripped
 MonoBehaviour:
@@ -738,11 +791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be54771b6b569ac43889fe2364b71277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1182939566 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2530840754726643175, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
-  m_PrefabInstance: {fileID: 852788653}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1216359026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1445,39 +1493,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1713673375032617643, guid: 13763a28e1e929748b7a3669976c94ea, type: 3}
   m_PrefabInstance: {fileID: 852788653}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182939566}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7899443b785f48f4c8f19994f7f4b225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!50 &2050035438
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1182939566}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!1839735485 &2136019694 stripped
 Tilemap:
   m_CorrespondingSourceObject: {fileID: 5933128357207101887, guid: cf15ca88a9c72cb44a9cf59a74b84aa8, type: 3}

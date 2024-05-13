@@ -19,7 +19,7 @@ namespace SpaceBaboon.EnemySystem
         protected CircleCollider2D m_circleCollider;
 
         protected Player m_player;
-        protected EnemySpawner m_enemySpawner;        
+        protected EnemySpawner m_enemySpawner;
 
         protected float m_distanceToPlayer = 0.0f;
         private float m_contactAttackTimer = 0.0f;
@@ -44,12 +44,12 @@ namespace SpaceBaboon.EnemySystem
         {
             base.Awake();
             VariablesSetUpAwake();
-        }        
+        }
 
         protected virtual void Start()
         {
             VariablesSetUpStart();
-        }        
+        }
 
         protected override void Update()
         {
@@ -152,7 +152,7 @@ namespace SpaceBaboon.EnemySystem
             GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemySlashAttack, contactPosVec);
             vfx.transform.rotation = rotation;
         }
-        
+
         public override void OnDamageTaken(float damage)
         {
             m_activeHealth -= damage;
@@ -170,12 +170,11 @@ namespace SpaceBaboon.EnemySystem
             {
                 m_eventEnemyDeath?.Invoke();
                 HealthSpawner();
-
                 if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
                 {
                     m_parentPool.UnSpawn(gameObject);
                     return;
-                }                
+                }
             }
         }
 
@@ -190,17 +189,18 @@ namespace SpaceBaboon.EnemySystem
 
         protected void HealthSpawner()
         {
+            Debug.Log("HealthSpawner called");
             float randomNumber = UnityEngine.Random.Range(0f, 100f);
             if (randomNumber < m_healthDropChance)
             {
                 // Object should spawn
-                Console.WriteLine("Object spawned!");
-                GameManager.Instance.m_ressourceManager.SpawnHealingHeart(transform.position);
+                Debug.Log("Object spawned at " + transform.position);
+                GameManager.Instance.m_ressourceManager.SpawnHealingHeart(transform);
             }
             else
             {
                 // Object should not spawn
-                Console.WriteLine("No object spawned.");
+                Debug.Log("No object spawned.");
             }
 
         }
@@ -296,7 +296,7 @@ namespace SpaceBaboon.EnemySystem
             m_isActive = value;
             m_renderer.enabled = value;
             m_circleCollider.enabled = value;
-            m_navMeshAgent.isStopped = !value;            
+            m_navMeshAgent.isStopped = !value;
         }
         #endregion
     }

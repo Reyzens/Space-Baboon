@@ -114,9 +114,9 @@ namespace SpaceBaboon
             }
         }
 
-        public void SpawnHealingHeart(Vector2 enemy)
+        public void SpawnHealingHeart(Transform enemy)
         {
-            m_healingCollectablePool.Spawn(enemy);
+            m_healingCollectablePool.Spawn(enemy.position);
         }
 
         #region ResourceSpawning
