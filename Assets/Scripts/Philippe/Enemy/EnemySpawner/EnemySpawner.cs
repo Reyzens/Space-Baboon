@@ -37,6 +37,8 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
         [SerializeField] private List<GameObject> m_pooledBoss = new List<GameObject>();
         private GenericObjectPool m_bossPool = new GenericObjectPool();
+        [SerializeField] private List<GameObject> m_pooledElite = new List<GameObject>();
+        private GenericObjectPool m_elitePool = new GenericObjectPool();
 
         [SerializeField] public GenericObjectPool m_enemyProjectilesPool = new GenericObjectPool();
         [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
@@ -252,6 +254,9 @@ namespace SpaceBaboon.EnemySystem
 
             m_bossPool.SetPoolStartingSize(10);
             m_bossPool.CreatePool(m_pooledBoss, "Boss");
+
+            m_elitePool.SetPoolStartingSize(10);
+            m_elitePool.CreatePool(m_pooledElite, "Elite");
         }
 
         public int[] GetEnemyKillStats()
@@ -336,6 +341,9 @@ namespace SpaceBaboon.EnemySystem
             //-1 to avoid to spawn boss
             EEnemyTypes enemyType = (EEnemyTypes)Random.Range(0, (int)EEnemyTypes.Count - 1);
             CheatSpawnGroup(enemyType, (m_spawnEventAmountMultiplier * m_amountOfEnemySpawned));
+
+            Vector2 spawnWorldPos = FindValidEnemyRandomPos();
+            m_elitePool.Spawn(m_pooledElite[0], spawnWorldPos);
         }
         private void SpawnRandomBoss()
         {

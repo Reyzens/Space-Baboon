@@ -1,5 +1,4 @@
 using SpaceBaboon.EnemySystem;
-using SpaceBaboon.PoolingSystem;
 using SpaceBaboon.TutorialSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -111,6 +110,11 @@ namespace SpaceBaboon
         {
             //PauseGame(true);
             m_tutorialWindow.Display(type, position);
+        }
+
+        public ResourceSpawner GetResourceManager()
+        {
+            return m_ressourceManager;
         }
 
         #region Setters

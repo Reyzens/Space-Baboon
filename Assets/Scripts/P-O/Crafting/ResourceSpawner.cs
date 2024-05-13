@@ -228,6 +228,10 @@ namespace SpaceBaboon
                 craftingStationsToSetUp.Remove(craftingStationToRemove);
             }
         }
+        public GameObject SpawnShard(GameObject shardToSpawn, Vector2 posToSpawn)
+        {
+            return m_shardPool.Spawn(shardToSpawn, posToSpawn);
+        }
         #endregion
     }
 }

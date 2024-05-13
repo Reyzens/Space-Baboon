@@ -9,7 +9,7 @@ namespace SpaceBaboon.EnemySystem
     {
         public event Action m_eventEnemyDeath = delegate { };
 
-        private EnemyData m_enemyUniqueData;
+        protected EnemyData m_enemyUniqueData;
 
         [SerializeField] private float m_healthDropChance = 5f;
 
