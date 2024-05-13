@@ -9,6 +9,7 @@ namespace SpaceBaboon
         [SerializeField] private int m_healthMultipler;
         [SerializeField] private List<ResourceData> m_possibleResources = new List<ResourceData>();
         [SerializeField] private float m_shardsSpawnStrenght;
+        [SerializeField] private int m_resourceAmountMultiplier;
         protected override void Start()
         {
             base.Start();
@@ -39,7 +40,7 @@ namespace SpaceBaboon
                 float spawnAngle;
                 GameObject spawnedShard;
 
-                for (int i = 0; i < resource.m_resourceAmount; i++)
+                for (int i = 0; i < resource.m_resourceAmount * m_resourceAmountMultiplier; i++)
                 {
                     spawnAngle = i * angleBetweenShards * Mathf.Deg2Rad;
                     direction = new Vector2(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle));
