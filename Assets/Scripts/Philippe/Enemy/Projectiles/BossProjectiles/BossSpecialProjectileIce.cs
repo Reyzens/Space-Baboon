@@ -9,7 +9,7 @@ namespace SpaceBaboon.WeaponSystem
 
             if (other.CompareTag("Player"))
             {
-                m_player.IceZoneEffectsStart(0.5f, 0.5f);
+                //m_player.IceZoneEffectsStart(0.5f, 0.5f);
             }
         }
 
@@ -17,6 +17,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             if (other.CompareTag("Player"))
             {
+                m_player.StartGlide(0.01f, 1.0f);
                 //m_player.IceZoneEffectsStart(0.5f, 0.5f);
             }
         }
@@ -25,7 +26,8 @@ namespace SpaceBaboon.WeaponSystem
         {
             if (other.CompareTag("Player"))
             {
-                m_player.IceZoneEffectsEnd();
+                //m_player.IceZoneEffectsEnd();
+                m_player.StopGlide();
             }
         }
 

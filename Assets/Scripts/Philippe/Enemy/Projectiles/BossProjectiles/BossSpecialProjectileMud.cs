@@ -17,7 +17,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             if (other.CompareTag("Player"))
             {
-
+                m_player.StartSlow(0.5f, 1.0f);
             }
         }
 
@@ -25,7 +25,7 @@ namespace SpaceBaboon.WeaponSystem
         {
             if (other.CompareTag("Player"))
             {
-
+                m_player.EndSlow();
             }
         }
 
