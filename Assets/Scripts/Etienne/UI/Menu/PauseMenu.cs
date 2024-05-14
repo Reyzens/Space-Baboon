@@ -57,6 +57,7 @@ namespace SpaceBaboon.UISystem
         private void OnEndGameButtonClicked()
         {
             GameManager.Instance.EndGame();
+            m_root.style.display = DisplayStyle.None;
         }
     }
 }
