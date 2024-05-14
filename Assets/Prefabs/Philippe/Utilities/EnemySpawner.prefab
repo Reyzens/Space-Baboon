@@ -60,12 +60,10 @@ MonoBehaviour:
     enemyType: 2
     spawnProbability: 5
     canSpawn: 1
-  - enemyPrefab: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
-    enemyType: 3
-    spawnProbability: 1
-    canSpawn: 0
-  m_pooledBoss: []
-  m_pooledElite: []
+  m_pooledBoss:
+  - {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
+  m_pooledElite:
+  - {fileID: 6346816228064842483, guid: d1c970a98456e7e42942af2786f835e5, type: 3}
   m_bossSpawningZone: {fileID: 0}
   m_enemyProjectilesPool:
     m_container: {fileID: 0}
@@ -79,7 +77,7 @@ MonoBehaviour:
   - {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   m_spawnRadiusFromScreenCorner: -50
   m_spawningDelay: 5
-  m_isSpawning: 0
+  m_isSpawning: 1
   m_enemiesAmountToSpawnOneShot: 0
   m_spawnGroup: 0
   m_SpawnTimeUpgradeTimer: 60
@@ -87,7 +85,7 @@ MonoBehaviour:
   m_amountSpawnedUpgradeTimer: 30
   m_spawnEventTimer: 45
   m_spawnEventAmountMultiplier: 5
-  m_bossSpawnTimer: 0
+  m_bossSpawnTimer: 120
   m_tilemapRef: {fileID: 0}
   m_obstacleTilemapRef: {fileID: 0}
   m_bossTileMap: {fileID: 0}

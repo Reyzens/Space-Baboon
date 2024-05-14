@@ -811,7 +811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c0ca3ed318c7340ba37f001638702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_defaultRotationSpeed: 50
+  m_defaultRotationSpeed: 15
   m_rotationRange: 8
   m_acceptableRangeOffset: 0.5
   m_minDistanceBetweenObjects: 7
