@@ -14,7 +14,7 @@ namespace SpaceBaboon.TutorialSystem
             {
                 GameManager.Instance.DisplayTutorialWindow(m_tutorialType, transform.position);
 
-                //Destroy GameObject ?
+                Destroy(gameObject);
             }
         }
     }

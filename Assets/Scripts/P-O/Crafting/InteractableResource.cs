@@ -34,6 +34,7 @@ namespace SpaceBaboon.Crafting
 
         //Static variables
         static Dictionary<EResourceType, ResourceData> Resources = new Dictionary<EResourceType, ResourceData>();
+        private static bool s_popUpHasBeenCalled = false;
 
         public bool IsActive { get { return m_isActive; } }
 
@@ -95,6 +96,12 @@ namespace SpaceBaboon.Crafting
                 if (shouldGrow)
                 {
                     m_renderer.material.SetColor("_Color", Color.green);
+
+                    if (!s_popUpHasBeenCalled)
+                    {
+                        GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.ResourcesPresentation, transform.position);
+                        s_popUpHasBeenCalled = true;
+                    }
                 }
                 else
                 {

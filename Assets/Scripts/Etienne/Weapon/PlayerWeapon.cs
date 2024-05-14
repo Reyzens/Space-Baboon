@@ -40,6 +40,8 @@ namespace SpaceBaboon.WeaponSystem
         protected float m_zoneLevel = 0;
         private const float ATTACKSPEEDLIMIT = 0.15f;
 
+        private static bool s_popUpHasBeenCalled = false;
+
         protected float currentRange
         {
             get { return m_weaponData.maxRange + (m_rangeLevel * m_weaponData.m_rangeScaling); }
@@ -216,6 +218,12 @@ namespace SpaceBaboon.WeaponSystem
             if (uiManager != null)
             {
                 uiManager.UpdateWeapon(m_weaponData.weaponName, m_currentLevel, (int)m_damageLevel, (int)m_speedLevel, (int)m_rangeLevel, (int)m_zoneLevel);
+            }
+
+            if (!s_popUpHasBeenCalled)
+            {
+                GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.ResourcesPresentation, transform.position);
+                s_popUpHasBeenCalled = true;
             }
 
         }

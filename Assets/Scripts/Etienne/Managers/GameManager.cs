@@ -26,6 +26,9 @@ namespace SpaceBaboon
         private bool m_isCountingTime = false;
         private bool m_isPaused = false;
 
+        private bool m_intro2HasBeenCalled = true;
+        private bool m_weaponPresentationHasBeenCalled = true;
+
         public static GameManager Instance
         {
             get
@@ -67,6 +70,17 @@ namespace SpaceBaboon
             {
                 GameTimer += Time.deltaTime;
             }
+
+            if (!m_intro2HasBeenCalled && GameTimer > 2.0f)
+            {
+                m_intro2HasBeenCalled = true;
+                DisplayTutorialWindow(ETutorialType.Introduction2, Player.transform.position);
+            }
+            if (!m_weaponPresentationHasBeenCalled && GameTimer > 5.0f)
+            {
+                m_weaponPresentationHasBeenCalled = true;
+                DisplayTutorialWindow(ETutorialType.WeaponPresentation, new Vector3(1000,1000,0));
+            }
         }
 
         #endregion
@@ -77,6 +91,8 @@ namespace SpaceBaboon
             StartTimer();
             //m_isPaused = false;
             PauseGame(false);
+
+            DisplayTutorialWindow(ETutorialType.Introduction1, Player.transform.position);
         }
 
         private void StartTimer()
@@ -108,7 +124,7 @@ namespace SpaceBaboon
 
         public void DisplayTutorialWindow(ETutorialType type, Vector3 position)
         {
-            //PauseGame(true);
+            PauseGame(true);
             m_tutorialWindow.Display(type, position);
         }
 

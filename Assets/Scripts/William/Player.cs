@@ -284,10 +284,13 @@ namespace SpaceBaboon
         {
             m_glideTimer = glideTime;
             m_angularVelocityMulti = glideAmount;
+            //m_rB.drag = 2;
+            //RegulateVelocity();
         }
         public void StopGlide()
         {
             m_angularVelocityMulti = 1;
+            //m_rB.drag = 20;
         }
         private void OnPlayerDeath()
         {

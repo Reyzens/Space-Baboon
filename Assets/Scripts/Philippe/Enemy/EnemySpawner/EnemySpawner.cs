@@ -73,6 +73,8 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] public Tilemap m_bossTileMap;
         private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
 
+        private static bool s_popUpHasBeenCalled = false;
+
 
         private void Awake()
         {
@@ -380,6 +382,13 @@ namespace SpaceBaboon.EnemySystem
                 Debug.Log("No valid pos found on circle");
             }
             m_bossPool.Spawn(m_pooledBoss[spawnIndex], validTilePos);
+
+            if (!s_popUpHasBeenCalled)
+            {
+                GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.ResourcesPresentation, transform.position);
+                s_popUpHasBeenCalled = true;
+            }
+
         }
         public void UpdateStats()
         {
