@@ -50,18 +50,18 @@ namespace SpaceBaboon.Crafting
         void Update()
         {
             // TODO FOR TESTING TO DELETE
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                m_isDisabled = false;
-                m_currentHealth = m_maxHealth;
-                m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
-            }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                m_isDisabled = true;
-                m_currentHealth = 0;
-                m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
-            }
+            //if (Input.GetKeyDown(KeyCode.Y))
+            //{
+            //    m_isDisabled = false;
+            //    m_currentHealth = m_maxHealth;
+            //    m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
+            //}
+            //if (Input.GetKeyDown(KeyCode.U))
+            //{
+            //    m_isDisabled = true;
+            //    m_currentHealth = 0;
+            //    m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
+            //}
 
             if (m_isDisabled)
             {

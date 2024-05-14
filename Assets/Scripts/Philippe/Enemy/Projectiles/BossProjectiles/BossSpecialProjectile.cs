@@ -99,11 +99,11 @@ namespace SpaceBaboon.WeaponSystem
         {
             m_targetSavedPos = FindValidTargetPosition(direction);
 
-            Debug.Log("PlayerSavedPos " + m_targetSavedPos);
+            //Debug.Log("PlayerSavedPos " + m_targetSavedPos);
 
             Vector2 currentPosition = transform.position;
 
-            Debug.Log("currentBossPosition " + currentPosition);
+            //Debug.Log("currentBossPosition " + currentPosition);
 
             m_direction = (m_targetSavedPos - currentPosition).normalized;
             m_damage = damage;
