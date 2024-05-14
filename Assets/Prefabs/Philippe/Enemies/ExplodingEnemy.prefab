@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 56604385146fe7e48b063e6479ea8c2c, type: 2}
-  m_healthDropChance: 0.05
+  m_healthDropChance: 5
   m_projectilePrefab: {fileID: 8703325170743144796, guid: 8109816a57a5c5c418efd2f44c0c4aa3, type: 3}
 --- !u!114 &-2736597421460320040
 MonoBehaviour:
