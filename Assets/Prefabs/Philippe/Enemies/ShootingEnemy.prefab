@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 1d4edf305911fba46ace83e4666dcc29, type: 2}
-  m_healthDropChance: 0.05
+  m_healthDropChance: 5
 --- !u!95 &4503694478007303297
 Animator:
   serializedVersion: 5

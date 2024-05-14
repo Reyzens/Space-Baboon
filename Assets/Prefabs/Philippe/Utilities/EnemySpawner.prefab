@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyPool:
     m_container: {fileID: 0}
-    m_poolStartingSize: 10
+    m_poolStartingSize: 20
   m_pooledEnemies:
   - enemyPrefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
     enemyType: 0
@@ -62,8 +62,11 @@ MonoBehaviour:
     canSpawn: 1
   - enemyPrefab: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
     enemyType: 3
-    spawnProbability: 5
+    spawnProbability: 1
     canSpawn: 0
+  m_pooledBoss: []
+  m_pooledElite: []
+  m_bossSpawningZone: {fileID: 0}
   m_enemyProjectilesPool:
     m_container: {fileID: 0}
     m_poolStartingSize: 10
@@ -84,5 +87,7 @@ MonoBehaviour:
   m_amountSpawnedUpgradeTimer: 30
   m_spawnEventTimer: 45
   m_spawnEventAmountMultiplier: 5
+  m_bossSpawnTimer: 0
   m_tilemapRef: {fileID: 0}
   m_obstacleTilemapRef: {fileID: 0}
+  m_bossTileMap: {fileID: 0}
