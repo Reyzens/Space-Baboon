@@ -16,7 +16,7 @@ namespace SpaceBaboon.WeaponSystem
         }
         protected override Transform GetTarget()
         {
-            for (int i = 0; i < m_detectionRange; i++)
+            for (int i = 0; i < (m_detectionRange * 12); i++)
             {
                 var colliders = Physics2D.OverlapCircleAll(transform.position, i);
 

@@ -212,8 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 1d4edf305911fba46ace83e4666dcc29, type: 2}
-  m_healthDropChance: 5.17
-  m_healthMultipler: 20
+  m_healthDropChance: 5
+  m_healthMultipler: 5
   m_possibleResources:
   - {fileID: 11400000, guid: 0274d64e293efb746815042ef01541b8, type: 2}
   - {fileID: 11400000, guid: 087d7421ee5df1d4ca2809425dcf43eb, type: 2}

@@ -104,7 +104,7 @@ namespace SpaceBaboon.WeaponSystem
         }
         private void SearchNewTarget()
         {
-            for (int i = 0; i < m_flameRange; i++)
+            for (int i = 0; i < (m_flameRange * 12); i++)
             {
                 CheckIfCloserTarget(i);
             }
