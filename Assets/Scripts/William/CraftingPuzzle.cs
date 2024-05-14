@@ -43,6 +43,8 @@ namespace SpaceBaboon
 
         private float m_ressourcesTypeOne;
 
+        private static bool s_unlockPopUpHasBeenCalled = false;
+
 
 
         public void Initialisation()
@@ -137,7 +139,13 @@ namespace SpaceBaboon
             if (value == false)
             {
                 m_stationRenderer.sprite = m_enableStationSprite;                
-                m_light2D.color = Color.green;                
+                m_light2D.color = Color.green;
+
+                if (!s_unlockPopUpHasBeenCalled)
+                {
+                    GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.CraftingStationUnlocked, transform.position);
+                    s_unlockPopUpHasBeenCalled = true;
+                }
             }       
 
             foreach (var dropPoint in m_dropPointList)
