@@ -12,7 +12,7 @@ namespace SpaceBaboon.WeaponSystem
 
         private Vector2 m_targetSavedPos = Vector2.zero;
         private Vector3 m_originalScale;
-        private float m_distanceToPosThreshold = 1.0f;
+        private float m_distanceToPosThreshold = 5.0f;
         private float m_scalingTimer = 0.0f;
         private bool m_isAtTargetPos = false;
 
@@ -73,7 +73,7 @@ namespace SpaceBaboon.WeaponSystem
         protected override void Move()
         {
             m_direction.x = m_targetSavedPos.x - transform.position.x;
-            m_direction.y = m_targetSavedPos.y - transform.position.y;
+            m_direction.y = m_targetSavedPos.y - transform.position.y;            
             m_direction = m_direction.normalized;
 
             float distanceToPos = Vector2.Distance(transform.position, m_targetSavedPos);
@@ -98,7 +98,13 @@ namespace SpaceBaboon.WeaponSystem
         public override void Shoot(Transform direction, float maxRange, float attackZone, float damage, Transform playerPosition)
         {
             m_targetSavedPos = FindValidTargetPosition(direction);
+
+            Debug.Log("PlayerSavedPos " + m_targetSavedPos);
+
             Vector2 currentPosition = transform.position;
+
+            Debug.Log("currentBossPosition " + currentPosition);
+
             m_direction = (m_targetSavedPos - currentPosition).normalized;
             m_damage = damage;
         }

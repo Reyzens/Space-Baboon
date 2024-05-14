@@ -19,6 +19,6 @@ MonoBehaviour:
   damage: 0
   maxLifetime: 10
   defaultAcceleration: 30
-  defaultMaxVelocity: 20
+  defaultMaxVelocity: 40
   sineWaveFrequency: 5
-  sineWaveAmplitude: 1
+  sineWaveAmplitude: 2
