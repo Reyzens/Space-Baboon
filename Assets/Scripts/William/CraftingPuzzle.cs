@@ -45,8 +45,6 @@ namespace SpaceBaboon
 
         private static bool s_unlockPopUpHasBeenCalled = false;
 
-
-
         public void Initialisation()
         {
             m_craftingPuzzleEnabled = true;
@@ -138,7 +136,9 @@ namespace SpaceBaboon
             }
             if (value == false)
             {
+
                 m_craftingStationScript.ToggleStationStatus(!value);
+
                 m_stationRenderer.sprite = m_enableStationSprite;
                 m_light2D.color = Color.green;
 
@@ -159,7 +159,6 @@ namespace SpaceBaboon
         public void SetCraftingStationPuzzleEnabled(bool value)
         {
             m_craftingPuzzleEnabled = value;
-
             if (value)
             {
                 m_currentKill = 0;

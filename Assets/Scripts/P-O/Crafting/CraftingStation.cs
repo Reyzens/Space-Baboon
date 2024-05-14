@@ -19,7 +19,7 @@ namespace SpaceBaboon.Crafting
         private Transform m_position;
         public int m_currentHealth;
         private int m_currentStationLevel;
-        private bool m_isDisabled = false;
+        [SerializeField] private bool m_isDisabled = false;
         private CraftingPuzzle m_puzzleScript;
 
         //Serialized for test purpose
@@ -88,7 +88,7 @@ namespace SpaceBaboon.Crafting
         {
             m_currentStationLevel = 1;
             m_isDisabled = true;
-            m_currentHealth = 0;
+            m_currentHealth = m_maxHealth;
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)
             {
@@ -108,7 +108,7 @@ namespace SpaceBaboon.Crafting
             if (status)
             {
                 m_isDisabled = false;
-                m_currentHealth = m_maxHealth;
+
                 m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
             }
             else
@@ -140,6 +140,7 @@ namespace SpaceBaboon.Crafting
             {
                 m_isDisabled = true;
                 m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
+                m_currentHealth = m_maxHealth;
             }
         }
         public bool GetIsDisabled() { return m_isDisabled; }
