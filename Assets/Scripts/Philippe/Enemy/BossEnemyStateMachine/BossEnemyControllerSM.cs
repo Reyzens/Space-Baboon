@@ -221,7 +221,7 @@ namespace SpaceBaboon.EnemySystem
             CurrentBossIndex = Random.Range(0, (int)EBossTypes.Count);
 
             //Testing
-            //CurrentBossIndex = 1;
+            CurrentBossIndex = 2;
            
             m_renderer.color = UniqueData.bosses[CurrentBossIndex].color;
             m_animator.runtimeAnimatorController = UniqueData.bosses[CurrentBossIndex].animControllerObject.GetComponent<Animator>().runtimeAnimatorController;

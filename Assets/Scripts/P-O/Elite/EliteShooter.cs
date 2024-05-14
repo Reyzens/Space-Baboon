@@ -28,7 +28,15 @@ namespace SpaceBaboon
                     return;
                 }
             }
-            base.OnDamageTaken(0);
+
+            SpriteFlashRed();
+            //DamagePopUp.Create(this.transform.position, damage);
+            GameObject vfx = FXSystem.FXManager.Instance.PlayVFX(FXSystem.EVFXType.EnemyDamagePopUp, transform.position);
+            var script = vfx.GetComponent<FXSystem.AnimateDamagePopUp>();
+            if (script != null)
+            {
+                script.Activate(damage);
+            }
         }
         private void SpawnResources()
         {

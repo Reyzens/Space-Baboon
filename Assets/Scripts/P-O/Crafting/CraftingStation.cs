@@ -44,14 +44,14 @@ namespace SpaceBaboon.Crafting
         }
         void Start()
         {
-            Initialization();            
+            Initialization();
         }
         // Update is called once per frame
         void Update()
         {
             // TODO FOR TESTING TO DELETE
             if (Input.GetKeyDown(KeyCode.Y))
-            {                
+            {
                 m_isDisabled = false;
                 m_currentHealth = m_maxHealth;
                 m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
@@ -85,7 +85,7 @@ namespace SpaceBaboon.Crafting
         }
         #region StationManagement
         private void Initialization()
-        {            
+        {
             m_currentStationLevel = 1;
             m_isDisabled = true;
             m_currentHealth = 0;
@@ -112,6 +112,10 @@ namespace SpaceBaboon.Crafting
         public List<ResourceDropPoint> GetDropPopint()
         {
             return m_resourceDropPoints;
+        }
+        public bool ResourceIsNeeded(Crafting.InteractableResource.EResourceType resourceToCheck)
+        {
+            return m_resourceNeeded.Contains(resourceToCheck);
         }
         public void ReceiveDamage(float damage)
         {
