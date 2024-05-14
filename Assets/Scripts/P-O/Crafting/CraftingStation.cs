@@ -103,6 +103,22 @@ namespace SpaceBaboon.Crafting
             ResetPossibleResourceList();
             ResourceNeededAllocation();
         }
+        public void ToggleStationStatus(bool status)
+        {
+            if (status)
+            {
+                m_isDisabled = false;
+                m_currentHealth = m_maxHealth;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
+            }
+            else
+            {
+                m_isDisabled = true;
+                m_currentHealth = 0;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
+            }
+        }
+
         public void StationSetup(WeaponSystem.PlayerWeapon weapon)
         {
             m_linkedWeapon = weapon;
