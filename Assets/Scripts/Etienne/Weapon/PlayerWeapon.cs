@@ -222,7 +222,7 @@ namespace SpaceBaboon.WeaponSystem
 
             if (!s_popUpHasBeenCalled)
             {
-                GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.ResourcesPresentation, transform.position);
+                GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.UpgradingSystemPresentation, transform.position);
                 s_popUpHasBeenCalled = true;
             }
 

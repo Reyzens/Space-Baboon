@@ -385,7 +385,7 @@ namespace SpaceBaboon.EnemySystem
 
             if (!s_popUpHasBeenCalled)
             {
-                GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.ResourcesPresentation, transform.position);
+                GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.BossSpawning, transform.position);
                 s_popUpHasBeenCalled = true;
             }
 
