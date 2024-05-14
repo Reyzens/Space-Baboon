@@ -31,9 +31,9 @@ namespace SpaceBaboon.TutorialSystem
 
         private Vector3 m_defaultHidingPos = new Vector3(1200,0,0); //Just a random position outside of screen
 
-        private const int MIN_X_POS = 20;
+        private const int MIN_X_POS = 300;
         private const int MAX_X_POS = 500;
-        private const int MIN_Y_POS = 300;
+        private const int MIN_Y_POS = 400;
         private const int MAX_Y_POS = 300;
 
         private void Awake()
