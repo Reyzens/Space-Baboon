@@ -275,6 +275,7 @@ namespace SpaceBaboon
         {
             m_slowTimer = slowTimer;
             m_accelerationMulti = slowAmount;
+            m_isSlowed = true;
         }
         public void EndSlow()
         {
@@ -284,14 +285,31 @@ namespace SpaceBaboon
         {
             m_glideTimer = glideTime;
             m_angularVelocityMulti = glideAmount;
-            //m_rB.drag = 2;
-            //RegulateVelocity();
+            m_rB.drag = 2;
+            m_accelerationMulti = 0.1f;
+            RegulateVelocityGliding();
+            m_isGliding = true;            
         }
+
+        private void RegulateVelocityGliding()
+        {
+            if (m_rB.velocity.magnitude > 40) //Max Velo Kinda
+            {
+                m_rB.velocity = m_rB.velocity.normalized;
+                m_rB.velocity *= 40;
+            }
+        }
+
         public void StopGlide()
         {
+            m_accelerationMulti = 1;
             m_angularVelocityMulti = 1;
-            //m_rB.drag = 20;
+            m_rB.drag = 20;
         }
+
+
+
+
         private void OnPlayerDeath()
         {
             if (m_activeHealth <= 0 || m_alive == false)
