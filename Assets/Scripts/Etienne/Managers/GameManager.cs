@@ -26,8 +26,9 @@ namespace SpaceBaboon
         private bool m_isCountingTime = false;
         private bool m_isPaused = false;
 
-        private bool m_intro2HasBeenCalled = true;
-        private bool m_weaponPresentationHasBeenCalled = true;
+        private bool m_intro1HasBeenCalled = false;
+        private bool m_intro2HasBeenCalled = false;
+        private bool m_weaponPresentationHasBeenCalled = false;
 
         public static GameManager Instance
         {
@@ -53,7 +54,7 @@ namespace SpaceBaboon
         }
         private void Start()
         {
-            StartTimer();
+            //StartTimer();
         }
 
         private void Update()
@@ -71,7 +72,12 @@ namespace SpaceBaboon
                 GameTimer += Time.deltaTime;
             }
 
-            if (!m_intro2HasBeenCalled && GameTimer > 2.0f)
+            if (!m_intro1HasBeenCalled && GameTimer > 2.0f)
+            {
+                m_intro1HasBeenCalled = true;
+                DisplayTutorialWindow(ETutorialType.Introduction1, Player.transform.position);
+            }
+            if (!m_intro2HasBeenCalled && GameTimer > 4.0f)
             {
                 m_intro2HasBeenCalled = true;
                 DisplayTutorialWindow(ETutorialType.Introduction2, Player.transform.position);
@@ -87,12 +93,12 @@ namespace SpaceBaboon
 
         public void StartGame()
         {
-            SceneManager.LoadScene("SB_Build3");
+            SceneManager.LoadScene("SB_PlayTest");
             StartTimer();
             //m_isPaused = false;
             PauseGame(false);
 
-            DisplayTutorialWindow(ETutorialType.Introduction1, Player.transform.position);
+            //DisplayTutorialWindow(ETutorialType.Introduction1, Player.transform.position);
         }
 
         private void StartTimer()

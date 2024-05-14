@@ -71,7 +71,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 6.03
-  m_PointLightOuterRadius: 140
+  m_PointLightOuterRadius: 160
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -811,7 +811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8c0ca3ed318c7340ba37f001638702c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_defaultRotationSpeed: 15
+  m_defaultRotationSpeed: 12
   m_rotationRange: 8
   m_acceptableRangeOffset: 0.5
   m_minDistanceBetweenObjects: 7

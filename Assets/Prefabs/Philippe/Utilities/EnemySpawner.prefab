@@ -60,6 +60,10 @@ MonoBehaviour:
     enemyType: 2
     spawnProbability: 5
     canSpawn: 1
+  - enemyPrefab: {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
+    enemyType: 3
+    spawnProbability: 5
+    canSpawn: 0
   m_pooledBoss:
   - {fileID: 142095782828747759, guid: 217e40d19ad82824f9eed1b284d94981, type: 3}
   m_pooledElite:
@@ -80,7 +84,7 @@ MonoBehaviour:
   m_isSpawning: 1
   m_enemiesAmountToSpawnOneShot: 0
   m_spawnGroup: 0
-  m_SpawnTimeUpgradeTimer: 60
+  m_SpawnTimeUpgradeTimer: 25
   m_spawnTimeUpgradeRatio: 0.05
   m_amountSpawnedUpgradeTimer: 30
   m_spawnEventTimer: 45

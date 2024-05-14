@@ -15,7 +15,7 @@ MonoBehaviour:
   maxLevel: 0
   maxRange: 4
   attackZone: 20
-  attackSpeed: 2
+  attackSpeed: 1
   baseDamage: 5
   weaponName: 0
   shootAudioCue: 6
