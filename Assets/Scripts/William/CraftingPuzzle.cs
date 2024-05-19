@@ -3,6 +3,7 @@ using SpaceBaboon.EnemySystem;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon
 {
@@ -28,9 +29,9 @@ namespace SpaceBaboon
         [SerializeField]
         private GameObject m_blueCircleFiller;
         [SerializeField]
-        private Sprite m_enableStationSprite;
+        private Sprite m_enabledStationSprite;
         [SerializeField]
-        private Sprite m_disableStationSprite;
+        private Sprite m_disabledStationSprite;
         [SerializeField]
         private GameObject m_stationSpriteRef;
         private SpriteRenderer m_stationRenderer;
@@ -71,12 +72,17 @@ namespace SpaceBaboon
         // Update is called once per frame
         void Update()
         {
-            PuzzleDisabler();
+            if(!m_craftingPuzzleEnabled)
+            {
+                return;
+            }
+
+            UpdatePuzzleState();
             //ReactivateCraftingStation();
             //DisableCraftinStation();
 
 
-            SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
+            //SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
 
             //CircleLerping();
             m_blueCircleFiller.transform.localScale = Vector3.Lerp(m_blueCircleFiller.transform.localScale, m_transparentCircleNewPosition, Time.deltaTime * 1.0f);
@@ -92,13 +98,14 @@ namespace SpaceBaboon
             }
         }
 
-        private void PuzzleDisabler()
+        private void UpdatePuzzleState()
         {
             if (m_currentKill >= m_killneeded)
             {
-                m_craftingPuzzleEnabled = false;
-                m_stationRenderer.sprite = m_enableStationSprite;
-                m_light2D.color = Color.green;
+                m_craftingStationScript.ReceivePuzzleCompleted();                
+                //m_craftingPuzzleEnabled = false;
+                //m_stationRenderer.sprite = m_enabledStationSprite;
+                //m_light2D.color = Color.green;
             }
         }
 
@@ -131,16 +138,16 @@ namespace SpaceBaboon
 
             if (value == true)
             {
-                m_stationRenderer.sprite = m_disableStationSprite;
-                m_light2D.color = Color.red;
+                //m_stationRenderer.sprite = m_disabledStationSprite;
+                //m_light2D.color = Color.red;
             }
             if (value == false)
             {
 
-                m_craftingStationScript.ToggleStationStatus(!value);
+                //m_craftingStationScript.ToggleStationStatus(!value);
 
-                m_stationRenderer.sprite = m_enableStationSprite;
-                m_light2D.color = Color.green;
+                //m_stationRenderer.sprite = m_enabledStationSprite;
+                //m_light2D.color = Color.green;
 
                 if (!s_unlockPopUpHasBeenCalled)
                 {
@@ -155,6 +162,27 @@ namespace SpaceBaboon
                 dropPoint.gameObject.SetActive(!value);
             }
         }
+
+        public void EnablePuzzle(bool value)
+        {
+            m_craftingPuzzleEnabled = value;            
+            m_blueCircle.gameObject.SetActive(value);
+            m_circleMask.gameObject.SetActive(value);
+            m_blueCircleFiller.gameObject.SetActive(value);
+
+            if (value)
+            {
+                m_currentKill = 0;
+            }
+        }
+
+        //public void DisablePuzzle()
+        //{
+        //    m_craftingPuzzleEnabled = false;
+        //    m_blueCircle.gameObject.SetActive(false);
+        //    m_circleMask.gameObject.SetActive(false);
+        //    m_blueCircleFiller.gameObject.SetActive(false);
+        //}
 
         public void SetCraftingStationPuzzleEnabled(bool value)
         {

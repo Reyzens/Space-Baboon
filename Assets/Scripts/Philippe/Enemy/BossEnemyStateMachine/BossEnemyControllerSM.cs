@@ -154,7 +154,7 @@ namespace SpaceBaboon.EnemySystem
 
         private void CheckIfTargetedCraftinStationIsDisabled()
         {
-            if (TargetedCraftingStation.GetIsDisabled())
+            if (!TargetedCraftingStation.GetIsEnabled())
             {
                 //Debug.Log("Have been disabled");
                 TargetedStationDisabled = true;
@@ -191,7 +191,7 @@ namespace SpaceBaboon.EnemySystem
             
             foreach (CraftingStation station in CraftingStation.GetCraftingStations())
             {
-                if (!station.GetIsDisabled())
+                if (station.GetIsEnabled())
                     WorkingCraftingStations.Add(station);
             }
             
