@@ -36,32 +36,32 @@ namespace SpaceBaboon.Crafting
         static EWeaponUpgrades m_currentUpgrade = EWeaponUpgrades.Count;
 
         public static EWeaponUpgrades CurrentUpgrade { get { return m_currentUpgrade; } }
-
-        // Start is called before the first frame update
+                
         private void Awake()
         {
             m_craftingStationsList.Add(this);
         }
+
         void Start()
         {
             Initialization();
         }
-        // Update is called once per frame
+        
         void Update()
         {
             // TODO FOR TESTING TO DELETE
-            //if (Input.GetKeyDown(KeyCode.Y))
-            //{
-            //    m_isDisabled = false;
-            //    m_currentHealth = m_maxHealth;
-            //    m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
-            //}
-            //if (Input.GetKeyDown(KeyCode.U))
-            //{
-            //    m_isDisabled = true;
-            //    m_currentHealth = 0;
-            //    m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
-            //}
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                m_isDisabled = false;
+                m_currentHealth = m_maxHealth;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                m_isDisabled = true;
+                m_currentHealth = 0;
+                m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
+            }
 
             if (m_isDisabled)
             {
@@ -79,10 +79,12 @@ namespace SpaceBaboon.Crafting
                 }
             }
         }
+
         public static List<CraftingStation> GetCraftingStations()
         {
             return m_craftingStationsList;
         }
+
         #region StationManagement
         private void Initialization()
         {
@@ -97,12 +99,14 @@ namespace SpaceBaboon.Crafting
             m_puzzleScript = GetComponent<CraftingPuzzle>();
             m_puzzleScript.Initialisation();
         }
+
         private void ResetDropStation()
         {
             m_isUpgrading = false;
             ResetPossibleResourceList();
             ResourceNeededAllocation();
         }
+
         public void ToggleStationStatus(bool status)
         {
             if (status)
@@ -124,15 +128,18 @@ namespace SpaceBaboon.Crafting
             m_linkedWeapon = weapon;
             m_weaponIcon.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
         }
+
         #endregion
         public List<ResourceDropPoint> GetDropPopint()
         {
             return m_resourceDropPoints;
         }
+
         public bool ResourceIsNeeded(Crafting.InteractableResource.EResourceType resourceToCheck)
         {
             return m_resourceNeeded.Contains(resourceToCheck);
         }
+
         public void ReceiveDamage(float damage)
         {
             m_currentHealth -= (int)damage;
@@ -143,7 +150,9 @@ namespace SpaceBaboon.Crafting
                 m_currentHealth = m_maxHealth;
             }
         }
+
         public bool GetIsDisabled() { return m_isDisabled; }
+
         #region UpgradeManagement
         private void CheckIfUpgradable()
         {
@@ -187,6 +196,7 @@ namespace SpaceBaboon.Crafting
                 }
             }
         }
+
         private bool CheckLastTwoUpgrades(EWeaponUpgrades newUpgrade)
         {
             if (m_lastsUpgrades.Count < 2)
@@ -207,6 +217,7 @@ namespace SpaceBaboon.Crafting
 
             return isUpgradeValid;
         }
+
         static EWeaponUpgrades ResetUpgrade()
         {
             //Debug.Log("Chosen upgrade is " + m_currentUpgrade);
@@ -221,6 +232,7 @@ namespace SpaceBaboon.Crafting
             return m_currentUpgrade;
         }
         #endregion
+
         #region ResourceManagement
         public bool AddResource(Crafting.InteractableResource.EResourceType resourceType)
         {
@@ -245,6 +257,7 @@ namespace SpaceBaboon.Crafting
             }
             return false;
         }
+
         private void ResetPossibleResourceList()
         {
             m_possibleResources.Clear();
@@ -290,6 +303,7 @@ namespace SpaceBaboon.Crafting
             }
         }
         #endregion
+
         #region Enums
         public enum EWeaponUpgrades
         {
