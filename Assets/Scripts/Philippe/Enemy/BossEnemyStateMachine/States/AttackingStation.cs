@@ -13,9 +13,6 @@ namespace SpaceBaboon.EnemySystem
             m_craftingStationAttackTimer = m_stateMachine.UniqueData.craftingStationAttackDelay;
             m_stateMachine.Agent.isStopped = true;
             m_stateMachine.Animator.SetBool("AttackingStation", true);
-
-            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
-            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
         }
 
         public override void OnExit()
@@ -23,9 +20,6 @@ namespace SpaceBaboon.EnemySystem
             m_stateMachine.Agent.isStopped = false;
             m_stateMachine.Animator.SetBool("AttackingStation", false);
             //Debug.Log("BossEnemy exiting state: AttackingStation\n");
-
-            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
-            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
         }
 
         public override void OnUpdate()

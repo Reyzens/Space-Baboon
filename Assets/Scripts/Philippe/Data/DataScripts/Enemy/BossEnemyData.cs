@@ -39,6 +39,7 @@ namespace SpaceBaboon.EnemySystem
         public float specialAttackDelay;
         public float specialAttackChargeDelay;        
         public float basicAttackDelay;
+        public float deadOnGroundDelay;
         public int basicAttacksNeededBeforeSpecial;
     }
 }

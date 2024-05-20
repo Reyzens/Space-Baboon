@@ -47,4 +47,5 @@ MonoBehaviour:
   specialAttackDelay: 3
   specialAttackChargeDelay: 5
   basicAttackDelay: 2
+  deadOnGroundDelay: 5
   basicAttacksNeededBeforeSpecial: 3

@@ -19,16 +19,11 @@ namespace SpaceBaboon.EnemySystem
             m_specialAttackAnimStarted = false;
             m_chargeSpecialAttackTimer = m_stateMachine.UniqueData.specialAttackChargeDelay;
             m_stateMachine.Animator.SetTrigger("StartChargingSpecialAttack");
-
-            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
-            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
         }
 
         public override void OnExit()
         {
             m_stateMachine.Agent.isStopped = false;
-            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
-            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
             //Debug.Log("BossEnemy exiting state: DoSpecialAttack\n");
         }
 
@@ -66,7 +61,7 @@ namespace SpaceBaboon.EnemySystem
 
         public override bool CanExit()
         {
-            if (m_specialAttackDone) 
+            if (m_specialAttackDone || m_stateMachine.ReturnToDefaultState) 
             {
                 return true;
             }

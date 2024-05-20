@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using SpaceBaboon.PoolingSystem;
-using UnityEngine.Rendering;
+//using UnityEngine.Rendering;
 using SpaceBaboon.CollisionSystem;
 
 namespace SpaceBaboon.EnemySystem
@@ -26,12 +26,12 @@ namespace SpaceBaboon.EnemySystem
         public bool PlayerInTargetedCraftingStationRange { get; private set; }
         public bool InTargetedCraftingStationAttackRange { get; private set; }
         public bool SpecialAttackReady { get; set; } = false;
+        public bool ReturnToDefaultState { get; private set; } = false;
         public float SpecialAttackTimer { get; set; }
         public float DistanceToPlayer { get; private set; }
         public int CurrentBossIndex { get; private set; }
          
-        private Hitbox m_hitbox;
-        private float m_dyingAnimDelay = 5.0f;
+        private Hitbox m_hitbox;        
         private float m_dyingAnimTimer = 0.0f;
 
         protected override void CreatePossibleStates()
@@ -68,7 +68,7 @@ namespace SpaceBaboon.EnemySystem
 
             if(m_dyingAnimTimer > 0)
             {
-                DoBossDyingAnimAndUnspawn();
+                DoBossDyingAnimAndUnspawn();                
                 return;
             }
 
@@ -238,7 +238,7 @@ namespace SpaceBaboon.EnemySystem
                 Animator.SetTrigger("Die");
                 Agent.isStopped = true;
                 m_circleCollider.enabled = false;
-                m_dyingAnimTimer = m_dyingAnimDelay;                                    
+                m_dyingAnimTimer = UniqueData.deadOnGroundDelay;                                    
             }
         }
 
@@ -248,7 +248,10 @@ namespace SpaceBaboon.EnemySystem
             HandleSpriteFlashTimer();            
 
             if (m_dyingAnimTimer <= 0)
-            {              
+            {
+                ReturnToDefaultState = true;
+                TryStateTransition();
+                ReturnToDefaultState = false;
                 m_hitbox.CanHit = true;
                 m_hitbox.CanReceiveHit = true;
                 m_dyingAnimTimer = 0.0f;
