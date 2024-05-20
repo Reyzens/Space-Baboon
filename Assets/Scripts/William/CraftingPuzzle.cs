@@ -2,7 +2,6 @@ using SpaceBaboon.Crafting;
 using SpaceBaboon.EnemySystem;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace SpaceBaboon
 {
@@ -15,8 +14,7 @@ namespace SpaceBaboon
         [SerializeField]
         private int m_currentKill;
         [SerializeField]
-        private List<ResourceDropPoint> m_dropPointList;
-        [SerializeField]
+        private List<ResourceDropPoint> m_dropPointList;        
         private CraftingStation m_craftingStationScript;
         [SerializeField]
         private ResourceDropPoint m_ressourceDropPointScript;
@@ -26,16 +24,7 @@ namespace SpaceBaboon
         [SerializeField]
         private GameObject m_circleMask;
         [SerializeField]
-        private GameObject m_blueCircleFiller;
-        [SerializeField]
-        private Sprite m_enableStationSprite;
-        [SerializeField]
-        private Sprite m_disableStationSprite;
-        [SerializeField]
-        private GameObject m_stationSpriteRef;
-        private SpriteRenderer m_stationRenderer;
-        [SerializeField]
-        private Light2D m_light2D;
+        private GameObject m_blueCircleFiller;        
 
         private float m_transparentCirclePercentage;
         Vector3 m_transparentCircleNewPosition;
@@ -43,45 +32,30 @@ namespace SpaceBaboon
 
         private float m_ressourcesTypeOne;
 
-        private static bool s_unlockPopUpHasBeenCalled = false;
-
         public void Initialisation()
         {
-            m_craftingPuzzleEnabled = true;
             m_craftingStationScript = GetComponent<CraftingStation>();
-            m_ressourceDropPointScript = GetComponentInChildren<ResourceDropPoint>();
-            m_stationRenderer = m_stationSpriteRef.GetComponent<SpriteRenderer>();
-            m_dropPointList = m_craftingStationScript.GetDropPopint();
-            m_currentKill = 0;
+            m_ressourceDropPointScript = GetComponentInChildren<ResourceDropPoint>();            
+            m_dropPointList = m_craftingStationScript.GetDropPopint();            
             m_zoneCircle = GameObject.Find("Circle");
             //SetDropPoints();
             m_transparentCirclePercentage = 0.0f;
             m_transparentCircleNewPosition = new Vector3();
             m_transparentCircleMorphing = false;
-
-
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         void Update()
         {
-            PuzzleDisabler();
-            //ReactivateCraftingStation();
-            //DisableCraftinStation();
+            if(!m_craftingPuzzleEnabled)
+            {
+                return;
+            }
 
-
-            SetCraftingStationPuzzle(m_craftingPuzzleEnabled);
+            UpdatePuzzleState(); 
 
             //CircleLerping();
             m_blueCircleFiller.transform.localScale = Vector3.Lerp(m_blueCircleFiller.transform.localScale, m_transparentCircleNewPosition, Time.deltaTime * 1.0f);
             //m_blueCircleFiller.transform.localScale = m_transparentCircleNewPosition;
-
         }
 
         private void SetDropPoints()
@@ -92,13 +66,11 @@ namespace SpaceBaboon
             }
         }
 
-        private void PuzzleDisabler()
+        private void UpdatePuzzleState()
         {
             if (m_currentKill >= m_killneeded)
             {
-                m_craftingPuzzleEnabled = false;
-                m_stationRenderer.sprite = m_enableStationSprite;
-                m_light2D.color = Color.green;
+                m_craftingStationScript.ReceivePuzzleCompleted();
             }
         }
 
@@ -123,42 +95,13 @@ namespace SpaceBaboon
             }
         }
 
-        private void SetCraftingStationPuzzle(bool value)
+        public void SetPuzzle(bool value)
         {
+            m_craftingPuzzleEnabled = value;            
             m_blueCircle.gameObject.SetActive(value);
             m_circleMask.gameObject.SetActive(value);
             m_blueCircleFiller.gameObject.SetActive(value);
 
-            if (value == true)
-            {
-                m_stationRenderer.sprite = m_disableStationSprite;
-                m_light2D.color = Color.red;
-            }
-            if (value == false)
-            {
-
-                m_craftingStationScript.ToggleStationStatus(!value);
-
-                m_stationRenderer.sprite = m_enableStationSprite;
-                m_light2D.color = Color.green;
-
-                if (!s_unlockPopUpHasBeenCalled)
-                {
-                    GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.CraftingStationUnlocked, transform.position);
-                    s_unlockPopUpHasBeenCalled = true;
-                }
-            }
-
-            foreach (var dropPoint in m_dropPointList)
-            {
-
-                dropPoint.gameObject.SetActive(!value);
-            }
-        }
-
-        public void SetCraftingStationPuzzleEnabled(bool value)
-        {
-            m_craftingPuzzleEnabled = value;
             if (value)
             {
                 m_currentKill = 0;

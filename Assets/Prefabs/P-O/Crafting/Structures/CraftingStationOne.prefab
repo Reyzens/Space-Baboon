@@ -245,11 +245,15 @@ MonoBehaviour:
   m_maxUpgradeCooldown: 3
   m_weaponIcon: {fileID: 7170592427842147116}
   m_currentHealth: 0
+  m_isDisabled: 0
   m_resourceNeeded: 
   m_currentResources: 
   m_possibleResources: 
   m_currentUpgradeCD: 0
   m_isUpgrading: 0
+  m_enabledStationSprite: {fileID: 21300000, guid: 6c84576b98da3eb4fae1db2a72a8ef7c, type: 3}
+  m_disabledStationSprite: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
+  m_light2D: {fileID: 890938568500711651}
 --- !u!114 &5411749544586093529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,8 +275,8 @@ MonoBehaviour:
   m_blueCircle: {fileID: 2667221057814623772}
   m_circleMask: {fileID: 6717498158866971253}
   m_blueCircleFiller: {fileID: 1194562068439334276}
-  m_enableStationSprite: {fileID: 21300000, guid: 6c84576b98da3eb4fae1db2a72a8ef7c, type: 3}
-  m_disableStationSprite: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
+  m_enabledStationSprite: {fileID: 21300000, guid: 6c84576b98da3eb4fae1db2a72a8ef7c, type: 3}
+  m_disabledStationSprite: {fileID: 21300000, guid: 07867bd105df43a40834a69522f0f030, type: 3}
   m_stationSpriteRef: {fileID: 2328655762559953906}
   m_light2D: {fileID: 890938568500711651}
 --- !u!50 &3382125532271466434
