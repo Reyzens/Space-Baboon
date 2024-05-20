@@ -10,5 +10,6 @@ namespace SpaceBaboon.EnemySystem
         public int defaultContactAttackDamage;
         public float defaultContactAttackDelay;
         public float distanceBeforeTeleportingCloser;
+        public float healthDropChance;
     }
 }

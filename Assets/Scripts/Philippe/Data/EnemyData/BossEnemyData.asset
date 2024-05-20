@@ -24,6 +24,7 @@ MonoBehaviour:
   defaultContactAttackDamage: 5
   defaultContactAttackDelay: 3
   distanceBeforeTeleportingCloser: 0
+  healthDropChance: 0
   bosses:
   - bossType: 0
     animControllerObject: {fileID: 3212775118258285388, guid: 054b8beaae24b6b40b6984b170861462, type: 3}

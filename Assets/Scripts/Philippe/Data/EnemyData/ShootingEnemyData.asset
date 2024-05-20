@@ -24,5 +24,6 @@ MonoBehaviour:
   defaultContactAttackDamage: 5
   defaultContactAttackDelay: 5
   distanceBeforeTeleportingCloser: 100
+  healthDropChance: 5
   maxTargetAcquisitionRange: 30
   targetAcquisitionDelay: 2

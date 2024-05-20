@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using SpaceBaboon.PoolingSystem;
-//using UnityEngine.Rendering;
 using SpaceBaboon.CollisionSystem;
 
 namespace SpaceBaboon.EnemySystem
@@ -12,8 +11,8 @@ namespace SpaceBaboon.EnemySystem
     public class BossEnemyControllerSM : BaseEnemyStateMachine<BossEnemyState>
     {                        
         public BossEnemyData UniqueData { get; private set; }
-        public NavMeshAgent Agent { get; set; }
-        public Animator Animator { get; set; }
+        public NavMeshAgent Agent { get; private set; }
+        public Animator Animator { get; private set; }
         public Player Player { get; private set; }     
         public EnemySpawner EnemySpawner { get; private set; }
         public List<CraftingStation> WorkingCraftingStations { get; private set; } = new List<CraftingStation>();

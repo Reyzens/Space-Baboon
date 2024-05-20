@@ -11,8 +11,6 @@ namespace SpaceBaboon.EnemySystem
 
         protected EnemyData m_enemyUniqueData;
 
-        [SerializeField] private float m_healthDropChance = 5f;
-
         protected GenericObjectPool m_parentPool;
         protected bool m_isActive = false;
 
@@ -60,8 +58,6 @@ namespace SpaceBaboon.EnemySystem
 
             CalculateDistanceToPlayer();
 
-            //Debug.Log("Agent speed is " + m_navMeshAgent.speed);
-
             if (!m_contactAttackReady)
                 ReadyContactAttack();
 
@@ -69,7 +65,9 @@ namespace SpaceBaboon.EnemySystem
 
             if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
             {
-                BringCloserToPlayer();
+                if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
+                    BringCloserToPlayer();
+                            
             }
         }
 
@@ -182,18 +180,15 @@ namespace SpaceBaboon.EnemySystem
 
         private void BringCloserToPlayer()
         {
-            if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
-            {
-                Vector3 teleportPos = m_enemySpawner.FindValidEnemyRandomPos();
-                transform.position = teleportPos;
-            }
+            Vector3 teleportPos = m_enemySpawner.FindValidEnemyRandomPos();
+            transform.position = teleportPos;            
         }
 
         protected void HealthSpawner()
         {
             //Debug.Log("HealthSpawner called");
             float randomNumber = UnityEngine.Random.Range(0f, 100f);
-            if (randomNumber < m_healthDropChance)
+            if (randomNumber < m_enemyUniqueData.healthDropChance)
             {
                 // Object should spawn
                 //Debug.Log("Object spawned at " + transform.position);
@@ -225,13 +220,13 @@ namespace SpaceBaboon.EnemySystem
             m_navMeshAgent.updateUpAxis = false;
             m_navMeshAgentInitialSpeed = m_navMeshAgent.speed;
             m_currentNavAgentSpeed = m_navMeshAgent.speed;
+            m_enemyUniqueData = m_characterData as EnemyData;
         }
 
         private void VariablesSetUpStart()
         {
             m_player = GameManager.Instance.Player;
-            m_enemySpawner = GameManager.Instance.EnemySpawner;
-            m_enemyUniqueData = m_characterData as EnemyData;
+            m_enemySpawner = GameManager.Instance.EnemySpawner;            
             m_activeHealth = m_enemyUniqueData.defaultHealth;
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
             m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
