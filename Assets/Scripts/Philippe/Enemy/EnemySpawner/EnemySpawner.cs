@@ -92,8 +92,8 @@ namespace SpaceBaboon.EnemySystem
 
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
-            //    SpawnOneEnemy();
+            if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
+                SpawnOneEnemy();
 
             if (m_isSpawning)
             {

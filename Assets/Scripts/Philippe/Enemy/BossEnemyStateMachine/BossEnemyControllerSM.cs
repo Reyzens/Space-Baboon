@@ -61,10 +61,10 @@ namespace SpaceBaboon.EnemySystem
             if (!m_isActive)
                 return;
 
-            //if(Input.GetKeyDown(KeyCode.B)) //TODO to remove, for testing purposes
-            //{
-            //    OnDamageTaken(1000);
-            //}
+            if(Input.GetKeyDown(KeyCode.B)) //TODO to remove, for testing purposes
+            {
+                OnDamageTaken(1000);
+            }
 
             if(m_dyingAnimTimer > 0)
             {

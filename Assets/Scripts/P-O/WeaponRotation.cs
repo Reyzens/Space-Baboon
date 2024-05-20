@@ -167,7 +167,7 @@ namespace SpaceBaboon
                     if (Vector2.Distance((Vector2)item.Key.transform.position, position) < m_minDistanceBetweenObjects)
                     {
                         m_isReajusting = true;
-                        Debug.Log("Reajusting rotation");
+                        //Debug.Log("Reajusting rotation");
                         return;
                     }
                 }

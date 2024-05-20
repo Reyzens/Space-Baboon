@@ -48,6 +48,7 @@ namespace SpaceBaboon.Crafting
         private Light2D m_light2D;
         private SpriteRenderer m_stationRenderer;
 
+        private static bool s_unlockPopUpHasBeenCalled = false;
 
         private void Awake()
         {
@@ -64,18 +65,10 @@ namespace SpaceBaboon.Crafting
             // TODO FOR TESTING TO DELETE
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                //m_isDisabled = false;
-                //m_currentHealth = m_maxHealth;
-                //m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
-
                 SetCraftingStation(false);
             }
             if (Input.GetKeyDown(KeyCode.U))
             {
-                //m_isDisabled = true;
-                //m_currentHealth = 0;
-                //m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
-
                 SetCraftingStation(true);
             }
 
@@ -100,22 +93,24 @@ namespace SpaceBaboon.Crafting
         {
             m_isEnabled = value;
             
-            if (!value) // disabled
+            if (value) // Enabled
             {
-                //m_isEnabled = true;
-                m_stationRenderer.sprite = m_disabledStationSprite;
-                m_light2D.color = Color.red;
-                m_puzzleScript.EnablePuzzle(true);
-            }
-            else 
-            {
-                //m_isEnabled = false;
                 m_currentHealth = m_maxHealth;
                 m_stationRenderer.sprite = m_enabledStationSprite;
                 m_light2D.color = Color.green;
-                m_puzzleScript.EnablePuzzle(false);
-                //m_puzzleScript.DisablePuzzle();
+                m_puzzleScript.SetPuzzle(false);
+
+                if (!s_unlockPopUpHasBeenCalled)
+                {
+                    GameManager.Instance.DisplayTutorialWindow(TutorialSystem.ETutorialType.CraftingStationUnlocked, transform.position);
+                    s_unlockPopUpHasBeenCalled = true;
+                }
+                return;
             }
+
+            m_stationRenderer.sprite = m_disabledStationSprite;
+            m_light2D.color = Color.red;
+            m_puzzleScript.SetPuzzle(true);
         }
 
         public void ReceivePuzzleCompleted()
@@ -127,53 +122,7 @@ namespace SpaceBaboon.Crafting
         {
             return m_craftingStationsList;
         }
-
-        #region StationManagement
-        private void Initialization()
-        {
-            m_stationRenderer = GetComponent<SpriteRenderer>();
-            m_currentStationLevel = 1;
-            m_isEnabled = false;
-            m_currentHealth = m_maxHealth;
-            ResourceNeededAllocation();
-            if (m_currentUpgrade == EWeaponUpgrades.Count)
-            {
-                ResetUpgrade();
-            }
-            m_puzzleScript = GetComponent<CraftingPuzzle>();
-            m_puzzleScript.Initialisation();
-        }
-
-        private void ResetDropStation()
-        {
-            m_isUpgrading = false;
-            ResetPossibleResourceList();
-            ResourceNeededAllocation();
-        }
-
-        //public void ToggleStationStatus(bool status)
-        //{
-        //    if (status)
-        //    {
-        //        m_isEnabled = false;
-        //
-        //        m_puzzleScript.SetCraftingStationPuzzleEnabled(false);
-        //    }
-        //    else
-        //    {
-        //        m_isEnabled = true;
-        //        m_currentHealth = 0;
-        //        m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
-        //    }
-        //}
-
-        public void StationSetup(WeaponSystem.PlayerWeapon weapon)
-        {
-            m_linkedWeapon = weapon;
-            m_weaponIcon.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
-        }
-
-        #endregion
+        
         public List<ResourceDropPoint> GetDropPopint()
         {
             return m_resourceDropPoints;
@@ -189,14 +138,41 @@ namespace SpaceBaboon.Crafting
             m_currentHealth -= (int)damage;
             if (m_currentHealth <= 0)
             {
-                //m_isEnabled = ;
-                SetCraftingStation(false);
-                //m_puzzleScript.SetCraftingStationPuzzleEnabled(true);
-                //m_currentHealth = m_maxHealth;
+                SetCraftingStation(false);                
             }
         }
 
         public bool GetIsEnabled() { return m_isEnabled; }
+
+        #region StationManagement
+        private void Initialization()
+        {
+            m_stationRenderer = GetComponent<SpriteRenderer>();
+            m_currentStationLevel = 1;            
+            ResourceNeededAllocation();
+            if (m_currentUpgrade == EWeaponUpgrades.Count)
+            {
+                ResetUpgrade();
+            }
+            m_puzzleScript = GetComponent<CraftingPuzzle>();
+            m_puzzleScript.Initialisation();
+            SetCraftingStation(false);
+        }
+
+        private void ResetDropStation()
+        {
+            m_isUpgrading = false;
+            ResetPossibleResourceList();
+            ResourceNeededAllocation();
+        }
+
+        public void StationSetup(WeaponSystem.PlayerWeapon weapon)
+        {
+            m_linkedWeapon = weapon;
+            m_weaponIcon.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+        }
+
+        #endregion
 
         #region UpgradeManagement
         private void CheckIfUpgradable()
@@ -215,6 +191,7 @@ namespace SpaceBaboon.Crafting
                 }
             }
         }
+
         private void LocalStationUpgrading()
         {
             m_linkedWeapon.Upgrade(m_currentUpgrade);
@@ -224,6 +201,7 @@ namespace SpaceBaboon.Crafting
             m_currentStationLevel++;
             m_lastsUpgrades.Add(m_currentUpgrade);
         }
+
         private void LastUpgradesCheck()
         {
             bool isChoosingUpgrade = true;
