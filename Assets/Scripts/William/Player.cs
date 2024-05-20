@@ -195,7 +195,7 @@ namespace SpaceBaboon
 
         #region EventMethods
 
-        protected override void Move(Vector2 values)
+        public override void Move(Vector2 values)
         {
             m_movementDirection = new Vector2(values.x, values.y).normalized;
         }

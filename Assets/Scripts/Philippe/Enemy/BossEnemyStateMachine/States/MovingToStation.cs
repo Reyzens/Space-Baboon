@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -6,11 +7,15 @@ namespace SpaceBaboon.EnemySystem
     {
         public override void OnEnter()
         {
+            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
+            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
             //Debug.Log("BossEnemy entering state: MovingToStation\n");
         }
 
         public override void OnExit()
         {
+            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
+            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
             //Debug.Log("BossEnemy exiting state: MovingToStation\n");
         }
 

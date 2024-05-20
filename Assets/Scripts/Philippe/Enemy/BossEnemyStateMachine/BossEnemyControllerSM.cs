@@ -72,7 +72,10 @@ namespace SpaceBaboon.EnemySystem
                 return;
             }
 
-            base.Update();            
+            base.Update();
+
+            Agent.speed = UniqueData.defaultMaxVelocity;
+            Agent.acceleration = UniqueData.defaultAcceleration;
 
             CheckForCraftingStationToAttackElseAttackPlayer();
             UpdateDistances();
@@ -115,12 +118,7 @@ namespace SpaceBaboon.EnemySystem
             InTargetedCraftingStationAttackRange = false;
             
             TargetedCraftingStation = null;            
-        }
-
-        public new void Move(Vector2 value)
-        {
-            Agent.SetDestination(value);
-        }        
+        }       
         
         private void UpdateDistancesBools()
         {

@@ -15,10 +15,16 @@ namespace SpaceBaboon.EnemySystem
             m_stateMachine.SpecialAttackTimer = m_stateMachine.UniqueData.basicAttackDelay; //TODO maybe change this delay to something else
             m_basicAttackTimer = m_stateMachine.UniqueData.basicAttackDelay;
             m_basicAttacksDone = 0;
+
+            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
+            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
         }
 
         public override void OnExit()
         {
+            //m_stateMachine.Agent.speed = m_stateMachine.UniqueData.defaultMaxVelocity;
+            //m_stateMachine.Agent.acceleration = m_stateMachine.UniqueData.defaultAcceleration;
+
             //Debug.Log("BossEnemy exiting state: ChasingPlayer\n");
         }
 

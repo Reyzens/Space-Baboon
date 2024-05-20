@@ -49,7 +49,7 @@ namespace SpaceBaboon.EnemySystem
             m_weapon.GetTarget(m_player.transform);
         }
 
-        protected override void Move(Vector2 value)
+        public override void Move(Vector2 value)
         {
             // TODO see if I can bring improvements
             if(m_distanceToPlayer > m_uniqueData.maxTargetAcquisitionRange)

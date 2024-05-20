@@ -70,7 +70,7 @@ namespace SpaceBaboon
         }
 
         //Methods        
-        protected virtual void Move(Vector2 values) {}
+        public virtual void Move(Vector2 values) {}
 
         protected void RegulateVelocity() 
         {

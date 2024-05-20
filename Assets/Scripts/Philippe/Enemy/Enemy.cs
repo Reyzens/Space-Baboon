@@ -60,6 +60,8 @@ namespace SpaceBaboon.EnemySystem
 
             CalculateDistanceToPlayer();
 
+            Debug.Log("Agent speed is " + m_navMeshAgent.speed);
+
             if (!m_contactAttackReady)
                 ReadyContactAttack();
 
@@ -114,8 +116,8 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        protected override void Move(Vector2 value)
-        {
+        public override void Move(Vector2 value)
+        {            
             m_navMeshAgent.SetDestination(value);
             CheckForSpriteDirectionSwap(m_navMeshAgent.velocity);
         }
@@ -279,17 +281,27 @@ namespace SpaceBaboon.EnemySystem
             ResetValues(pos);
             SetComponents(true);
             m_parentPool = pool;
+            
         }
 
         public void Deactivate()
         {
             SetComponents(false);
+
         }
 
         protected void ResetValues(Vector2 pos)
         {
             transform.position = pos;
             m_activeHealth = m_enemyUniqueData.defaultHealth;
+            //m_navMeshAgent.SetDestination(Vector3.zero);
+            //m_navMeshAgent.ResetPath();
+            m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
+            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
+            //m_navMeshAgent.ResetPath();
+            //m_navMeshAgent.updatePosition = false;
+            //m_navMeshAgent.updatePosition = true;
+            //Move(m_currentDestination.position);
         }
 
         protected virtual void SetComponents(bool value)
