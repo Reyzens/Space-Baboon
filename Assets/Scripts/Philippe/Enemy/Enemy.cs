@@ -60,7 +60,7 @@ namespace SpaceBaboon.EnemySystem
 
             CalculateDistanceToPlayer();
 
-            Debug.Log("Agent speed is " + m_navMeshAgent.speed);
+            //Debug.Log("Agent speed is " + m_navMeshAgent.speed);
 
             if (!m_contactAttackReady)
                 ReadyContactAttack();
