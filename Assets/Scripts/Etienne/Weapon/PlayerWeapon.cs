@@ -151,7 +151,7 @@ namespace SpaceBaboon.WeaponSystem
         public float SetIsCollecting(bool value, Crafting.InteractableResource resourceToCollect)
         {
             m_isCollecting = value;
-            Debug.Log(m_isCollecting);
+            //Debug.Log(m_isCollecting);
 
             //Set new parent or if resourceToCollect is null, return 0
             if (resourceToCollect != null)

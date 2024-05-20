@@ -79,11 +79,12 @@ namespace SpaceBaboon.EnemySystem
         private void Awake()
         {
             CreateEnemySpawnerPools();
-            RegisterToGameManager();
+            //RegisterToGameManager();
         }
 
         private void Start()
         {
+            RegisterToGameManager();
             m_cam = Camera.main;
             m_spawningTimer = m_spawningDelay;
             GenerateGrid();

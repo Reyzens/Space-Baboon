@@ -66,8 +66,8 @@ namespace SpaceBaboon.Crafting
             {
                 sizeRatio = playerResources / m_resourceAmountNeeded * m_circleDropPointref.transform.localScale.x;
             }
-            Debug.Log("The player have " + playerResources + " of " + m_resourceTypeNeeded);
-            Debug.Log("The player need " + m_resourceAmountNeeded + " of " + m_resourceTypeNeeded);
+            //Debug.Log("The player have " + playerResources + " of " + m_resourceTypeNeeded);
+            //Debug.Log("The player need " + m_resourceAmountNeeded + " of " + m_resourceTypeNeeded);
             // Calculate the inverse ratio to make the mask smaller as resources increase
             float newSize = Mathf.Clamp(sizeRatio, 0f, 1f);
             newSize *= m_circleMask.transform.localScale.x;

@@ -577,7 +577,7 @@ namespace SpaceBaboon
                 {
                     m_weaponInventory[weapon].m_isReadyToCollect = false;
                     m_weaponInventory[weapon].m_collectTimer = newCollectTimer;
-                    Debug.Log(m_weaponInventory[weapon]);
+                    //Debug.Log(m_weaponInventory[weapon]);
                 }
                 return true;
             }

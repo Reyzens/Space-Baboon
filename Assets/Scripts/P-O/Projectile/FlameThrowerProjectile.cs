@@ -92,7 +92,7 @@ namespace SpaceBaboon.WeaponSystem
             //Distribute damage over the duration
             m_damage = m_damage / (m_maxFlameDuration / m_tickMaxDuration);
 
-            Debug.Log("Damage per tick = " + m_damage);
+            //Debug.Log("Damage per tick = " + m_damage);
         }
         private void TargetUpdate()
         {

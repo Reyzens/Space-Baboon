@@ -189,18 +189,18 @@ namespace SpaceBaboon.EnemySystem
 
         protected void HealthSpawner()
         {
-            Debug.Log("HealthSpawner called");
+            //Debug.Log("HealthSpawner called");
             float randomNumber = UnityEngine.Random.Range(0f, 100f);
             if (randomNumber < m_healthDropChance)
             {
                 // Object should spawn
-                Debug.Log("Object spawned at " + transform.position);
+                //Debug.Log("Object spawned at " + transform.position);
                 GameManager.Instance.m_ressourceManager.SpawnHealingHeart(transform);
             }
             else
             {
                 // Object should not spawn
-                Debug.Log("No object spawned.");
+                //Debug.Log("No object spawned.");
             }
 
         }

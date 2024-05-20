@@ -67,7 +67,7 @@ public class ColorFlashing : MonoBehaviour
 
         OnCycleStart?.Invoke();
         // flash in
-        Debug.Log("Start Flash");
+        //Debug.Log("Start Flash");
         for (float t = 0; t < TotalDuration; t += Time.deltaTime) 
         {
             for (float y = 0f; y <= flashInDuration; y += Time.deltaTime)

@@ -148,7 +148,7 @@ namespace SpaceBaboon
                 if (characterHit.GetComponent<IBaitable>() != null)
                 {
                     characterHit.GetComponent<IBaitable>().StartBait(transform, m_baitTimer);
-                    Debug.Log(characterHit + " was pulled");
+                    //Debug.Log(characterHit + " was pulled");
                 }
             }
             return base.OnHit(characterHit);
