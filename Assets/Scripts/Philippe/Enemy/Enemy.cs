@@ -289,6 +289,7 @@ namespace SpaceBaboon.EnemySystem
         protected void ResetValues(Vector2 pos)
         {
             transform.position = pos;
+            m_activeHealth = m_enemyUniqueData.defaultHealth;
         }
 
         protected virtual void SetComponents(bool value)

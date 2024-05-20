@@ -10,7 +10,8 @@ namespace SpaceBaboon.WeaponSystem
         {
             if (other.CompareTag("Player")) 
             {
-                m_damageTimer = m_uniqueData.damageDelay;                      
+                m_damageTimer = m_uniqueData.damageDelay;
+                m_player.OnDamageTaken(m_uniqueData.damageAOE);
             }
         }
 

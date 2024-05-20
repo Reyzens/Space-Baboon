@@ -239,6 +239,7 @@ namespace SpaceBaboon.EnemySystem
                 m_hitbox.CanReceiveHit = false;
                 Animator.SetTrigger("Die");
                 Agent.isStopped = true;
+                m_circleCollider.enabled = false;
                 m_dyingAnimTimer = m_dyingAnimDelay;                                    
             }
         }
