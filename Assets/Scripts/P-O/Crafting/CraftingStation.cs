@@ -15,6 +15,9 @@ namespace SpaceBaboon.Crafting
         [SerializeField] private bool m_debugMode;
         [SerializeField] private float m_maxUpgradeCooldown;
         [SerializeField] private SpriteRenderer m_weaponIcon;
+        [SerializeField] private Sprite m_enabledStationSprite;
+        [SerializeField] private Sprite m_disabledStationSprite;
+        [SerializeField] private Light2D m_light2D;
 
         //Private variables
         private Transform m_position;
@@ -22,6 +25,7 @@ namespace SpaceBaboon.Crafting
         private int m_currentStationLevel;
         [SerializeField] private bool m_isEnabled = false;
         private CraftingPuzzle m_puzzleScript;
+        private SpriteRenderer m_stationRenderer;
 
         //Serialized for test purpose
         [SerializeField] private List<Crafting.InteractableResource.EResourceType> m_resourceNeeded = new List<Crafting.InteractableResource.EResourceType>();
@@ -36,19 +40,9 @@ namespace SpaceBaboon.Crafting
         static List<EWeaponUpgrades> m_lastsUpgrades = new List<EWeaponUpgrades>();
         static EWeaponUpgrades m_currentUpgrade = EWeaponUpgrades.Count;
 
-        public static EWeaponUpgrades CurrentUpgrade { get { return m_currentUpgrade; } }
-
-
-        // TODO Crafting station refactoring variables don't know where to put them, needs to be cleaned up
-        [SerializeField]
-        private Sprite m_enabledStationSprite;
-        [SerializeField]
-        private Sprite m_disabledStationSprite;
-        [SerializeField]
-        private Light2D m_light2D;
-        private SpriteRenderer m_stationRenderer;
-
         private static bool s_unlockPopUpHasBeenCalled = false;
+
+        public static EWeaponUpgrades CurrentUpgrade { get { return m_currentUpgrade; } }
 
         private void Awake()
         {
