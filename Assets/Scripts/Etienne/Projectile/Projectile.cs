@@ -37,7 +37,7 @@ namespace SpaceBaboon.WeaponSystem
             if (m_lifetime > m_projectileData.maxLifetime)
             {
                 m_parentPool.UnSpawn(gameObject);
-                Debug.Log("UnSpawning (lifetime)");
+                //Debug.Log("UnSpawning (lifetime)");
             }
             m_lifetime += Time.deltaTime;
         }

@@ -154,21 +154,20 @@ namespace SpaceBaboon.EnemySystem
 
         private void CheckIfTargetedCraftingStationIsDisabled()
         {
+            //Debug.Log("Entered CheckIfTargetedCraftingStationIsDisabled");
+            //Debug.Log("Boss TargetedCraftingStation bool value is " + TargetedStationDisabled);
+            //Debug.Log("Crafting Station GetIsEnabled value " + TargetedCraftingStation.GetIsEnabled());
             if (!TargetedCraftingStation.GetIsEnabled())
             {
-                //Debug.Log("Have been disabled");
                 TargetedStationDisabled = true;
-
+                TargetedCraftingStation = null;
                 CheckForCraftingStationToAttackElseAttackPlayer();
-
-                //TargetRandomWorkingCraftingStation();
             }
         }
 
         private void CheckForCraftingStationToAttackElseAttackPlayer()
         {
             bool workingCraftingStationPresent = false;
-
             workingCraftingStationPresent = FindWorkingCraftingStations();
 
             if (workingCraftingStationPresent) 

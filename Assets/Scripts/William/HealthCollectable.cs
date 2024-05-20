@@ -18,7 +18,7 @@ namespace SpaceBaboon
         }
         public override void Collect(Player collectingPlayer)
         {
-            Debug.Log("Healing collected");
+            //Debug.Log("Healing collected");
             m_parentPool.UnSpawn(gameObject);
         }
 

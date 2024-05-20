@@ -305,7 +305,7 @@ namespace SpaceBaboon.EnemySystem
 
         public void CheatSpawnGroup(EEnemyTypes type, int amount)
         {
-            Debug.Log(m_pooledEnemies[(int)type].enemyPrefab.name + "   " + amount);
+            //Debug.Log(m_pooledEnemies[(int)type].enemyPrefab.name + "   " + amount);
 
 
             for (int i = 0; i < amount; i++)
