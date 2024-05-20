@@ -142,7 +142,7 @@ namespace SpaceBaboon.EnemySystem
             //TODO maybe change FX to an explosion or something
             TargetedCraftingStation.ReceiveDamage(UniqueData.craftingStationAttackDamage);
             SpawnFX();
-            CheckIfTargetedCraftinStationIsDisabled();
+            CheckIfTargetedCraftingStationIsDisabled();
         }
 
         private void SpawnFX()
@@ -152,13 +152,16 @@ namespace SpaceBaboon.EnemySystem
             SpawnContactAttackVFX(contactPos, TargetedCraftingStation.transform);
         }
 
-        private void CheckIfTargetedCraftinStationIsDisabled()
+        private void CheckIfTargetedCraftingStationIsDisabled()
         {
             if (!TargetedCraftingStation.GetIsEnabled())
             {
                 //Debug.Log("Have been disabled");
                 TargetedStationDisabled = true;
-                TargetRandomWorkingCraftingStation();
+
+                CheckForCraftingStationToAttackElseAttackPlayer();
+
+                //TargetRandomWorkingCraftingStation();
             }
         }
 
