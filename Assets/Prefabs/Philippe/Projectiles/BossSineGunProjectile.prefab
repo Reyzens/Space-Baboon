@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2544674706210256294}
   - component: {fileID: -3434426654711955678}
   - component: {fileID: 1245434499643277674}
+  - component: {fileID: -7257045504598940201}
   m_Layer: 11
   m_Name: BossSineGunProjectile
   m_TagString: Untagged
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -421229298, guid: 95f12d78658ce594e98253d48d071398, type: 3}
   m_Color: {r: 1, g: 0, b: 0.61382484, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -121,9 +122,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.11432938}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6143294
 --- !u!58 &990792451545507728
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -156,9 +157,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.110094905}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6100949
 --- !u!50 &2544674706210256294
 Rigidbody2D:
   serializedVersion: 4
@@ -215,5 +216,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectileData: {fileID: 11400000, guid: 145690236e81a5144ab2884bf8995206, type: 2}
-  m_sineWaveFrequency: 5
-  m_sineWaveAmplitude: 1
+--- !u!95 &-7257045504598940201
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2311894824468756343}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 049842fd1d93d9a468d41ca69a5f28e8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
