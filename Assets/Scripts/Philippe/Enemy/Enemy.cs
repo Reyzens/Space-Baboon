@@ -288,15 +288,9 @@ namespace SpaceBaboon.EnemySystem
         protected void ResetValues(Vector2 pos)
         {
             transform.position = pos;
-            m_activeHealth = m_enemyUniqueData.defaultHealth;
-            //m_navMeshAgent.SetDestination(Vector3.zero);
-            //m_navMeshAgent.ResetPath();
+            m_activeHealth = m_enemyUniqueData.defaultHealth;            
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
-            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
-            //m_navMeshAgent.ResetPath();
-            //m_navMeshAgent.updatePosition = false;
-            //m_navMeshAgent.updatePosition = true;
-            //Move(m_currentDestination.position);
+            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;            
         }
 
         protected virtual void SetComponents(bool value)
