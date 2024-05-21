@@ -105,7 +105,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 357d3617255c1fb4989b1ec3ac98d926, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,7 +212,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_characterData: {fileID: 11400000, guid: 1d4edf305911fba46ace83e4666dcc29, type: 2}
-  m_healthDropChance: 5
 --- !u!95 &4503694478007303297
 Animator:
   serializedVersion: 5
