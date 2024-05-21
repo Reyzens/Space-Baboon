@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4940460227607074867}
   - component: {fileID: 3561884159773834768}
   - component: {fileID: 8238509434205865488}
-  - component: {fileID: 990792451545507728}
+  - component: {fileID: 1893452587461287215}
   - component: {fileID: 2544674706210256294}
   - component: {fileID: -3434426654711955678}
   - component: {fileID: 1245434499643277674}
@@ -125,7 +125,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.11432938}
   serializedVersion: 2
   m_Radius: 0.6143294
---- !u!58 &990792451545507728
+--- !u!58 &1893452587461287215
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,7 +144,7 @@ CircleCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 32247
+    m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -157,9 +157,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.110094905}
+  m_Offset: {x: 0, y: -0.114}
   serializedVersion: 2
-  m_Radius: 0.6100949
+  m_Radius: 0.55
 --- !u!50 &2544674706210256294
 Rigidbody2D:
   serializedVersion: 4
