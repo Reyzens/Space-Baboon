@@ -282,7 +282,6 @@ namespace SpaceBaboon.EnemySystem
         public void Deactivate()
         {
             SetComponents(false);
-
         }
 
         protected void ResetValues(Vector2 pos)

@@ -4,6 +4,7 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ExplodingEnemyExplosion : Projectile
     {
+
         private ExplodingEnemyProjectileData m_uniqueData;
         private Vector3 m_initialScale;
 

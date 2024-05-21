@@ -20,7 +20,7 @@ MonoBehaviour:
   maxLifetime: 0.6
   defaultAcceleration: 0
   defaultMaxVelocity: 0
-  maxExplosionSize: 5
+  maxExplosionSize: 1
   explosionSizeScalingCurve:
     serializedVersion: 2
     m_Curve:
