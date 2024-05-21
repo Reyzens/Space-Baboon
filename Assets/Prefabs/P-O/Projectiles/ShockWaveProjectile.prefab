@@ -216,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_projectileData: {fileID: 11400000, guid: 593a0dbaffd0ee84d84b163db2c1f9ff, type: 2}
-  m_segments: 100
+  m_segments: 6
   m_innerRadius: 5
   m_thickness: 0.5
   m_slowAmount: 0.1
