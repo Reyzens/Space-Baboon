@@ -30,6 +30,8 @@ namespace SpaceBaboon
         private bool m_intro2HasBeenCalled = false;
         private bool m_weaponPresentationHasBeenCalled = false;
 
+        [SerializeField] private bool m_buildMode = false;
+
         public static GameManager Instance
         {
             get
@@ -55,6 +57,11 @@ namespace SpaceBaboon
         private void Start()
         {
             //StartTimer();
+
+            if (!m_buildMode)
+            {
+                StartTimer();
+            }
         }
 
         private void Update()
@@ -130,8 +137,14 @@ namespace SpaceBaboon
 
         public void DisplayTutorialWindow(ETutorialType type, Vector3 position)
         {
-            PauseGame(true);
-            m_tutorialWindow.Display(type, position);
+            if (m_buildMode)
+            {
+                PauseGame(true);
+            }
+            if (m_tutorialWindow != null)
+            {
+                m_tutorialWindow.Display(type, position);
+            }
         }
 
         public ResourceSpawner GetResourceManager()
