@@ -668,6 +668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialPopUpWindow
       objectReference: {fileID: 0}
+    - target: {fileID: 522271110210025114, guid: 343b9a0f6e6c9dd4ba261d0d022f73a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2240249648884434714, guid: 343b9a0f6e6c9dd4ba261d0d022f73a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -242.40817
@@ -706,6 +710,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2240249648884434714, guid: 343b9a0f6e6c9dd4ba261d0d022f73a7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5577341864470986096, guid: 343b9a0f6e6c9dd4ba261d0d022f73a7, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -33301,6 +33309,10 @@ PrefabInstance:
     - target: {fileID: 7444373707898647094, guid: 9278af55c56e1b14f8a77aeb0efb194c, type: 3}
       propertyPath: m_Name
       value: UI Input Module
+      objectReference: {fileID: 0}
+    - target: {fileID: 7444373707898647094, guid: 9278af55c56e1b14f8a77aeb0efb194c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
