@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2de00a576f8c66459a2f674577609b4, type: 3}
   m_Name: LaserBeamPiercingData
   m_EditorClassIdentifier: 
-  m_maxAmountOfPiercing: 5
+  m_piercingMultiplier: 2

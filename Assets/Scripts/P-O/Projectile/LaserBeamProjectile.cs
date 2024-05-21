@@ -32,7 +32,7 @@ namespace SpaceBaboon.WeaponSystem
             base.Shoot(target, maxRange, attackZone, damage, playerPosition);
             //Debug.Log("Laser was shot");
             Vector2 directionVector = (target.position - transform.position).normalized;
-            m_currentPiercingLeft = (int)attackZone;
+            m_currentPiercingLeft = (int)attackZone * m_PiercingData.m_piercingMultiplier;
             RaycastHit2D[] enemyHits = Physics2D.RaycastAll(transform.position, directionVector, maxRange);
 
             foreach (RaycastHit2D hit in enemyHits)
@@ -56,7 +56,7 @@ namespace SpaceBaboon.WeaponSystem
         }
         public void IPiercingSetUp()
         {
-            m_currentPiercingLeft = m_PiercingData.m_maxAmountOfPiercing;
+            m_currentPiercingLeft = m_PiercingData.m_piercingMultiplier;
             m_initialWeaponPosition = transform;
             m_laserDisplay.startWidth = m_laserWidth;
             m_laserDisplay.endWidth = m_laserWidth;
