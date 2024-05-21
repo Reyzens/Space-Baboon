@@ -6,6 +6,7 @@ namespace SpaceBaboon.WeaponSystem
     {
         private Vector3 m_previousPosition;
         private Player m_playerDirection;
+        [SerializeField] private float m_detectionRange = 5.0f;
         [SerializeField] private Transform m_directionalHelper;
 
         protected override void Awake()
@@ -44,7 +45,7 @@ namespace SpaceBaboon.WeaponSystem
         protected override Transform GetTarget()
         {
             //To use if the sword swing must aim toward player movement direction
-            for (int i = 0; i < currentRange * 5; i++)
+            for (int i = 0; i < currentRange * m_detectionRange; i++)
             {
                 var colliders = Physics2D.OverlapCircleAll(transform.position, i);
 
