@@ -74,7 +74,7 @@ namespace SpaceBaboon.WeaponSystem
         }
         public void IPiercingSetUp()
         {
-            m_currentAmountOfPierceLeft = m_piercingData.m_maxAmountOfPiercing;
+            m_currentAmountOfPierceLeft = m_piercingData.m_piercingMultiplier;
         }
 
         public void LastPierce()

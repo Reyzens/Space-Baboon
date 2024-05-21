@@ -6,7 +6,7 @@ namespace SpaceBaboon.WeaponSystem
     {
         private Vector3 m_previousPosition;
         private Player m_playerDirection;
-        [SerializeField] private float m_detectionRange = 5.0f;
+        [SerializeField] private float m_detectionRange = 3.0f;
         [SerializeField] private Transform m_directionalHelper;
 
         protected override void Awake()
