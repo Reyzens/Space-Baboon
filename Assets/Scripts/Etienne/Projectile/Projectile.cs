@@ -20,12 +20,14 @@ namespace SpaceBaboon.WeaponSystem
         protected CircleCollider2D m_collider;
 
         protected Rigidbody2D m_rb;
+        protected Animator m_animator;
 
         protected virtual void Awake()
         {
             m_renderer = GetComponent<SpriteRenderer>();
             m_collider = GetComponent<CircleCollider2D>();
             m_rb = GetComponent<Rigidbody2D>();
+            m_animator = GetComponent<Animator>();
         }
         protected virtual void Update()
         {

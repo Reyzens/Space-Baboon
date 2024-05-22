@@ -4,12 +4,10 @@ namespace SpaceBaboon.WeaponSystem
 {
     public class ExplodingEnemyExplosion : Projectile
     {
-
         private ExplodingEnemyProjectileData m_uniqueData;
         private Vector3 m_initialScale;
 
-        private bool m_animationPlayed = false;
-        private Animator m_animator; //May be needed for explosion animation
+        private bool m_animationPlayed = false;        
 
         protected void Start()
         {
@@ -25,7 +23,6 @@ namespace SpaceBaboon.WeaponSystem
                 m_animationPlayed = false;
                 return;
             }
-                //return;
 
             if (m_isActive && !m_animationPlayed)
             {
@@ -44,9 +41,8 @@ namespace SpaceBaboon.WeaponSystem
             transform.localScale = new Vector3(newScale, newScale, 0);
         }
 
-        private void UpdateDamageBasedOnAnimCurve()
-        {
-            // TODO maybe
+        private void UpdateDamageBasedOnAnimCurve() // TODO maybe
+        {            
         }
 
         private void VariablesSetUp()
@@ -61,6 +57,12 @@ namespace SpaceBaboon.WeaponSystem
         {
             //Debug.Log("OnHit called by :  " + gameObject.name + "with " + m_uniqueData.damage + " damage");
             return m_uniqueData.damage;
+        }
+
+        public override void Deactivate()
+        {
+            base.Deactivate();
+            m_animator.SetTrigger("LifetimeOver");
         }
     }
 }
