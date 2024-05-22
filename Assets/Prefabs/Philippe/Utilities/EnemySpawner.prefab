@@ -119,7 +119,7 @@ MonoBehaviour:
   m_lastResortWSpawnPosTwo: {fileID: 5241152020295744881}
   m_spawningDelay: 5
   m_isSpawning: 0
-  m_enemiesAmountToSpawnOneShot: 0
+  m_enemiesAmountToSpawnOneShot: 100
   m_spawnGroup: 0
   m_SpawnTimeUpgradeTimer: 25
   m_spawnTimeUpgradeRatio: 0.05

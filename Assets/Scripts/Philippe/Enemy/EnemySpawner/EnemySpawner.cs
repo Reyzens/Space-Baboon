@@ -1,7 +1,5 @@
-using Cinemachine;
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Tilemaps;
@@ -227,14 +225,13 @@ namespace SpaceBaboon.EnemySystem
                 }
 
                 if(i == MAX_ITERATION_TO_FIND_VALID_POS - 1)
-                {
-                    Debug.Log("No position found");
                     noValidPosFound = true;
-                }
             }
 
             if (noValidPosFound) 
             {
+                //Debug.Log("No position found");
+
                 float furthestDistance = 0.0f;
                 Transform furthestPosition = null;
                 float distanceWPlayerAndLastResortPosOne = Vector3.Distance(m_player.transform.position, m_lastResortWSpawnPosOne.position);
@@ -250,6 +247,8 @@ namespace SpaceBaboon.EnemySystem
                 {
                     furthestPosition = m_lastResortWSpawnPosTwo;
                 }
+
+                //Profiler.EndSample();
 
                 return furthestPosition.position;
             }
