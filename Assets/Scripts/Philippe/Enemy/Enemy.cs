@@ -63,6 +63,8 @@ namespace SpaceBaboon.EnemySystem
 
             StatusUpdate();
 
+            //Debug.Log("Distance to player is " + m_distanceToPlayer);
+
             if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
             {
                 if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)

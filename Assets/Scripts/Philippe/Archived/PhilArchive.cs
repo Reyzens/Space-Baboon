@@ -35,3 +35,40 @@ if (m_movementDirection.magnitude > 0)
 
 
 
+
+/*
+ 
+ //List<Vector3Int> positionsNearRadius = new List<Vector3Int>();
+            //
+            //foreach (var tilePos in m_tilemapRef.cellBounds.allPositionsWithin)
+            //{
+            //    if (m_tilemapRef.HasTile(tilePos))
+            //    {
+            //        float distance = Vector3Int.Distance(currentPlayerTilePos, tilePos);
+            //        if (distance > radius - radiusThreshold && distance < radius + radiusThreshold)
+            //        {
+            //            positionsNearRadius.Add(tilePos);
+            //        }
+            //    }
+            //}
+            //
+            //if (positionsNearRadius.Count > 0)
+            //{
+            //    int randomIndex = Random.Range(0, positionsNearRadius.Count);
+            //    validTilePos = m_tilemapRef.CellToWorld(positionsNearRadius[randomIndex]) + new Vector3(0.5f, 0.5f, 0f);
+            //}
+            //else
+            //{
+            //    Debug.Log("No valid pos found on circle");
+            //}
+
+            //return validTilePos;
+ 
+ 
+ 
+ 
+ 
+ 
+ */
+
+

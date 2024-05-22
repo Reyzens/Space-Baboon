@@ -1,6 +1,8 @@
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Tilemaps;
 
 namespace SpaceBaboon.EnemySystem
@@ -53,6 +55,8 @@ namespace SpaceBaboon.EnemySystem
         // TODO maybe remove [SerializeField] of bool
         [SerializeField] private bool m_spawnGroup = false;
 
+        //private GameObject m_camObject;
+        //[SerializeField] private Camera m_cam;
         private Camera m_cam;
         private float m_spawningTimer = 0.0f;
         private float m_lastSpawnTimeUpgrade = 0.0f;
@@ -71,21 +75,23 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
         [SerializeField] public Tilemap m_bossTileMap;
-        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();
+        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();        
 
-        private static bool s_popUpHasBeenCalled = false;
-
+        private static bool s_popUpHasBeenCalled = false;        
 
         private void Awake()
         {
             CreateEnemySpawnerPools();
             //RegisterToGameManager();
+
         }
 
         private void Start()
         {
             RegisterToGameManager();
             m_cam = Camera.main;
+            //m_camObject = GameObject.Find("PlayerCam");
+            //m_cam = m_camObject.GetComponent<Camera>();
             m_spawningTimer = m_spawningDelay;
             GenerateGrid();
             m_initialSpawnTimer = m_spawningDelay;
@@ -141,7 +147,6 @@ namespace SpaceBaboon.EnemySystem
                 {
                     SpawnOneEnemy();
                 }
-
             }
         }
 
@@ -157,6 +162,7 @@ namespace SpaceBaboon.EnemySystem
         public Vector3 FindValidEnemyRandomPos()
         {
             float spawnRadius = CalculateValidSpawnRadius();
+            //Debug.Log("Spawn Radius is " + spawnRadius);
             return RandomValidPosOnCircleAroundPlayer(spawnRadius);
         }
 
@@ -199,35 +205,38 @@ namespace SpaceBaboon.EnemySystem
 
         private Vector3 RandomValidPosOnCircleAroundPlayer(float radius)
         {
-            Vector3 validTilePos = Vector3.zero;
+            //Profiler.BeginSample("RandomValidPosOnCircleAroundPlayer");
+            
             Vector3Int currentPlayerTilePos = m_tilemapRef.WorldToCell(m_cam.transform.position);
-            int radiusThreshold = 1;
+            int radiusThreshold = 10;
+            int validTilemapPosIndex = 0;
 
-            List<Vector3Int> positionsNearRadius = new List<Vector3Int>();
-
-            foreach (var tilePos in m_tilemapRef.cellBounds.allPositionsWithin)
+            for (int i = 0; i < 100; i++)
             {
-                if (m_tilemapRef.HasTile(tilePos))
+                int randomIndex = Random.Range(0, m_spawnPositionsAvailable.Count);
+
+                float distancePlayerAndRandomTile = Vector3.Distance(currentPlayerTilePos, m_spawnPositionsAvailable[randomIndex]);
+
+                if (distancePlayerAndRandomTile > radius - radiusThreshold && distancePlayerAndRandomTile < radius + radiusThreshold)
                 {
-                    float distance = Vector3Int.Distance(currentPlayerTilePos, tilePos);
-                    if (distance > radius - radiusThreshold && distance < radius + radiusThreshold)
-                    {
-                        positionsNearRadius.Add(tilePos);
-                    }
+                    validTilemapPosIndex = randomIndex;
+                    break;
                 }
+
+                //if (i == 99)
+                //{
+                //    Debug.Log("No position found");
+                //}
+            } 
+
+            if (validTilemapPosIndex == 0)
+            {
+                Debug.Log("No position found");
             }
 
-            if (positionsNearRadius.Count > 0)
-            {
-                int randomIndex = Random.Range(0, positionsNearRadius.Count);
-                validTilePos = m_tilemapRef.CellToWorld(positionsNearRadius[randomIndex]) + new Vector3(0.5f, 0.5f, 0f);
-            }
-            else
-            {
-                Debug.Log("No valid pos found on circle");
-            }
+            //Profiler.EndSample();
 
-            return validTilePos;
+            return m_spawnPositionsAvailable[validTilemapPosIndex] + new Vector3(0.5f, 0.5f, 0f);            
         }
 
         private float CalculateValidSpawnRadius()
