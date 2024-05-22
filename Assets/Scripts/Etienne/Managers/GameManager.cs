@@ -30,6 +30,8 @@ namespace SpaceBaboon
         private bool m_intro2HasBeenCalled = false;
         private bool m_weaponPresentationHasBeenCalled = false;
 
+        private bool m_hasSetUpCrafting = false;
+
         [SerializeField] private bool m_buildMode = false;
 
         public static GameManager Instance
@@ -77,22 +79,22 @@ namespace SpaceBaboon
             if (!m_isPaused && m_isCountingTime)
             {
                 GameTimer += Time.deltaTime;
-            }
 
-            if (!m_intro1HasBeenCalled && GameTimer > 2.0f)
-            {
-                m_intro1HasBeenCalled = true;
-                DisplayTutorialWindow(ETutorialType.Introduction1, Player.transform.position);
-            }
-            if (!m_intro2HasBeenCalled && GameTimer > 4.0f)
-            {
-                m_intro2HasBeenCalled = true;
-                DisplayTutorialWindow(ETutorialType.Introduction2, Player.transform.position);
-            }
-            if (!m_weaponPresentationHasBeenCalled && GameTimer > 5.0f)
-            {
-                m_weaponPresentationHasBeenCalled = true;
-                DisplayTutorialWindow(ETutorialType.WeaponPresentation, new Vector3(1000,1000,0));
+                if (!m_intro1HasBeenCalled && GameTimer > 2.0f)
+                {
+                    m_intro1HasBeenCalled = true;
+                    DisplayTutorialWindow(ETutorialType.Introduction1, Player.transform.position);
+                }
+                if (!m_intro2HasBeenCalled && GameTimer > 4.0f)
+                {
+                    m_intro2HasBeenCalled = true;
+                    DisplayTutorialWindow(ETutorialType.Introduction2, Player.transform.position);
+                }
+                if (!m_weaponPresentationHasBeenCalled && GameTimer > 5.0f)
+                {
+                    m_weaponPresentationHasBeenCalled = true;
+                    DisplayTutorialWindow(ETutorialType.WeaponPresentation, new Vector3(1000, 1000, 0));
+                }
             }
         }
 
@@ -133,6 +135,7 @@ namespace SpaceBaboon
             //m_isPaused = true;
             PauseGame(true);
             m_isCountingTime = false;
+            m_hasSetUpCrafting = false;
         }
 
         public void DisplayTutorialWindow(ETutorialType type, Vector3 position)

@@ -157,7 +157,7 @@ namespace SpaceBaboon
 
         private Vector3 RandomPosOnMap()
         {
-            int newPos = Random.Range(0, m_spawnPositionsAvailable.Count);
+            int newPos = UnityEngine.Random.Range(0, m_spawnPositionsAvailable.Count);
             return (Vector2)m_spawnPositionsAvailable[newPos] + new Vector2(0.5f, 0.5f);
         }
 
@@ -181,7 +181,7 @@ namespace SpaceBaboon
             }
 
             //Generate a weight between 0 and maximum weight value
-            float randomWeight = Random.Range(0, totalReciprocalNorm);
+            float randomWeight = UnityEngine.Random.Range(0, totalReciprocalNorm);
             float currentWeightValue = 0.0f;
 
             foreach (KeyValuePair<Crafting.InteractableResource.EResourceType, float> resource in m_resourcesWeightDictionary)
@@ -216,16 +216,33 @@ namespace SpaceBaboon
             foreach (Crafting.CraftingStation station in m_craftingStationsInScene)
             {
                 craftingStationsToSetUp.Add(station);
+                //Debug.Log("Added to crafting station to set up" + station);
             }
 
+            Shuffle(craftingStationsToSetUp);
+            int index = 0;
             foreach (WeaponSystem.PlayerWeapon weapon in weaponToSet)
             {
-                int CurrentStationIndex = Random.Range(0, craftingStationsToSetUp.Count);
+                if (index == craftingStationsToSetUp.Count)
+                {
+                    break;
+                }
 
-                craftingStationsToSetUp[CurrentStationIndex].StationSetup(weapon);
-
-                Crafting.CraftingStation craftingStationToRemove = craftingStationsToSetUp[CurrentStationIndex];
-                craftingStationsToSetUp.Remove(craftingStationToRemove);
+                craftingStationsToSetUp[index].StationSetup(weapon);
+                index++;
+            }
+        }
+        private void Shuffle<T>(List<T> list)
+        {
+            System.Random rng = new System.Random();
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
             }
         }
         public GameObject SpawnShard(GameObject shardToSpawn, Vector2 posToSpawn)

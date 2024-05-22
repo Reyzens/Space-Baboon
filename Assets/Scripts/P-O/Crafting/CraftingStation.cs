@@ -48,12 +48,15 @@ namespace SpaceBaboon.Crafting
         {
             m_craftingStationsList.Add(this);
         }
-
+        private void OnDestroy()
+        {
+            m_craftingStationsList.Remove(this);
+        }
         void Start()
         {
             Initialization();
         }
-        
+
         void Update()
         {
             // TODO FOR TESTING TO DELETE
@@ -86,7 +89,7 @@ namespace SpaceBaboon.Crafting
         private void SetCraftingStation(bool value) // true is enabled
         {
             m_isEnabled = value;
-            
+
             if (value) // Enabled
             {
                 m_currentHealth = m_maxHealth;
@@ -114,9 +117,13 @@ namespace SpaceBaboon.Crafting
 
         public static List<CraftingStation> GetCraftingStations()
         {
+            if (m_craftingStationsList.Count == 0)
+            {
+                Debug.Log("m_craftingStationsList is empty");
+            }
             return m_craftingStationsList;
         }
-        
+
         public List<ResourceDropPoint> GetDropPopint()
         {
             return m_resourceDropPoints;
@@ -132,7 +139,7 @@ namespace SpaceBaboon.Crafting
             m_currentHealth -= (int)damage;
             if (m_currentHealth <= 0)
             {
-                SetCraftingStation(false);                
+                SetCraftingStation(false);
             }
         }
 
@@ -142,7 +149,7 @@ namespace SpaceBaboon.Crafting
         private void Initialization()
         {
             m_stationRenderer = GetComponent<SpriteRenderer>();
-            m_currentStationLevel = 1;            
+            m_currentStationLevel = 1;
             ResourceNeededAllocation();
             if (m_currentUpgrade == EWeaponUpgrades.Count)
             {
@@ -162,8 +169,11 @@ namespace SpaceBaboon.Crafting
 
         public void StationSetup(WeaponSystem.PlayerWeapon weapon)
         {
+            Debug.Log("weapon to show is " + weapon);
             m_linkedWeapon = weapon;
+            //Debug.Log("linkedweapon to show is " + m_linkedWeapon);
             m_weaponIcon.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
+            Debug.Log("m_weaponIcon to show is " + m_weaponIcon);
         }
 
         #endregion
