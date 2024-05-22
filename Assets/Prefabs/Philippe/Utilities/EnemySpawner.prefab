@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1815737912975441857
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5241152020295744881}
+  m_Layer: 0
+  m_Name: LastResortSpawnPointTwo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5241152020295744881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815737912975441857}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 155.1, y: -218.7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5922132008873241954}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7910765120132698230
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,7 +60,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6987792477214167693}
+  - {fileID: 5241152020295744881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2982256101968009546
@@ -46,7 +79,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_enemyPool:
     m_container: {fileID: 0}
-    m_poolStartingSize: 20
+    m_poolStartingSize: 1
   m_pooledEnemies:
   - enemyPrefab: {fileID: 3761769005896388766, guid: 43f660af7af529040ae182a2ce02106d, type: 3}
     enemyType: 0
@@ -79,10 +112,14 @@ MonoBehaviour:
   - {fileID: 4752045255920560558, guid: c0bbf66d382d5c34e9fc8105f8d7ace5, type: 3}
   - {fileID: 7720092425605013616, guid: dd25fd16dbf5318478d286ef18647e55, type: 3}
   - {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
-  m_spawnRadiusFromScreenCorner: -50
+  m_cam: {fileID: 0}
+  m_spawnWRadiusModifierFromScreenCorner: 20
+  m_spawnWRadiusThreshold: 10
+  m_lastResortWSpawnPosOne: {fileID: 6987792477214167693}
+  m_lastResortWSpawnPosTwo: {fileID: 5241152020295744881}
   m_spawningDelay: 5
-  m_isSpawning: 1
-  m_enemiesAmountToSpawnOneShot: 0
+  m_isSpawning: 0
+  m_enemiesAmountToSpawnOneShot: 100
   m_spawnGroup: 0
   m_SpawnTimeUpgradeTimer: 25
   m_spawnTimeUpgradeRatio: 0.05
@@ -93,3 +130,34 @@ MonoBehaviour:
   m_tilemapRef: {fileID: 0}
   m_obstacleTilemapRef: {fileID: 0}
   m_bossTileMap: {fileID: 0}
+--- !u!1 &9178517314106741350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6987792477214167693}
+  m_Layer: 0
+  m_Name: LastResortSpawnPointOne
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6987792477214167693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178517314106741350}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -278.5, y: 157.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5922132008873241954}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

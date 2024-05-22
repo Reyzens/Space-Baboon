@@ -1,6 +1,5 @@
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Tilemaps;
@@ -34,6 +33,10 @@ namespace SpaceBaboon.EnemySystem
     {
         //TODO add a scriptable object for data
 
+        const int MAX_ITERATION_TO_FIND_VALID_POS = 100;
+
+        private Player m_player;
+
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
         [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
@@ -48,21 +51,24 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] public List<GameObject> m_pooledEnemyProjectiles = new List<GameObject>();
 
         [field: Header("SPAWNER LOGIC")]
-        [SerializeField] private float m_spawnRadiusFromScreenCorner = 0.0f; // TODO check this out, not sure why the radius is so huge that I need to add negative distance 
+        [SerializeField] private Camera m_cam;
+        [SerializeField] private float m_spawnWRadiusModifierFromScreenCorner = 0.0f; // TODO check this out, not sure why the radius is so huge that I need to add negative distance 
+        [SerializeField] private float m_spawnWRadiusThreshold = 10.0f;
+        [SerializeField] private Transform m_lastResortWSpawnPosOne;
+        [SerializeField] private Transform m_lastResortWSpawnPosTwo;
         [SerializeField] private float m_spawningDelay = 0.0f;
         [SerializeField] private bool m_isSpawning = true;
         [SerializeField] private int m_enemiesAmountToSpawnOneShot = 0;
         // TODO maybe remove [SerializeField] of bool
         [SerializeField] private bool m_spawnGroup = false;
+        private float m_spawnWRadius = 0.0f;
 
-        //private GameObject m_camObject;
-        //[SerializeField] private Camera m_cam;
-        private Camera m_cam;
-        private float m_spawningTimer = 0.0f;
-        private float m_lastSpawnTimeUpgrade = 0.0f;
-        private float m_initialSpawnTimer;
+        [field: Header("PROGRESSION LOGIC")]
         [SerializeField] private float m_SpawnTimeUpgradeTimer;
         [SerializeField] private float m_spawnTimeUpgradeRatio;
+        private float m_spawningTimer = 0.0f;
+        private float m_lastSpawnTimeUpgrade = 0.0f;
+        private float m_initialSpawnTimer;        
         private int m_amountOfEnemySpawned = 1;
         private float m_lastAmountSpawnUpgrade = 0.0f;
         [SerializeField] private float m_amountSpawnedUpgradeTimer;
@@ -81,20 +87,17 @@ namespace SpaceBaboon.EnemySystem
 
         private void Awake()
         {
-            CreateEnemySpawnerPools();
-            //RegisterToGameManager();
-
+            CreateEnemySpawnerPools();            
         }
 
         private void Start()
         {
-            RegisterToGameManager();
-            m_cam = Camera.main;
-            //m_camObject = GameObject.Find("PlayerCam");
-            //m_cam = m_camObject.GetComponent<Camera>();
+            RegisterToGameManager();            
+            m_player = GameManager.Instance.Player;
+            m_spawnWRadius = CalculateValidWSpawnRadius();            
             m_spawningTimer = m_spawningDelay;
             GenerateGrid();
-            m_initialSpawnTimer = m_spawningDelay;
+            m_initialSpawnTimer = m_spawningDelay;            
         }
 
         private void Update()
@@ -161,9 +164,8 @@ namespace SpaceBaboon.EnemySystem
 
         public Vector3 FindValidEnemyRandomPos()
         {
-            float spawnRadius = CalculateValidSpawnRadius();
-            //Debug.Log("Spawn Radius is " + spawnRadius);
-            return RandomValidPosOnCircleAroundPlayer(spawnRadius);
+            //float spawnRadius = CalculateValidSpawnRadius();            
+            return RandomValidPosOnCircleAroundPlayer(m_spawnWRadius);
         }
 
         private GameObject GetRandomEnemyType()
@@ -206,32 +208,49 @@ namespace SpaceBaboon.EnemySystem
         private Vector3 RandomValidPosOnCircleAroundPlayer(float radius)
         {
             //Profiler.BeginSample("RandomValidPosOnCircleAroundPlayer");
-            
-            Vector3Int currentPlayerTilePos = m_tilemapRef.WorldToCell(m_cam.transform.position);
-            int radiusThreshold = 10;
-            int validTilemapPosIndex = 0;
 
-            for (int i = 0; i < 100; i++)
+            int validTilemapPosIndex = 0;
+            bool noValidPosFound = false;
+
+            for (int i = 0; i < MAX_ITERATION_TO_FIND_VALID_POS; i++)
             {
                 int randomIndex = Random.Range(0, m_spawnPositionsAvailable.Count);
 
-                float distancePlayerAndRandomTile = Vector3.Distance(currentPlayerTilePos, m_spawnPositionsAvailable[randomIndex]);
+                float distanceWPlayerAndRandomTile = Vector3.Distance(m_player.transform.position, m_spawnPositionsAvailable[randomIndex]);
 
-                if (distancePlayerAndRandomTile > radius - radiusThreshold && distancePlayerAndRandomTile < radius + radiusThreshold)
+                if (distanceWPlayerAndRandomTile > radius - m_spawnWRadiusThreshold && distanceWPlayerAndRandomTile < radius + m_spawnWRadiusThreshold)
                 {
                     validTilemapPosIndex = randomIndex;
                     break;
                 }
 
-                //if (i == 99)
-                //{
-                //    Debug.Log("No position found");
-                //}
-            } 
+                if(i == MAX_ITERATION_TO_FIND_VALID_POS - 1)
+                    noValidPosFound = true;
+            }
 
-            if (validTilemapPosIndex == 0)
+            if (noValidPosFound) 
             {
-                Debug.Log("No position found");
+                //Debug.Log("No position found");
+
+                float furthestDistance = 0.0f;
+                Transform furthestPosition = null;
+                float distanceWPlayerAndLastResortPosOne = Vector3.Distance(m_player.transform.position, m_lastResortWSpawnPosOne.position);
+                float distanceWPlayerAndLastResortPosTwo = Vector3.Distance(m_player.transform.position, m_lastResortWSpawnPosTwo.position);
+
+                if (distanceWPlayerAndLastResortPosOne > furthestDistance)
+                {
+                    furthestDistance = distanceWPlayerAndLastResortPosOne;
+                    furthestPosition = m_lastResortWSpawnPosOne;
+                }
+
+                if (distanceWPlayerAndLastResortPosTwo > furthestDistance)
+                {
+                    furthestPosition = m_lastResortWSpawnPosTwo;
+                }
+
+                //Profiler.EndSample();
+
+                return furthestPosition.position;
             }
 
             //Profiler.EndSample();
@@ -239,14 +258,15 @@ namespace SpaceBaboon.EnemySystem
             return m_spawnPositionsAvailable[validTilemapPosIndex] + new Vector3(0.5f, 0.5f, 0f);            
         }
 
-        private float CalculateValidSpawnRadius()
+        private float CalculateValidWSpawnRadius()
         {
-            Vector3 screenZeroWPos = m_cam.ScreenToWorldPoint(Vector3.zero);
-            Vector3 screenCenterWPos = m_cam.ScreenToWorldPoint(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, m_cam.nearClipPlane));
-            float screenCornerRadius = Vector3.Distance(screenZeroWPos, screenCenterWPos);
+            Vector3 playerStartPos = m_player.transform.position;
+            Vector3 screenCornerWPos = m_cam.ScreenToWorldPoint(new Vector3(0, 0, m_cam.nearClipPlane));
+            
+            float radiusBetweenCenterAndCorner = Vector3.Distance(playerStartPos, screenCornerWPos);
 
-            return screenCornerRadius + m_spawnRadiusFromScreenCorner;
-        }
+            return radiusBetweenCenterAndCorner + m_spawnWRadiusModifierFromScreenCorner;
+        }        
 
         private bool CheckPosValidity(Vector2 positionToTest)
         {
@@ -309,7 +329,6 @@ namespace SpaceBaboon.EnemySystem
             EnemyToPool currentEnemy = m_pooledEnemies[(int)type];
             currentEnemy.canSpawn = value;
             m_pooledEnemies[(int)type] = currentEnemy;
-
         }
 
         public void CheatSpawnGroup(EEnemyTypes type, int amount)
