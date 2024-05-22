@@ -23,7 +23,7 @@ MonoBehaviour:
   enemyType: 2
   defaultContactAttackDamage: 0
   defaultContactAttackDelay: 0
-  distanceBeforeTeleportingCloser: 100
+  distanceBeforeTeleportingCloser: 130
   healthDropChance: 5
   chargingExplosionSprite: {fileID: 21300000, guid: a125ae68044cdb641b396f023b818b03, type: 3}
   imminentExplosionColor: {r: 1, g: 0, b: 0, a: 0}
