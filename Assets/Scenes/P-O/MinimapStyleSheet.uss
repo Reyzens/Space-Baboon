@@ -3,8 +3,8 @@ VisualElement {}
     position: absolute;
     bottom: 10px; /* Spacing from bottom */
     right: 10px; /* Spacing from right */
-    width: 400px; /* Width of the minimap */
-    height: 400px; /* Height of the minimap */
+    width: 25%; /* Width of the minimap */
+    height: 35%; /* Height of the minimap */
 }
 
 #minimapView {

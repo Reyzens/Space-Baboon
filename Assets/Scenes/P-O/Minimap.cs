@@ -6,10 +6,17 @@ public class Minimap : MonoBehaviour
     public UIDocument minimapUIDoc;
     public RenderTexture minimapRenderTexture;
 
+    private VisualElement rootVisualElement;
+    private Image minimapView;
     void Start()
     {
-        var rootVisualElement = minimapUIDoc.rootVisualElement;
-        var minimapView = rootVisualElement.Q<Image>("minimapView");
+        rootVisualElement = minimapUIDoc.rootVisualElement;
+        minimapView = rootVisualElement.Q<Image>("minimapView");
         minimapView.image = minimapRenderTexture;
+    }
+
+    private void Update()
+    {
+
     }
 }
