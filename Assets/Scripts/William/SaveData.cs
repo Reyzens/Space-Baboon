@@ -13,7 +13,7 @@ namespace SpaceBaboon
         {
             string ScoreData = JsonUtility.ToJson(m_score);
             string ScoreFilePath = Application.persistentDataPath + "/ScoreData.json";
-            Debug.Log("ScoreFilePath");
+            Debug.Log(ScoreFilePath);
             System.IO.File.WriteAllText(ScoreFilePath,ScoreData);
             Debug.Log("Saved Done");
         }
