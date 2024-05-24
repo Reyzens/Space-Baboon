@@ -18,7 +18,7 @@ namespace SpaceBaboon.Crafting
         [SerializeField] private Sprite m_enabledStationSprite;
         [SerializeField] private Sprite m_disabledStationSprite;
         [SerializeField] private Light2D m_light2D;
-
+        [SerializeField] private SpriteRenderer m_craftingStationRenderer;
         //Private variables
         private Transform m_position;
         public int m_currentHealth;
@@ -92,10 +92,14 @@ namespace SpaceBaboon.Crafting
 
             if (value) // Enabled
             {
+                ResourceNeededAllocation();
                 m_currentHealth = m_maxHealth;
                 m_stationRenderer.sprite = m_enabledStationSprite;
+                m_craftingStationRenderer.sprite = m_enabledStationSprite;
                 m_light2D.color = Color.green;
+                
                 m_puzzleScript.SetPuzzle(false);
+                
 
                 if (!s_unlockPopUpHasBeenCalled)
                 {
@@ -105,7 +109,12 @@ namespace SpaceBaboon.Crafting
                 return;
             }
 
+            foreach (var dropPoint in m_resourceDropPoints)
+            {
+                dropPoint.SetDisableDropPoint();
+            }
             m_stationRenderer.sprite = m_disabledStationSprite;
+            m_craftingStationRenderer.sprite = m_disabledStationSprite;
             m_light2D.color = Color.red;
             m_puzzleScript.SetPuzzle(true);
         }
@@ -163,6 +172,8 @@ namespace SpaceBaboon.Crafting
         private void ResetDropStation()
         {
             m_isUpgrading = false;
+            //Set Green Color;
+            m_light2D.color = Color.green;
             ResetPossibleResourceList();
             ResourceNeededAllocation();
         }
@@ -201,6 +212,8 @@ namespace SpaceBaboon.Crafting
             m_linkedWeapon.Upgrade(m_currentUpgrade);
             m_currentResources.Clear();
             m_isUpgrading = true;
+            // change to upgrade color
+            m_light2D.color = Color.yellow;
             m_currentUpgradeCD = m_maxUpgradeCooldown;
             m_currentStationLevel++;
             m_lastsUpgrades.Add(m_currentUpgrade);

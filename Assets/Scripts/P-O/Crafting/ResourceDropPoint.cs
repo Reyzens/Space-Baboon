@@ -36,7 +36,11 @@ namespace SpaceBaboon.Crafting
         // Update is called once per frame
         void Update()
         {
-            UpdateMaskSize();
+            if (m_circlePercentRef.GetComponent<SpriteRenderer>().color != Color.clear)
+            {
+                UpdateMaskSize();
+            }
+            
         }
 
         private void UpdateMaskSize()
@@ -89,6 +93,7 @@ namespace SpaceBaboon.Crafting
                     GetComponent<SpriteRenderer>().color = Color.clear;
                     GetComponent<CircleCollider2D>().enabled = false;
                     m_resourceAmountDisplay.enabled = false;
+                    m_circleRef.GetComponent<SpriteRenderer>().color = Color.clear;
                 }
             }
 
@@ -124,20 +129,29 @@ namespace SpaceBaboon.Crafting
                     //Light blue
                     newColor = Color.cyan;
                 }
+                
                 m_resourceAmountDisplay.text = m_resourceAmountNeeded.ToString();
                 m_circleDropPointref.color = newColor;
                 GetComponent<CircleCollider2D>().enabled = true;
                 m_resourceAmountDisplay.enabled = true;
                 m_circlePercentRef.GetComponent<SpriteRenderer>().color = newColor;
+                
             }
             else
             {
-                //Invisible
-                m_circleDropPointref.color = Color.clear;
-                GetComponent<CircleCollider2D>().enabled = false;
-                m_resourceAmountDisplay.enabled = false;
-                m_circlePercentRef.GetComponent<SpriteRenderer>().color = Color.clear;
+                SetDisableDropPoint();
             }
+        }
+        
+        public void SetDisableDropPoint()
+        {
+            //Invisible
+            m_circleDropPointref.color = Color.clear;
+            GetComponent<CircleCollider2D>().enabled = false;
+            m_resourceAmountDisplay.enabled = false;
+            m_circlePercentRef.GetComponent<SpriteRenderer>().color = Color.clear;
+            m_circlePercentRef.GetComponent<SpriteRenderer>().color = Color.clear;
+            m_circleRef.GetComponent<SpriteRenderer>().color = Color.clear;
         }
         public void SetRef()
         {
