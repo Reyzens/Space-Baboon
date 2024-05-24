@@ -209,11 +209,16 @@ namespace SpaceBaboon.EnemySystem
         {
             //Profiler.BeginSample("RandomValidPosOnCircleAroundPlayer");
 
+            // Could add a way to not get the same number while in the loop, needs testing to know if it's better for optimization
+            //List<int> checkedIndexes = new List<int>();
+            //for (int j = 0; j < checkedIndexes.Count; j++)
+            //checkedIndexes.Add(randomIndex);
+
             int validTilemapPosIndex = 0;
-            bool noValidPosFound = false;
+            bool noValidPosFound = false;            
 
             for (int i = 0; i < MAX_ITERATION_TO_FIND_VALID_POS; i++)
-            {
+            {                
                 int randomIndex = Random.Range(0, m_spawnPositionsAvailable.Count);
 
                 float distanceWPlayerAndRandomTile = Vector3.Distance(m_player.transform.position, m_spawnPositionsAvailable[randomIndex]);
@@ -222,7 +227,7 @@ namespace SpaceBaboon.EnemySystem
                 {
                     validTilemapPosIndex = randomIndex;
                     break;
-                }
+                }                
 
                 if(i == MAX_ITERATION_TO_FIND_VALID_POS - 1)
                     noValidPosFound = true;
