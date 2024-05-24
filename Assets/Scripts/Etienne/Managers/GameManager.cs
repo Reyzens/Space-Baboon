@@ -102,7 +102,7 @@ namespace SpaceBaboon
 
         public void StartGame()
         {
-            SceneManager.LoadScene("SB_PlayTest");
+            SceneManager.LoadScene("FINAL GAME");
             StartTimer();
             //m_isPaused = false;
             PauseGame(false);

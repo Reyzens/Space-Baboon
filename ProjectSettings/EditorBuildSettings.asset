@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Space Baboon/PlayTest/SB_PlayTest.unity
     guid: dd6ca29ef7645cd428dcdc116225167c
+  - enabled: 1
+    path: Assets/Scenes/Space Baboon/FINAL/FINAL GAME.unity
+    guid: 4c1d4fca68f2d2c4ea03207d677da41e
+  - enabled: 1
+    path: Assets/Scenes/Space Baboon/FINAL/FINAL MENU.unity
+    guid: 91c08eb3693a30840a57f283b090ee6d
   m_configObjects: {}
