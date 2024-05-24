@@ -3,12 +3,12 @@ VisualElement {}
     position: absolute;
     bottom: 10px; /* Spacing from bottom */
     right: 10px; /* Spacing from right */
-    width: 200px; /* Width of the minimap */
-    height: 200px; /* Height of the minimap */
+    width: 400px; /* Width of the minimap */
+    height: 400px; /* Height of the minimap */
 }
 
 #minimapView {
     width: 100%;
     height: 100%;
-    background-color: black; /* Optional, if you want a background color */
+    background-color: clear; /* Optional, if you want a background color */
 }
