@@ -61,7 +61,7 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private int m_enemiesAmountToSpawnOneShot = 0;
         // TODO maybe remove [SerializeField] of bool
         [SerializeField] private bool m_spawnGroup = false;
-        private float m_spawnWRadius = 0.0f;
+        private float m_spawnWRadius = 0.0f;        
 
         [field: Header("PROGRESSION LOGIC")]
         [SerializeField] private float m_SpawnTimeUpgradeTimer;
