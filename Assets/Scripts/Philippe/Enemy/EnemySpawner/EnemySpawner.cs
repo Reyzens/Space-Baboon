@@ -42,7 +42,7 @@ namespace SpaceBaboon.EnemySystem
 
         [field: Header("OBJECT POOLS")]
         [SerializeField] private GenericObjectPool m_enemyPool = new GenericObjectPool();
-        [SerializeField] private List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
+        [SerializeField] public List<EnemyToPool> m_pooledEnemies = new List<EnemyToPool>();
         [SerializeField] private List<GameObject> m_pooledBoss = new List<GameObject>();
         private GenericObjectPool m_bossPool = new GenericObjectPool();
         [SerializeField] private List<GameObject> m_pooledElite = new List<GameObject>();
@@ -84,11 +84,12 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
         [SerializeField] public Tilemap m_bossTileMap;
+        private List<Vector3Int> m_validSpawnTilePositions = new List<Vector3Int>();
         private List<Vector3> m_spawnWorldPositionsAvailable = new List<Vector3>();        
 
-        private static bool s_popUpHasBeenCalled = false;      
-        
-        private List<Vector3Int> m_validSpawnTilePositions = new List<Vector3Int>();
+        private static bool s_popUpHasBeenCalled = false;
+
+        private ProgressionManager m_progressionManager;
 
         private void Awake()
         {
@@ -103,7 +104,8 @@ namespace SpaceBaboon.EnemySystem
             GetValidTilemapPositions();
             GenerateValidWorldSpawnPositionsGrid();
             m_spawningTimer = m_spawningDelay;            
-            m_initialSpawnTimer = m_spawningDelay;            
+            m_initialSpawnTimer = m_spawningDelay;
+            m_progressionManager = GetComponent<ProgressionManager>();
         }        
 
         private void Update()
@@ -168,6 +170,20 @@ namespace SpaceBaboon.EnemySystem
             //{
             //    Instantiate(m_testingPrefab, position, Quaternion.identity);
             //}
+        }
+
+        public void SetSpawnProbability(EEnemyTypes enemyType, int probability)
+        {
+            for (int i = 0; i < m_pooledEnemies.Count; i++)
+            {
+                if (m_pooledEnemies[i].enemyType == enemyType)
+                {
+                    EnemyToPool enemy = m_pooledEnemies[i];
+                    enemy.spawnProbability = probability;
+                    m_pooledEnemies[i] = enemy;
+                    return;
+                }
+            }
         }
 
         private void SpawnOneEnemy()
