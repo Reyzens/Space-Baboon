@@ -1,7 +1,9 @@
 using SpaceBaboon.PoolingSystem;
 using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -37,6 +39,9 @@ namespace SpaceBaboon.EnemySystem
         protected NavMeshAgent m_navMeshAgent;
         protected float m_navMeshAgentInitialSpeed;
         protected float m_currentNavAgentSpeed;
+        
+        protected float m_checkIfTooCloseToPlayerAfterBroughtCloserDelay = 0.05f;
+        protected float m_checkIfTooCloseToPlayerAfterBroughtCloserTimer = 0.0f;
 
         protected override void Awake()
         {
@@ -63,13 +68,21 @@ namespace SpaceBaboon.EnemySystem
 
             StatusUpdate();
 
-            //Debug.Log("Distance to player is " + m_distanceToPlayer);
-
             if (m_distanceToPlayer > m_enemyUniqueData.distanceBeforeTeleportingCloser)
             {
                 if (m_enemyUniqueData.enemyType != EEnemyTypes.Boss)
                     BringCloserToPlayer();
-                            
+            }
+
+            if (m_checkIfTooCloseToPlayerAfterBroughtCloserTimer >= 0.0f)
+            {
+                m_checkIfTooCloseToPlayerAfterBroughtCloserTimer -= Time.deltaTime;
+
+                if (m_distanceToPlayer < 100)
+                {
+                    //Debug.Log("Needs to move away because to close");
+                    BringCloserToPlayer();
+                }
             }
         }
 
@@ -180,10 +193,11 @@ namespace SpaceBaboon.EnemySystem
             }
         }
 
-        private void BringCloserToPlayer()
+        protected virtual void BringCloserToPlayer()
         {
             Vector3 teleportPos = m_enemySpawner.FindValidEnemyRandomPos();
-            transform.position = teleportPos;            
+            transform.position = teleportPos;
+            m_checkIfTooCloseToPlayerAfterBroughtCloserTimer = m_checkIfTooCloseToPlayerAfterBroughtCloserDelay;
         }
 
         protected void HealthSpawner()

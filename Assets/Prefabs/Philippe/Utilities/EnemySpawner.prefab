@@ -113,7 +113,7 @@ MonoBehaviour:
   - {fileID: 7720092425605013616, guid: dd25fd16dbf5318478d286ef18647e55, type: 3}
   - {fileID: 7939948760325525783, guid: 0397391dad3facb47bcd627527532d4b, type: 3}
   m_cam: {fileID: 0}
-  m_spawnWRadiusModifierFromScreenCorner: 20
+  m_spawnWRadiusModifierFromScreenCorner: 30
   m_spawnWRadiusThreshold: 10
   m_lastResortWSpawnPosOne: {fileID: 6987792477214167693}
   m_lastResortWSpawnPosTwo: {fileID: 5241152020295744881}

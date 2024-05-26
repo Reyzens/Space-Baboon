@@ -121,5 +121,15 @@ namespace SpaceBaboon.EnemySystem
         {
             return false;
         }
+
+        protected override void BringCloserToPlayer()
+        {
+            if (!m_isChargingExplosion)
+            {
+                Vector3 teleportPos = m_enemySpawner.FindValidEnemyRandomPos();
+                transform.position = teleportPos;
+                m_checkIfTooCloseToPlayerAfterBroughtCloserTimer = m_checkIfTooCloseToPlayerAfterBroughtCloserDelay;
+            }
+        }
     }
 }

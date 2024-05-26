@@ -72,3 +72,32 @@ if (m_movementDirection.magnitude > 0)
  */
 
 
+
+
+
+
+/*
+ 
+ To check for a group of tiles around a specific tile
+
+private bool IsTilePositionValid(Vector3Int position)
+        {
+            TileBase mainTile = m_tilemapRef.GetTile(position);
+
+            BoundsInt bounds = new BoundsInt(position.x - 4, position.y - 4, 0, 11, 11, 1);
+            foreach (var positionToCheck in bounds.allPositionsWithin)
+            {
+                //Debug.Log(positionToCheck);
+                if (m_obstacleTilemapRef.HasTile(positionToCheck))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+ 
+ 
+ 
+ 
+ */
