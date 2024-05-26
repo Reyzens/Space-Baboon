@@ -34,7 +34,7 @@ namespace SpaceBaboon.EnemySystem
 
     public class EnemySpawner : MonoBehaviour, IGameDifficultyScaling
     {
-        //TODO add a scriptable object for data
+        //TODO maybe add a scriptable object for data
 
         const int MAX_ITERATIONS_TO_FIND_VALID_POS = 100;
 
@@ -84,7 +84,7 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
         [SerializeField] public Tilemap m_bossTileMap;
-        private List<Vector3> m_spawnPositionsAvailable = new List<Vector3>();        
+        private List<Vector3> m_spawnWorldPositionsAvailable = new List<Vector3>();        
 
         private static bool s_popUpHasBeenCalled = false;      
         
@@ -100,9 +100,9 @@ namespace SpaceBaboon.EnemySystem
             RegisterToGameManager();            
             m_player = GameManager.Instance.Player;
             m_spawnWRadius = CalculateValidWSpawnRadius();
-            CheckTilemapBlock();
-            m_spawningTimer = m_spawningDelay;
-            GenerateGrid();
+            GetValidTilemapPositions();
+            GenerateValidWorldSpawnPositionsGrid();
+            m_spawningTimer = m_spawningDelay;            
             m_initialSpawnTimer = m_spawningDelay;            
         }        
 
@@ -126,7 +126,20 @@ namespace SpaceBaboon.EnemySystem
             GameManager.Instance.SetEnemySpawner(this);
         }
 
-        private void CheckTilemapBlock()
+        private float CalculateValidWSpawnRadius()
+        {
+            Vector3 playerStartPos = m_player.transform.position;
+            Vector3 screenCornerWPos = m_cam.ScreenToWorldPoint(new Vector3(0, 0, m_cam.nearClipPlane));
+
+            float radiusBetweenCenterAndCorner = Vector3.Distance(playerStartPos, screenCornerWPos);
+
+            //Debug.Log("Radius between center and corner " + radiusBetweenCenterAndCorner);
+            //Debug.Log("Radius modifier is " + m_spawnWRadiusModifierFromScreenCorner);
+            //Debug.Log("Start spawnig radius is " + (radiusBetweenCenterAndCorner + m_spawnWRadiusModifierFromScreenCorner));
+            return radiusBetweenCenterAndCorner + m_spawnWRadiusModifierFromScreenCorner;
+        }
+
+        private void GetValidTilemapPositions()
         {
             foreach (var position in m_tilemapRef.cellBounds.allPositionsWithin)
             {
@@ -141,15 +154,20 @@ namespace SpaceBaboon.EnemySystem
                 //}
             }
 
-            Debug.Log("Number of valid tile position " + m_validSpawnTilePositions.Count);
+            //Debug.Log("Number of valid tile position " + m_validSpawnTilePositions.Count);
         }
 
-        private void GenerateGrid()
+        private void GenerateValidWorldSpawnPositionsGrid()
         {
             foreach (var position in m_validSpawnTilePositions)
             {
-                m_spawnPositionsAvailable.Add(m_tilemapRef.CellToWorld(position));
+                m_spawnWorldPositionsAvailable.Add(m_tilemapRef.CellToWorld(position));
             }
+
+            //foreach (var position in m_spawnWorldPositionsAvailable)
+            //{
+            //    Instantiate(m_testingPrefab, position, Quaternion.identity);
+            //}
         }
 
         private void SpawnOneEnemy()
@@ -239,9 +257,9 @@ namespace SpaceBaboon.EnemySystem
 
             for (int i = 0; i < MAX_ITERATIONS_TO_FIND_VALID_POS; i++)
             {                
-                int randomIndex = Random.Range(0, m_spawnPositionsAvailable.Count);
+                int randomIndex = Random.Range(0, m_spawnWorldPositionsAvailable.Count);
 
-                float distanceWPlayerAndRandomTile = Vector3.Distance(m_player.transform.position, m_spawnPositionsAvailable[randomIndex]);
+                float distanceWPlayerAndRandomTile = Vector3.Distance(m_player.transform.position, m_spawnWorldPositionsAvailable[randomIndex]);
 
                 if (distanceWPlayerAndRandomTile > radius - m_spawnWRadiusThreshold && distanceWPlayerAndRandomTile < radius + m_spawnWRadiusThreshold)
                 {
@@ -282,21 +300,8 @@ namespace SpaceBaboon.EnemySystem
             
             //Profiler.EndSample();
 
-            return m_spawnPositionsAvailable[validTilemapPosIndex]/* + new Vector3(0.5f, 0.5f, 0f)*/;            
-        }
-
-        private float CalculateValidWSpawnRadius()
-        {
-            Vector3 playerStartPos = m_player.transform.position;
-            Vector3 screenCornerWPos = m_cam.ScreenToWorldPoint(new Vector3(0, 0, m_cam.nearClipPlane));
-            
-            float radiusBetweenCenterAndCorner = Vector3.Distance(playerStartPos, screenCornerWPos);
-
-            Debug.Log("Radius between center and corner " + radiusBetweenCenterAndCorner);
-            Debug.Log("Radius modifier is " + m_spawnWRadiusModifierFromScreenCorner);
-            Debug.Log("Start spawnig radius is " + (radiusBetweenCenterAndCorner + m_spawnWRadiusModifierFromScreenCorner));
-            return radiusBetweenCenterAndCorner + m_spawnWRadiusModifierFromScreenCorner;
-        }        
+            return m_spawnWorldPositionsAvailable[validTilemapPosIndex]/* + new Vector3(0.5f, 0.5f, 0f)*/;            
+        }               
 
         private bool CheckPosValidity(Vector2 positionToTest)
         {
