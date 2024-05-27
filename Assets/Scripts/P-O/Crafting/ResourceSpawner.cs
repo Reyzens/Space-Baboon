@@ -29,6 +29,10 @@ namespace SpaceBaboon
         private ObjectPool m_healingCollectablePool = new ObjectPool();
         //private SMapData m_mapData;
 
+        //Resource Scaling
+        [SerializeField] private float m_resourceValueUpgradeTimer;
+        private float m_lastResourceValueUpgradeTime;
+        [SerializeField] private int m_currentResourceValue = 1;
 
         private void Awake()
         {
@@ -55,7 +59,10 @@ namespace SpaceBaboon
             DictionarySetUp();
             GameManager.Instance.SetResourceManager(this);
         }
-
+        private void OnDestroy()
+        {
+            Crafting.ResourceShards.ResetResourceShardsValue();
+        }
         private void Update()
         {
             //if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
@@ -68,6 +75,8 @@ namespace SpaceBaboon
                 m_spawningTimer = m_spawningDelay;
                 CalculateSpawnPosition();
             }
+
+            UpgradeResourcesValue();
         }
         private void PoolSetUp()
         {
@@ -113,7 +122,15 @@ namespace SpaceBaboon
                 m_resourcesWeightDictionary.Add(resource.Key, normalizedReciprocal);
             }
         }
-
+        private void UpgradeResourcesValue()
+        {
+            if (GameManager.Instance.GameTimer - m_lastResourceValueUpgradeTime > m_resourceValueUpgradeTimer)
+            {
+                m_lastResourceValueUpgradeTime = GameManager.Instance.GameTimer;
+                m_currentResourceValue++;
+                Crafting.ResourceShards.UpgradeResourceShardsValue();
+            }
+        }
         public void SpawnHealingHeart(Transform enemy)
         {
             m_healingCollectablePool.Spawn(enemy.position);
