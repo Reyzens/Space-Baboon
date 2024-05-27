@@ -19,6 +19,8 @@ namespace SpaceBaboon
 
         public ResourceSpawner m_ressourceManager;
 
+        public SaveData m_saveDataManager;
+
         public float WindowSizeScale { get; set; } = 1.0f;
 
         public float GameTimer { get; private set; } = 0.0f;
@@ -180,6 +182,11 @@ namespace SpaceBaboon
         public void SetResourceManager(ResourceSpawner spawner)
         {
             m_ressourceManager = spawner;
+        }
+
+        public void SetSaveData(SaveData savemanager)
+        {
+            m_saveDataManager = savemanager;
         }
 
         #endregion

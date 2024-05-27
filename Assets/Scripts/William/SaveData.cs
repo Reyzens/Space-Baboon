@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,11 @@ namespace SpaceBaboon
     public class SaveData : MonoBehaviour
     {
         public Score m_score = new Score();
+
+        private void Start()
+        {
+            GameManager.Instance.SetSaveData(this);
+        }
 
         public void SaveJson()
         {
@@ -33,19 +39,15 @@ namespace SpaceBaboon
         {
             public int HighScoreData;
             public int LastScoreData;
-            public string HighScoreUser;
-            public string LastScoreUser;
         }
 
-        public void SetCurrentScore(int _LastScoreData, string _LastScoreUser)
+        public void SetCurrentScore(int _LastScoreData)
         {
             m_score.LastScoreData = _LastScoreData;
-            m_score.LastScoreUser = _LastScoreUser;
 
             if (_LastScoreData > m_score.HighScoreData)
             {
                 m_score.HighScoreData = _LastScoreData;
-                m_score.HighScoreUser = _LastScoreUser;
             }
         }
         

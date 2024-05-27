@@ -452,6 +452,10 @@ PrefabInstance:
       propertyPath: m_buildMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 821351382674918389, guid: b74795e193657b5419b51fa94a939c42, type: 3}
+      propertyPath: m_saveDataManager
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3005762739580179462, guid: b74795e193657b5419b51fa94a939c42, type: 3}
       propertyPath: m_Name
       value: GameManager
