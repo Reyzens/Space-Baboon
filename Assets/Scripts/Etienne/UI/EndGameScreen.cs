@@ -18,6 +18,7 @@ namespace SpaceBaboon
         private Label m_bossAmount;
 
         private Label m_scoreAmount;
+        private Label m_highScoreAmount;
         private Button m_playAgainButton;
 
         private void Awake()
@@ -34,6 +35,7 @@ namespace SpaceBaboon
             m_bossAmount = visualElement.Q<Label>("BossValue");
             
             m_scoreAmount = visualElement.Q<Label>("ScoreAmount");
+            m_highScoreAmount = visualElement.Q<Label>("HighScoreAmount");
             m_playAgainButton = visualElement.Q<Button>("BackButton");
 
         }
@@ -86,6 +88,10 @@ namespace SpaceBaboon
 
             int totalScore = time + score;
             m_scoreAmount.text = totalScore.ToString();
+            GameManager.Instance.SaveDataManager.SetCurrentScore(totalScore);
+
+            int highScore = GameManager.Instance.SaveDataManager.GetSavedScoreVariables().HighScoreData;
+            m_highScoreAmount.text = highScore.ToString();
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 
 namespace SpaceBaboon
 {
@@ -49,10 +49,12 @@ namespace SpaceBaboon
             {
                 m_score.HighScoreData = _LastScoreData;
             }
+            SaveJson();
         }
         
         public Score GetSavedScoreVariables()
         {
+            LoadJson();
             return m_score;
         }
     }
