@@ -46,7 +46,6 @@ namespace SpaceBaboon.EnemySystem
         {
             get
             {
-                Debug.Log("Enemy spawned with " + m_enemyUniqueData.defaultHealth * m_healthMultiplier);
                 return (int)(m_enemyUniqueData.defaultHealth * m_healthMultiplier);
             }
         }
@@ -228,7 +227,6 @@ namespace SpaceBaboon.EnemySystem
         static public void UpgradeEnemyHealthMultiplier(float addedScaling)
         {
             m_healthMultiplier += addedScaling;
-            Debug.Log("Health multiplier is now " + m_healthMultiplier);
         }
         public void registerPuzzle(CraftingPuzzle craftstation)
         {

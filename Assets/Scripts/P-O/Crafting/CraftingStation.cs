@@ -97,9 +97,9 @@ namespace SpaceBaboon.Crafting
                 m_stationRenderer.sprite = m_enabledStationSprite;
                 m_craftingStationRenderer.sprite = m_enabledStationSprite;
                 m_light2D.color = Color.green;
-                
+
                 m_puzzleScript.SetPuzzle(false);
-                
+
 
                 if (!s_unlockPopUpHasBeenCalled)
                 {
@@ -180,11 +180,9 @@ namespace SpaceBaboon.Crafting
 
         public void StationSetup(WeaponSystem.PlayerWeapon weapon)
         {
-            Debug.Log("weapon to show is " + weapon);
             m_linkedWeapon = weapon;
             //Debug.Log("linkedweapon to show is " + m_linkedWeapon);
             m_weaponIcon.sprite = weapon.GetComponent<SpriteRenderer>().sprite;
-            Debug.Log("m_weaponIcon to show is " + m_weaponIcon);
         }
 
         #endregion
