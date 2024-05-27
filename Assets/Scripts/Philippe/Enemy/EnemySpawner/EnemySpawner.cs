@@ -1,11 +1,7 @@
 using SpaceBaboon.PoolingSystem;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Profiling;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -64,14 +60,14 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private int m_enemiesAmountToSpawnOneShot = 0;
         // TODO maybe remove [SerializeField] of bool
         [SerializeField] private bool m_spawnGroup = false;
-        private float m_spawnWRadius = 0.0f;        
+        private float m_spawnWRadius = 0.0f;
 
         [field: Header("PROGRESSION LOGIC")]
         [SerializeField] private float m_SpawnTimeUpgradeTimer;
         [SerializeField] private float m_spawnTimeUpgradeRatio;
         private float m_spawningTimer = 0.0f;
         private float m_lastSpawnTimeUpgrade = 0.0f;
-        private float m_initialSpawnTimer;        
+        private float m_initialSpawnTimer;
         private int m_amountOfEnemySpawned = 1;
         private float m_lastAmountSpawnUpgrade = 0.0f;
         [SerializeField] private float m_amountSpawnedUpgradeTimer;
@@ -80,32 +76,38 @@ namespace SpaceBaboon.EnemySystem
         [SerializeField] private int m_spawnEventAmountMultiplier;
         [SerializeField] private float m_bossSpawnTimer;
         private float m_lastBossSpawn = 0.0f;
+        [SerializeField] private float m_enemyHealthUpgradeTimer;
+        private float m_lastEnemyHealthUpgradeTimer = 0.0f;
+        [SerializeField] private float m_enemyHealthScaling;
 
         [SerializeField] private Tilemap m_tilemapRef;
         [SerializeField] public Tilemap m_obstacleTilemapRef;
         [SerializeField] public Tilemap m_bossTileMap;
-        private List<Vector3> m_spawnWorldPositionsAvailable = new List<Vector3>();        
+        private List<Vector3> m_spawnWorldPositionsAvailable = new List<Vector3>();
 
-        private static bool s_popUpHasBeenCalled = false;      
-        
+        private static bool s_popUpHasBeenCalled = false;
+
         private List<Vector3Int> m_validSpawnTilePositions = new List<Vector3Int>();
 
         private void Awake()
         {
-            CreateEnemySpawnerPools();            
+            CreateEnemySpawnerPools();
         }
 
         private void Start()
         {
-            RegisterToGameManager();            
+            RegisterToGameManager();
             m_player = GameManager.Instance.Player;
             m_spawnWRadius = CalculateValidWSpawnRadius();
             GetValidTilemapPositions();
             GenerateValidWorldSpawnPositionsGrid();
-            m_spawningTimer = m_spawningDelay;            
-            m_initialSpawnTimer = m_spawningDelay;            
-        }        
-
+            m_spawningTimer = m_spawningDelay;
+            m_initialSpawnTimer = m_spawningDelay;
+        }
+        private void OnDestroy()
+        {
+            Enemy.ResetEnemyHealthMultiplier();
+        }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)
@@ -253,10 +255,10 @@ namespace SpaceBaboon.EnemySystem
             //checkedIndexes.Add(randomIndex);
 
             int validTilemapPosIndex = 0;
-            bool noValidPosFound = false;            
+            bool noValidPosFound = false;
 
             for (int i = 0; i < MAX_ITERATIONS_TO_FIND_VALID_POS; i++)
-            {                
+            {
                 int randomIndex = Random.Range(0, m_spawnWorldPositionsAvailable.Count);
 
                 float distanceWPlayerAndRandomTile = Vector3.Distance(m_player.transform.position, m_spawnWorldPositionsAvailable[randomIndex]);
@@ -267,13 +269,13 @@ namespace SpaceBaboon.EnemySystem
                     //Debug.Log("distance between player and new spawn position" + Vector3.Distance(m_player.transform.position, m_spawnPositionsAvailable[randomIndex]));
                     validTilemapPosIndex = randomIndex;
                     break;
-                }                
+                }
 
-                if(i == MAX_ITERATIONS_TO_FIND_VALID_POS - 1)
+                if (i == MAX_ITERATIONS_TO_FIND_VALID_POS - 1)
                     noValidPosFound = true;
             }
 
-            if (noValidPosFound) 
+            if (noValidPosFound)
             {
                 //Debug.Log("No position found");
 
@@ -297,11 +299,11 @@ namespace SpaceBaboon.EnemySystem
 
                 return furthestPosition.position;
             }
-            
+
             //Profiler.EndSample();
 
-            return m_spawnWorldPositionsAvailable[validTilemapPosIndex]/* + new Vector3(0.5f, 0.5f, 0f)*/;            
-        }               
+            return m_spawnWorldPositionsAvailable[validTilemapPosIndex]/* + new Vector3(0.5f, 0.5f, 0f)*/;
+        }
 
         private bool CheckPosValidity(Vector2 positionToTest)
         {
@@ -403,6 +405,11 @@ namespace SpaceBaboon.EnemySystem
                 //Debug.Log("Spawn boss");
                 m_lastBossSpawn = GameManager.Instance.GameTimer;
                 SpawnRandomBoss();
+            }
+            if (GameManager.Instance.GameTimer - m_lastEnemyHealthUpgradeTimer > m_enemyHealthUpgradeTimer)
+            {
+                m_lastEnemyHealthUpgradeTimer = GameManager.Instance.GameTimer;
+                Enemy.UpgradeEnemyHealthMultiplier(m_enemyHealthScaling);
             }
         }
         private void SpawnEvent()
