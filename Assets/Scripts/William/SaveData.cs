@@ -43,6 +43,7 @@ namespace SpaceBaboon
 
         public void SetCurrentScore(int _LastScoreData)
         {
+            LoadJson();
             m_score.LastScoreData = _LastScoreData;
 
             if (_LastScoreData > m_score.HighScoreData)
