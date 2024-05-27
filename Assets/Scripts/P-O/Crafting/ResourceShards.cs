@@ -19,6 +19,7 @@ namespace SpaceBaboon.Crafting
         private float m_currentAutoCollectTimer;
         private bool m_isAutoCollecting = false;
         private float m_currentStuckSafetyTimer;
+        static private int m_currentResourceScalingValue = 1;
 
         //For ObjectPool        
         protected GenericObjectPool m_parentPool;
@@ -61,6 +62,14 @@ namespace SpaceBaboon.Crafting
             m_isAutoCollecting = true;
             m_currentStuckSafetyTimer = m_MaxStuckSafetyTimer;
         }
+        static public void UpgradeResourceShardsValue()
+        {
+            m_currentResourceScalingValue++;
+        }
+        static public void ResetResourceShardsValue()
+        {
+            m_currentResourceScalingValue = 1;
+        }
         private void MoveTowardsPlayer()
         {
             Vector2 directionToPlayer = (m_recoltingPlayer.transform.position - transform.position).normalized;
@@ -91,7 +100,7 @@ namespace SpaceBaboon.Crafting
         }
         private void GetCollected()
         {
-            m_recoltingPlayer.AddResource(m_resourceData.m_resourceType, 1);
+            m_recoltingPlayer.AddResource(m_resourceData.m_resourceType, m_currentResourceScalingValue);
             m_parentPool.UnSpawn(gameObject);
         }
         private void StuckSafety()

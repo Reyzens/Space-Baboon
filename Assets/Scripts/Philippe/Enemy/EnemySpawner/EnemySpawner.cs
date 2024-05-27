@@ -104,7 +104,10 @@ namespace SpaceBaboon.EnemySystem
             m_spawningTimer = m_spawningDelay;
             m_initialSpawnTimer = m_spawningDelay;
         }
-
+        private void OnDestroy()
+        {
+            Enemy.ResetEnemyHealthMultiplier();
+        }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.C)) // Press C to add 1 enemy at will (for testing)

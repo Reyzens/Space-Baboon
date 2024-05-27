@@ -228,6 +228,10 @@ namespace SpaceBaboon.EnemySystem
         {
             m_healthMultiplier += addedScaling;
         }
+        static public void ResetEnemyHealthMultiplier()
+        {
+            m_healthMultiplier = 1;
+        }
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
