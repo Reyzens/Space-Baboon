@@ -1,9 +1,7 @@
 using SpaceBaboon.PoolingSystem;
 using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -29,6 +27,7 @@ namespace SpaceBaboon.EnemySystem
         protected float m_slowTimer;
         protected bool m_isSlowed;
         protected bool m_contactAttackReady = true;
+        protected static float m_healthMultiplier = 1.0f;
         //private float m_bonusDamage = 0.0f;
         //private float m_bonusAcceleration;
         //private float m_bonusMaxVelocity;
@@ -39,9 +38,18 @@ namespace SpaceBaboon.EnemySystem
         protected NavMeshAgent m_navMeshAgent;
         protected float m_navMeshAgentInitialSpeed;
         protected float m_currentNavAgentSpeed;
-        
+
         protected float m_checkIfTooCloseToPlayerAfterBroughtCloserDelay = 0.05f;
         protected float m_checkIfTooCloseToPlayerAfterBroughtCloserTimer = 0.0f;
+
+        protected int m_scaledHP
+        {
+            get
+            {
+                Debug.Log("Enemy spawned with " + m_enemyUniqueData.defaultHealth * m_healthMultiplier);
+                return (int)(m_enemyUniqueData.defaultHealth * m_healthMultiplier);
+            }
+        }
 
         protected override void Awake()
         {
@@ -130,7 +138,7 @@ namespace SpaceBaboon.EnemySystem
         }
 
         public override void Move(Vector2 value)
-        {            
+        {
             m_navMeshAgent.SetDestination(value);
             CheckForSpriteDirectionSwap(m_navMeshAgent.velocity);
         }
@@ -217,7 +225,11 @@ namespace SpaceBaboon.EnemySystem
             }
 
         }
-
+        static public void UpgradeEnemyHealthMultiplier(float addedScaling)
+        {
+            m_healthMultiplier += addedScaling;
+            Debug.Log("Health multiplier is now " + m_healthMultiplier);
+        }
         public void registerPuzzle(CraftingPuzzle craftstation)
         {
             m_eventEnemyDeath += () => craftstation.PuzzleCounter();
@@ -242,8 +254,8 @@ namespace SpaceBaboon.EnemySystem
         private void VariablesSetUpStart()
         {
             m_player = GameManager.Instance.Player;
-            m_enemySpawner = GameManager.Instance.EnemySpawner;            
-            m_activeHealth = m_enemyUniqueData.defaultHealth;
+            m_enemySpawner = GameManager.Instance.EnemySpawner;
+            m_activeHealth = m_scaledHP;
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
             m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
             m_currentDestination = m_player.transform;
@@ -292,7 +304,7 @@ namespace SpaceBaboon.EnemySystem
             ResetValues(pos);
             SetComponents(true);
             m_parentPool = pool;
-            
+
         }
 
         public void Deactivate()
@@ -303,9 +315,9 @@ namespace SpaceBaboon.EnemySystem
         protected void ResetValues(Vector2 pos)
         {
             transform.position = pos;
-            m_activeHealth = m_enemyUniqueData.defaultHealth;            
+            m_activeHealth = m_scaledHP;
             m_navMeshAgent.speed = m_characterData.defaultMaxVelocity;
-            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;            
+            m_navMeshAgent.acceleration = m_characterData.defaultAcceleration;
         }
 
         protected virtual void SetComponents(bool value)
