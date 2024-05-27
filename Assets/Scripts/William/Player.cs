@@ -27,6 +27,7 @@ namespace SpaceBaboon
         private float m_glideTimer;
         private bool m_isGliding = false;
         private bool m_isSlowed = false;
+        private bool m_asDied;
 
         //Weapons variables
         [SerializeField] private List<PlayerWeapon> m_weaponList = new List<PlayerWeapon>();
@@ -168,6 +169,7 @@ namespace SpaceBaboon
             m_timestampedDash = 0.0f;
             m_playerFlash = GetComponent<PlayerFlash>();
             m_currentMaximumVelocity = m_characterData.defaultMaxVelocity;
+            m_asDied = false;
         }
 
         private void RegisterToGameManager()
@@ -314,10 +316,16 @@ namespace SpaceBaboon
         {
             if (m_activeHealth <= 0 || m_alive == false)
             {
+                m_asDied = true;
                 m_alive = false;
                 InputHandler.instance.m_Input.Disable();
-                //SceneManager.LoadScene("SB_MainMenu");
                 GameManager.Instance.EndGame();
+                //SceneManager.LoadScene("SB_MainMenu");
+                if (m_asDied)
+                {
+                    return;
+                }
+                
             }
         }
 
