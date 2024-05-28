@@ -55,3 +55,5 @@ MonoBehaviour:
   m_mapBorderOffSet: 2
   m_tilemapRef: {fileID: 0}
   m_spawnPositionsAvailable: []
+  m_resourceValueUpgradeTimer: 60
+  m_currentResourceValue: 1
