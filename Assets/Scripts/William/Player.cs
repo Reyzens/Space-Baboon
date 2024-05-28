@@ -290,7 +290,7 @@ namespace SpaceBaboon
             m_rB.drag = 2;
             m_accelerationMulti = 0.1f;
             RegulateVelocityGliding();
-            m_isGliding = true;            
+            m_isGliding = true;
         }
 
         private void RegulateVelocityGliding()
@@ -319,16 +319,23 @@ namespace SpaceBaboon
                 m_asDied = true;
                 m_alive = false;
                 InputHandler.instance.m_Input.Disable();
+                DestroyWeapons();
                 GameManager.Instance.EndGame();
                 //SceneManager.LoadScene("SB_MainMenu");
                 if (m_asDied)
                 {
                     return;
                 }
-                
+
             }
         }
-
+        private void DestroyWeapons()
+        {
+            foreach (var weapon in m_weaponInventory)
+            {
+                Destroy(weapon.Key.gameObject);
+            }
+        }
         private void ActiveDashCdReduction()
         {
             if (m_activeDashCD > 0.0f)
