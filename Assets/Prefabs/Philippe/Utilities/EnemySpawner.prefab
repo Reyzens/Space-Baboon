@@ -127,8 +127,8 @@ MonoBehaviour:
   m_spawnEventTimer: 60
   m_spawnEventAmountMultiplier: 3
   m_bossSpawnTimer: 120
-  m_enemyHealthUpgradeTimer: 0
-  m_enemyHealthScaling: 0
+  m_enemyHealthUpgradeTimer: 60
+  m_enemyHealthScaling: 0.5
   m_tilemapRef: {fileID: 0}
   m_obstacleTilemapRef: {fileID: 0}
   m_bossTileMap: {fileID: 0}
