@@ -750,6 +750,7 @@ MonoBehaviour:
   m_screenShakeAmplitude: 10
   m_screenShakeFrequency: 2
   m_collectRange: 1
+  m_healthBar: {fileID: 2210276451436517825}
 --- !u!95 &763723706492497818
 Animator:
   serializedVersion: 5

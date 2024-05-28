@@ -24,4 +24,4 @@ MonoBehaviour:
   m_rangeScaling: 1
   m_speedScaling: 0.25
   m_zoneScaling: 1
-  m_damageScaling: 1
+  m_damageScaling: 4

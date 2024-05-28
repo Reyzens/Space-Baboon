@@ -125,7 +125,7 @@ CapsuleCollider2D:
     m_Bits: 64511
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 41727
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295

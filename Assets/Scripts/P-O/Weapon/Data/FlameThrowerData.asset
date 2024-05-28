@@ -23,5 +23,5 @@ MonoBehaviour:
   projectilePrefab: {fileID: 356624844970875709, guid: ae17371687e6ac34ea7a1873e66fe894, type: 3}
   m_rangeScaling: 1
   m_speedScaling: 0.25
-  m_zoneScaling: 1
-  m_damageScaling: 1
+  m_zoneScaling: 1.5
+  m_damageScaling: 4

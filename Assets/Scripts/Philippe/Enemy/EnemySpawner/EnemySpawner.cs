@@ -414,12 +414,18 @@ namespace SpaceBaboon.EnemySystem
         }
         private void SpawnEvent()
         {
-            //-1 to avoid to spawn boss
-            EEnemyTypes enemyType = (EEnemyTypes)Random.Range(0, (int)EEnemyTypes.Count - 1);
-            CheatSpawnGroup(enemyType, (m_spawnEventAmountMultiplier * m_amountOfEnemySpawned));
-
-            Vector2 spawnWorldPos = FindValidEnemyRandomPos();
-            m_elitePool.Spawn(m_pooledElite[0], spawnWorldPos);
+            int eventChoice = Random.Range(0, 1);
+            if (eventChoice == 0)
+            {
+                //-1 to avoid to spawn boss
+                EEnemyTypes enemyType = (EEnemyTypes)Random.Range(0, (int)EEnemyTypes.Count - 1);
+                CheatSpawnGroup(enemyType, (m_spawnEventAmountMultiplier * m_amountOfEnemySpawned));
+            }
+            else if (eventChoice == 1)
+            {
+                Vector2 spawnWorldPos = FindValidEnemyRandomPos();
+                m_elitePool.Spawn(m_pooledElite[0], spawnWorldPos);
+            }
         }
         private void SpawnRandomBoss()
         {

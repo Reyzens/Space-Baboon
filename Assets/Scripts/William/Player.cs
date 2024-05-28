@@ -68,6 +68,7 @@ namespace SpaceBaboon
         [SerializeField] private float m_screenShakeAmplitude = 12.0f;
         [SerializeField] private float m_screenShakeFrequency = 2.0f;
         [SerializeField] private float m_collectRange;
+        [SerializeField] private GameObject m_healthBar;
 
         //Cheats related
         private bool m_isInvincible = false;
@@ -319,7 +320,7 @@ namespace SpaceBaboon
                 m_asDied = true;
                 m_alive = false;
                 InputHandler.instance.m_Input.Disable();
-                DestroyWeapons();
+                DestroyObjectsOnDeath();
                 GameManager.Instance.EndGame();
                 //SceneManager.LoadScene("SB_MainMenu");
                 if (m_asDied)
@@ -329,12 +330,13 @@ namespace SpaceBaboon
 
             }
         }
-        private void DestroyWeapons()
+        private void DestroyObjectsOnDeath()
         {
             foreach (var weapon in m_weaponInventory)
             {
                 Destroy(weapon.Key.gameObject);
             }
+            Destroy(m_healthBar);
         }
         private void ActiveDashCdReduction()
         {
