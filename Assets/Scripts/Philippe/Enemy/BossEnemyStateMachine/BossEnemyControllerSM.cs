@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using SpaceBaboon.PoolingSystem;
 using SpaceBaboon.CollisionSystem;
+using UnityEngine.Rendering.Universal;
 
 namespace SpaceBaboon.EnemySystem
 {
@@ -265,6 +266,14 @@ namespace SpaceBaboon.EnemySystem
             SetComponents(true);
             m_parentPool = pool;
             SetToRandomBossType();            
+        }
+
+        protected override void SetComponents(bool value)
+        {
+            m_isActive = value;
+            m_renderer.enabled = value;
+            m_circleCollider.enabled = value;
+            m_navMeshAgent.isStopped = !value;
         }
     }
 }
