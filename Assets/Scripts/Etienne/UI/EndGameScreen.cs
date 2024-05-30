@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -33,7 +32,7 @@ namespace SpaceBaboon
             m_flyingAmount = visualElement.Q<Label>("FlyingValue");
             m_kamikazeAmount = visualElement.Q<Label>("KamikazeValue");
             m_bossAmount = visualElement.Q<Label>("BossValue");
-            
+
             m_scoreAmount = visualElement.Q<Label>("ScoreAmount");
             m_highScoreAmount = visualElement.Q<Label>("HighScoreAmount");
             m_playAgainButton = visualElement.Q<Button>("BackButton");
@@ -43,7 +42,7 @@ namespace SpaceBaboon
         private void Start()
         {
             GameManager.Instance.SetEndGameScreenScript(this);
-            
+
         }
 
         private void OnEnable()
@@ -60,7 +59,7 @@ namespace SpaceBaboon
         {
 
             m_root.style.display = DisplayStyle.None;
-            SceneManager.LoadScene("SB_MainMenu");
+            SceneManager.LoadScene("FINAL MENU");
         }
 
         public void ActivateScreen(int[] stats)
