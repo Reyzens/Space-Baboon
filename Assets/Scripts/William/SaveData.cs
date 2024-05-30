@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 //using System.Collections.Generic;
 
@@ -20,19 +17,34 @@ namespace SpaceBaboon
             string ScoreData = JsonUtility.ToJson(m_score);
             string ScoreFilePath = Application.persistentDataPath + "/ScoreData.json";
             Debug.Log(ScoreFilePath);
-            System.IO.File.WriteAllText(ScoreFilePath,ScoreData);
+            System.IO.File.WriteAllText(ScoreFilePath, ScoreData);
             Debug.Log("Saved Done");
         }
 
         public void LoadJson()
         {
             string ScoreFilePath = Application.persistentDataPath + "/ScoreData.json";
-            string ScoreData =  System.IO.File.ReadAllText(ScoreFilePath);
-            m_score = JsonUtility.FromJson<Score>(ScoreData);
-            Debug.Log("Reload Completed");
 
+            if (System.IO.File.Exists(ScoreFilePath))
+            {
+                string ScoreData = System.IO.File.ReadAllText(ScoreFilePath);
+
+                if (!string.IsNullOrEmpty(ScoreData))
+                {
+                    m_score = JsonUtility.FromJson<Score>(ScoreData);
+                    Debug.Log("Reload Completed");
+                }
+                else
+                {
+                    Debug.LogWarning("ScoreData is empty or null");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Score file does not exist");
+            }
         }
-        
+
 
         [System.Serializable]
         public class Score
@@ -52,7 +64,7 @@ namespace SpaceBaboon
             }
             SaveJson();
         }
-        
+
         public Score GetSavedScoreVariables()
         {
             LoadJson();
