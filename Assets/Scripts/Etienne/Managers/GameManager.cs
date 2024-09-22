@@ -138,9 +138,14 @@ namespace SpaceBaboon
             PauseGame(true);
             m_isCountingTime = false;
             m_hasSetUpCrafting = false;
-        }
 
-        public void DisplayTutorialWindow(ETutorialType type, Vector3 position)
+            m_intro1HasBeenCalled = false;
+            m_intro2HasBeenCalled = false;
+            m_weaponPresentationHasBeenCalled = false;
+
+    }
+
+    public void DisplayTutorialWindow(ETutorialType type, Vector3 position)
         {
             if (m_buildMode)
             {
